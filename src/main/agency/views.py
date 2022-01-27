@@ -1,18 +1,19 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from .forms import Agency_details, Agency_contacts
-from . models import AgencyContact,AgencyDetail
+from .forms import *
+from . models import *
 
 
 def agency_registration(request):
 	form1 = Agency_details(request.POST or None)
 	form2 = Agency_contacts(request.POST or None)
-	print(form2)
+	print(form1)
 	context = {"form1":form1,"form2":form2}
-	print(context)
+
 
 	if form1.is_valid():
+		print(form1.cleaned_data)
 		aname 	= form1.cleaned_data.get('agency_name')
 		astate 	= form1.cleaned_data.get('agency_state')
 		ag_id 	= aname[0] + "_agKey"

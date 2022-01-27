@@ -8,7 +8,6 @@ class AgencyDetail(models.Model):
 
 	def __str__(self):
 		return self.agency_name
-		##, self.agency_name, self.agency_state
 
 class AgencyContact(models.Model):
 	ac_id 		= models.CharField(max_length = 100,primary_key = True, unique = True, default = 'default')
