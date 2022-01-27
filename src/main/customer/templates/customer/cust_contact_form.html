@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer Contact Form</title>
+</head>
+<body>
+
+	<h1>Welcome to ITV Network</h1>
+
+	<h2>Fill Customer Contact details</h2>
+
+	<form method="POST">{% csrf_token %}
+		{{form}}
+		<button type="submit">Add</button>
+	</form>
+
+</body>
+</html>

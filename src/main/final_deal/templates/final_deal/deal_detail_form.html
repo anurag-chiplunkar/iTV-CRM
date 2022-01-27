@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Deal Details Form</title>
+</head>
+<body>
+
+	<h2>Fill Deal Details</h2>
+
+	<form method="POST">{% csrf_token %}
+		{{form}}
+		<button type="submit">Save Deal</button>
+	</form>
+	{{form.media}}
+
+</body>
+</html>

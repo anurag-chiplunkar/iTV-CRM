@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Plan Details Form</title>
+</head>
+<body>
+
+	<h2>Fill Plan Details</h2>
+
+	<form method="POST">{% csrf_token %}
+		{{form}}
+		<button type="submit">Add</button>
+	</form>
+
+</body>
+</html>

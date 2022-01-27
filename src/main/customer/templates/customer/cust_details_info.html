@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Customer Details</title>
+</head>
+<body>
+	<h1>Customer Details</h1>
+
+
+<table border="1" cellpadding="10px" cellspacing="0">
+	<thead>
+		<tr>
+			<th>Customer Name</th>
+			<th>Customer Type</th>
+			<th>Customer ID</th>
+		</tr>
+	</thead>
+
+	<tbody>
+		<tr>
+			<td>{% for i in qs %}
+					{{i.name}}
+					<br>
+				{% endfor %}
+			</td>
+
+			<td>{% for i in qs %}
+					{{i.customertype}}
+					<br>
+				{% endfor %}
+			</td>
+
+			<td>{% for i in qs %}
+					{{i.cust_id}}
+					<br>
+				{% endfor %}
+			</td>
+
+		</tr>
+	</tbody>
+</table>
+</body>
+</html>
