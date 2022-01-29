@@ -8,53 +8,59 @@ from . models import *
 def agency_registration(request):
 	form1 = Agency_details(request.POST or None)
 	form2 = Agency_contacts(request.POST or None)
-	print(form1)
 	context = {"form1":form1,"form2":form2}
 
+	if request.method == "POST":
+		print(request.POST)
+		print(form1.errors)
 
-	if form1.is_valid():
-		print(form1.cleaned_data)
-		aname 	= form1.cleaned_data.get('agency_name')
-		astate 	= form1.cleaned_data.get('agency_state')
-		ag_id 	= aname[0] + "_agKey"
-		print(ag_id)
+		if form1.is_valid():
+			# print(form1.cleaned_data)
+			aname 	= form1.cleaned_data.get('agency_name')
+			astate 	= form1.cleaned_data.get('agency_state')
 
-		obj1 = AgencyDetail(agency_name = aname, agency_state = astate, a_id = ag_id)
-		obj1.save()
+			##generating primary key
+			if ' ' in aname:
+				ag_name = aname.split(' ')
+				ag_id 	= ''.join([str(i[0]) for i in ag_name]) + '_' + astate
+				print(ag_id)
 
-	else:
-		print("agency detail form invalid")
+			else:
+				ag_id 	= aname + '_' + astate
+				print(ag_id)
 
+			obj1 = AgencyDetail(agency_name = aname, agency_state = astate, a_id = ag_id)
+			obj1.save()
 
-	if form2.is_valid():
-		fname = form2.cleaned_data.get('firstName')
-		lname = form2.cleaned_data.get('lastName')
-		desgn = form2.cleaned_data.get('designation')
-		email = form2.cleaned_data.get('email')
-		phone = form2.cleaned_data.get('phone')
-		ac_id = phone[-3:] + "_acKey"
-		print(ac_id)
-
-		# agency_details should be equal to a_id
-		##this will give a dropdown input for the user to select from which agency he/she is.
-		##after the form is submitted the fk anf pk relationship is successfully created
-		agency_details = form2.cleaned_data.get('agency')
-		print(agency_details)
-
-		obj2 = AgencyContact(firstName = fname,
-							lastName = lname,
-							designation = desgn,
-							email = email,
-							phone = phone,
-							ac_id = ac_id,
-							agency_details = agency_details
-							)
-		obj2.save()
+		else:
+			print("agency detail form invalid")
 
 
+		if form2.is_valid():
+			fname = form2.cleaned_data.get('firstName')
+			lname = form2.cleaned_data.get('lastName')
+			desgn = form2.cleaned_data.get('designation')
+			email = form2.cleaned_data.get('email')
+			phone = form2.cleaned_data.get('phone')
 
-	else:
-		print("agency contact form invalid")
+			##this will give a dropdown input for the user to select from which agency he/she is.
+			##after the form is submitted the fk anf pk relationship is successfully created
+			agency_details = form2.cleaned_data.get('agency')
+			print(agency_details)
+
+			obj2 = AgencyContact(firstName = fname,
+								lastName = lname,
+								designation = desgn,
+								email = email,
+								phone = phone,
+								agency_details = agency_details
+								)
+			obj2.save()
+
+
+
+		else:
+			print("agency contact form invalid")
 
 	return render(request,'agency/register_agency_agencycontact.html',context)
 

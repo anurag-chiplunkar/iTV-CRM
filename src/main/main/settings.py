@@ -40,13 +40,9 @@ INSTALLED_APPS = [
 
     ##crm-apps
     'home',
-    'customer.apps.CustomerConfig',
-    'employees.apps.EmployeesConfig',
     'agency',
-    'item',
-    'plan',
     'calculation',
-    'final_deal',
+
 ]
 
 MIDDLEWARE = [
@@ -86,7 +82,8 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'itv_crm',
+        'NAME': 'crm_itv_db',
+        # 'NAME': 'itv_crm',
         # 'NAME': 'itv_crm2',
         'USER': 'root',
         'PASSWORD': '',

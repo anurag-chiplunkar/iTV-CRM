@@ -102,7 +102,7 @@
 
 <!-- Main content -->
  <!-- Form 1 -->
-             <form method="POST">{% csrf_token %}
+             <form method="POST" enctype="multipart/form-data">{% csrf_token %}
 
     <div class="row ">
       
@@ -118,10 +118,11 @@
               <div class="input-group-text">
                 <i class="fa fa-connectdevelop"></i>
               </div>
-            </div> 
-            <!-- <input id="agncy_name" name="agncy_name" type="text" required="required" class="form-control" placeholder="Name of the agency"> -->
-            {{form1.agency_name.errors}}
-            {{form1.agency_name}}
+            </div>
+            <div class="form-control">
+                {{form1.agency_name.errors}}
+                {{form1.agency_name}}
+              </div> 
           </div>
         </div>
 
@@ -135,10 +136,11 @@
               <div class="input-group-text">
                 <i class="fa fa-map-marker"></i>
               </div>
-            </div> 
-            <!-- <input id="agncy_loc" name="agncy_loc" type="text" required="required" class="form-control" placeholder="Agency State"> -->
-            {{form1.agency_state.errors}}
-            {{form1.agency_state}}
+            </div>
+            <div class="form-control">
+                {{form1.agency_state.errors}}
+                {{form1.agency_state}}
+              </div>            
           </div>
         </div>
 
@@ -170,6 +172,7 @@
     <!-- </div> -->
     <div class="form-group">
     <button name="submit" type="submit" class="btn btn-primary">Create agency</button>
+    <!-- <input type="submit" name="Submit"> -->
   </div>
 </form>
 
@@ -194,22 +197,12 @@
     <div class="col-4">
       <div>
         <label for="agncy_select">Select Agency</label>
-        {{form2.agency.errors}}
-        {{form2.agency}}
+        <div class="custom-select">
+              {{form2.agency.errors}}
+              {{form2.agency}}
+        </div>
+        
       </div>
-     <!--  <div>
-        <select id="agncy_select" name="agncy_select" required="required" class="custom-select">
-          <option value="">
-            {{form2.agency.errors}}
-            {{form2.agency}}
-          </option>
-      </div> -->
-      <!-- <select id="agncy_select" name="agncy_select" required="required" class="custom-select">
-        <option value="" disabled hidden selected>Select Agency</option>
-        <option value="Agency 1">Agency 1</option>
-        <option value="Agency2">Agency 2</option>
-        <option value="Agency3">Agency3</option>
-      </select> -->
     </div>
     </p>
   </div> 
@@ -227,9 +220,10 @@
           <i class="fa fa-address-card"></i>
         </div>
       </div> 
-      <!-- <input id="agncy_pri_fname" name="agncy_pri_fname" placeholder="First Name" type="text" required="required" class="form-control"> -->
-      {{form2.firstName.errors}}
-      {{form2.firstName}}
+      <div class="form-control">
+          {{form2.firstName.errors}}
+          {{form2.firstName}}
+        </div>
     </div>
   </div>
 
@@ -242,10 +236,11 @@
         <div class="input-group-text">
           <i class="fa fa-address-card"></i>
         </div>
-      </div> 
-      <!-- <input id="agncy_pri_lname" name="agncy_pri_lname" placeholder="Last Name" type="text" required="required" class="form-control"> -->
-      {{form2.lastName.errors}}
-      {{form2.lastName}}
+      </div>
+      <div class="form-control">
+          {{form2.lastName.errors}}
+          {{form2.lastName}}
+        </div> 
     </div>
   </div>
 
@@ -258,12 +253,14 @@
         <div class="input-group-text">
           <i class="fa fa-graduation-cap"></i>
         </div>
-      </div> 
-      <!-- <input id="agncy_pri_desg" name="agncy_pri_desg" placeholder="designation" type="text" required="required" class="form-control"> -->
-      {{form2.designation.errors}}
-      {{form2.designation}}
+      </div>
+      <div class="form-control">
+          {{form2.designation.errors}}
+          {{form2.designation}}
+        </div> 
     </div>
   </div>
+
   <div class="form-group">
     <label for="agncy_pri_email"></label> 
     <div class="input-group">
@@ -271,12 +268,14 @@
         <div class="input-group-text">
           <i class="fa fa-at"></i>
         </div>
-      </div> 
-      <!-- <input id="agncy_pri_email" name="agncy_pri_email" placeholder="email@domain.com" type="email" class="form-control" required="required"> -->
-      {{form2.email.errors}}
-      {{form2.email}}
+      </div>
+      <div class="form-control">
+          {{form2.email.errors}}
+          {{form2.email}}
+        </div> 
     </div>
   </div>
+
   <div class="form-group">
     <label for="agncy_pri_phone"></label> 
     <div class="input-group">
@@ -284,10 +283,13 @@
         <div class="input-group-text">
           <i class="fa fa-phone"></i>
         </div>
-      </div> 
+      </div>
+        <div class="form-control">
+          {{form2.phone.errors}}
+          {{form2.phone}}
+        </div> 
       <!-- <input id="agncy_pri_phone" name="agncy_pri_phone" placeholder="Phone number" type="tel" class="form-control" required="required"> -->
-      {{form2.phone.errors}}
-      {{form2.phone}}
+      
     </div>
   </div>
     
