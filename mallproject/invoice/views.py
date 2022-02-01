@@ -1,7 +1,8 @@
 from django.shortcuts import render, reverse
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 import requests
 from django.shortcuts import redirect
+from django.contrib import messages
 
 from .forms import *
 from .models import *
@@ -10,7 +11,7 @@ from .models import *
 
 def home(request):
 	form = generatebill(request.POST or None)
-	context = {'form':form}
+	
 	print(request.POST)
 	print(form.is_valid())
 	print(form.errors)
@@ -26,13 +27,15 @@ def home(request):
 			obj.total = request.POST.get('total')
 			obj.amt = request.POST.get('amt')
 			obj.save()
-
-			return redirect(reverse('home'))
+			messages.success(request,"Bill is saved!!!!")
+		return redirect(reverse('home'))
+		# return http.HttpResponseRedirect('home')
 			
 		
 	else:
-			form = generatebill()
-			print("invalid")
-	return render(request, 'home.html',context)
+			# form = generatebill()
+		context = {'form':form}
+		print("invalid")
+		return render(request, 'home.html',context)
 
 		
