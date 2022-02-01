@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'home',
     'agency',
     'calculation',
+    'crispy_forms',
 
 ]
 
