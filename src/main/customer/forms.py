@@ -14,22 +14,23 @@ class Cust_type(forms.ModelForm):
 
 class Cust_name(forms.ModelForm):
 	# cust_type_form = forms.ModelChoiceField(queryset= CustomerType.objects.all())
-	ref_customertype = forms.ModelChoiceField(queryset= CustomerType.objects.all(),widget=forms.Select(attrs={'class':'form-select'}))
+	ref_customertype = forms.ModelChoiceField(queryset= CustomerType.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Client Type')
 
 	class Meta:
 		model = CustomerName
-		fields = ['cname',]
+		fields = ['cname', 'brand_name',]
 		# exclude = ('ref_customertype',)
 
 
 		widgets = {
 			'cname' : forms.TextInput(attrs = {'class' : 'form-control', 'placeholder': 'Enter Client Name' }),
+			'brand_name' : forms.TextInput(attrs = {'class' : 'form-control', 'placeholder': 'Enter Brand Name' }),
 			# 'ref_customertype' : forms.Select(attrs = {'class' : 'form-control', 'style': 'resize:none;', 'placeholder': 'Enter Client Type' })
 		}
 
 
 class Cust_contact(forms.ModelForm):
-	ref_cname = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}))
+	ref_cname = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Client Name')
 	class Meta:
 		
 		model = CustomerContact

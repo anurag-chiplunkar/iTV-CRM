@@ -46,6 +46,7 @@ def cname(request):
 			obj2 = CustomerName()
 			print("inside form2")
 			obj2.cname = form2.cleaned_data.get('cname')
+			obj2.brand_name = form2.cleaned_data.get('brand_name')
 			obj2.ref_customertype = form2.cleaned_data.get('ref_customertype')		#should be same as defined in forms.py
 			print(obj2.ref_customertype)
 
