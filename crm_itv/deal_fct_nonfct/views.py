@@ -14,7 +14,7 @@ def home(request):
 
 def fct_details(request):
 	master = base.objects.all()
-	context = {'master':json.dumps(master)}
+	context = {'master':master}
 	return render(request,'deal_fct_nonfct/fct.html',context)
 
 def br_details(request):
