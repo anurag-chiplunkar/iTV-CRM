@@ -79,7 +79,8 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm_itv_db',
+        # 'NAME': 'crm_itv_db',
+        'NAME': 'crm_db',
         'USER' : 'root',
         'PASSWORD' :'',
         'HOST' : '',

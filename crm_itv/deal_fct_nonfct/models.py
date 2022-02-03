@@ -39,3 +39,30 @@ class base(models.Model):
 	dispersion = models.CharField(max_length=1000,null=True,blank=True)
 	bands = models.CharField(max_length=1000,null=True,blank=True)
 	br = models.IntegerField(null=True,blank=True)
+
+
+class Disper(models.Model):
+	dis_list = models.CharField(max_length=1000,primary_key=True)
+	def __str__(self):
+		return self.dis_list
+	# ref_c_list = models.ForeignKey(Channel,on_delete=models.PROTECT,blank=True)
+
+class Channel(models.Model):
+	c_list = models.CharField(max_length=1000,primary_key=True)
+
+	def __str__(self):
+		return self.c_list
+	
+class Band(models.Model):
+	b_list = models.CharField(max_length=1000,primary_key=True)
+	def __str__(self):
+		return self.b_list
+
+class base_rate_table(models.Model):
+	unique_key = models.CharField(max_length=1000,default="default",null=True,blank=True)
+	br = models.IntegerField()
+
+	def __str__(self):
+		return self.br
+
+	
