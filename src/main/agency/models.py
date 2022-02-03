@@ -37,7 +37,7 @@ class AgencyContact(models.Model):
 	agency_details = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
 
 	def __str__(self):
-		return self.firstName
+		return self.pri_firstName
 
 # one agency can have many contacts. 
 # Thus in AgencyContact I should add a ForeignKey field with the argument as AgencyDetail

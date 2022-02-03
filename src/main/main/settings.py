@@ -41,10 +41,15 @@ INSTALLED_APPS = [
     ##crm-apps
     'home',
     'agency',
+    'accounts',
+    'profiles',
     'calculation',
-    'crispy_forms',
+    'crispy_forms'
+    
 
 ]
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -55,6 +60,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# PASSWORD_HASHERS = [
+#     'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+#     'accounts.hashers.PBKDF2WrappedSHA1PasswordHasher',
+# ]
 
 ROOT_URLCONF = 'main.urls'
 
@@ -74,6 +84,7 @@ TEMPLATES = [
     },
 ]
 
+# MESSAGE_STORAGE = 'django.contrib.messages.storage.cookie.CookieStorage'
 WSGI_APPLICATION = 'main.wsgi.application'
 
 
@@ -94,12 +105,6 @@ DATABASES = {
     }
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

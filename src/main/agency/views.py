@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from .forms import *
@@ -36,9 +37,6 @@ def agency_detail(request):
 def agency_contact(request):
 	form2 = Agency_contacts(request.POST or None)
 	context2 = {"form2":form2}
-	# print(context2)
-	# print(request.POST)
-	# print('#########',form2.errors)
 
 	if form2.is_valid():
 			pri_fname 		= form2.cleaned_data.get('pri_firstName')
@@ -111,9 +109,6 @@ def agency_info(request):
 		qs = AgencyDetail.objects.all()
 		print(qs)
 		qs_context = {"qs":qs}
-
-		# for i in qs:
-		# 	print(i.a_id)
 
 		return render(request,'agency/agency_details.html',qs_context)
 

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Your Profile</title>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+{{user}}
+	<h3>
+		{% for i in qs %}
+
+			<h1>Hi, {{ i.emp_fname }}</h1>
+			<h1>Welcome to your profile</h1>
+
+			First Name: {{i.emp_fname}}<br>
+			Last Name : {{i.emp_lname}}<br>
+			Designation: {{i.emp_desgn}}<br>
+			Phone : {{i.emp_phone}}<br>
+			Address: {{i.emp_flatno}},{{i.emp_street}},{{i.emp_landmark}},{{i.emp_city}},{{i.emp_pin}}<br>
+
+		{% endfor %}
+	</h3>
+
+	<button type="submit"><a href="{% url 'agency:agency_detail' %}">Create Agency</a></button>
+	<button type="submit"><a href="{% url 'agency:agency_contact' %}">Create Agency Contact</a></button>
+	
+
+{% endif %}
+
+
+</body>
+</html>
