@@ -22,5 +22,6 @@ urlpatterns = [
     path('',include('agency.urls',namespace = 'agency')),
     path('',include('accounts.urls')),
     path('',include('profiles.urls')),
+    path('',include('deals.urls')),
 
 ]

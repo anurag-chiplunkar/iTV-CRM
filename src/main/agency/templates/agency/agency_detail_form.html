@@ -105,8 +105,9 @@
         </div>
         <div class="form-group">
     <button name="submit" type="submit" class="btn btn-primary">Create agency</button>
+    {% if user.is_authenticated %}
     <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
-    <!-- <input type="submit" name="Submit"> -->
+    {% endif %}
   </div>
 </form>
 

@@ -75,12 +75,10 @@ def emp_login(request):
 			for i in qs_context['qs']:
 				designation = i.emp_desgn
 
-			if designation == "Salesperson":
-				print('you are a salesperson')
-				return render(request,'profiles/emp_profile.html',qs_context)
+			if designation == "Admin":
+				return render(request,'profiles/admin_profile.html',qs_context)
 			
 			else:
 				return render(request,'accounts/error_page.html')
-				print("You are not a Salesperson")
 
 	return render(request,'accounts/emp_login.html',context)
