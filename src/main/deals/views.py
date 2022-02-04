@@ -49,10 +49,12 @@ def register_deal(request):
 			total_sec 	= form.cleaned_data.get('total_sec')
 			total_cost 	= form.cleaned_data.get('total_cost')
 
+			channel_choice = form.cleaned_data.get('channel_choice')
+			element_choice = form.cleaned_data.get('element_choice')
 
 			obj = DealNFCT(eff_rate = eff_rate, frequency = frequency, total_sec = total_sec, total_cost = total_cost)
 			obj.save()
 
 		else:
 			print("deal form invalid")
-	return render(request,'deals/deals.html',context)
+	return render(request,'deals/nfct_deal.html',context)

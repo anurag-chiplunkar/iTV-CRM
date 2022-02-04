@@ -22,7 +22,7 @@ class ElementForm(forms.ModelForm):
 
 class DealForm(forms.ModelForm):
 	channel_choice = forms.ModelChoiceField(queryset = ChannelNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Channel')
-	element_choice = forms.ModelChoiceField(queryset = ElementNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Channel')
+	element_choice = forms.ModelChoiceField(queryset = ElementNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Element')
 
 	class Meta:
 		model = DealNFCT

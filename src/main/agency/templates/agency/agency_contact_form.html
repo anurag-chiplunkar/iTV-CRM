@@ -1,10 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+
 <!DOCTYPE html>
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title>Agency Contact Registration</title>
+  <title>Add Agency Contact</title>
   <style>
   #secondary_contact{
     display:none
@@ -34,10 +38,10 @@
                             <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Registration</span></a>
                         <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
                             <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Client</span> </a>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Client</span> </a>
                             </li>
                             <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Agency</span> </a>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Add Agency</span> </a>
                             </li>
                         </ul>
                     </li>
@@ -74,14 +78,14 @@
       <!--Agency Details  -->
       <div class="col-8">
         <p>
-          <h1>Agency Contact Registration</h1>
+          <h1>Add New Agency Contact</h1>
         </p>
       </div>
 
 <form class="row g-3" method="POST">{% csrf_token %}
 <!-- Primary Contact Details -->
   <div class="form-group row">
-    <label>Select Agency</label>
+    <!-- <label>Select Agency</label> -->
     <p> 
       <div class="col-4">
         {{form2.agency}}
@@ -95,7 +99,7 @@
   <hr style="width: 800px; color: blue;">
  
   <div class="row g-3">
-    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Personal details</label>
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
     <div class="col-sm-3">
       <label for="inputEmail4" class="form-label">First Name</label>
       {{form2.pri_firstName}}  <!-- |as_crispy_field -->
@@ -170,7 +174,7 @@
   <div class="row g-3" id="seccondary_contact">
     <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Secondary Contact</label>
     <hr id = "hr-rule" style="width: 800px; color: blue;">
-    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Personal details</label>
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
   <div class="col-sm-3">
     <label for="inputEmail4" class="form-label">First Name</label>
     {{form2.sec_firstName}}
@@ -261,6 +265,6 @@
             }
         }
     </script>
-
+{% endblock %}
 </body> 
 </html>
