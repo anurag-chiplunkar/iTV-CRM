@@ -52,4 +52,5 @@ class base_rate_table_form(forms.ModelForm):
 		'br' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
+	
 

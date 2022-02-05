@@ -61,6 +61,8 @@ class Band(models.Model):
 class base_rate_table(models.Model):
 	unique_key = models.CharField(max_length=1000,default="default",null=True,blank=True)
 	br = models.IntegerField()
+	# ref_c_list = models.ForeignKey(Channel,on_delete=models.PROTECT,blank=True,null=True)
+	# ref_b_list = models.ForeignKey(Band,on_delete=models.PROTECT,blank=True,null=True)
 
 	def __str__(self):
 		return self.br

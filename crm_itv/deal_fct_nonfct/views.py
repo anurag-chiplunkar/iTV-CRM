@@ -13,9 +13,9 @@ def home(request):
 	return render(request,'home.html')
 
 def fct_details(request):
-	master = base.objects.all()
-	context = {'master':master}
-	return render(request,'deal_fct_nonfct/fct.html',context)
+	# master = base.objects.all()
+	# context = {'master':master}
+	return render(request,'deal_fct_nonfct/fct.html')
 
 def br_details(request):
 	form = base_form(request.POST or None)
@@ -97,3 +97,29 @@ def enter_base_rate(request):
 			b_obj.save()
 
 	return render(request,'deal_fct_nonfct/base.html',context)
+
+
+def load_br(request):
+	chan_id = request.GET.get('channel')
+	band1 = request.GET.get('band1')
+	print("9999",chan_id,band1)
+	rates = Channel.objects.filter(c_list__contains=chan_id)
+	b1 = Band.objects.filter(b_list__contains=band1)
+	context1 = {'qs':rates}
+	context2 = {'qs1':b1}
+	for i in context1['qs']:
+		c = i.c_list
+		print("------",c)
+
+	for j in context2['qs1']:
+		b = j.b_list[:2]
+		print("---****---",b)
+	x = c + b 
+	print("*************",x)
+	y = base_rate_table.objects.filter(unique_key=x)
+	for k in y:
+		rate = k.br
+		print(rate)
+	# r = {'rate': rate}
+	# print("******************",r)
+	return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
