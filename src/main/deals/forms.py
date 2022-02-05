@@ -44,6 +44,6 @@ class DealForm(forms.ModelForm):
 		widgets = {
 		'eff_rate' : forms.NumberInput(attrs={'class': 'form-control'}),
 		'frequency' : forms.NumberInput(attrs={'class': 'form-control'}),
-		'total_sec' : forms.NumberInput(attrs={'class': 'form-control'}),
+		# 'total_sec' : forms.NumberInput(attrs={'class': 'form-control'}),
 		'total_cost' : forms.NumberInput(attrs={'class': 'form-control'}),
 		}

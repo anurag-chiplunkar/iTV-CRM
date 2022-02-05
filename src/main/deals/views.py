@@ -68,7 +68,7 @@ def register_deal(request):
 		if form.is_valid():
 			eff_rate 	= form.cleaned_data.get('eff_rate')
 			frequency 	= form.cleaned_data.get('frequency')
-			total_sec 	= form.cleaned_data.get('total_sec')
+			# total_sec 	= form.cleaned_data.get('total_sec')
 			total_cost 	= form.cleaned_data.get('total_cost')
 
 			channel_choice = form.cleaned_data.get('channel_choice')

@@ -152,12 +152,14 @@
 
   <div class="col-sm-2">
     <label class="form-label">Frequency</label>
-    {{form.frequency}}
+    <input type="number" name="" class="form-control"  oninput="calculate1()" id="freq">
+    <!-- {{form.frequency}} -->
   </div>
 
   <div class="col-sm-2">
     <label class="form-label">Total Seconds</label>
-    {{form.total_sec}}
+    <input type="number" class="form-control" id="id_total_sec" name="">
+
   </div>
 
   <div class="col-sm-2">
@@ -390,6 +392,22 @@
 <!-- Attach client script -->
 
    <script type="text/javascript">
+    function calculate1 (){
+      var freq = document.getElementById('freq').value;
+      console.log(freq)
+      
+      // var s = document.getElementById('sec').value;
+      // console.log(s)
+      
+      var result = document.getElementById('id_total_sec');
+      var t1 = freq*10;
+      console.log(t1,"---------")
+      
+      result.value = t1;
+    }
+
+
+
         function OnChangeCheckbox1 (checkbox) {
             if (checkbox.checked) {
                 // alert ("The check box is checked.");
@@ -460,37 +478,6 @@
             }
         }
 
-
-
-var trial ;             // global variable for storing channel
-  $("#aston1").change(function () {
-    
-    trial = $(this).val(); 
-    console.log(trial)                 // storing selected channel in trial variable
-  }); 
-  
-  $("#id_channel_choice").change(function () {
-    
-    var url1 = $("#nonfct_form").attr("url");  // storing url....telling ajax to follow                          specified url
-    var ch_aston = $(this).val();   // storing the band selected from row1
-    
-    
-    $.ajax({                       // initialize an AJAX request
-        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
-        data: {
-          'caston': ch_aston , 'channel' :trial      // add the channel and band to the GET                          parameters by default it is GET method
-        },
-
-        success: function (data) {   // `data` is the return of the `load_br` view function
-         
-      var multiidhtml = $(data);
-      var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
-      console.log(multiid);
-            $("#base1").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
-        }
-        
-    });
-  });
     </script>
 
 
