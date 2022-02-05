@@ -13,12 +13,16 @@ class ElementNFCT(models.Model):
 		return self.element
 
 class BaseRateNFCT(models.Model):
-	base_rate	= models.IntegerField(primary_key = True, unique = True)
+	unique_key	= models.CharField(max_length = 100, primary_key = True,unique = True,default = 'default')
+	base_rate	= models.IntegerField()
 
 	def __str__(self):
-		return self.element
+		return self.base_rate
 
 class DealNFCT(models.Model):
+	seconds		= models.IntegerField(null = True, blank = True)
+	days		= models.IntegerField(null = True, blank = True)
+	months		= models.IntegerField(null = True, blank = True)
 	eff_rate 	= models.IntegerField()
 	frequency 	= models.IntegerField()
 	total_sec 	= models.IntegerField()

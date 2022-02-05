@@ -19,6 +19,18 @@ class ElementForm(forms.ModelForm):
 		'element' : forms.TextInput(attrs={'class': 'form-control'}),
 		}
 
+class BaseRateForm(forms.ModelForm):
+	channel_choice = forms.ModelChoiceField(queryset = ChannelNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Channel')
+	element_choice = forms.ModelChoiceField(queryset = ElementNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Element')
+	class Meta:
+		model = BaseRateNFCT
+		fields = '__all__'
+		exclude = ('channel_nfct','element_nfct','unique_key')
+
+		widgets = {
+		'base_rate' : forms.TextInput(attrs={'class': 'form-control'}),
+		}
+
 
 class DealForm(forms.ModelForm):
 	channel_choice = forms.ModelChoiceField(queryset = ChannelNFCT.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select Channel')
@@ -33,5 +45,5 @@ class DealForm(forms.ModelForm):
 		'eff_rate' : forms.NumberInput(attrs={'class': 'form-control'}),
 		'frequency' : forms.NumberInput(attrs={'class': 'form-control'}),
 		'total_sec' : forms.NumberInput(attrs={'class': 'form-control'}),
-		'total_cost' : forms.NumberInput(attrs={'class': 'form-control'}),		
+		'total_cost' : forms.NumberInput(attrs={'class': 'form-control'}),
 		}

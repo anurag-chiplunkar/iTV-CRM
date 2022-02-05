@@ -62,7 +62,7 @@ def emp_login(request):
 		# print(username,'********')
 
 		user = authenticate(request,username = username, password = password)
-		# print(user)
+		print(user)
 
 		if user is not None:
 			login(request,user)

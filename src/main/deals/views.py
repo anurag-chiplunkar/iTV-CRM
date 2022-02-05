@@ -35,6 +35,28 @@ def register_element(request):
 			print("element form invalid")
 	return render(request,'deals/elements.html',context)
 
+def register_base_rate(request):
+	form = BaseRateForm(request.POST or None)
+	context = {"form":form}
+
+	if request.method == "POST":
+		print(request.POST)
+
+		if form.is_valid():
+			channel_choice = form.cleaned_data.get('channel_choice')
+			element_choice = form.cleaned_data.get('element_choice')
+			print(element_choice,type(element_choice))
+			key = str(channel_choice)+str(element_choice)
+			print(key)
+			br 	= form.cleaned_data.get('base_rate')
+
+			obj = BaseRateNFCT(base_rate = br,unique_key = key)
+			obj.save()
+
+		else:
+			print("base rate form invalid")
+	return render(request,'deals/baserates.html',context)
+
 
 def register_deal(request):
 	form = DealForm(request.POST or None)
@@ -52,9 +74,21 @@ def register_deal(request):
 			channel_choice = form.cleaned_data.get('channel_choice')
 			element_choice = form.cleaned_data.get('element_choice')
 
-			obj = DealNFCT(eff_rate = eff_rate, frequency = frequency, total_sec = total_sec, total_cost = total_cost)
+			obj = DealNFCT(eff_rate = eff_rate, frequency = frequency, total_sec = total_sec, total_cost = total_cost, base_rate = base_rate)
 			obj.save()
 
 		else:
 			print("deal form invalid")
 	return render(request,'deals/nfct_deal.html',context)
+
+# def load_br(request):
+# 	ch = request.POST.get('channel_choice')
+# 	print(channel)
+
+# 	selected_channel = ChannelNFCT.objects.filter(channel__contains = ch)
+# 	print(selected_channel)
+
+# 	sc = {"qs":selected_channel}
+# 	for i in sc["qs"]:
+# 		c1 = i.channel
+# 		print(c1)
