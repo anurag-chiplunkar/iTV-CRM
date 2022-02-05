@@ -1,5 +1,5 @@
 from django import forms
-from .models import base, Channel, Disper, Band, base_rate_table
+from .models import base, Channel, Disper, Band, base_rate_table, fct_deal
 
 class base_form(forms.ModelForm):
 	class Meta:
@@ -52,5 +52,13 @@ class base_rate_table_form(forms.ModelForm):
 		'br' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
-	
+class form_fct_deal(forms.ModelForm):
+
+	class Meta:
+		model = fct_deal
+		fields = '__all__'
+
+		widgets = {
+		'total_rev': forms.TextInput(attrs = {'class': 'form-control'})
+		}
 

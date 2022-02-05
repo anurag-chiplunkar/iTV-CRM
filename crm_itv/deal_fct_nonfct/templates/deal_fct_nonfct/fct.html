@@ -21,13 +21,14 @@
 	    	<label class="col-form-label"><h5>FCT Details</h5></label> 
 	  	</div>
 	</div>
-	<form method="POST" id="fct_form" url="{% url 'load_br' %}">{% csrf_token %}
+	<form method="POST" id="fct_form" url="{% url 'load_br' %}" url2 = "{% url 'load_br1' %}"
+	url3 = "{% url 'load_br2' %}">{% csrf_token %}
 		<div class="row">
 				<div class="col-2"> 
 					<label class="form-control">Channels</label>
 				</div>
 				<div class="col-2">
-					<select class="form-select channel" id="channel">
+					<select class="form-select channel" name="channel" id="channel">
 						<option selected>---------------</option>
 						<option value="INN">INN</option>
 						<option value="NX">NX</option>
@@ -41,7 +42,7 @@
 					</select>
 				</div>
 				<div class="col-2">
-					<label for="dis_dd" class="form-control">Dispersion</label>
+					<label for="dis_dd" name="dispersion" class="form-control">Dispersion</label>
 				</div>
 				<div class="col-2">	
 					<select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
@@ -52,7 +53,7 @@
 						<option value="50%-50%">50%-50%</option>
 					</select>
 				</div>
-				<div class="col-2"> 
+				<!-- <div class="col-2"> 
 					<label class="form-control">Prev Year Eff Rate</label>
 				</div>
 				<div class="col-2">
@@ -63,10 +64,8 @@
 				</div>
 				<div class="col-2">
 					<input type="text" class="form-control" name="current">
-				</div>	
-				<div class="col-2">
-					<input type="text" class="form-control temp" id="temp" value="{{rate}}">
-				</div>	
+				</div>	 -->
+				
 		</div>
 		
 		<div class="row g-3 align-items-start">
@@ -101,17 +100,17 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="fct1" name="fct1" class="form-control" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="er1" name="er1" class="form-control" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
 		  		<input type="text" id="base1" class="form-control" value='{{rate}}' disabled>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev1" name="rev1" class="form-control" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
@@ -125,16 +124,16 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="fct2" name="fct2" class="form-control" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="er2" name="er2" class="form-control" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base2" class="form-control" disabled readonly>
+		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control" disabled>
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev2" name="rev2" class="form-control" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
@@ -148,26 +147,27 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="fct3" name="fct3" class="form-control" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="er3" name="er3" class="form-control" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base3" class="form-control" disabled readonly>
+		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control" disabled >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev3" name="rev3" class="form-control" oninput="sum()">
 		  	</div>
 		</div>
 
 		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 391px;">
 						
 	  		<div class="col-auto">
-	  			<input type="button" class="btn btn-primary" value="Calculate Total FCT" onclick="sum()" style="">
+	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()" style="">
 	  		</div>
 	  		<div class="col-auto">
-	  			<input type="number" class="form-control" id="totalbox" >
+	  			<!-- <input type="number" class="form-control" id="totalbox" > -->
+	  			{{form.total_rev}}
 	  		</div>
 		</div>
 
@@ -246,7 +246,7 @@
         var third_number = parseInt(document.getElementById("rev3").value);
         var result = first_number + second_number + third_number;
 
-        document.getElementById("totalbox").value = result;
+        document.getElementById("id_total_rev").value = result;
     }
 </script>
 
@@ -265,7 +265,6 @@
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
-        
         data: {
           'band1': band_dd1 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
         },
@@ -276,6 +275,52 @@
 			var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
 			console.log(multiid);
           	$("#base1").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+        }
+        
+		});
+	});
+
+	$("#band2").change(function () {
+		
+		var url1 = $("#fct_form").attr("url2");  // storing url....telling ajax to follow 													specified url
+		var band_dd2 = $(this).val();		// storing the band selected from row1
+		console.log(band_dd2);
+		
+		$.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+        data: {
+          'band2': band_dd2 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+         
+			var multiidhtml = $(data);
+			var multiid = multiidhtml.find('#base2').attr("value"); // prints base rate in input type
+			console.log(multiid);
+          	$("#base2").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+        }
+        
+		});
+	});
+
+	$("#band3").change(function () {
+		
+		var url2 = $("#fct_form").attr("url3");  // storing url....telling ajax to follow 													specified url
+		var band_dd3 = $(this).val();		// storing the band selected from row1
+		console.log(band_dd3);
+		
+		$.ajax({                       // initialize an AJAX request
+        url: url2,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+        data: {
+          'band3': band_dd3 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+         
+			var multiidhtml = $(data);
+			var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+			console.log(multiid);
+          	$("#base3").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
         }
         
 		});

@@ -13,9 +13,33 @@ def home(request):
 	return render(request,'home.html')
 
 def fct_details(request):
-	# master = base.objects.all()
-	# context = {'master':master}
-	return render(request,'deal_fct_nonfct/fct.html')
+	form = form_fct_deal(request.POST or None)
+	fct_obj = fct_deal()
+	print("---------------------",request.POST,form.is_valid(),form.errors)
+	context = {'form':form,}
+	if request.method == "POST":
+		if form.is_valid():
+			fct_obj.chan = request.POST.get('channel')
+			fct_obj.dis = request.POST.get('dis_dd')
+			fct_obj.band1 = request.POST.get('band1')
+			fct_obj.band2 = request.POST.get('band2')
+			fct_obj.band3 = request.POST.get('band3')
+			fct_obj.fct1 = request.POST.get('fct1')
+			fct_obj.fct2 = request.POST.get('fct2')
+			fct_obj.fct3 = request.POST.get('fct3')
+			fct_obj.eff_rate1 = request.POST.get('er1')
+			fct_obj.eff_rate2 = request.POST.get('er2')
+			fct_obj.eff_rate3 = request.POST.get('er3')
+			fct_obj.rev1 = request.POST.get('rev1')
+			fct_obj.rev2 = request.POST.get('rev2')
+			fct_obj.rev3 = request.POST.get('rev3')
+			fct_obj.total_rev = form.cleaned_data.get('total_rev')
+			fct_obj.save()
+			print("inside!!!!!!!!")
+		else:
+			print("outside view")
+
+	return render(request,'deal_fct_nonfct/fct.html',context)
 
 def br_details(request):
 	form = base_form(request.POST or None)
@@ -34,7 +58,8 @@ def br_details(request):
 			obj.save()
 			messages.success(request, 'Base rate added!!')
 			print("inside!!!!!!!!")
-
+		else:
+			print("outside view")
 	return render(request,'deal_fct_nonfct/base_rate.html',context)
 
 def enter_channels(request):
@@ -120,6 +145,52 @@ def load_br(request):
 	for k in y:
 		rate = k.br
 		print(rate)
-	# r = {'rate': rate}
-	# print("******************",r)
 	return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
+
+def load_br1(request):
+	chan_id = request.GET.get('channel')
+	band2 = request.GET.get('band2')
+	rates = Channel.objects.filter(c_list__contains=chan_id)
+	b2 = Band.objects.filter(b_list__contains=band2)
+	context1 = {'qs':rates}
+	context2 = {'qs2':b2}
+	for i in context1['qs']:
+		c = i.c_list
+		print("------",c)
+
+	for p in context2['qs2']:
+		base2 = p.b_list[:2]
+		print("---****---",base2)
+	x1 = c + base2
+	print("*************",x1)
+	y1 = base_rate_table.objects.filter(unique_key=x1)
+	for k1 in y1:
+		rate2 = k1.br
+		print(rate2)
+	r = {'rate2': rate2}
+	print("******************",r)
+	return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
+
+def load_br2(request):
+	chan_id = request.GET.get('channel')
+	band3 = request.GET.get('band3')
+	rates = Channel.objects.filter(c_list__contains=chan_id)
+	b3 = Band.objects.filter(b_list__contains=band3)
+	context1 = {'qs':rates}
+	context2 = {'qs3':b3}
+	for i in context1['qs']:
+		c = i.c_list
+		print("------",c)
+
+	for p in context2['qs3']:
+		base3 = p.b_list[:2]
+		print("---****---",base3)
+	x2 = c + base3
+	print("*************",x2)
+	y2 = base_rate_table.objects.filter(unique_key=x2)
+	for k2 in y2:
+		rate3 = k2.br
+		print(rate3)
+	r = {'rate3': rate3}
+	print("******************",r)
+	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
