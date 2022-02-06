@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
     'events_afp',
+    'accounts',
+    'profiles',
 ]
 
 MIDDLEWARE = [

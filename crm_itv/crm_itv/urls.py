@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('deal_fct_nonfct.urls')),
     path('',include('events_afp.urls')),
+    path('',include('accounts.urls',namespace='accounts')),
+    path('',include('profiles.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

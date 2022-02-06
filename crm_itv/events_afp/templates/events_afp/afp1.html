@@ -57,6 +57,7 @@
     </div>
   </nav>
 <!-- AFP Deal -->
+<div class="container">
 <form class="row g-2" method="POST" url = "{% url 'afp_load_br' %}" id = "afp_form">{% csrf_token %}
   <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">AFP Deal</label> 
   <div class="row g-2">
@@ -105,5 +106,6 @@
   
   </div>
 </form>
+</div>
 </body>
 </html>

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Your Profile</title>
+	<style type="text/css">
+		button{
+			border: none;
+			border-radius: 10px;
+			height: 40px;
+			background-color: #993333;	/*#CC3300;*/
+		}
+
+		a{
+			text-decoration-line: none;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+
+{% if user.is_authenticated %}
+
+	<h3>
+		{% for i in qs %}
+
+			<h1>Hi, {{ i.emp_fname }}</h1>
+			<h1>Welcome to your profile</h1>
+
+			First Name: {{i.emp_fname}}<br>
+			Last Name : {{i.emp_lname}}<br>
+			Designation: {{i.emp_desgn}}<br>
+			Phone : {{i.emp_phone}}<br>
+			Address: {{i.emp_flatno}},{{i.emp_street}},{{i.emp_landmark}},{{i.emp_city}},{{i.emp_pin}}<br>
+
+		
+	</h3><br>
+
+	{% if "Admin" in i.emp_desgn %}
+		<button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Create Agency</a></button>
+		<button type="submit"><a href="{% url 'agency:agency_contact' %}">Create Agency Contact</a></button>
+	{% endif %}
+
+		<button type="submit"><a href="{% url 'logout_view' %}">Logout</a></button>
+{% endfor %}
+	
+
+{% endif %}
+
+{% endblock %}
+</body>
+</html>
