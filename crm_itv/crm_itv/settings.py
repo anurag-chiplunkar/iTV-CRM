@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbcp8fgm4g62fk',
         'USER': 'fnpujchnoezmdb',
         'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',

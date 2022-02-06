@@ -9,19 +9,19 @@ class fct_deal(models.Model):
 	band1 = models.CharField(max_length=1000,blank=True,null=True)
 	band2 = models.CharField(max_length=1000,blank=True,null=True)
 	band3 = models.CharField(max_length=1000,blank=True,null=True)
-	fct1 = models.IntegerField(max_length=1000,blank=True,null=True)
-	fct2 = models.IntegerField(max_length=1000,blank=True,null=True)
-	fct3 = models.IntegerField(max_length=1000,blank=True,null=True,default=None)
-	eff_rate1 = models.IntegerField(max_length=1000,blank=True,null=True)
-	eff_rate2 = models.IntegerField(max_length=1000,blank=True,null=True)
-	eff_rate3 = models.IntegerField(max_length=1000,blank=True,null=True,default=None)
-	rev1 = models.IntegerField(max_length=1000,blank=True,null=True)
-	rev2 = models.IntegerField(max_length=1000,blank=True,null=True)
-	rev3 = models.IntegerField(max_length=1000,blank=True,null=True,default=None)
-	total_rev = models.IntegerField(max_length=1000)
-	# total_fct = models.IntegerField(max_length=1000)
-	prev_yr_fct = models.IntegerField(max_length=1000,blank=True,null=True)
-	curr_fct = models.IntegerField(max_length=1000,blank=True,null=True)
+	fct1 = models.IntegerField(blank=True,null=True)
+	fct2 = models.IntegerField(blank=True,null=True)
+	fct3 = models.IntegerField(blank=True,null=True,default=None)
+	eff_rate1 = models.IntegerField(blank=True,null=True)
+	eff_rate2 = models.IntegerField(blank=True,null=True)
+	eff_rate3 = models.IntegerField(blank=True,null=True,default=None)
+	rev1 = models.IntegerField(blank=True,null=True)
+	rev2 = models.IntegerField(blank=True,null=True)
+	rev3 = models.IntegerField(blank=True,null=True,default=None)
+	total_rev = models.IntegerField()
+	
+	prev_yr_fct = models.IntegerField(blank=True,null=True)
+	curr_fct = models.IntegerField(blank=True,null=True)
 
 class base(models.Model):
 	CHANNEL_CHOICES = [
@@ -46,7 +46,7 @@ class Disper(models.Model):
 	dis_list = models.CharField(max_length=1000,primary_key=True)
 	def __str__(self):
 		return self.dis_list
-	# ref_c_list = models.ForeignKey(Channel,on_delete=models.PROTECT,blank=True)
+	
 
 class Channel(models.Model):
 	c_list = models.CharField(max_length=1000,primary_key=True)
@@ -62,8 +62,7 @@ class Band(models.Model):
 class base_rate_table(models.Model):
 	unique_key = models.CharField(max_length=1000,default="default",null=True,blank=True)
 	br = models.IntegerField()
-	# ref_c_list = models.ForeignKey(Channel,on_delete=models.PROTECT,blank=True,null=True)
-	# ref_b_list = models.ForeignKey(Band,on_delete=models.PROTECT,blank=True,null=True)
+	
 
 	def __str__(self):
 		return self.br
