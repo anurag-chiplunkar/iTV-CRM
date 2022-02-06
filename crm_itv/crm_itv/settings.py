@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
+    'events_afp',
 ]
 
 MIDDLEWARE = [

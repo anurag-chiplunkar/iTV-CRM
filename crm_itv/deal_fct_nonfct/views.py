@@ -36,7 +36,7 @@ def fct_details(request):
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
 			fct_obj.save()
 			print("inside!!!!!!!!")
-			
+
 		else:
 			print("outside view")
 
@@ -195,3 +195,37 @@ def load_br2(request):
 	r = {'rate3': rate3}
 	print("******************",r)
 	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
+
+
+def fct(request):
+	form2 = form_fct_deal(request.POST or None)
+	context = {'form2':form2}
+	if request.method == "POST":
+		if form2.is_valid():
+			fct_obj = fct_deal()
+			print("inside fct")
+			fct_obj.chan = request.POST.get('channel')
+			fct_obj.dis = request.POST.get('dis_dd')
+			fct_obj.band1 = request.POST.get('band1')
+			fct_obj.band2 = request.POST.get('band2')
+			fct_obj.band3 = request.POST.get('band3')
+			fct_obj.fct1 = request.POST.get('fct1')
+			fct_obj.fct2 = request.POST.get('fct2')
+			fct_obj.fct3 = request.POST.get('fct3')
+			fct_obj.eff_rate1 = request.POST.get('er1')
+			fct_obj.eff_rate2 = request.POST.get('er2')
+			fct_obj.eff_rate3 = request.POST.get('er3')
+			fct_obj.rev1 = request.POST.get('rev1')
+			fct_obj.rev2 = request.POST.get('rev2')
+			fct_obj.rev3 = request.POST.get('rev3')
+			fct_obj.total_rev = form2.cleaned_data.get('total_rev')
+			fct_obj.save()
+			print("inside!!!!!!!!")
+		else:
+			print("outside view")
+
+	return render(request,'events_afp/fct1.html',context)
+
+
+
+

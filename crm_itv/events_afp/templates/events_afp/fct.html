@@ -1,6 +1,6 @@
 
 
-{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,61 +10,15 @@
 </head>
 <body>
 {% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-                <a class="nav-link active" href="{% url 'fct_details' %}">FCT</a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'events' %}">EVENTS</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'afp1' %}">AFP</a>
-            </li>
-        </ul>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">ABOUT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">CONTACT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">REGISTER</a>
-          </li>
-
-          <li class="nav-item">
-            <a class="nav-link active" href="#">SIGN IN</a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
 <div class="container">
 	<div class="row">
 		<div class="col align-self-start"></div>
-		<div class="col align-self-center"><h1>FCT Deal Details</h1></div>
+		<div class="col align-self-center"><h1>Deal Details</h1></div>
 		<div class="col align-self-end"></div>
 	</div>
 	<div class="row g-3 align-items-start">
 		<div class="col-auto">
-	    	<label class="col-form-label"><h5>FCT Deal Details</h5></label> 
+	    	<label class="col-form-label"><h5>FCT Details</h5></label> 
 	  	</div>
 	</div>
 	<form method="POST" id="fct_form" url="{% url 'load_br' %}" url2 = "{% url 'load_br1' %}"
@@ -94,7 +48,7 @@
 					<select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
 						<option value="">-------------</option>
 						<option value="25%-25%-50%">25%-25%-50%</option>
-						<!-- <option value="33%-33%-33%">33%-33%-33%</option> -->
+						<option value="33%-33%-33%">33%-33%-33%</option>
 						<option value="40%-20%-40%">40%-20%-40%</option>
 						<option value="50%-50%">50%-50%</option>
 					</select>
@@ -287,30 +241,12 @@
     	// console.log("i am in");
     	// console.log(add);
     	// document.getElementById('totalbox').value = add;
-    	var inp1 = parseInt(document.getElementById("rev1").value);
-    	console.log("input1",inp1)
-    	var inp2 = parseInt(document.getElementById("rev2").value);
-    	console.log("input2",inp2)
-    	var inp3 = parseInt(document.getElementById("rev3").value);
-    	console.log("input3",inp3)
-    	if ((inp1 != "") && (inp2 != "") && (inp3 != "")){
-    		console.log("yesss!!");
-    		var first_number = parseInt(document.getElementById("rev1").value);
-	        var second_number = parseInt(document.getElementById("rev2").value);
-	        var third_number = parseInt(document.getElementById("rev3").value);
-	        var result = first_number + second_number + third_number ;
-        	document.getElementById("id_total_rev").value = result;
-    	} 
-    	// else if((inp1 != "") && (inp2 != "") ){
-    	// 	console.log("yesss again!!");
-    	// 	var first_number = parseInt(document.getElementById("rev1").value);
-	    //     var second_number = parseInt(document.getElementById("rev2").value);
-	    //     var third_number = parseInt(document.getElementById("rev3").value);
-	    //     var result = first_number + second_number + third_number;
+    	var first_number = parseInt(document.getElementById("rev1").value);
+        var second_number = parseInt(document.getElementById("rev2").value);
+        var third_number = parseInt(document.getElementById("rev3").value);
+        var result = first_number + second_number + third_number;
 
-	    //     document.getElementById("id_total_rev").value = result;
-    	// }
-    	
+        document.getElementById("id_total_rev").value = result;
     }
 </script>
 
@@ -328,7 +264,7 @@
 		
 		
 		$.ajax({                       // initialize an AJAX request
-        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
         data: {
           'band1': band_dd1 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
         },
