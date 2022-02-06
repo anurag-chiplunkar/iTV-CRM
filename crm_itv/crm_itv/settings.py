@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'events_afp',
     'accounts',
     'profiles',
+    'customer',
+    'agency',
 ]
 
 MIDDLEWARE = [

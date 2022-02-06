@@ -24,6 +24,8 @@ urlpatterns = [
     path('',include('events_afp.urls')),
     path('',include('accounts.urls',namespace='accounts')),
     path('',include('profiles.urls')),
+    path('',include('agency.urls',namespace='agency')),
+    path('',include('customer.urls',namespace='customer')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

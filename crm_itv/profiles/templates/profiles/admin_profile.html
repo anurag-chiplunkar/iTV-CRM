@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -40,8 +40,11 @@
 	</h3><br>
 
 	{% if "Admin" in i.emp_desgn %}
-		<button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Create Agency</a></button>
-		<button type="submit"><a href="{% url 'agency:agency_contact' %}">Create Agency Contact</a></button>
+		<button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Add Agency</a></button>
+		<button type="submit"><a href="{% url 'agency:agency_contact' %}">Add Agency Contact</a></button>
+
+		<button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
+		<button type="submit"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
 	{% endif %}
 
 		<button type="submit"><a href="{% url 'logout_view' %}">Logout</a></button>
