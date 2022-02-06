@@ -36,6 +36,7 @@ def fct_details(request):
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
 			fct_obj.save()
 			print("inside!!!!!!!!")
+			
 		else:
 			print("outside view")
 
