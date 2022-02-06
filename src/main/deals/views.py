@@ -81,14 +81,36 @@ def register_deal(request):
 			print("deal form invalid")
 	return render(request,'deals/nfct_deal.html',context)
 
-# def load_br(request):
-# 	ch = request.POST.get('channel_choice')
-# 	print(channel)
+def load_br(request):
+	print("Our resquest",request.GET)
+	ch = request.GET.get('channel_choice')
+	print(ch)
 
-# 	selected_channel = ChannelNFCT.objects.filter(channel__contains = ch)
-# 	print(selected_channel)
+	selected_channel = ChannelNFCT.objects.filter(channel__contains = ch)
+	print(selected_channel)
 
-# 	sc = {"qs":selected_channel}
-# 	for i in sc["qs"]:
-# 		c1 = i.channel
-# 		print(c1)
+	sc = {"qs":selected_channel}
+	for i in sc["qs"]:
+		c1 = i.channel
+		print(c1)
+
+	ele = request.GET.get('checkbox1')
+	elem = ele.title()
+	print(elem)
+	
+	# selected_ele = ElementNFCT.objects.filter(element__contains = elem)
+	# print(selected_ele)
+
+	# se = {"qs":selected_ele}
+	# for j in se["qs"]:
+	# 	e1 = i.element
+	# 	print(e1)
+
+	x = ch+'Aston Band'
+	print(x)
+
+	selected_baserate = BaseRateNFCT.objects.filter(unique_key__contains = x)
+	for k in selected_baserate:
+		rate = k.base_rate
+		print(rate)
+	return render(request,'deals/nfct_deal.html',{'rate': rate})

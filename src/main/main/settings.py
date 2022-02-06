@@ -45,7 +45,8 @@ INSTALLED_APPS = [
     'profiles',
     'deals',
     'calculation',
-    'crispy_forms'
+    'crispy_forms',
+    'jquery',
     
 
 ]
