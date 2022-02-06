@@ -42,7 +42,10 @@ INSTALLED_APPS = [
     #apps
     'customer',
     'events_afp',
-]
+    'digital_print',
+    'EA_final',
+    'deal_fct_nonfct',
+   ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -88,7 +91,10 @@ WSGI_APPLICATION = 'main.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'itvcrm',
+        # 'NAME': 'itvcrm',
+        # 'NAME': 'crm',
+        'NAME': 'Demo',
+
         'USER' : 'root',
         'PASSWORD' : 'root123',
         'HOST' : '',

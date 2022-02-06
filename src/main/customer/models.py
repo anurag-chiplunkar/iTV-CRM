@@ -1,6 +1,11 @@
 from django.db import models
 
+
 # Create your models here.
+
+
+
+
 class CustomerType(models.Model):
 	customer_type 	= 	models.CharField(max_length = 30, primary_key = True, unique = True)
 
@@ -18,7 +23,10 @@ class CustomerName(models.Model):
 
 
 
+
 class CustomerContact(models.Model):
+
+
 	pri_fname = 			models.CharField(max_length = 50)
 	pri_lname = 			models.CharField(max_length = 50)
 	pri_desg = 				models.CharField(max_length = 50)
@@ -44,4 +52,3 @@ class CustomerContact(models.Model):
 	sec_pincode = 			models.CharField(max_length = 10, blank = True, null = True)
 
 	ref_cname = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
-

@@ -20,4 +20,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('customer.urls')),
     path('', include('events_afp.urls')),
+    path('', include('digital_print.urls')),
+    path('', include('EA_final.urls')),
+    path('', include('deal_fct_nonfct.urls')),
+    # path('', include('deals.urls')),
+
+
 ]
