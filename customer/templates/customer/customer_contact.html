@@ -1,0 +1,258 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title> </title>
+  <style >
+  #secondary_contact{
+    display:none
+  }
+
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+                <a class="nav-link active" href="{% url 'fct_details' %}">FCT</a>
+            </li>
+          
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'events' %}">EVENTS</a>
+            </li>
+            
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'afp1' %}">AFP</a>
+            </li>
+        </ul>
+      </div>
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="#">ABOUT US</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="#">CONTACT US</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'accounts:emp_registration' %}">REGISTER</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
+          </li>
+
+        </ul>
+      </div>
+    </div>
+  </nav>
+<div class="container">
+  
+    <div class="row ">
+      
+      <!--Agency Details  -->
+      <div class="col-8">
+        <p>
+        <h1>Client Contact Registration</h1>
+        </p>
+        
+      </div>
+
+
+<!-- Primary Contact Details -->
+
+<form method="POST">{% csrf_token %}
+    <div class="form-group row">
+    <p>
+    <div class="col-4">
+      
+      {{form3.ref_cname}}
+    </div>
+    </p>
+  </div> 
+</form>
+
+<form class="row g-3" method="POST">{% csrf_token %}
+  <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Primary Contact</label> 
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">First Name *</label>
+
+    {{form3.pri_fname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputPassword4" class="form-label">Last Name *</label>
+    {{form3.pri_lname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">Email *</label>
+    {{form3.pri_email}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label class="form-label">Designation *</label>
+    {{form3.pri_desg}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Phone Number *</label>
+    {{form3.pri_phone}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Landline *</label>
+    {{form3.pri_landline}}
+  </div>
+
+  </div>
+  <div class="row g-3">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Address *</label>
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Flat No./House/Block *</label>
+    {{form3.pri_flatno}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputAddress2" class="form-label">Street Name *</label>
+    {{form3.pri_streetname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
+    {{form3.pri_landmark}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputState" class="form-label">City *</label>
+    {{form3.pri_city}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputZip" class="form-label">Pincode *</label>
+    {{form3.pri_pincode}}
+  </div>
+  </div>
+
+
+
+  <!-- Secondary Contact -->
+  <div class="row g-3">
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="sec_contact" name="sec_contact" onclick="OnChangeCheckbox (this)" >
+        <label class="form-check-label" for="sec_contact" >Add Second Person</label>
+  </div>
+  </div>
+  <div id="secondary_contact" style="display: none;" class="row g-3">
+    
+  <div class="row g-3" id="seccondary_contact">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Secondary Contact</label> 
+    <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">First Name</label>
+
+    {{form3.sec_fname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputPassword4" class="form-label">Last Name</label>
+    {{form3.sec_lname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">Email</label>
+    {{form3.sec_email}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label class="form-label">Designation</label>
+    {{form3.sec_desg}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Phone Number</label>
+    {{form3.sec_phone}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Landline</label>
+    {{form3.sec_landline}}
+  </div>
+
+  </div>
+  <div class="row g-3">
+    <label for="client_pri_ctc" style="font-weight: bold">Address</label>
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Flat No./House/Block</label>
+    {{form3.sec_flatno}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputAddress2" class="form-label">Street Name</label>
+    {{form3.sec_streetname}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputCity" class="form-label">Landmark</label>
+    {{form3.sec_landmark}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputState" class="form-label">City</label>
+    {{form3.sec_city}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputZip" class="form-label">Pincode</label>
+    {{form3.sec_pincode}}
+  </div>
+  </div>
+  </div>
+  <div class="row g-3">
+  <div class="form-group">
+    <button name="submit" type="submit" class="btn btn-primary">Add Client Contact</button>
+    {% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+  </div>
+</div>
+</form>
+
+        </div>
+
+    </div>
+
+</div>  
+
+
+<!-- Scripts -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<!-- Attach client script -->
+
+   <script type="text/javascript">
+        function OnChangeCheckbox (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("secondary_contact").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("secondary_contact").style.display = 'none';
+            }
+        }
+    </script>
+
+</body> 
+</html>
