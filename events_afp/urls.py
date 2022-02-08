@@ -18,4 +18,5 @@ urlpatterns = [
 	path('afp_load_br/',views.afp_load_br,name="afp_load_br"),
     path('events/', views.events,name='events'),
     path('afp1/', views.afp,name='afp1'),
+
 ]

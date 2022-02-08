@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'profiles',
     'customer',
     'agency',
+    'nfct',
 ]
 
 MIDDLEWARE = [
@@ -97,7 +98,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'crm',
         'USER': 'root',
-        'PASSWORD' :'',
+        'PASSWORD' :'root123',
         'HOST' : '',
         'PORT' : '',
     }
