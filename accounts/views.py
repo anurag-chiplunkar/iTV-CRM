@@ -14,7 +14,7 @@ def emp_registration(request):
 		emp_lname 			= form.cleaned_data.get('emp_lname')
 		emp_email 			= form.cleaned_data.get('emp_email')
 		emp_phone 			= form.cleaned_data.get('emp_phone')
-		emp_desgn 			= form.cleaned_data.get('jobtitle')
+		emp_desgn 			= request.POST.get('jobtitle')
 		emp_reporting_mgr 	= form.cleaned_data.get('emp_reporting_mgr')
 
 		emp_pass1			= form.cleaned_data.get('emp_pass1')

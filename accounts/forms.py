@@ -9,7 +9,7 @@ class Employee_registration(forms.ModelForm):
 	class Meta:
 		model = Employees
 		fields = '__all__'
-		# exclude = ('emp_pass1','emp_pass2',)
+		exclude = ('emp_desgn',)
 
 		widgets = {
 		'emp_fname' 		: forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'First Name'}),
