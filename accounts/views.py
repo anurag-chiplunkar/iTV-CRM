@@ -46,7 +46,7 @@ def emp_registration(request):
 	else:
 		print("employee registration form invalid")
 
-	return render(request,'accounts/emp_registration2.html',context)
+	return render(request,'accounts/emp_registration.html',context)
 
 
 def emp_login(request):
@@ -81,4 +81,4 @@ def emp_login(request):
 			else:
 				return render(request,'accounts/error_page.html')
 
-	return render(request,'accounts/emp_login2.html',context)
+	return render(request,'accounts/emp_login.html',context)
