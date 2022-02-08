@@ -5,5 +5,6 @@ from . import views
 app_name = 'nfct'
 	
 urlpatterns = [
-    path('nfct/', views.nfct_chname, name = 'nfct_channel')
+    path('nfct_channel/', views.nfct_chname, name = 'nfct_channel'),
+    path('nfct_element/', views.nfct_elename, name = 'nfct_element')
 ]
