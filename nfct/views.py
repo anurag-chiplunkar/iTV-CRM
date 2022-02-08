@@ -53,3 +53,61 @@ def nfct_elename(request):
 		else:
 			print("Invalid NFCT Elements")
 	return render(request, 'nfct/nfct_element.html', context)
+
+
+# Add Base rates
+def nfct_enter_base_rate(request):
+	nfct_form = NFCT_Base_Rate_Form(request.POST or None)
+	nfct_obj = NFCT_Base_Rate()
+	context = {'nfct_form':nfct_form}
+	print(nfct_form.errors)
+	print(request.POST)
+	if request.method == 'POST':
+		if nfct_form.is_valid():
+			nfct_channels = nfct_form.cleaned_data.get('nfct_channels')
+			# print(nfct_channels)
+
+			nfct_elements = nfct_form.cleaned_data.get('nfct_elements')
+			# print(nfct_elements)
+			nfct_obj.nfct_baserate = nfct_form.cleaned_data.get('nfct_baserate')
+
+			uni = str(nfct_channels) + str(nfct_elements)
+			print(uni)
+			nfct_obj.nfct_unique_key = uni
+
+			print("----------",nfct_channels,nfct_elements,nfct_obj.nfct_baserate)
+			print(request.POST, '*********************************')
+			nfct_obj.save()
+
+	return render(request,'nfct/nfct_base.html',context)
+
+# NFCT Deal form
+def nfct_deal_form(request):
+	nfct_deal = NFCT_deal(request.POST or None)
+	context = {'nfct_deal' : nfct_deal}
+	print(nfct_deal.is_valid())
+	print(nfct_deal.errors)
+	print(request.POST)
+
+	if request.method == 'POST':
+		if nfct_deal.is_valid():
+			# def incrementor():
+			# 	info = {"count": 0000000000}
+			# 	def number():
+			# 		info["count"] += 1
+			# 		return info["count"]
+			# 	return number
+
+			# nfct_refrenece_no = incrementor()
+			
+			durations = nfct_deal.cleaned_data.get('durations')
+			duration_in = nfct_deal.cleaned_data.get('duration_in')
+			effective_rate = nfct_deal.cleaned_data.get('effective_rate')
+			frequency =nfct_deal.cleaned_data.get('frequency')
+			total_seconds =nfct_deal.cleaned_data.get('total_seconds')
+			base_rate = nfct_deal.cleaned_data.get('base_rate')
+			nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+
+			nfct_deal.save()
+
+	return render(request, 'nfct/nfct_deal.html', context)
