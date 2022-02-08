@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Register Element</title>
+</head>
+<body>
+	<h1>Element Registration</h1>
+
+	<form method ="POST">{% csrf_token %}
+        {{form}}
+        <button type="submit">Save</button>
+    </form>
+    
+</body>
+</html>
