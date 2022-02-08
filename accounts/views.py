@@ -7,20 +7,15 @@ from . models import *
 def emp_registration(request):
 	form = Employee_registration(request.POST or None)
 	context = {"form":form}
-
+	print(request.POST)
+ 
 	if form.is_valid():
 		emp_fname 			= form.cleaned_data.get('emp_fname')
 		emp_lname 			= form.cleaned_data.get('emp_lname')
 		emp_email 			= form.cleaned_data.get('emp_email')
 		emp_phone 			= form.cleaned_data.get('emp_phone')
-		emp_desgn 			= form.cleaned_data.get('emp_desgn')
+		emp_desgn 			= request.POST.get('jobtitle')
 		emp_reporting_mgr 	= form.cleaned_data.get('emp_reporting_mgr')
-
-		emp_flatno  		= form.cleaned_data.get('emp_flatno')
-		emp_street 			= form.cleaned_data.get('emp_street')
-		emp_landmark 		= form.cleaned_data.get('emp_landmark')
-		emp_city 			= form.cleaned_data.get('emp_city')
-		emp_pin 			= form.cleaned_data.get('emp_pin')
 
 		emp_pass1			= form.cleaned_data.get('emp_pass1')
 
@@ -29,12 +24,7 @@ def emp_registration(request):
 							emp_email = emp_email,
 							emp_phone = emp_phone,
 							emp_desgn = emp_desgn,
-							emp_reporting_mgr = emp_reporting_mgr,
-							emp_flatno = emp_flatno,
-							emp_street = emp_street,
-							emp_landmark = emp_landmark,
-							emp_city = emp_city,
-							emp_pin = emp_pin
+							emp_reporting_mgr = emp_reporting_mgr
 							)
 
 		obj.save()

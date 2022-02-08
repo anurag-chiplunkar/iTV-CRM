@@ -3,7 +3,6 @@ import json
 # Create your views here.
 
 from django.http import HttpResponse
-import requests
 from django.shortcuts import redirect
 from django.contrib import messages
 from .forms import *
