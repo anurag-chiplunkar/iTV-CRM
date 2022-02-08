@@ -19,6 +19,41 @@ class BaseRateNFCT(models.Model):
 	def __str__(self):
 		return self.base_rate
 
+# class DealAston(models.Model):
+# 	seconds		= models.IntegerField(null = True, blank = True)
+# 	eff_rate 	= models.IntegerField()
+# 	frequency 	= models.IntegerField()
+# 	total_sec 	= models.IntegerField()
+# 	total_cost 	= models.IntegerField()
+
+# 	channel_nfct 	= models.ForeignKey(ChannelNFCT,on_delete = models.CASCADE,default = 'default')
+# 	element_nfct 	= models.ForeignKey(ElementNFCT,on_delete = models.CASCADE,default = 'default')
+# 	baserate_nfct 	= models.ForeignKey(BaseRateNFCT,on_delete = models.CASCADE,default = 'default')
+
+# class DealLband(models.Model):
+# 	seconds		= models.IntegerField(null = True, blank = True)
+# 	eff_rate 	= models.IntegerField()
+# 	frequency 	= models.IntegerField()
+# 	total_sec 	= models.IntegerField()
+# 	total_cost 	= models.IntegerField()
+
+# 	channel_nfct 	= models.ForeignKey(ChannelNFCT,on_delete = models.CASCADE,default = 'default')
+# 	element_nfct 	= models.ForeignKey(ElementNFCT,on_delete = models.CASCADE,default = 'default')
+# 	baserate_nfct 	= models.ForeignKey(BaseRateNFCT,on_delete = models.CASCADE,default = 'default')
+
+
+# class DealAston(models.Model):
+# 	seconds		= models.IntegerField(null = True, blank = True)
+# 	eff_rate 	= models.IntegerField()
+# 	frequency 	= models.IntegerField()
+# 	total_sec 	= models.IntegerField()
+# 	total_cost 	= models.IntegerField()
+
+# 	channel_nfct 	= models.ForeignKey(ChannelNFCT,on_delete = models.CASCADE,default = 'default')
+# 	element_nfct 	= models.ForeignKey(ElementNFCT,on_delete = models.CASCADE,default = 'default')
+# 	baserate_nfct 	= models.ForeignKey(BaseRateNFCT,on_delete = models.CASCADE,default = 'default')
+
+
 class DealNFCT(models.Model):
 	seconds		= models.IntegerField(null = True, blank = True)
 	days		= models.IntegerField(null = True, blank = True)
