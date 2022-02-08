@@ -27,8 +27,7 @@ SECRET_KEY = 'django-insecure-@(3e5o6)-op@-3lt1m284^=n8^p)d#ngml+2mkoh#9654g%div
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['crm_itv.herokuapp.com']
-
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -81,14 +80,25 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'dbcp8fgm4g62fk',
+#         'USER': 'fnpujchnoezmdb',
+#         'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
+#         'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
+#         'PORT' : '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbcp8fgm4g62fk',
-        'USER': 'fnpujchnoezmdb',
-        'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
-        'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
-        'PORT' : '5432',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'crm_db',
+        'USER': 'root',
+        'PASSWORD' :'',
+        'HOST' : '',
+        'PORT' : '',
     }
 }
 
@@ -140,5 +150,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
 
