@@ -7,6 +7,12 @@ class Employees(models.Model):
 	emp_phone			= models.CharField(max_length = 10,primary_key = True, unique = True)
 	emp_desgn			= models.CharField(max_length = 100)
 	emp_reporting_mgr 	= models.CharField(max_length = 100)
+
+	emp_flatno			= models.CharField(max_length = 10)
+	emp_street			= models.CharField(max_length = 100)
+	emp_landmark		= models.CharField(max_length = 100,null = True, blank = True)
+	emp_city			= models.CharField(max_length = 100)
+	emp_pin				= models.CharField(max_length = 10)
 	emp_pass1 			= models.CharField(max_length = 100)
 	emp_pass2 			= models.CharField(max_length = 100)
 

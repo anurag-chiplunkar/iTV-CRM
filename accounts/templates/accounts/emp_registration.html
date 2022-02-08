@@ -5,170 +5,191 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <title> </title>
-  <style>
-  #secondary_contact{
-    display:none
-  }
-  </style>
+	<title>Employee Registration</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+	.border-md {
+	    border-width: 2px;
+	}
+
+	body {
+	    min-height: 100vh;
+	}
+
+	.form-control:not(select) {
+	    padding: 1.5rem 0.5rem;
+	}
+
+	select.form-control {
+	    height: 52px;
+	    padding-left: 0.5rem;
+	}
+
+	.form-control::placeholder {
+	    color: #ccc;
+	    font-weight: bold;
+	    font-size: 0.9rem;
+	}
+	.form-control:focus {
+	    box-shadow: none;
+	}
+
+	</style>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-                <a class="nav-link active" href="{% url 'fct_details' %}">FCT</a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'events' %}">EVENTS</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'afp1' %}">AFP</a>
-            </li>
-        </ul>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">ABOUT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">CONTACT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_registration' %}">REGISTER</a>
-          </li>
+	<!-- Navbar-->
+	<header class="header">
+	    <nav class="navbar navbar-expand-lg navbar-light py-3">
+	        <div class="container">
+	            <!-- Navbar Brand -->
+	            <a href="#" class="navbar-brand">
+	                <img src="{% static 'media_root/itv1.jpg' %}" alt="logo" width="150">
+	            </a>
+	        </div>
+	    </nav>
+	</header>
 
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
 <div class="container">
-
-    <div class="row ">
-      
-      <!--Agency Details  -->
-      <div class="col-8">
-        <p>
-        <h1>Add New Employee</h1>
-        </p>
-        
+    <div class="row py-5 mt-4 align-items-center">
+        <!-- For Demo Purpose -->
+        <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
+            <img src="https://bootstrapious.com/i/snippets/sn-registeration/illustration.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <h1>Create an Account</h1>
         </div>
 
+        <!-- Registeration Form -->
+        <div class="col-md-7 col-lg-6 ml-auto">
+            <form method="POST">{% csrf_token %}
+                <div class="row">
 
-<form class="row g-3" method="POST">{% csrf_token %}
+                    <!-- First Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_fname}}
+                    </div>
 
-  <div class="row g-3">
-    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
-    <div class="col-sm-3">
-      <label for="inputEmail4" class="form-label">First Name</label>
-      {{form.emp_fname}}  
-    </div>
-    <div class="col-sm-3">
-      <label for="inputPassword4" class="form-label">Last Name</label>
-      {{form.emp_lname}}
-    </div>
-    <div class="col-sm-3">
-      <label for="inputEmail4" class="form-label">Email</label>
-      {{form.emp_email}}
-    </div>
-  </div>
-  
-  <div class="row g-3">
-    <div class="col-sm-3">
-      <label class="form-label">Designation</label>
-      {{form.emp_desgn}}
-    </div>
-    <div class="col-sm-3">
-      <label class="form-label">Phone Number</label>
-      {{form.emp_phone}}
-    </div>
-    <div class="col-sm-3">
-      <label class="form-label">Reporting Manager</label>
-      {{form.emp_reporting_mgr}}
-    </div>
-  </div>
+                    <!-- Last Name -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-user text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_lname}}
+                    </div>
 
-  <div class="row g-3">
-    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Address</label>
-  <div class="col-sm-3">
-    <label class="form-label">Flat No./House/Block</label>
-    <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
-    {{form.emp_flatno}}
-  </div>
+                    <!-- Email Address -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-envelope text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_email}}
+                    </div>
 
-  <div class="col-sm-3">
-    <label class="form-label">Street Name</label>
-    <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
-    {{form.emp_street}}
-  </div>
+                    <!-- Phone Number -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-phone-square text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <div>91+</div> -->
+                        <!-- <select id="countryCode" name="countryCode" style="max-width: 80px" class="custom-select form-control bg-white border-left-0 border-md h-100 font-weight-bold text-muted">
+                            <option value="">+91</option>
+                            
+                        </select> -->
+                        <!-- <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3"> -->
+                        {{form.emp_phone}}
+                    </div>.
 
-  <div class="col-sm-3">
-    <label class="form-label">Landmark</label>
-    <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
-    {{form.emp_landmark}}
-  </div>
-</div>
-  
-  <div class="row g-3">
-    <div class="col-sm-3">
-    <label class="form-label">City</label>
-    {{form.emp_city}}
-  </div>
-  <div class="col-sm-3">
-    <label class="form-label">Pincode</label>
-    <!-- <input type="text" class="form-control" id="inputZip"> -->
-    {{form.emp_pin}}
-  </div>
-  </div>
 
-  <div class="row g-3">
-    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Password</label>
-    <div class="col-sm-3">
-    <label class="form-label">Create Password</label>
-    {{form.emp_pass1}}
-  </div>
-  <div class="col-sm-3">
-    <label class="form-label">Confirm Password</label>
-    {{form.emp_pass2}}
-  </div>
-  </div>
+                    <!-- Job -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-black-tie text-muted"></i>
+                            </span>
+                        </div>
+                        <select id="job" name="jobtitle" class="form-control custom-select bg-white border-left-0 border-md">
+                            <option value="">Choose your job</option>
+                            <option value="admin">Admin</option>
+                            <option value="salesperson">Salesperson</option>
+                            
+                        </select>
+                    </div>
 
-  <div class="row g-3">
-  <div class="form-group">
-    <button name="submit" type="submit" class="btn btn-primary">Save</button>
-  </div>
-</div>
-</form>
+                    <!-- reporting manager -->
+                    <div class="input-group col-lg-12 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0s">
+                                <i class="fa fa-black-tie text-muted"></i>
+                            </span>
+                        </div>
+                        {{form.emp_reporting_mgr}}
+                    </div>
 
+                    <!-- Password -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_pass1}}
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div class="input-group col-lg-6 mb-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text bg-white px-4 border-md border-right-0">
+                                <i class="fa fa-lock text-muted"></i>
+                            </span>
+                        </div>
+                        <!-- <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_pass2}}
+                    </div>
+
+                    <!-- Submit Button -->
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button name="submit" type="submit" class="btn btn-primary">Create Account</button>
+                    </div>
+
+                    <!-- Already Registered -->
+                    <div class="text-center w-100">
+                        <p class="text-muted font-weight-bold">Already Registered? <a href="#" class="text-primary ml-2">Login</a></p>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
-</div>  
-
+</div>
 <!-- Scripts -->
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+	
 {% endblock %}
-</body> 
+</body>
+<script>
+	// For Demo Purpose [Changing input group text on focus]
+	$(function () {
+	    $('input, select').on('focus', function () {
+	        $(this).parent().find('.input-group-text').css('border-color', '#80bdff');
+	    });
+	    $('input, select').on('blur', function () {
+	        $(this).parent().find('.input-group-text').css('border-color', '#ced4da');
+	    });
+	});
+
+</script>
 </html>

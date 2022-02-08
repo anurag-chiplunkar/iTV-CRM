@@ -1,0 +1,23 @@
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    {% include 'base/css.html' %}
+
+    <title>iTV Network</title>
+  </head>
+  <body>
+    <!-- This is constant for all pages -->
+    {% include 'base/nav.html' with brand_name="iTV Network" %}
+   
+    <div class="container">
+    <!-- This will keep on changing base on the HTML file -->
+    {% block content %}{% endblock %}
+    </div>
+  
+  {% include 'base/js.html' %}
+  </body>
+    
+</html>

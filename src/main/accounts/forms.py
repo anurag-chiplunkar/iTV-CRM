@@ -9,18 +9,24 @@ class Employee_registration(forms.ModelForm):
 	class Meta:
 		model = Employees
 		fields = '__all__'
-		exclude = ('emp_desgn',)
+		# exclude = ('emp_pass1','emp_pass2',)
 
 		widgets = {
-		'emp_fname' 		: forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'First Name'}),
-		'emp_lname' 		: forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Last Name'}),
-		'emp_email' 		: forms.EmailInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Email Id'}),
-		'emp_phone' 		: forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Mobile Number'}),
-		'emp_desgn'			: forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Designation'}),
-		'emp_reporting_mgr' : forms.TextInput(attrs={'class': 'form-control bg-white border-left-0 border-md pl-3', 'placeholder':'Your Reporting Manager'}),
+		'emp_fname' 		: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_lname' 		:  forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_email' 		: forms.EmailInput(attrs={'class': 'form-control'}),
+		'emp_phone' 		: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_desgn'			: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_reporting_mgr' : forms.TextInput(attrs={'class': 'form-control'}),
 
-		'emp_pass1'			: forms.PasswordInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Create Password'}),
-		'emp_pass2'			: forms.PasswordInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Confirm Password'})
+		'emp_flatno' 		: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_street'		: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_landmark'		: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_city'			: forms.TextInput(attrs={'class': 'form-control'}),
+		'emp_pin'			: forms.TextInput(attrs={'class': 'form-control'}),
+
+		'emp_pass1'			: forms.PasswordInput(attrs={'class': 'form-control'}),
+		'emp_pass2'			: forms.PasswordInput(attrs={'class': 'form-control'})
 		}
 
 	def clean_email(self):
