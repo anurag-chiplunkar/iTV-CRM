@@ -17,7 +17,25 @@ def fct_details(request):
 	print("---------------------",request.POST,form.is_valid(),form.errors)
 	context = {'form':form,}
 	if request.method == "POST":
-		if form.is_valid():
+		if request.POST.get('dis_dd') == '50%-50%':
+
+			if form.is_valid():
+				fct_obj.chan = request.POST.get('channel')
+				fct_obj.dis = request.POST.get('dis_dd')
+				fct_obj.band1 = request.POST.get('band1')
+				fct_obj.band2 = request.POST.get('band2')
+				fct_obj.fct1 = request.POST.get('fct1')
+				fct_obj.fct2 = request.POST.get('fct2')
+				
+				fct_obj.eff_rate1 = request.POST.get('er1')
+				fct_obj.eff_rate2 = request.POST.get('er2')
+				
+				fct_obj.rev1 = request.POST.get('rev1')
+				fct_obj.rev2 = request.POST.get('rev2')
+				fct_obj.total_rev = form.cleaned_data.get('total_rev')
+				fct_obj.save()
+				print("inside!!!!!!!!")
+		else:
 			fct_obj.chan = request.POST.get('channel')
 			fct_obj.dis = request.POST.get('dis_dd')
 			fct_obj.band1 = request.POST.get('band1')
@@ -34,10 +52,10 @@ def fct_details(request):
 			fct_obj.rev3 = request.POST.get('rev3')
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
 			fct_obj.save()
-			print("inside!!!!!!!!")
-
-		else:
-			print("outside view")
+			print("inside 2nd if !!!!!!!!")
+	
+	else:
+		print("outside view")
 
 	return render(request,'deal_fct_nonfct/fct.html',context)
 
