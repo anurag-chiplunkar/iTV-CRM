@@ -72,6 +72,7 @@
                             </span>
                         </div>
                         <!-- <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_fname.errors}}
                         {{form.emp_fname}}
                     </div>
 
@@ -83,6 +84,7 @@
                             </span>
                         </div>
                         <!-- <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_lname.errors}}
                         {{form.emp_lname}}
                     </div>
 
@@ -94,6 +96,7 @@
                             </span>
                         </div>
                         <!-- <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_email.errors}}
                         {{form.emp_email}}
                     </div>
 
@@ -110,7 +113,11 @@
                             
                         </select> -->
                         <!-- <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3"> -->
+
+                        {{form.emp_phone.errors}}
                         {{form.emp_phone}}
+                        
+                        
                     </div>.
 
 
@@ -136,6 +143,7 @@
                                 <i class="fa fa-black-tie text-muted"></i>
                             </span>
                         </div>
+                        {{form.emp_reporting_mgr.errors}}
                         {{form.emp_reporting_mgr}}
                     </div>
 
@@ -146,8 +154,10 @@
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
+                            
                         <!-- <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md"> -->
                         {{form.emp_pass1}}
+                        {{form.emp_pass1.help_text}}
                     </div>
 
                     <!-- Password Confirmation -->
@@ -158,12 +168,14 @@
                             </span>
                         </div>
                         <!-- <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_pass2.errors}}
                         {{form.emp_pass2}}
+                        {{form.emp_pass2.help_text}}
                     </div>
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button name="submit" type="submit" class="btn btn-primary">Create Account</button>
+                        <button name="submit" type="submit" class="btn btn-primary" onclick="errorMessage()">Create Account</button>
                     </div>
 
                     <!-- Already Registered -->
@@ -192,4 +204,5 @@
 	});
 
 </script>
+
 </html>

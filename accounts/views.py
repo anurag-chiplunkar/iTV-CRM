@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect
+from django.forms import ValidationError
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout,get_user_model
 from .forms import *
@@ -8,6 +10,7 @@ def emp_registration(request):
 	form = Employee_registration(request.POST or None)
 	context = {"form":form}
 	print(request.POST)
+	print(form.errors)
  
 	if form.is_valid():
 		emp_fname 			= form.cleaned_data.get('emp_fname')
@@ -18,6 +21,34 @@ def emp_registration(request):
 		emp_reporting_mgr 	= form.cleaned_data.get('emp_reporting_mgr')
 
 		emp_pass1			= form.cleaned_data.get('emp_pass1')
+		emp_pass2			= form.cleaned_data.get('emp_pass2')
+
+		# #passwords validation
+		# def password_validation(emp_pass1,emp_pass2):
+		# 	if (emp_pass1!=emp_pass2) and (emp_pass1.isalnum()==False and emp_pass2.isalnum()==False):
+		# 		raise ValidationError("Password incorrect")
+		# 	else:
+		# 		return emp_pass1
+
+		# ##phone number validation
+		# def phone_validation(emp_phone):
+		# 	if len(emp_phone) <10:
+		# 		raise ValidationError("Enter valid number")
+		# 		return redirect("/emp_registration")
+		# 	else:
+		# 		return emp_phone
+
+		# ##email validation
+		# def email_validation(emp_email):
+		# 	if '@cognitioworld.com' not in emp_email:
+		# 		raise ValidationError("Enter valid email ID")
+		# 		return redirect("/emp_registration")
+		# 	else:
+		# 		return emp_email
+
+		# emp_pass1 = password_validation(emp_pass1,emp_pass2)
+		# emp_phone = phone_validation(emp_phone)
+		# emp_email = email_validation(emp_email)
 
 		obj = Employees(emp_fname = emp_fname,
 							emp_lname = emp_lname,
@@ -65,7 +96,7 @@ def emp_login(request):
 			for i in qs_context['qs']:
 				designation = i.emp_desgn
 
-			if designation == "Admin":
+			if designation == "Admin" or "admin":
 				return render(request,'profiles/admin_profile.html',qs_context)
 			
 			else:
