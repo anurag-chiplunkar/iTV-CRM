@@ -84,6 +84,7 @@ def nfct_enter_base_rate(request):
 # NFCT Deal form
 def nfct_deal_form(request):
 	nfct_deal = NFCT_deal(request.POST or None)
+	nfct_obj1 = NFCTDeal()
 	context = {'nfct_deal' : nfct_deal}
 	print(nfct_deal.is_valid())
 	print(nfct_deal.errors)
@@ -91,23 +92,46 @@ def nfct_deal_form(request):
 
 	if request.method == 'POST':
 		if nfct_deal.is_valid():
-			# def incrementor():
-			# 	info = {"count": 0000000000}
-			# 	def number():
-			# 		info["count"] += 1
-			# 		return info["count"]
-			# 	return number
+			# nfct_reference_no = ('nfct_reference_no')
+			nfct_obj1.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
+			nfct_obj1.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+			nfct_obj1.durations = nfct_deal.cleaned_data.get('durations')
+			nfct_obj1.duration_in = nfct_deal.cleaned_data.get('duration_in')
+			nfct_obj1.effective_rate = nfct_deal.cleaned_data.get('effective_rate')
+			nfct_obj1.frequency =nfct_deal.cleaned_data.get('frequency')
+			nfct_obj1.total_seconds =nfct_deal.cleaned_data.get('total_seconds')
+			nfct_obj1.base_rate = nfct_deal.cleaned_data.get('base_rate')
+			nfct_obj1.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
 
-			# nfct_refrenece_no = incrementor()
-			
-			durations = nfct_deal.cleaned_data.get('durations')
-			duration_in = nfct_deal.cleaned_data.get('duration_in')
-			effective_rate = nfct_deal.cleaned_data.get('effective_rate')
-			frequency =nfct_deal.cleaned_data.get('frequency')
-			total_seconds =nfct_deal.cleaned_data.get('total_seconds')
-			base_rate = nfct_deal.cleaned_data.get('base_rate')
-			nfct_total = nfct_deal.cleaned_data.get('nfct_total')
-
-			nfct_deal.save()
+			nfct_obj1.save()
 
 	return render(request, 'nfct/nfct_deal.html', context)
+
+def nfct_load_br(request):
+
+	chan_id = request.GET.get('channel')
+	print(request.GET)
+	print(chan_id, '*******************')
+	element = request.GET.get('element')
+	print(element, '&&&&&&&&&&&&&&&&&&')
+	print("9999",chan_id,element)
+	rates = NFCT_Channels.objects.filter(nfct_channels__contains=chan_id)
+	element_name = NFCT_Elements.objects.filter(nfct_elements__contains=element)
+	context1 = {'qs':rates}
+	context2 = {'qs1':element_name}
+	for i in context1['qs']:
+		c = i.nfct_channels
+		print("------",c)
+
+	for j in context2['qs1']:
+		b = j.nfct_elements
+		print("---****---",b)
+	x = c + b 
+	print("*************",x)
+	y = NFCT_Base_Rate.objects.filter(nfct_unique_key__contains=x)
+	# print(y, '++++++++++++++++++++++++')
+	for k in y:
+		# print(k)
+		nfctbaserate = k.nfct_baserate
+		print(nfctbaserate)
+	return render(request,'nfct/nfct_deal.html',{'nfctbaserate': nfctbaserate})

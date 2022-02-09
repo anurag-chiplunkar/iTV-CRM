@@ -39,13 +39,14 @@ class NFCT_deal(forms.ModelForm):
     forms for NFCT Deal"""
 
   
-    ref_nfct_channels = forms.ModelChoiceField(queryset = NFCT_Channels.objects.all(), widget = forms.Select(attrs = {'class':'form-select'}), empty_label = 'Select Channel')
-    ref_nfct_elements = forms.ModelChoiceField(queryset = NFCT_Elements.objects.all(), widget = forms.Select(attrs = {'class':'form-select'}), empty_label = 'Select Element')
+    ref_nfct_channels_id = forms.ModelChoiceField(queryset = NFCT_Channels.objects.all(), widget = forms.Select(attrs = {'class':'form-select'}), empty_label = 'Select Channel')
+    ref_nfct_elements_id = forms.ModelChoiceField(queryset = NFCT_Elements.objects.all(), widget = forms.Select(attrs = {'class':'form-select'}), empty_label = 'Select Element')
 
     class Meta:
         model = NFCTDeal
         fields = '__all__'
-        exclude = ('nfct_channels', 'nfct_elements','nfct_refrenece_no',)
+        exclude = ('ref_nfct_channels', 'ref_nfct_elements',)
+        # 'nfct_refrenece_no',
 
         widgets = {
             'durations' : forms.Select(attrs = {'class' : 'form-select'}, choices = durations_choices),
