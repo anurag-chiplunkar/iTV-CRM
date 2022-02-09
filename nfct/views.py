@@ -91,20 +91,32 @@ def nfct_deal_form(request):
 	print(request.POST)
 
 	if request.method == 'POST':
-		if nfct_deal.is_valid():
-			# nfct_reference_no = ('nfct_reference_no')
+		if ((request.POST.get('ref_nfct_elements_id') == 'Aston') or (request.POST.get('ref_nfct_elements_id') == 'L Band')):
+
+			if nfct_deal.is_valid():
+				# nfct_reference_no = ('nfct_reference_no')
+				nfct_obj1.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
+				nfct_obj1.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+
+				nfct_obj1.effective_rate = request.POST.get('effective_rate')
+				nfct_obj1.frequency = request.POST.get('frequency')
+				nfct_obj1.total_seconds =nfct_deal.cleaned_data.get('total_seconds')
+				nfct_obj1.base_rate = request.POST.get('base_rate')
+				nfct_obj1.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+
+				nfct_obj1.save()
+		else:
+				# nfct_reference_no = ('nfct_reference_no')
 			nfct_obj1.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
 			nfct_obj1.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
 			nfct_obj1.durations = nfct_deal.cleaned_data.get('durations')
 			nfct_obj1.duration_in = nfct_deal.cleaned_data.get('duration_in')
-			nfct_obj1.effective_rate = nfct_deal.cleaned_data.get('effective_rate')
-			nfct_obj1.frequency =nfct_deal.cleaned_data.get('frequency')
-			nfct_obj1.total_seconds =nfct_deal.cleaned_data.get('total_seconds')
-			nfct_obj1.base_rate = nfct_deal.cleaned_data.get('base_rate')
+
+			nfct_obj1.frequency = request.POST.get('frequency')
+			nfct_obj1.base_rate = request.POST.get('base_rate')
 			nfct_obj1.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
 
 			nfct_obj1.save()
-
 	return render(request, 'nfct/nfct_deal.html', context)
 
 def nfct_load_br(request):

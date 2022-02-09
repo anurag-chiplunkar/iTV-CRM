@@ -106,26 +106,29 @@
     <label class="form-label">Duration In *</label>
     {{nfct_deal.duration_in}}
   </div>
-  <div class="col-sm-2" id = "div_effective_rate">
-    <label class="form-label">Effective Rate *</label>
-    {{nfct_deal.effective_rate}}
-  </div>
-
   <div class="col-sm-2">
     <label class="form-label">Frequency *</label>
     <!-- {{nfct_deal.frequency}} -->
-    <input type="number" oninput = "aston_lband_cal()" id = 'id_frequency'>  
+    <input type="number" onkeyup = "cal()" id = 'id_frequency' name = 'frequency' class="form-control">  
   </div>
+  <div class="col-sm-2" id = "div_effective_rate">
+    <label class="form-label">Effective Rate *</label>
+    <!-- {{nfct_deal.effective_rate}} -->
+    <input type="number" onkeyup="cal()" id = 'id_effective_rate' name = 'effective_rate' class="form-control">
+  </div>
+
+  
 
   <div class="col-sm-2" id = "div_total_seconds">
     <label class="form-label">Total Seconds *</label>
-    {{nfct_deal.total_seconds}}
+    <!-- {{nfct_deal.total_seconds}} -->
+    <input type="number" id = 'id_total_seconds' name = 'total_seconds' class="form-control">
   </div>
   
   <div class="col-sm-2">
     <label class="form-label">Base Rate *</label>
     <!-- {{nfct_deal.base_rate}} -->
-    <input type="text" name="BaseRate" placeholder="BaseRate" class="form-control" id = "nfct_baserate1" value = '{{nfctbaserate}}' disabled>
+    <input type="text" name="base_rate" placeholder="BaseRate" class="form-control" id = "nfct_baserate1" value = '{{nfctbaserate}}' disabled>
   </div>
 
   <div class="col-sm-2">
@@ -240,15 +243,15 @@
   </script>
 
     <script type="text/javascript">
-        function aston_lband_cal(){
-            var f = (document.getElementById('id_frequency').value)
-            console.log(f)
-            var freq = f * 10;
-            console.log(freq) 
-            document.getElementById('id_total_seconds').value = freq
-        }
+        // function aston_lband_cal(){
+        //     var f = (document.getElementById('id_frequency').value)
+        //     console.log(f)
+        //     var freq = f * 10;
+        //     console.log(freq) 
+        //     document.getElementById('id_total_seconds').value = freq
+        // }
         
-    
+       
         // var f = $('#id_frequency').val();
         // function frequency(f){
         //     var fq = parseInt(f)
@@ -256,7 +259,34 @@
         //     document.getElementById('id_total_seconds').value = freq
         // }
         
+        // function logobug(){
+        //     var freq1 = document.getElementById('id_frequency').value
+        //     var base_rate1 = document.getElementById('nfct_baserate1').value
+        //     var logo_total = freq1 * base_rate1
+        //     document.getElementById('id_nfct_total').value = logo_total;
+        // }
         
+        function cal(){
+            var elements = document.getElementById('id_ref_nfct_elements_id').value;
+            console.log(elements.value, '*****************')
+            if (elements === "Aston" || elements === "L Band"){
+                var f = (document.getElementById('id_frequency').value)
+                console.log(f)
+                var freq = f * 10;
+                console.log(freq) 
+                document.getElementById('id_total_seconds').value = freq
+                var eff_rate = document.getElementById('id_effective_rate').value
+                var tot_sec = document.getElementById('id_total_seconds').value
+                var total = eff_rate * tot_sec
+                document.getElementById('id_nfct_total').value = total;
+        }
+            else{
+                var freq1 = document.getElementById('id_frequency').value
+                var base_rate1 = document.getElementById('nfct_baserate1').value
+                var logo_total = freq1 * base_rate1
+                document.getElementById('id_nfct_total').value = logo_total;
+        }
+        }
     </script>
 
 
