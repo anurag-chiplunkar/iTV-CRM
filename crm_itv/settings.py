@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-# import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,28 +81,16 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dbcp8fgm4g62fk',
-#         'USER': 'fnpujchnoezmdb',
-#         'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
-#         'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
-#         'PORT' : '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm',
-        'USER': 'root',
-        'PASSWORD' :'',
-        'HOST' : '',
-        'PORT' : '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dbcp8fgm4g62fk',
+        'USER': 'fnpujchnoezmdb',
+        'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
+        'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
+        'PORT' : '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -128,7 +116,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC'
+TIME_ZONE = 'UTC'
 TIME_ZONE =  'Asia/Kolkata'
 
 USE_I18N = True
@@ -151,5 +139,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
