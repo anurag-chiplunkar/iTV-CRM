@@ -28,7 +28,7 @@
 		{% for i in qs %}
 
 			<h1>Hi, {{ i.emp_fname }}</h1>
-			<h1>Welcome to your profile</h1>
+			<h1>You are logged in as {{i.emp_desgn}}</h1>
 
 			First Name: {{i.emp_fname}}<br>
 			Last Name : {{i.emp_lname}}<br>
@@ -44,6 +44,24 @@
 
 		<button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
 		<button type="submit"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
+<!-- 
+		<button type="submit">Add FCT Deal</button>
+		<button type="submit">Add NFCT Deal</button>
+		<button type="submit">Add Events & AFP Deal</button>
+		<button type="submit">Add Employee</button> -->
+	{% endif %}
+
+	{% if "salesperson" in i.emp_desgn %}
+		<button type="submit">Add FCT Deal</button>
+		<button type="submit">Add NFCT Deal</button>
+		<button type="submit">Add Events & AFP Deal</button>
+	{% endif %}
+
+	{% if "md" in i.emp_desgn %}
+		<button type="submit">Add FCT Deal</button>
+		<button type="submit">Add NFCT Deal</button>
+		<button type="submit">Add Events & AFP Deal</button>
+		<button type="submit">Add Employee</button>
 	{% endif %}
 
 		<button type="submit"><a href="{% url 'logout_view' %}">Logout</a></button>
