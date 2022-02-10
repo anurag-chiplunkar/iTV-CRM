@@ -32,6 +32,10 @@ def fct_details(request):
 				
 				fct_obj.rev1 = request.POST.get('rev1')
 				fct_obj.rev2 = request.POST.get('rev2')
+				rate1 = request.session['rate']
+				fct_obj.base_rate1 = rate1
+				rate2 = request.session['rate2']
+				fct_obj.base_rate2 = rate2
 				fct_obj.total_rev = form.cleaned_data.get('total_rev')
 				fct_obj.save()
 				print("inside!!!!!!!!")
@@ -51,6 +55,13 @@ def fct_details(request):
 			fct_obj.rev2 = request.POST.get('rev2')
 			fct_obj.rev3 = request.POST.get('rev3')
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
+			rate1 = request.session['rate']
+			fct_obj.base_rate1 = rate1
+			rate2 = request.session['rate2']
+			fct_obj.base_rate2 = rate2
+			rate3 = request.session['rate3']
+			fct_obj.base_rate3 = rate3
+			
 			fct_obj.save()
 			print("inside 2nd if !!!!!!!!")
 	
@@ -163,6 +174,7 @@ def load_br(request):
 	for k in y:
 		rate = k.br
 		print(rate)
+		request.session['rate'] = rate
 	return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
 
 def load_br1(request):
@@ -185,6 +197,7 @@ def load_br1(request):
 	for k1 in y1:
 		rate2 = k1.br
 		print(rate2)
+		request.session['rate2'] = rate2
 	r = {'rate2': rate2}
 	print("******************",r)
 	return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
@@ -209,6 +222,7 @@ def load_br2(request):
 	for k2 in y2:
 		rate3 = k2.br
 		print(rate3)
+		request.session['rate3'] = rate3
 	r = {'rate3': rate3}
 	print("******************",r)
 	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})

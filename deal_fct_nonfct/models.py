@@ -19,7 +19,9 @@ class fct_deal(models.Model):
 	rev2 = models.IntegerField(blank=True,null=True)
 	rev3 = models.IntegerField(blank=True,null=True)
 	total_rev = models.IntegerField()
-	
+	base_rate1 = models.IntegerField(blank=True,null=True)
+	base_rate2 = models.IntegerField(blank=True,null=True)
+	base_rate3 = models.IntegerField(blank=True,null=True)
 	prev_yr_fct = models.IntegerField(blank=True,null=True)
 	curr_fct = models.IntegerField(blank=True,null=True)
 
