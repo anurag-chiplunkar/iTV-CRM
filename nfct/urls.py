@@ -10,4 +10,5 @@ urlpatterns = [
     path('nfct_baserate/', views.nfct_enter_base_rate, name = 'nfct_enter_base_rate'),
     path('nfct_deal/', views.nfct_deal_form, name = 'nfct_deal_form'),
     path('nfct_load_br/', views.nfct_load_br, name = 'nfct_load_br'),
+    path('nfctformset/', views.nfctformset, name = 'nfctformset'),
 ]

@@ -1,5 +1,7 @@
 from django import forms
 from . models import *
+from django.forms import ModelForm
+from django.forms import modelform_factory
 
 class NFCT_Chann(forms.ModelForm):
 	"""docstring for NFCT_Channels

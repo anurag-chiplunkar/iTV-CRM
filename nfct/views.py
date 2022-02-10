@@ -5,6 +5,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from .forms import *
 from .models import *
+from django.forms import modelformset_factory
+
 
 # Add Channel Names
 def nfct_chname(request):
@@ -147,3 +149,36 @@ def nfct_load_br(request):
 		nfctbaserate = k.nfct_baserate
 		print(nfctbaserate)
 	return render(request,'nfct/nfct_deal.html',{'nfctbaserate': nfctbaserate})
+
+
+def nfctformset(request):
+	NFCT_dealformset = modelformset_factory(NFCTDeal, form = NFCT_deal, extra= 0)
+	
+	formset = NFCT_dealformset(request.POST or None)
+	obj = NFCTDeal()
+	if request.method == 'POST':
+		if ((request.POST.get('ref_nfct_elements_id') == 'Aston') or (request.POST.get('ref_nfct_elements_id') == 'L Band')):
+			if formset.is_valid():
+				obj.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
+				obj.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+
+				obj.effective_rate = request.POST.get('effective_rate')
+				obj.frequency = request.POST.get('frequency')
+				obj.total_seconds =nfct_deal.cleaned_data.get('total_seconds')
+				obj.base_rate = request.POST.get('base_rate')
+				obj.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+
+				obj.save()
+		else:
+				# nfct_reference_no = ('nfct_reference_no')
+			obj.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
+			obj.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+			obj.durations = nfct_deal.cleaned_data.get('durations')
+			obj.duration_in = nfct_deal.cleaned_data.get('duration_in')
+
+			obj.frequency = request.POST.get('frequency')
+			obj.base_rate = request.POST.get('base_rate')
+			obj.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+
+			obj.save()
+	return render(request, 'nfct/formset.html', {'formset':formset})
