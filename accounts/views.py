@@ -94,12 +94,9 @@ def emp_login(request):
 			qs_context = {"qs":qs1}
 
 			for i in qs_context['qs']:
-				designation = i.emp_desgn
+				email = i.emp_email
 
-			if designation == "Admin" or "admin":
-				return render(request,'profiles/admin_profile.html',qs_context)
-			
-			else:
-				return render(request,'accounts/error_page.html')
+			return render(request,'profiles/admin_profile.html',qs_context)
+
 
 	return render(request,'accounts/emp_login.html',context)

@@ -45,24 +45,24 @@ class base(models.Model):
 
 
 class Disper(models.Model):
-	dis_list = models.CharField(max_length=1000,primary_key=True)
+	dis_list = models.CharField(max_length=255,primary_key=True)
 	def __str__(self):
 		return self.dis_list
 	
 
 class Channel(models.Model):
-	c_list = models.CharField(max_length=1000,primary_key=True)
+	c_list = models.CharField(max_length=255,primary_key=True)
 
 	def __str__(self):
 		return self.c_list
 	
 class Band(models.Model):
-	b_list = models.CharField(max_length=1000,primary_key=True)
+	b_list = models.CharField(max_length=255,primary_key=True)
 	def __str__(self):
 		return self.b_list
 
 class base_rate_table(models.Model):
-	unique_key = models.CharField(max_length=1000,default="default",null=True,blank=True)
+	unique_key = models.CharField(max_length=255,default="default",null=True,blank=True)
 	br = models.IntegerField()
 	
 

@@ -20,12 +20,13 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('deal_fct_nonfct.urls')),
-    path('',include('events_afp.urls')),
+    path('',include('deal_fct_nonfct.urls', namespace = 'deal_fct_nonfct')),
+    path('',include('events_afp.urls', namespace = 'events_afp')),
     path('',include('accounts.urls',namespace='accounts')),
     path('',include('profiles.urls')),
     path('',include('agency.urls',namespace='agency')),
     path('',include('customer.urls',namespace='customer')),
+    path('',include('nfct.urls',namespace='nfct')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
