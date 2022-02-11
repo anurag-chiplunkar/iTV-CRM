@@ -100,15 +100,29 @@ def emp_login(request):
 				return render(request,'profiles/admin_profile.html',qs_context)
 # 				return render(request,'profiles/admin_profile.html',context)
 			elif email == "aarohi@cognitioworld.com" and password == "Cognitio@101$$":
+				qs1 = Employees.objects.filter(emp_email=email)
+				qs_context = {"qs":qs1}
+
+				for i in qs_context['qs']:
+					email = i.emp_email
+
+				return render(request,'profiles/admin_profile.html',qs_context)
 # 				return render(request,'profiles/admin_profile.html',context)
 			elif email == "sanjay@cognitioworld.com" and password == "Cognitio@101$$":
+				qs1 = Employees.objects.filter(emp_email=email)
+				qs_context = {"qs":qs1}
+
+				for i in qs_context['qs']:
+					email = i.emp_email
+
+				return render(request,'profiles/admin_profile.html',qs_context)
 # 				return render(request,'profiles/admin_profile.html',context)
 
-			qs1 = Employees.objects.filter(emp_email=email)
-			qs_context = {"qs":qs1}
+# 			qs1 = Employees.objects.filter(emp_email=email)
+# 			qs_context = {"qs":qs1}
 
-			for i in qs_context['qs']:
-				email = i.emp_email
+# 			for i in qs_context['qs']:
+# 				email = i.emp_email
 
 			return render(request,'profiles/admin_profile.html',qs_context)
 
