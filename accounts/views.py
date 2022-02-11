@@ -89,12 +89,18 @@ def emp_login(request):
 			login(request,user)
 			print(request.user)
 			print('You are logged in')
+			if email == "shruti@cognitioworld.com":
+				return render(request,'profiles/admin_profile.html',qs_context)
+			elif email == "aarohi@cognitioworld.com":
+				return render(request,'profiles/admin_profile.html',qs_context)
+			elif email == "sanjay@cognitioworld.com":
+				return render(request,'profiles/admin_profile.html',qs_context)
 
-			qs1 = Employees.objects.filter(emp_email=email)
-			qs_context = {"qs":qs1}
+# 			qs1 = Employees.objects.filter(emp_email=email)
+# 			qs_context = {"qs":qs1}
 
-			for i in qs_context['qs']:
-				email = i.emp_email
+# 			for i in qs_context['qs']:
+# 				email = i.emp_email
 
 			return render(request,'profiles/admin_profile.html',qs_context)
 
