@@ -89,11 +89,11 @@ def emp_login(request):
 			login(request,user)
 			print(request.user)
 			print('You are logged in')
-			if email == "shruti@cognitioworld.com":
+			if email == "shruti@cognitioworld.com" and password == "Cognitio@101$$":
 				return render(request,'profiles/admin_profile.html',qs_context)
-			elif email == "aarohi@cognitioworld.com":
+			elif email == "aarohi@cognitioworld.com" and password == "Cognitio@101$$":
 				return render(request,'profiles/admin_profile.html',qs_context)
-			elif email == "sanjay@cognitioworld.com":
+			elif email == "sanjay@cognitioworld.com" and password == "Cognitio@101$$":
 				return render(request,'profiles/admin_profile.html',qs_context)
 
 # 			qs1 = Employees.objects.filter(emp_email=email)
