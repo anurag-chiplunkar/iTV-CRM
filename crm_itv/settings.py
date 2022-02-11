@@ -87,10 +87,10 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'dbcp8fgm4g62fk',
-        'USER': 'fnpujchnoezmdb',
-        'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
-        'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
+        'NAME': 'dat2akb2j5td56',
+        'USER': 'gwxuakszdjknyt',
+        'PASSWORD' :'5667e9a34ecb9a866bf3e7ecc6c29ccf2f9beea493bf3d676c5dcb7241f6e9ea',
+        'HOST' : 'ec2-18-211-63-235.compute-1.amazonaws.com',
         'PORT' : '5432',
     }
 }
