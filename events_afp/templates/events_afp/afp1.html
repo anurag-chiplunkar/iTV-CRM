@@ -10,55 +10,10 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-                <a class="nav-link active" href="{% url 'fct_details' %}">FCT</a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'events' %}">EVENTS</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'afp1' %}">AFP</a>
-            </li>
-        </ul>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">ABOUT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">CONTACT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_registration' %}">REGISTER</a>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
 <!-- AFP Deal -->
 <div class="container">
-<form class="row g-2" method="POST" url = "{% url 'afp_load_br' %}" id = "afp_form">{% csrf_token %}
+<form class="row g-2" method="POST" url = "{% url 'events_afp:afp_load_br' %}" id = "afp_form">{% csrf_token %}
   <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">AFP Deal</label> 
   <div class="row g-2">
     <div class="col-sm-2">
@@ -104,6 +59,11 @@
     {{form4.eff_rate}}
   </div>
   
+  {% if user.is_authenticated %}
+  <div class="col-3" style="margin-top: 20px;">
+      <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    </div>
+  {% endif %}
   </div>
 </form>
 </div>

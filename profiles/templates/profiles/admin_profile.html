@@ -6,12 +6,15 @@
 <html>
 <head>
 	<title>Your Profile</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style type="text/css">
 		button{
 			border: none;
 			border-radius: 10px;
 			height: 40px;
-			background-color: #993333;	/*#CC3300;*/
+			color: white;
 		}
 
 		a{
@@ -24,7 +27,7 @@
 
 {% if user.is_authenticated %}
 
-	<h3>
+	<!-- <h3>
 		{% for i in qs %}
 
 			<h1>Hi, {{ i.emp_fname }}</h1>
@@ -32,39 +35,167 @@
 
 			First Name: {{i.emp_fname}}<br>
 			Last Name : {{i.emp_lname}}<br>
+			Email ID: {{i.emp_email}}<br>
 			Designation: {{i.emp_desgn}}<br>
 			Phone : {{i.emp_phone}}<br>
 
 		
-	</h3><br>
+	</h3><br> -->
+	<!DOCTYPE html>
+<html>
+<head>
+  <title>Demo Profile</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-	{% if "admin" in i.emp_desgn %}
-		<button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Add Agency</a></button>
-		<button type="submit"><a href="{% url 'agency:agency_contact' %}">Add Agency Contact</a></button>
+<body>
+<section style="background-color: #eee;">
+	{% if "shruti" in i.emp_email %}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'nfct:nfct_deal' %}">Add NFCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:events' %}">Add Events Deal</a></button>
+			</button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:afp1' %}">Add AFP Deal</a></button>
 
-		<button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
-		<button type="submit"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
-
-		<button type="submit">Add FCT Deal</button>
-		<button type="submit">Add NFCT Deal</button>
-		<button type="submit">Add Events & AFP Deal</button>
-		<button type="submit">Add Employee</button>
+			</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 	{% endif %}
 
-	{% if "salesperson" in i.emp_desgn %}
-		<button type="submit">Add FCT Deal</button>
-		<button type="submit">Add NFCT Deal</button>
-		<button type="submit">Add Events & AFP Deal</button>
+	{% if "aarohi" in i.emp_email %}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Add Agency</a></button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'agency:agency_contact' %}">Add Agency Contact</a></button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'nfct:nfct_deal' %}">Add NFCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:events' %}">Add Events Deal</a></button>
+			</button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:afp1' %}">Add AFP Deal</a></button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'accounts:emp_registration' %}">Add Employee</a></button>
+			</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 	{% endif %}
 
-	{% if "md" in i.emp_desgn %}
-		<button type="submit">Add FCT Deal</button>
-		<button type="submit">Add NFCT Deal</button>
-		<button type="submit">Add Events & AFP Deal</button>
-		<button type="submit">Add Employee</button>
+	{% if "sanjay" in i.emp_email %}
+  <div class="container py-5">
+    <div class="row">
+      <div class="col">
+        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+          <ol class="breadcrumb mb-0">
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'nfct:nfct_deal' %}">Add NFCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a></button>
+			</li>
+            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:events' %}">Add Events Deal</a></button>
+			</button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:afp1' %}">Add AFP Deal</a></button>
+			</li>
+			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'accounts:emp_registration' %}">Add Employee</a></button>
+			</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
 	{% endif %}
 
-		<button type="submit"><a href="{% url 'logout_view' %}">Logout</a></button>
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+            <h5 class="my-3">{{i.emp_fname}} {{i.emp_lname}}</h5>
+            <div class="d-flex justify-content-center mb-2">
+				<button type="submit" class="btn btn-primary"><a href="{% url 'logout_view' %}" style="color: white;">Logout</a></button>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Full Name</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{i.emp_fname}} {{i.emp_lname}}</p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Email</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{i.emp_email}}</p>
+              </div>
+            </div>
+            <hr>
+			<div class="row">
+				<div class="col-sm-3">
+				  <p class="mb-0">Designation</p>
+				</div>
+				<div class="col-sm-9">
+				  <p class="text-muted mb-0">{{i.emp_desgn}}</p>
+				</div>
+			  </div>
+			  <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Phone</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{i.emp_phone}}</p>
+              </div>
+            </div>
+            <hr>
+ 
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Reporting Manager</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{i.emp_reporting_mgr}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+</section>
+</body>
+</html>
+
 {% endfor %}
 	
 
