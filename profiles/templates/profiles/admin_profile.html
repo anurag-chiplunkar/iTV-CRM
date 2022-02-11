@@ -26,7 +26,7 @@
 <body>
 
 {% if user.is_authenticated %}
-
+{% for i in qs %} 
 <section style="background-color: #eee;">
 	{% if "shruti" in i.emp_email %}
   <div class="container py-5">
