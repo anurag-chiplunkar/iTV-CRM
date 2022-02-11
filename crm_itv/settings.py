@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
     'events_afp',
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -83,12 +85,21 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 
 DATABASES = {
     'default': {
+<<<<<<< HEAD
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'dbcp8fgm4g62fk',
         'USER': 'fnpujchnoezmdb',
         'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
         'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
         'PORT' : '5432',
+=======
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'crm_db',
+        'USER': 'root',
+        'PASSWORD' :'',
+        'HOST' : '',
+        'PORT' : '',
+>>>>>>> 3e39837b78569563578493b52a8498a9899b44d0
     }
 }
 
@@ -129,9 +140,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
+STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
 MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn","media_root")
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
