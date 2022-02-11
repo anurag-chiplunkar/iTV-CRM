@@ -108,7 +108,7 @@ def emp_login(request):
 
 				return render(request,'profiles/admin_profile.html',qs_context)
 # 				return render(request,'profiles/admin_profile.html',context)
-			else email == "sanjay@cognitioworld.com" and password == "Cognitio@101$$":
+			elif email == "sanjay@cognitioworld.com" and password == "Cognitio@101$$":
 				qs1 = Employees.objects.filter(emp_email=email)
 				qs_context = {"qs":qs1}
 
