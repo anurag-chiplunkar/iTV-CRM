@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-@(3e5o6)-op@-3lt1m284^=n8^p)d#ngml+2mkoh#9654g%div
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['crm_itv.herokuapp.com']
+ALLOWED_HOSTS = ['itv-crm-test.herokuapp.com']
 
 
 # Application definition
@@ -109,7 +109,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
