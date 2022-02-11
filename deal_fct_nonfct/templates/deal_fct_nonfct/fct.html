@@ -101,23 +101,23 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct1" name="fct1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er1" name="er1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="text" id="base1" class="form-control" value='{{rate}}' disabled>
+		  		<input type="text" id="base1" name="base1" class="form-control mb-3" value='{{rate}}' disabled>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
 			<div class="col-auto">
 		    	<select name="band2" class="form-select" id="band2" aria-label="Default select example">
-				  <option selected>---------------</option>
+				  <option value="">---------------</option>
 				  <option value="0600-1200">0600-1200</option>
 				  <option value="1200-1800">1200-1800</option>
 				  <option value="1800-2400">1800-2400</option>
@@ -125,22 +125,22 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct2" name="fct2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er2" name="er2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control" disabled>
+		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control mb-3" disabled>
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
 			<div class="col-auto">
 		    	<select name="band3" class="form-select" id="band3" aria-label="Default select example">
-				  <option selected>---------------</option>
+				  <option value="">---------------</option>
 				  <option value="0600-1200">0600-1200</option>
 				  <option value="1200-1800">1200-1800</option>
 				  <option value="1800-2400">1800-2400</option>
@@ -148,23 +148,23 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct3" name="fct3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er3" name="er3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control" disabled >
+		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control mb-3" disabled >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 
-		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 391px;">
+		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;">
 						
 	  		<div class="col-auto">
-	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()" style="">
+	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
 	  		</div>
 	  		<div class="col-auto">
 	  			<!-- <input type="number" class="form-control" id="totalbox" > -->
@@ -248,29 +248,25 @@
     	// console.log("i am in");
     	// console.log(add);
     	// document.getElementById('totalbox').value = add;
-    	var inp1 = parseInt(document.getElementById("rev1").value);
-    	console.log("input1",inp1)
-    	var inp2 = parseInt(document.getElementById("rev2").value);
-    	console.log("input2",inp2)
-    	var inp3 = parseInt(document.getElementById("rev3").value);
-    	console.log("input3",inp3)
-    	if ((inp1 != "") && (inp2 != "") && (inp3 != "")){
-    		console.log("yesss!!");
+    	var inp1 = document.getElementById("rev1").value;
+    	var inp2 = document.getElementById("rev2").value;
+    	var inp3 = document.getElementById("rev3").value;
+    	
+    	if ((inp1 != "") && (inp2 != "") && (inp3 == "")){
+    		
+    		var first_number = parseInt(document.getElementById("rev1").value);
+	        var second_number = parseInt(document.getElementById("rev2").value);
+	        var result = first_number + second_number ;
+        	document.getElementById("id_total_rev").value = result;
+    	} 
+    	else if((inp1 != "") && (inp2 != "") && (inp3 != "") ){
+    		
     		var first_number = parseInt(document.getElementById("rev1").value);
 	        var second_number = parseInt(document.getElementById("rev2").value);
 	        var third_number = parseInt(document.getElementById("rev3").value);
-	        var result = first_number + second_number + third_number ;
-        	document.getElementById("id_total_rev").value = result;
-    	} 
-    	// else if((inp1 != "") && (inp2 != "") ){
-    	// 	console.log("yesss again!!");
-    	// 	var first_number = parseInt(document.getElementById("rev1").value);
-	    //     var second_number = parseInt(document.getElementById("rev2").value);
-	    //     var third_number = parseInt(document.getElementById("rev3").value);
-	    //     var result = first_number + second_number + third_number;
-
-	    //     document.getElementById("id_total_rev").value = result;
-    	// }
+	        var result = first_number + second_number + third_number;
+	        document.getElementById("id_total_rev").value = result;
+    	}
     	
     }
 </script>
