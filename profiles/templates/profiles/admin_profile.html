@@ -28,7 +28,7 @@
 {% if user.is_authenticated %}
 {% for i in qs %} 
 <section style="background-color: #eee;">
-	{% if "shruti" in i.emp_email %}
+	{% if "salesperson" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
@@ -50,7 +50,7 @@
     </div>
 	{% endif %}
 
-	{% if "aarohi" in i.emp_email %}
+	{% if "admin" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
@@ -81,7 +81,7 @@
     </div>
 	{% endif %}
 
-	{% if "sanjay" in i.emp_email %}
+	{% if "md" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
