@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'profiles',
     'customer',
     'agency',
+    'nfct',
 ]
 
 MIDDLEWARE = [
