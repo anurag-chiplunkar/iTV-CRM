@@ -80,7 +80,8 @@ def emp_login(request):
 		email = form.cleaned_data.get('emp_email')
 		username = email[:email.find('@')]
 		password = form.cleaned_data.get('emp_pass1')
-		# print(username,'********')
+		print(username,'********')
+		print(password,'********')
 
 		user = authenticate(request,username = username, password = password)
 		print(user)
