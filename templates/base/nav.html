@@ -1,0 +1,48 @@
+{% load static %}
+{% block content %}
+<html>
+    <body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      
+      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+        <ul class="navbar-nav">
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="#">HELP</a>
+          </li>
+          
+          <li class="nav-item">
+            <a class="nav-link active" href="#">SETTINGS</a>
+          </li>
+
+          
+
+          {% if user.is_authenticated %}
+            <li class="nav-item">
+                <a class="nav-link active" href="{% url 'logout_view' %}">LOGOUT</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'profile' %}">PROFILE</a>
+          </li>
+
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
+          </li>
+          
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% endblock %}
+  </body>
+  </html>
