@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deal List</title>
+</head>
+<body>
+    <h1>Deal List</h1>
+    <a href='{% url "nfct:add_nfct" %}'>Add Deal</a>
+    {% for deal in object_list %}
+        <p>{{deal.ref_nfct_channels_id}}</p>
+        <p>{{deal.ref_nfct_elements_id}}</p>
+
+    {% endfor %}
+</body>
+</html>
