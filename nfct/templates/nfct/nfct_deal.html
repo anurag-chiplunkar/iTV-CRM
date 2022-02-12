@@ -169,6 +169,26 @@
 
 </div>  
 
+<div class="main">
+  {% if formset %}
+       <!-- <form method="post"> {% csrf_token %} -->
+           {{ formset.management_form }}
+           <div id="nfct-form-list">
+               {% for form in formset %}
+               <div class = 'nfct-form'>
+                   {{form.label_tag}}
+                   {{ form }}
+                   <hr>
+               </div>
+               {% endfor %}
+           </div>
+           <div id = 'empty-form' class="hidden">{{formset.empty_form}}</div>
+           <button type="button"  id="add">Add New</button>
+           {% endif %}
+           <button type="submit">Save</button>
+       <!-- </form> -->
+
+</div>
 
 <!-- Scripts -->
 
@@ -299,7 +319,22 @@
         }
     </script>
 
+<script>
+  const addMoreButton = document.getElementById('add')
+  addMoreButton.addEventListener('click', add_new_form)
 
+  function add_new_form(event){
+      if (event) {
+          event.preventDefault()
+      }
+      console.log('inside function')
+      const formcopy = document.getElementById('nfct-form-list')
+      const empty_form = document.getElementById('empty-form').cloneNode(true)
+      empty_form.setAttribute('class', 'nfct-form')
+      formcopy.append(empty_form)
+  }   
+
+</script>
 
 
 
