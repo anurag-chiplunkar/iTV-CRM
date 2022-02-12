@@ -2,10 +2,13 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
+from django.views.generic import ListView, TemplateView
+from django.urls import reverse_lazy
 from django.shortcuts import redirect
 from .forms import *
 from .models import *
 from django.forms import modelformset_factory
+
 
 
 # Add Channel Names
@@ -85,41 +88,49 @@ def nfct_enter_base_rate(request):
 
 # NFCT Deal form
 def nfct_deal_form(request):
-	nfct_deal = NFCT_deal(request.POST or None)
+	# nfct_deal = NFCT_deal(request.POST or None)
 	nfct_obj1 = NFCTDeal()
-	context = {'nfct_deal' : nfct_deal}
-	print(nfct_deal.is_valid())
-	print(nfct_deal.errors)
-	print(request.POST)
+	# context = {'nfct_deal' : nfct_deal}
+	NFCT_dealformset = modelformset_factory(NFCTDeal, form = NFCT_deal, extra= 0)
+	# print(nfct_deal.is_valid())
+	# print(nfct_deal.errors)
+	# print(request.POST)
+	formset = NFCT_dealformset(queryset=NFCTDeal.objects.none())
 
 	if request.method == 'POST':
-		if ((request.POST.get('ref_nfct_elements_id') == 'Aston') or (request.POST.get('ref_nfct_elements_id') == 'L Band')):
+		# if ((request.POST.get('ref_nfct_elements_id') == 'Aston') or (request.POST.get('ref_nfct_elements_id') == 'L Band')):
+		formset = NFCT_dealformset(request.POST or None)
+		print(request.POST, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+		if formset.is_valid():
+			print(request.POST, '&&&&&&&&&&&&&&&&&&&&&&&&&&&&')
+			# for form in formset:
+			# print(form.ref_nfct_channels_id, '**************************')
 
-			if nfct_deal.is_valid():
-				# nfct_reference_no = ('nfct_reference_no')
-				nfct_obj1.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
-				nfct_obj1.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+			# nfct_reference_no = ('nfct_reference_no')
+			nfct_obj1.ref_nfct_channels_id = formset.cleaned_data.get('ref_nfct_channels_id')
+			print(nfct_obj1.ref_nfct_channels_id, '*****************')
+			nfct_obj1.ref_nfct_elements_id = formset.cleaned_data.get('ref_nfct_elements_id')
 
-				nfct_obj1.effective_rate = request.POST.get('effective_rate')
-				nfct_obj1.frequency = request.POST.get('frequency')
-				nfct_obj1.total_seconds =nfct_deal.cleaned_data.get('total_seconds')
-				nfct_obj1.base_rate = request.POST.get('base_rate')
-				nfct_obj1.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
-
-				nfct_obj1.save()
-		else:
-				# nfct_reference_no = ('nfct_reference_no')
-			nfct_obj1.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
-			nfct_obj1.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
-			nfct_obj1.durations = nfct_deal.cleaned_data.get('durations')
-			nfct_obj1.duration_in = nfct_deal.cleaned_data.get('duration_in')
-
+			nfct_obj1.effective_rate = request.POST.get('effective_rate')
 			nfct_obj1.frequency = request.POST.get('frequency')
+			nfct_obj1.total_seconds =formset.cleaned_data.get('total_seconds')
 			nfct_obj1.base_rate = request.POST.get('base_rate')
-			nfct_obj1.nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+			nfct_obj1.nfct_total = formset.cleaned_data.get('nfct_total')
 
-			nfct_obj1.save()
-	return render(request, 'nfct/nfct_deal.html', context)
+			form.save()
+		# else:
+		# 		# nfct_reference_no = ('nfct_reference_no')
+		# 	# ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
+		# 	# ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
+		# 	# durations = nfct_deal.cleaned_data.get('durations')
+		# 	# duration_in = nfct_deal.cleaned_data.get('duration_in')
+
+		# 	# frequency = request.POST.get('frequency')
+		# 	# base_rate = request.POST.get('base_rate')
+		# 	# nfct_total = nfct_deal.cleaned_data.get('nfct_total')
+
+		# 	formset.save()
+	return render(request, 'nfct/nfct_deal.html', {'formset': formset})
 
 def nfct_load_br(request):
 
@@ -154,11 +165,17 @@ def nfct_load_br(request):
 def nfctformset(request):
 	NFCT_dealformset = modelformset_factory(NFCTDeal, form = NFCT_deal, extra= 0)
 	
-	formset = NFCT_dealformset(request.POST or None)
-	obj = NFCTDeal()
+	# formset = NFCT_dealformset(request.POST or None)
+	# obj = NFCTDeal()
+	#formset = NFCT_dealformset(request.POST or None)
+    #formset1 = NFCT_dealformset()
+	# formset = NFCT_dealformset(queryset=NFCTDeal.objects.filter(ref_nfct_channels_id='-1'))
+	# NFCT_dealFormSet = inlineformset_factory()
+	formset = NFCT_dealformset(queryset=NFCTDeal.objects.none())
 	if request.method == 'POST':
 		if ((request.POST.get('ref_nfct_elements_id') == 'Aston') or (request.POST.get('ref_nfct_elements_id') == 'L Band')):
 			if formset.is_valid():
+				
 				obj.ref_nfct_channels_id = nfct_deal.cleaned_data.get('ref_nfct_channels_id')
 				obj.ref_nfct_elements_id = nfct_deal.cleaned_data.get('ref_nfct_elements_id')
 
@@ -182,3 +199,23 @@ def nfctformset(request):
 
 			obj.save()
 	return render(request, 'nfct/formset.html', {'formset':formset})
+
+
+class NFCT_Deal(ListView):
+	model = NFCTDeal
+	template_name = 'nfct_list.html'
+
+
+class Add_NFCT_Deal(TemplateView):
+	model = NFCTDeal
+	template_name = 'add_nfct.html'
+	def get(self, *args, **kwargs):
+		formset = NFCTDealFormSet(queryset = NFCTDeal.objects.none())
+		return self.render_to_response({'nfct_deal_formset':formset})
+
+	def post(self, *args, **kwargs):
+		formset = NFCTDealFormSet(data = self.request.POST)
+		if formset.is_valid():
+			formset.save()
+			return redirect('/nfct/')
+		return self.render_to_response({'nfct_deal_formset':formset})
