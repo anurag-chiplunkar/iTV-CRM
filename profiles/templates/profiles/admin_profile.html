@@ -14,45 +14,21 @@
 			border: none;
 			border-radius: 10px;
 			height: 40px;
-			color: white;
+			color: black;
 		}
 
 		a{
 			text-decoration-line: none;
-			color: white;
+			color: black;
 		}
 	</style>
 </head>
 <body>
 
 {% if user.is_authenticated %}
-
-	<!-- <h3>
-		{% for i in qs %}
-
-			<h1>Hi, {{ i.emp_fname }}</h1>
-			<h1>You are logged in as {{i.emp_desgn}}</h1>
-
-			First Name: {{i.emp_fname}}<br>
-			Last Name : {{i.emp_lname}}<br>
-			Email ID: {{i.emp_email}}<br>
-			Designation: {{i.emp_desgn}}<br>
-			Phone : {{i.emp_phone}}<br>
-
-		
-	</h3><br> -->
-	<!DOCTYPE html>
-<html>
-<head>
-  <title>Demo Profile</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
-
-<body>
+{% for i in qs %} 
 <section style="background-color: #eee;">
-	{% if "shruti" in i.emp_email %}
+	{% if "salesperson" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
@@ -74,7 +50,7 @@
     </div>
 	{% endif %}
 
-	{% if "aarohi" in i.emp_email %}
+	{% if "admin" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
@@ -105,7 +81,7 @@
     </div>
 	{% endif %}
 
-	{% if "sanjay" in i.emp_email %}
+	{% if "md" in i.emp_desgn %}
   <div class="container py-5">
     <div class="row">
       <div class="col">
@@ -119,7 +95,7 @@
     </div>
 	{% endif %}
 
-    <div class="row">
+     <div class="row">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
@@ -182,7 +158,7 @@
             </div>
           </div>
         </div>
-
+ 
 </section>
 </body>
 </html>
