@@ -1,7 +1,7 @@
 from django import forms
 from . models import *
 from django.forms import ModelForm
-from django.forms import modelform_factory
+from django.forms import modelformset_factory
 
 class NFCT_Chann(forms.ModelForm):
 	"""docstring for NFCT_Channels
@@ -59,3 +59,4 @@ class NFCT_deal(forms.ModelForm):
             'base_rate' : forms.NumberInput(attrs = {'class' : 'form-control'}),
             'nfct_total' : forms.NumberInput(attrs = {'class' : 'form-control'}),
         }
+NFCTDealFormSet = modelformset_factory(NFCTDeal, fields = '__all__', extra = 1)

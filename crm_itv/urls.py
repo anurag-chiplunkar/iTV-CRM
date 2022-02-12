@@ -26,7 +26,7 @@ urlpatterns = [
     path('',include('profiles.urls')),
     path('',include('agency.urls',namespace='agency')),
     path('',include('customer.urls',namespace='customer')),
-    path('',include('nfct.urls',namespace='nfct')),
+    path('nfct/',include('nfct.urls',namespace='nfct')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

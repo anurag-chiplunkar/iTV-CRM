@@ -38,85 +38,6 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-<<<<<<< HEAD
-{% for i in qs %} 
-<section style="background-color: #eee;">
-	{% if "salesperson" in i.emp_desgn %}
-  <div class="container py-5">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-          <ol class="breadcrumb mb-0">
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'nfct:nfct_deal' %}">Add NFCT Deal</a></button>
-			</li>
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a></button>
-			</li>
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:events' %}">Add Events Deal</a></button>
-			</button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:afp1' %}">Add AFP Deal</a></button>
-
-			</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-	{% endif %}
-
-	{% if "admin" in i.emp_desgn %}
-  <div class="container py-5">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-          <ol class="breadcrumb mb-0">
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Add Agency</a></button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'agency:agency_contact' %}">Add Agency Contact</a></button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
-			</li>
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'nfct:nfct_deal' %}">Add NFCT Deal</a></button>
-			</li>
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a></button>
-			</li>
-            <li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:events' %}">Add Events Deal</a></button>
-			</button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'events_afp:afp1' %}">Add AFP Deal</a></button>
-			</li>
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'accounts:emp_registration' %}">Add Employee</a></button>
-			</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-	{% endif %}
-
-	{% if "md" in i.emp_desgn %}
-  <div class="container py-5">
-    <div class="row">
-      <div class="col">
-        <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-          <ol class="breadcrumb mb-0">
-			<li class="breadcrumb-item"><button type="submit" style="color: white;"><a href="{% url 'accounts:emp_registration' %}">Add Employee</a></button>
-			</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-	{% endif %}
-
-     <div class="row">
-      <div class="col-lg-4">
-        <div class="card mb-4">
-          <div class="card-body text-center">
-            <img src="{% static 'media_root/blank_profile.png' %}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">{{i.emp_fname}} {{i.emp_lname}}</h5>
-            <div class="d-flex justify-content-center mb-2">
-				<button type="submit" class="btn btn-primary"><a href="{% url 'logout_view' %}" style="color: white;">Logout</a></button>
-=======
   {% for i in qs %}
       <section style="background-color: #eee;">
         {% if "salesperson" in i.emp_desgn %}
@@ -127,7 +48,6 @@
                 <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
                 <p>You can add FCT/NFCT Deals from your account</p>
               </nav>
->>>>>>> 0679c4a346fe96868e7d0c6d6b24161767099922
             </div>
           </div>
         {% endif %}
@@ -278,6 +198,7 @@
 </section>
 </body>
 </html>
+<<<<<<< HEAD
 =======
       
       {% endif %}
@@ -288,3 +209,5 @@
 
 </body>
 </html>
+=======
+>>>>>>> 38c2f018b43b812371b0237b91ff0791f21aa6f7
