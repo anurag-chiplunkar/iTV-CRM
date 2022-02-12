@@ -22,6 +22,8 @@
             <a class="nav-link active" href="#">SETTINGS</a>
           </li>
 
+          
+
           {% if user.is_authenticated %}
             <li class="nav-item">
                 <a class="nav-link active" href="{% url 'logout_view' %}">LOGOUT</a>
@@ -30,7 +32,12 @@
             <li class="nav-item">
               <a class="nav-link active" href="{% url 'profile' %}">PROFILE</a>
           </li>
-  
+
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
+          </li>
+          
           {% endif %}
         </ul>
       </div>
