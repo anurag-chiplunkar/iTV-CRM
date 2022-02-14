@@ -16,4 +16,4 @@ def profile(request):
 def logout_view(request):
 	logout(request)
 	print('LOGGED OUT!!!!!!!!!!!!!')
-	return redirect('/emp_login')
+	return redirect('/')
