@@ -20,6 +20,12 @@
         {% endfor %}
         <button id="add-form" type="button">Add Another Element</button>
         <button type="submit">Create Deal</button>
+        
+        {% if user.is_authenticated %}
+            <div class="col-3" style="margin-top: 20px;">
+                <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+            </div>
+        {% endif %}
     </form>
 
     <script>
