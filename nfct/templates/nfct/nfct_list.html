@@ -1,3 +1,6 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,9 +12,18 @@
     <h1>Deal List</h1>
     <a href='{% url "nfct:add_nfct" %}'>Add Deal</a>
     {% for deal in object_list %}
+    <div class="container-fluid">
         <p>{{deal.ref_nfct_channels_id}}</p>
         <p>{{deal.ref_nfct_elements_id}}</p>
-
+        <p>{{deal.durations}}</p>
+        <p>{{deal.duration_in}}</p>
+        <p>{{deal.effective_rate}}</p>
+        <p>{{deal.frequency}}</p>
+        <p>{{deal.total_seconds}}</p>
+        <p>{{deal.base_rate}}</p>
+        <p>{{deal.nfct_total}}</p>
+    </div>
     {% endfor %}
+{% endblock %}
 </body>
 </html>
