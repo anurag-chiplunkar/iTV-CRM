@@ -23,32 +23,32 @@ def emp_registration(request):
 		emp_pass1			= form.cleaned_data.get('emp_pass1')
 		emp_pass2			= form.cleaned_data.get('emp_pass2')
 
-		# #passwords validation
-		# def password_validation(emp_pass1,emp_pass2):
-		# 	if (emp_pass1!=emp_pass2) and (emp_pass1.isalnum()==False and emp_pass2.isalnum()==False):
-		# 		raise ValidationError("Password incorrect")
-		# 	else:
-		# 		return emp_pass1
+		#passwords validation
+		def password_validation(emp_pass1,emp_pass2):
+			if (emp_pass1!=emp_pass2) and (emp_pass1.isalnum()==False and emp_pass2.isalnum()==False):
+				raise ValueError("Password incorrect")
+			else:
+				return emp_pass1
 
-		# ##phone number validation
-		# def phone_validation(emp_phone):
-		# 	if len(emp_phone) <10:
-		# 		raise ValidationError("Enter valid number")
-		# 		return redirect("/emp_registration")
-		# 	else:
-		# 		return emp_phone
+		##phone number validation
+		def phone_validation(emp_phone):
+			if len(emp_phone) <10:
+				raise ValidationError("Enter valid number")
+				return redirect("/emp_registration")
+			else:
+				return emp_phone
 
-		# ##email validation
-		# def email_validation(emp_email):
-		# 	if '@cognitioworld.com' not in emp_email:
-		# 		raise ValidationError("Enter valid email ID")
-		# 		return redirect("/emp_registration")
-		# 	else:
-		# 		return emp_email
+		##email validation
+		def email_validation(emp_email):
+			if '@cognitioworld.com' not in emp_email:
+				raise ValidationError("Enter valid email ID")
+				return redirect("/emp_registration")
+			else:
+				return emp_email
 
-		# emp_pass1 = password_validation(emp_pass1,emp_pass2)
-		# emp_phone = phone_validation(emp_phone)
-		# emp_email = email_validation(emp_email)
+		emp_pass1 = password_validation(emp_pass1,emp_pass2)
+		emp_phone = phone_validation(emp_phone)
+		emp_email = email_validation(emp_email)
 
 		obj = Employees(emp_fname = emp_fname,
 							emp_lname = emp_lname,
@@ -96,7 +96,7 @@ def emp_login(request):
 			for i in qs_context['qs']:
 				email = i.emp_email
 
-			return render(request,'profiles/admin_profile.html',qs_context)
+			return render(request,'profiles/profile.html',qs_context)
 
 
 	return render(request,'accounts/emp_login.html',context)
