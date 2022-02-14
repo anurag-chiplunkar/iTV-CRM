@@ -1,0 +1,38 @@
+FORM CALCULATION LOGIC
+1. Element selection
+	if element is Lband | aston ==> effective rate and total seconds but no duration
+
+	else element is logoBUG | sponsorship tag | ticker | weather branding ==> duration days | months as dropdown but no effective rate and total seconds
+
+2. base rate selection
+	depends on the combination of channel and elements 
+
+3. Frequency: input by user
+	if element is lband | aston: frequency *(multiply) seconds
+	else element is logoBUG | sponsorship tag | ticker | weather branding ==> frequency *(multiply) base rate 
+
+4. Effective rate: This is an input field. With a logic of Effective rate should be greater than or equal to base rate.
+
+	**This will be an entire form and this will be repeated multiple times using javascript and model formset**
+
+DATABASE LOGIC
+1. Channel will be a separate database - done
+2. Elements will be a separate database - done
+3. Baserate will be a separate database with reference of channel and elements as reference column - Done
+4. Duration will be a choicefield - Done
+5. NFCT deal databse
+6. place for second thought
+
+Deal for nfct
+1. This will be a entire form - Done
+2. when we submit this deal of nfct, this will be stored in a separate database. - Done
+3. It will have its own ID.
+4. Channels and elements and baserate are used only to fill this deal form. - Done
+5. Javascript for multiple forms
+6. Formset
+
+WHAT ARE THE CHALLENGES?
+1. Javascript
+2. AJAX required
+3. AXIOS required
+4. Time will be my challenge

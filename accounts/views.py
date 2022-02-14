@@ -80,7 +80,8 @@ def emp_login(request):
 		email = form.cleaned_data.get('emp_email')
 		username = email[:email.find('@')]
 		password = form.cleaned_data.get('emp_pass1')
-		# print(username,'********')
+		print(username,'********')
+		print(password,'********')
 
 		user = authenticate(request,username = username, password = password)
 		print(user)
@@ -89,12 +90,39 @@ def emp_login(request):
 			login(request,user)
 			print(request.user)
 			print('You are logged in')
+# 			if email == "shruti@cognitioworld.com" and password == "Cognitio@101$$":
+# 				qs1 = Employees.objects.filter(emp_email=email)
+# 				qs_context = {"qs":qs1}
+
+# 				for i in qs_context['qs']:
+# 					email = i.emp_email
+
+# 				return render(request,'profiles/admin_profile.html',qs_context)
+# # 				return render(request,'profiles/admin_profile.html',context)
+# 			elif email == "aarohi@cognitioworld.com" and password == "Cognitio@101$$":
+# 				qs1 = Employees.objects.filter(emp_email=email)
+# 				qs_context = {"qs":qs1}
+
+# 				for i in qs_context['qs']:
+# 					email = i.emp_email
+
+# 				return render(request,'profiles/admin_profile.html',qs_context)
+# # 				return render(request,'profiles/admin_profile.html',context)
+# 			elif email == "sanjay@cognitioworld.com" and password == "Cognitio@101$$":
+# 				qs1 = Employees.objects.filter(emp_email=email)
+# 				qs_context = {"qs":qs1}
+
+# 				for i in qs_context['qs']:
+# 					email = i.emp_email
+
+# 				return render(request,'profiles/admin_profile.html',qs_context)
+# 				return render(request,'profiles/admin_profile.html',context)
 
 			qs1 = Employees.objects.filter(emp_email=email)
 			qs_context = {"qs":qs1}
 
 			for i in qs_context['qs']:
-				email = i.emp_email
+				email = i.emp_desgn
 
 			return render(request,'profiles/profile.html',qs_context)
 
