@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <title> </title>
+  <style >
+  #FCT{
+    display:none
+  }
+   #Non_FCT{
+    display:none
+  }
+
+   #aston{
+    display:none
+  }
+
+  #lband{
+    display:none
+  }
+
+  #logobug{
+    display:none
+  }
+  #sponsorshiptag{
+    display:none
+  }
+
+  #ticker{
+    display:none
+  }
+
+  #wheatherbranding{
+    display:none
+  }
+
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+  
+
+<!-- SideBar -->
+  <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                 
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Registration</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Client</span> </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Agency</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Client</span> </a>
+                    </li>
+                </ul>
+                <hr>
+              
+            </div>
+        </div>
+
+
+
+        <!-- Main Content -->
+
+
+
+        <div class="col py-3">
+            <!-- <form method="POST">{% csrf_token %} -->
+
+    <div class="row ">
+      
+      <!--Agency Details  -->
+      <div class="col-8">
+        <p>
+        <h1>Events/AFP Deal Detail</h1>
+        </p>
+        
+        </div>
+
+<!-- events deal start -->
+<form class="row g-3" method="POST">{% csrf_token %}
+  <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Events Deal</label> 
+  <div class="row g-3">
+    <div class="col-sm-2">
+    <label class="form-label">Category Name *</label>
+    {{form1.ref_category_name}}
+  </div>
+  <div class="col-sm-2">
+    <label class="form-label">Description *</label>
+    {{form1.description}}
+  </div>
+  
+    <div class="col-sm-2">
+    <label class="form-label">Channels *</label>
+    {{form1.ref_channels}}
+  </div>
+  <!-- <div class="col-sm-2">
+    <label class="form-label">Amount *</label>
+    {{form5.amount}}
+  </div> -->
+  <div class="col-sm-2">
+    <label class="form-label">Merit Money *</label>
+    {{form1.merit_money}}
+        <!-- <input type="text" name="BaseRate" placeholder="BaseRate" class="form-control"> -->
+  </div>
+  
+  </div>
+  <div class="row g-3">
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="fct" name="fct" onclick="OnChangeCheckbox1 (this)" >
+        <label class="form-check-label" for="fct" >FCT</label>
+  </div>
+
+  <!-- <div class="row g-3"> -->
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="non_fct" name="non_fct" onclick="OnChangeCheckbox2 (this)" >
+        <label class="form-check-label" for="non_fct" >Non-FCT</label>
+  </div>
+  </div>
+<div id="FCT" style="display: none;" class="row g-3">
+  <h2>FCT Deal Form</h2>
+  <!-- start fct -->
+  <form method="POST" id="fct_form" url="{% url 'load_br' %}" url2 = "{% url 'load_br1' %}"
+  url3 = "{% url 'load_br2' %}">{% csrf_token %}
+    <div class="row">
+        <div class="col-2"> 
+          <label class="form-control">Channels</label>
+        </div>
+        <div class="col-2">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div>
+        <div class="col-2">
+          <label for="dis_dd" name="dispersion" class="form-control">Dispersion</label>
+        </div>
+        <div class="col-2"> 
+          <select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
+            <option value="">-------------</option>
+            <option value="25%-25%-50%">25%-25%-50%</option>
+            <option value="33%-33%-33%">33%-33%-33%</option>
+            <option value="40%-20%-40%">40%-20%-40%</option>
+            <option value="50%-50%">50%-50%</option>
+          </select>
+        </div>
+  
+        
+    </div>
+    
+    <div class="row g-3 align-items-start">
+      <div class="col-2">
+          <label class="col-form-label">Bands</label> 
+        </div>
+            
+        <div class="col-2">
+          <label class="col-form-label">FCT</label> 
+        </div>
+        <div class="col-2">
+          <label class="col-form-label">Effective Rate</label> 
+        </div>
+        <div class="col-2">
+          <label class="col-form-label">Base Rate</label> 
+
+        </div>
+      
+        <div class="col-2">
+          <label class="col-form-label">Revenue</label> 
+        </div>
+      
+    </div>
+    <div class="row g-3 align-items-start" id="row1" style="display: none;">
+      <div class="col-auto">
+          <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+          <option value="">---------------</option>
+          <option value="0600-1200">0600-1200</option>
+          <option value="1200-1800">1200-1800</option>
+          <option value="1800-2400">1800-2400</option>
+        </select>
+        </div>
+        
+        <div class="col-auto">
+          <input type="number" id="fct1" name="fct1" class="form-control" oninput="calculate1()">
+        </div>
+        <div class="col-auto">
+          <input type="number" id="er1" name="er1" class="form-control" oninput="calculate1()">
+        </div>
+        <div class="col-auto">
+          <input type="text" id="base1" class="form-control" value='{{rate}}' disabled>
+          
+        </div>
+        <div class="col-auto">
+          <input type="number" id="rev1" name="rev1" class="form-control" oninput="sum()">
+        </div>
+    </div>
+    <div class="row g-3 align-items-start" id="row2" style="display: none;">
+      <div class="col-auto">
+          <select name="band2" class="form-select" id="band2" aria-label="Default select example">
+          <option selected>---------------</option>
+          <option value="0600-1200">0600-1200</option>
+          <option value="1200-1800">1200-1800</option>
+          <option value="1800-2400">1800-2400</option>
+        </select>
+        </div>
+        
+        <div class="col-auto">
+          <input type="number" id="fct2" name="fct2" class="form-control" oninput="calculate2()">
+        </div>
+        <div class="col-auto">
+          <input type="number" id="er2" name="er2" class="form-control" oninput="calculate2()">
+        </div>
+        <div class="col-auto">
+          <input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control" disabled>
+        </div>
+        <div class="col-auto">
+          <input type="number" id="rev2" name="rev2" class="form-control" oninput="sum()">
+        </div>
+    </div>
+    <div class="row g-3 align-items-start" id="row3" style="display: none;">
+      <div class="col-auto">
+          <select name="band3" class="form-select" id="band3" aria-label="Default select example">
+          <option selected>---------------</option>
+          <option value="0600-1200">0600-1200</option>
+          <option value="1200-1800">1200-1800</option>
+          <option value="1800-2400">1800-2400</option>
+        </select>
+        </div>
+        
+        <div class="col-auto">
+          <input type="number" id="fct3" name="fct3" class="form-control" oninput="calculate3()">
+        </div>
+        <div class="col-auto">
+          <input type="number" id="er3" name="er3" class="form-control" oninput="calculate3()">
+        </div>
+        <div class="col-auto">
+          <input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control" disabled >
+        </div>
+        <div class="col-auto">
+          <input type="number" id="rev3" name="rev3" class="form-control" oninput="sum()">
+        </div>
+    </div>
+
+    <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 391px;">
+            
+        <div class="col-auto">
+          <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
+        </div>
+        <div class="col-auto">
+          <!-- <input type="number" class="form-control" id="totalbox" > -->
+          {{form2.total_rev}}
+        </div>
+    </div>
+
+  </form>
+
+  <!-- end fct -->
+</div>
+<!-- Non-fct start -->
+<div id="Non_FCT" style="display: none;" class="row g-3">
+  <h2>Non-FCT Deal Form</h2>
+  <form class="row g-3" method="POST">{% csrf_token %}
+
+  <div class="row g-3">
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="aston1" name="aston" onclick="OnChangeCheckbox3 (this)" >
+        <label class="form-check-label" for="aston" >Aston</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="lband1" name="lband" onclick="OnChangeCheckbox4 (this)" >
+        <label class="form-check-label" for="lband" >L Band</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="logobug1" name="logobug" onclick="OnChangeCheckbox5 (this)" >
+        <label class="form-check-label" for="logobug" >Logo BUG</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="sponsorshiptag1" name="sponsorshiptag" onclick="OnChangeCheckbox6 (this)" >
+        <label class="form-check-label" for="sponsorshiptag" >Sponsorship Tag</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="ticker1" name="ticker" onclick="OnChangeCheckbox7 (this)" >
+        <label class="form-check-label" for="ticker" >Ticker</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="wheatherbranding1" name="wheatherbranding" onclick="OnChangeCheckbox8 (this)" >
+        <label class="form-check-label" for="wheatherbranding" >Wheather Branding</label>
+  </div>
+
+  </div>
+<!-- ---------------------------ASTON DEAL FORM-------------------------------------- -->
+<div id="aston" style="display: none;" class="row g-3">
+  <h1>Aston Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel</label>
+   <!--  <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div> -->
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+    {{form3.channel_choice}}
+  </div>
+  
+  <div class="col-sm-2">
+    <label class="form-label">Seconds</label>
+    <!-- <input type="number" name="seconds" value="10" class="form-control"> -->
+    {{form3.promos}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate</label>
+    <!-- <input type="text" name="Effective" class="form-control"> -->
+    {{form3.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency</label>
+    <!-- <input type="text" name="Frequency" class="form-control"> -->
+    {{form3.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total Seconds</label>
+    <!-- <input type="text" name="Totalsec" class="form-control"> -->
+    {{form3.total_sec}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total</label>
+    <!-- <input type="text" name="Total" class="form-control"> -->
+    {{form3.total_cost}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Base Rate</label>
+    <input type="number" name="" class="form-control" value="">
+  </div>
+
+  </div>
+
+</div>
+<!-- ------------------------------ L BAND DEAL FORM---------------------------------------- -->
+<div id="lband" style="display: none;" class="row g-3">
+  <h1>L Band Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div>
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+    <!-- {{form.channel_choice}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Seconds*</label>
+    <!-- <input type="number" name="" value="10" class="form-control"> -->
+    {{form3.seconds}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+     <!-- <input type="text" name="Effective" class="form-control"> -->
+    {{form3.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+     <!-- <input type="text" name="Frequency" class="form-control"> -->
+    {{form3.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total Seconds*</label>
+     <!-- <input type="text" name="Totalsec1" class="form-control"> -->
+    {{form3.total_sec}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+     <!-- <input type="text" name="Total1" class="form-control"> -->
+    {{form3.total_cost}}<br>
+    <!-- <input type="text" name="BaseRate" placeholder="BaseRate" class="form-control"> -->
+  </div>
+  </div>
+
+</div>
+<!-- ---------------------------LOGO BUG DEAL FORM----------------------------------------- -->
+<div id="logobug" style="display: none;" class="row g-3">
+  <h1>Logo Bug Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div>
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+
+    <!-- {{form.channel_choice}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Days*</label>
+    <!-- <input type="number" name="days" class="form-control" value="1"> -->
+    {{form3.days}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    <!-- <input type="text" name="Effective" class="form-control"> -->
+    {{form3.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    <!-- <input type="text" name="Frequency" class="form-control"> -->
+    {{form3.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    <!-- <input type="text" name="Total2" class="form-control"> -->
+    {{form3.total_cost}}
+  </div>
+
+  </div>
+
+</div>
+
+<!-- ---------------------------SPONSORSHIP TAG DEAL FORM----------------------------------------- -->
+
+<div id="sponsorshiptag" style="display: none;" class="row g-3">
+  <h1>Sponsorship Tag Deal Form</h1>
+
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+   <!--  <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div> -->
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+    {{form3.channel_choice}}
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <!-- <input type="number" name="months" class="form-control" value="1"> -->
+    {{form3.months}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    <!-- <input type="text" name="Effective" class="form-control"> -->
+    {{form3.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    <!-- <input type="text" name="Frequency" class="form-control"> -->
+    {{form3.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    <!-- <input type="text" name="Total3" class="form-control"> -->
+    {{form3.total_cost}}
+  </div>
+  </div>
+
+</div>
+
+<!-- ---------------------------TICKER DEAL FORM----------------------------------------- -->
+
+<div id="ticker" style="display: none;" class="row g-3">
+  <h1>Ticker Deal Form</h1>
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    <!-- <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div> -->
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+    {{form3.channel_choice}}
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <input type="number" name="months1" class="form-control" value="1">
+    {{form3.promos}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    <input type="text" name="Effective" class="form-control">
+    <!-- {{form.eff_rate}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    <input type="text" name="Frequency" class="form-control">
+    <!-- {{form.frequency}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    <input type="text" name="Total4" class="form-control">
+    <!-- {{form.total_cost}} -->
+  </div>
+  </div>
+
+</div>
+
+<!-- ---------------------------WHEATHER BRANDING DEAL FORM----------------------------------------- -->
+
+<div id="wheatherbranding" style="display: none;" class="row g-3">
+  <h1>Wheather Branding Deal Form</h1>
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    <div class="col">
+          <select class="form-select channel" name="channel" id="channel">
+            <option selected>---------------</option>
+            <option value="INN">INN</option>
+            <option value="NX">NX</option>
+            <option value="IN UP">IN UP</option>
+            <option value="MP">MP</option>
+            <option value="RAJ">RAJ</option>
+            <option value="PUN">PUN</option>
+            <option value="HAR">HAR</option>
+            <option value="GUJ">GUJ</option>
+            <option value="NE NEWS">NE NEWS</option>
+          </select>
+        </div>
+    <!-- <input type="text" name="Channel" class="form-control"> -->
+    <!-- {{form.channel_choice}} -->
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <input type="number" name="months2" class="form-control" value="1">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    <input type="text" name="Effective" class="form-control">
+    <!-- {{form.eff_rate}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    <input type="text" name="Frequency" class="form-control">
+    <!-- {{form.frequency}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    <input type="text" name="Total5" class="form-control">
+    <!-- {{form.total_cost}} -->
+  </div>
+  </div>
+
+</div>
+
+  <br><br>
+ <!-- deal form end -->
+ <div class="row g-3">
+<hr style="color: blue">
+</div>
+
+
+
+<div class="row g-3">
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Grand Total</label>
+    <input type="text" name="total" placeholder="Total" class="form-control">
+  </div>
+</div>
+<br>
+
+</form>
+
+        </div>
+</form>
+
+  <!-- Non-fct end -->
+  <br><br>
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Events Total</label>
+    <!-- {{form3.eff_rate}} --><br>
+    <input type="text" name="total" placeholder="Total" class="form-control">
+  </div>
+  </div>
+<!-- </form> -->
+ <!-- events deal end -->
+ <div class="row g-3">
+ <div class="row g-3">
+<hr style="color: blue">
+</div>
+</div >
+
+
+
+<!-- AFP Deal -->
+<form class="row g-2" method="POST" url = "{% url 'afp_load_br' %}" id = "afp_form">{% csrf_token %}
+  <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">AFP Deal</label> 
+  <div class="row g-2">
+    <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Program Name *</label>
+
+    {{form.ref_program_name}}
+  </div>
+  <div class="col-sm-2">
+    <label for="inputPassword4" class="form-label">Channels *</label>
+    <!-- {{form.ref_channels}} -->
+    <div class="col">
+            <select class="form-select" name="channel" id = "newschannels">
+              <option value="">Select Channel</option>
+              <option value="India News">India News</option>
+              <option value="NewsX">NewsX</option>
+              <option value="Haryana">Haryana</option>
+              <option value="UPUK">UPUK</option>
+              <option value="MPCG">MPCG</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Gujarat">Gujarat</option>
+              <!-- <option value="NE NEWS">NE NEWS</option> -->
+            </select>
+          </div>  
+  </div>
+  
+    <div class="col-sm-2">
+    <label class="form-label">Promos *</label>
+    {{form.promos}}
+  </div>
+  <div class="col-sm-2">
+    <label class="form-label">Slots *</label>
+    {{form.slot}}
+  </div>
+  <div class="col-sm-2">
+    <label class="form-label">BaseRate *</label>
+    <!-- {{form3.pri_landline}} --><br>
+    <input type="text" name="BaseRate" placeholder="BaseRate" class="form-control" id = "baserate1" value = '{{afprate}}'>
+  </div>
+
+  <div class="col-sm-2">
+    <label for="inputAddress" class="form-label">Effective Rate *</label>
+    {{form.eff_rate}}
+  </div>
+  
+  </div>
+
+
+<!-- ***********************formset********************** -->
+<!-- <h1>AFP</h1>
+<form method="POST">{% csrf_token %}
+  {{formset}} -->
+  <!-- {{formset.management_form}}
+  {% for form in formset %}
+  <div class="form-control">
+    {{form.as_p}}
+  </div>
+  {% endfor %} -->
+<!-- </form> -->
+<!-- <button type="submit">Create</button> -->
+
+
+
+
+
+
+
+
+
+
+
+
+  <div class="row g-3">
+    <div class="row g-3">
+  </div>
+    <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Total</label>
+    <!-- {{form3.eff_rate}} --><br>
+    <input type="text" name="total" placeholder="Total" class="form-control">
+  </div>
+  <div class="row g-3">
+  </div>
+  </div>
+  <div class="row g-3">
+<hr style="color: blue">
+</div>
+<div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Grand Total</label>
+    <!-- {{form3.eff_rate}} --><br>
+
+    <input type="text" name="total" placeholder="Total" class="form-control">
+  </div>
+
+  </div>
+
+  <div class="row g-3">
+    <div class="row g-3">
+  <div class="form-group">
+    <button name="submit" type="submit" class="btn btn-primary">Register Deal</button>
+    <!-- <button><a href = "{% url 'deal_final_info' %}" >View Deal</a></button> -->
+  </div>
+</div>
+</div>
+</form>
+
+        </div>
+
+    </div>
+
+</div>  
+
+
+<!-- Scripts -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<!-- Attach client script -->
+
+   <script type="text/javascript">
+        function OnChangeCheckbox1 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("FCT").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("FCT").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox2 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("Non_FCT").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("Non_FCT").style.display = 'none';
+            }
+        }
+    </script>
+
+
+<script type="text/javascript">
+  function showdiv(){
+    var val = event.target.options[event.target.selectedIndex].value;
+    if ((val === "25%-25%-50%") || (val === "33%-33%-33%") || (val === "40%-20%-40%")){
+      console.log("yes");
+      document.getElementById("row1").style.display = "flex";
+      document.getElementById("row2").style.display = "flex";
+      document.getElementById("row3").style.display = "flex";
+      document.getElementById("row4").style.display = "flex";
+    }
+    if (val === "50%-50%"){
+      document.getElementById("row1").style.display = "flex";
+      document.getElementById("row2").style.display = "flex";
+      document.getElementById('row3').style.display = "none";
+      document.getElementById("row4").style.display = "flex";
+    }
+  }
+  function calculate1 (){
+      var box1 = document.getElementById('fct1').value;
+      
+      var box2 = document.getElementById('er1').value;
+      
+      var result = document.getElementById('rev1');
+      var mul1 = (box1/10) * box2;
+      
+      result.value = mul1;
+
+    }
+    function calculate2 (){
+      var box21 = document.getElementById('fct2').value;
+      
+      var box22 = document.getElementById('er2').value;
+      
+      var result1 = document.getElementById('rev2');
+      var mul21 = (box21/10) * box22;
+      
+      result1.value = mul21;
+
+    }
+    function calculate3 (){
+      var box31 = document.getElementById('fct3').value;
+      
+      var box32 = document.getElementById('er3').value;
+      
+      var result2 = document.getElementById('rev3');
+      var mul31 = (box31/10) * box32;
+      
+      result2.value = mul31;
+
+    }
+    function sum(){
+      // var num1 = parseInt(document.getElementById('a_fct1').value);
+      // var num2 = parseInt(document.getElementById('a_fct2').value);
+      // var num3 = document.getElementById('a_fct3').value;
+      // var add = num1 + num2 + num3;
+      // console.log("i am in");
+      // console.log(add);
+      // document.getElementById('totalbox').value = add;
+      var first_number = parseInt(document.getElementById("rev1").value);
+      var second_number = parseInt(document.getElementById("rev2").value);
+      var third_number = parseInt(document.getElementById("rev3").value);
+      var result = first_number + second_number + third_number;
+
+      document.getElementById("totalbox").value = result;
+    }
+</script>
+<script type="text/javascript">
+        function OnChangeCheckbox3 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("aston").style.display = 'block';
+                var abc = document.getElementById("aston1")
+                if (abc.checked==true){
+                  console.log("-------------")
+                }
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("aston").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox4 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("lband").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("lband").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox5 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("logobug").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("logobug").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox6 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("sponsorshiptag").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("sponsorshiptag").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox7 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("ticker").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("ticker").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox8 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("wheatherbranding").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("wheatherbranding").style.display = 'none';
+            }
+        }
+</script>
+<script>
+  var trial ;             // global variable for storing channel
+  $("#channel").change(function () {
+    
+    trial = $(this).val(); 
+    console.log(trial)       // storing selected channel in trial variable
+  }); 
+  
+  $("#band1").change(function () {
+    
+    var url1 = $("#fct_form").attr("url");  // storing url....telling ajax to follow                          specified url
+    var band_dd1 = $(this).val();   // storing the band selected from row1
+    console.log(band_dd1)
+    console.log(trial)
+    
+    $.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'band1': band_dd1 , 'channel' :trial      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+        // console.log(data)
+        var multiidhtml = $(data);
+
+        var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
+        console.log(multiid);
+              $("#base1").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
+          }
+        
+    });
+  });
+
+  $("#band2").change(function () {
+    
+    var url1 = $("#fct_form").attr("url2");  // storing url....telling ajax to follow                           specified url
+    var band_dd2 = $(this).val();   // storing the band selected from row1
+    console.log(band_dd2);
+    
+    $.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'band2': band_dd2 , 'channel' :trial      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+         
+      var multiidhtml = $(data);
+      var multiid = multiidhtml.find('#base2').attr("value"); // prints base rate in input type
+      console.log(multiid);
+            $("#base2").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
+        }
+        
+    });
+  });
+
+  $("#band3").change(function () {
+    
+    var url2 = $("#fct_form").attr("url3");  // storing url....telling ajax to follow                           specified url
+    var band_dd3 = $(this).val();   // storing the band selected from row1
+    console.log(band_dd3);
+    
+    $.ajax({                       // initialize an AJAX request
+        url: url2,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'band3': band_dd3 , 'channel' :trial      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+         
+      var multiidhtml = $(data);
+      var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+      console.log(multiid);
+            $("#base3").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
+        }
+        
+    });
+  });
+
+</script>
+<!-- afp -->
+<script type="text/javascript">
+  var tr ;             // global variable for storing channel
+  $("#newschannels").change(function () {
+    
+    tr = $(this).val();  
+    console.log(tr)      // storing selected channel in trial variable
+  }); 
+  
+  $("#id_ref_program_name").change(function () {
+    
+    var url1 = $("#afp_form").attr("url");  // storing url....telling ajax to follow                          specified url
+    var band_dd1 = $(this).val();   // storing the band selected from row1
+    console.log(band_dd1)
+    console.log(tr)
+    
+    $.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'program_name': band_dd1 , 'channel' :tr      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+        console.log(data)
+        var multiidhtml = $(data);
+
+        var multiid = multiidhtml.find('#baserate1').attr("value"); // prints base rate in input type
+        console.log(multiid);
+              $("#baserate1").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
+          }
+        
+    });
+  });
+</script>
+</body> 
+</html>

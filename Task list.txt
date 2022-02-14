@@ -1,0 +1,23 @@
+iTV-CRM Backlogs
+
+1. Base.html
+2. Custom user
+3. Roles
+4. Permissions
+5. Email invitations
+6. 
+
+
+Saturday 12/02/2022
+1. adding channels to channel database
+2. client details to be inserted in the database
+3. agency details to be inserted in the database
+4. base rate details to be inserted in the database
+5. create base.html and respective content blocks
+5. sidebar and navigation bar to be added to the respective content blocks
+6. keep rest of the links disabled e.g. event and afp
+
+Sagarika backlog
+1. create base.html
+2. create common nav bar
+3. 

@@ -1,0 +1,71 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+  
+    .id-flex{
+      padding: 50px 0px 0px 0px;
+      width: 200px;
+      float: left;
+      position: relative;
+    }
+    </style>
+</head>
+<body>
+{% if user.is_authenticated %}
+
+  {% for i in qs %}
+        {% if "salesperson" in i.emp_desgn %}
+          <div class="id-flex" id="wrapper">
+              <!-- Sidebar-->
+              <div class="border-end bg-white" id="sidebar-wrapper">
+                  
+                  <div class="list-group list-group-flush">
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:nfct_list' %}">Add NFCT Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add AFP Deal</a>
+                  </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if "admin" in i.emp_desgn %}
+          <div class="id-flex" id="wrapper">
+              <!-- Sidebar-->
+              <div class="border-end bg-white" id="sidebar-wrapper">
+                  
+                  <div class="list-group list-group-flush">
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:nfct_list' %}">Add NFCT Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add AFP Deal</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency:agency_detail' %}">Add Agency Details</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency:agency_contact' %}">Add Agency Contacts</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'customer:cname' %}">Add Client Details</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'customer:ccontact' %}">Add Client Contacts</a>
+
+                  </div>
+              </div>
+            </div>
+          {% endif %}
+
+          {% if "md" in i.emp_desgn %}
+          <div class="id-flex" id="wrapper">
+              <!-- Sidebar-->
+              <div class="border-end bg-white" id="sidebar-wrapper">
+                  
+                  <div class="list-group list-group-flush">
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'accounts:emp_registration' %}">Add Employee</a>
+                  </div>
+              </div>
+            </div>
+          {% endif %}
+
+        {% endfor %}
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

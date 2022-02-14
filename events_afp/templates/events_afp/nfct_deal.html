@@ -1,0 +1,486 @@
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title> </title>
+  <style >
+
+  #aston{
+    display:none
+  }
+
+  #lband{
+    display:none
+  }
+
+  #logobug{
+    display:none
+  }
+  #sponsorshiptag{
+    display:none
+  }
+
+  #ticker{
+    display:none
+  }
+
+  #wheatherbranding{
+    display:none
+  }
+
+  </style>
+</head>
+<body>
+<div class="container-fluid">
+  
+
+<!-- SideBar -->
+  <div class="row flex-nowrap">
+        <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
+            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5 d-none d-sm-inline">Menu</span>
+                </a>
+                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link align-middle px-0">
+                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
+                        </a>
+                    </li>
+                 
+                    <li>
+                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
+                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Registration</span></a>
+                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
+                            <li class="w-100">
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Client</span> </a>
+                            </li>
+                            <li>
+                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Agency</span> </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <li>
+                        <a href="#" class="nav-link px-0 align-middle">
+                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Clients</span> </a>
+                    </li>
+                </ul>
+                <hr>
+              
+            </div>
+        </div>
+
+
+
+        <!-- Main Content -->
+
+
+
+<div class="col py-3">
+    <div class="row ">
+      <div class="col-8">
+        <p>
+          <h1>NON FCT Deal Detail</h1>
+        </p>
+        
+      </div>
+
+<!-- non fct deal start -->
+<form class="row g-3" method="POST">{% csrf_token %}
+
+  <div class="row g-3">
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="aston1" name="aston" onclick="OnChangeCheckbox1 (this)" >
+        <label class="form-check-label" for="aston" >Aston</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="lband1" name="lband" onclick="OnChangeCheckbox2 (this)" >
+        <label class="form-check-label" for="lband" >L Band</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="logobug1" name="logobug" onclick="OnChangeCheckbox3 (this)" >
+        <label class="form-check-label" for="sponsorshiptag" >Logo BUG</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="sponsorshiptag1" name="sponsorshiptag" onclick="OnChangeCheckbox4 (this)" >
+        <label class="form-check-label" for="sponsorshiptag" >Sponsorship Tag</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="ticker1" name="ticker" onclick="OnChangeCheckbox5 (this)" >
+        <label class="form-check-label" for="ticker" >Ticker</label>
+  </div>
+
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="wheatherbranding1" name="wheatherbranding" onclick="OnChangeCheckbox6 (this)" >
+        <label class="form-check-label" for="wheatherbranding" >Wheather Branding</label>
+  </div>
+
+  </div>
+<!-- ---------------------------ASTON DEAL FORM-------------------------------------- -->
+<div id="aston" style="display: none;" class="row g-3">
+  <h1>Aston Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel</label>
+    {{form.channel_choice}}
+  </div>
+  
+  <div class="col-sm-2">
+    <label class="form-label">Seconds</label>
+    <input type="number" name="" value="10" class="form-control">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency</label>
+    <input type="number" name="" class="form-control"  oninput="calculate1()" id="freq">
+    <!-- {{form.frequency}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total Seconds</label>
+    <input type="number" class="form-control" id="id_total_sec" name="">
+
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total</label>
+    {{form.total_cost}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Base Rate</label>
+    <input type="number" name="" class="form-control" value="">
+  </div>
+
+  </div>
+
+</div>
+<!-- ------------------------------ L BAND DEAL FORM---------------------------------------- -->
+<div id="lband" style="display: none;" class="row g-3">
+  <h1>L Band Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    {{form.channel_choice}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Seconds*</label>
+    <input type="number" name="" value="10" class="form-control">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    {{form.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total Seconds*</label>
+    {{form.total_sec}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    {{form.total_cost}}<br>
+    <!-- <input type="text" name="BaseRate" placeholder="BaseRate" class="form-control"> -->
+  </div>
+  </div>
+
+</div>
+<!-- ---------------------------LOGO BUG DEAL FORM----------------------------------------- -->
+<div id="logobug" style="display: none;" class="row g-3">
+	<h1>Logo Bug Deal Form</h1>
+
+  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Logo Bug Deal</label>  -->
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    {{form.channel_choice}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Days*</label>
+    <input type="number" name="" class="form-control" value="1">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    {{form.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    {{form.total_cost}}
+  </div>
+
+  </div>
+
+</div>
+
+<!-- ---------------------------SPONSORSHIP TAG DEAL FORM----------------------------------------- -->
+
+<div id="sponsorshiptag" style="display: none;" class="row g-3">
+	<h1>Sponsorship Tag Deal Form</h1>
+
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    {{form.channel_choice}}
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <input type="number" name="" class="form-control" value="1">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    {{form.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    {{form.total_cost}}
+  </div>
+  </div>
+
+</div>
+
+<!-- ---------------------------TICKER DEAL FORM----------------------------------------- -->
+
+<div id="ticker" style="display: none;" class="row g-3">
+  <h1>Ticker Deal Form</h1>
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    {{form.channel_choice}}
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <input type="number" name="" class="form-control" value="1">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    {{form.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    {{form.total_cost}}
+  </div>
+  </div>
+
+</div>
+
+<!-- ---------------------------WHEATHER BRANDING DEAL FORM----------------------------------------- -->
+
+<div id="wheatherbranding" style="display: none;" class="row g-3">
+  <h1>Wheather Branding Deal Form</h1>
+  <div class="row g-2">
+  <div class="col-sm-2">
+    <label for="inputEmail4" class="form-label">Channel*</label>
+    {{form.channel_choice}}
+  </div>
+
+    <div class="col-sm-2">
+    <label class="form-label">Months*</label>
+    <input type="number" name="" class="form-control" value="1">
+    <!-- {{form3.promos}} -->
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Effective Rate*</label>
+    {{form.eff_rate}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Frequency*</label>
+    {{form.frequency}}
+  </div>
+
+  <div class="col-sm-2">
+    <label class="form-label">Total*</label>
+    {{form.total_cost}}
+  </div>
+  </div>
+
+</div>
+
+  <br><br>
+ <!-- deal form end -->
+ <div class="row g-3">
+<hr style="color: blue">
+</div>
+
+
+
+<div class="row g-3">
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Grand Total</label>
+    <input type="text" name="total" placeholder="Total" class="form-control">
+  </div>
+</div>
+<br>
+<div class="row g-3">
+  <div class="col-sm-3">
+    <button name="submit" type="submit" class="btn btn-primary">Save Deal</button>
+  </div>
+  
+</div>
+</form>
+
+        </div>
+
+    </div>
+
+</div>  
+
+
+<!-- Scripts -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<!-- Attach client script -->
+
+   <script type="text/javascript">
+    function calculate1 (){
+      var freq = document.getElementById('freq').value;
+      console.log(freq)
+      
+      // var s = document.getElementById('sec').value;
+      // console.log(s)
+      
+      var result = document.getElementById('id_total_sec');
+      var t1 = freq*10;
+      console.log(t1,"---------")
+      
+      result.value = t1;
+    }
+
+
+
+        function OnChangeCheckbox1 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("aston").style.display = 'block';
+                var abc = document.getElementById("aston1")
+                if (abc.checked==true){
+                  console.log("-------------")
+                }
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("aston").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox2 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("lband").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("lband").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox3 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("logobug").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("logobug").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox4 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("sponsorshiptag").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("sponsorshiptag").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox5 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("ticker").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("ticker").style.display = 'none';
+            }
+        }
+
+        function OnChangeCheckbox6 (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("wheatherbranding").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("wheatherbranding").style.display = 'none';
+            }
+        }
+
+    </script>
+
+
+{% endblock %}
+</body> 
+</html>
