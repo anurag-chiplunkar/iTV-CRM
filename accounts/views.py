@@ -40,7 +40,7 @@ def emp_registration(request):
 
 		##email validation
 		def email_validation(emp_email):
-			if '@cognitioworld.com' not in emp_email:
+			if '@cognitioworld.com' and '@itvnetwork.com' not in emp_email:
 				raise ValidationError("Enter valid email ID")
 				return redirect("/emp_registration")
 			else:
