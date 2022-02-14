@@ -47,7 +47,7 @@ class NFCT_deal(forms.ModelForm):
     class Meta:
         model = NFCTDeal
         fields = '__all__'
-        exclude = ('ref_nfct_channels', 'ref_nfct_elements',)
+        exclude = ('ref_nfct_channels_id', 'ref_nfct_elements_id',)
         # 'nfct_refrenece_no',
 
         widgets = {
@@ -59,4 +59,15 @@ class NFCT_deal(forms.ModelForm):
             'base_rate' : forms.NumberInput(attrs = {'class' : 'form-control'}),
             'nfct_total' : forms.NumberInput(attrs = {'class' : 'form-control'}),
         }
-NFCTDealFormSet = modelformset_factory(NFCTDeal, fields = '__all__', extra = 1)
+
+NFCTDealFormSet = modelformset_factory(NFCTDeal, fields = '__all__', extra = 1,  widgets={
+    'ref_nfct_channels_id' : forms.Select(attrs = {'class':'form-select'}),
+    'ref_nfct_elements_id' : forms.Select(attrs = {'class':'form-select'}),
+    'durations' : forms.Select(attrs = {'class' : 'form-select'}, choices = durations_choices),
+    'duration_in' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+    'effective_rate' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+    'frequency' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+    'total_seconds' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+    'base_rate' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+    'nfct_total' : forms.NumberInput(attrs = {'class' : 'form-control'}),
+})
