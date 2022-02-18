@@ -59,6 +59,7 @@ class form_fct_deal(forms.ModelForm):
 		fields = '__all__'
 
 		widgets = {
-		'total_rev': forms.TextInput(attrs = {'class': 'form-control'})
+		'total_rev': forms.TextInput(attrs = {'class': 'form-control'}),
+		'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
 		}
 

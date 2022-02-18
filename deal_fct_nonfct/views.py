@@ -18,7 +18,6 @@ def fct_details(request):
 	context = {'form':form,}
 	if request.method == "POST":
 		if request.POST.get('dis_dd') == '50%-50%':
-
 			if form.is_valid():
 				fct_obj.chan = request.POST.get('channel')
 				fct_obj.dis = request.POST.get('dis_dd')
@@ -37,8 +36,10 @@ def fct_details(request):
 				rate2 = request.session['rate2']
 				fct_obj.base_rate2 = rate2
 				fct_obj.total_rev = form.cleaned_data.get('total_rev')
+				fct_obj.deal_id = form.cleaned_data.get('deal_id')
 				fct_obj.save()
-				print("inside!!!!!!!!")
+				messages.success(request,'Form is saved!')
+				
 		else:
 			fct_obj.chan = request.POST.get('channel')
 			fct_obj.dis = request.POST.get('dis_dd')
@@ -55,6 +56,7 @@ def fct_details(request):
 			fct_obj.rev2 = request.POST.get('rev2')
 			fct_obj.rev3 = request.POST.get('rev3')
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
+			fct_obj.deal_id = form.cleaned_data.get('deal_id')
 			rate1 = request.session['rate']
 			fct_obj.base_rate1 = rate1
 			rate2 = request.session['rate2']
@@ -63,11 +65,10 @@ def fct_details(request):
 			fct_obj.base_rate3 = rate3
 			
 			fct_obj.save()
-			print("inside 2nd if !!!!!!!!")
-	
+			messages.success(request,'Form is saved!')
 	else:
 		print("outside view")
-
+	
 	return render(request,'deal_fct_nonfct/fct.html',context)
 
 def br_details(request):
@@ -100,7 +101,7 @@ def enter_channels(request):
 		if form.is_valid():
 			ch_obj.c_list = form.cleaned_data.get('c_list')
 			ch_obj.save()
-			print("inside channel views-----")
+			messages.success(request,'Channel is saved!')
 		else:
 			print("outside view")
 	return render(request,'deal_fct_nonfct/channel.html',context)
@@ -114,7 +115,7 @@ def enter_disper(request):
 		if form.is_valid():
 			dis_obj.dis_list = form.cleaned_data.get('dis_list')
 			dis_obj.save()
-			print("inside dispersion views-----")
+			messages.success(request,'Dispersion is saved!')
 		else:
 			print("outside view")
 	return render(request,'deal_fct_nonfct/dispersion.html',context)
@@ -128,7 +129,7 @@ def enter_band(request):
 		if form.is_valid():
 			band_obj.b_list = form.cleaned_data.get('b_list')
 			band_obj.save()
-			print("inside band views-----")
+			messages.success(request,'Band is saved!')
 		else:
 			print("outside view")
 	return render(request,'deal_fct_nonfct/band.html',context)
@@ -149,6 +150,7 @@ def enter_base_rate(request):
 
 			print("----------",uni,chan,bd,b_obj.br)
 			b_obj.save()
+			messages.success(request,'Base Rate is saved!')
 
 	return render(request,'deal_fct_nonfct/base.html',context)
 

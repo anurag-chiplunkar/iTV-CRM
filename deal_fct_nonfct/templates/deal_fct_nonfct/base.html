@@ -10,44 +10,46 @@
 <body>
 	<div class="container">
 		<form method="POST">{% csrf_token %}
-			<div class="col-12">
-				<div class="row">
-					<div class="col-1">
-						<label class="form-control">Channels</label>
-					</div>
-					<div class="col-3">
-						<select class="form-select" name="channel">
-							<option value="">Select Channel</option>
-							<option value="INN">INN</option>
-							<option value="NX">NX</option>
-							<option value="IN UP">IN UP</option>
-							<option value="MP">MP</option>
-							<option value="RAJ">RAJ</option>
-							<option value="PUN">PUN</option>
-							<option value="HAR">HAR</option>
-							<option value="GUJ">GUJ</option>
-							<option value="NE NEWS">NE NEWS</option>
-						</select>
-					</div>	
-					<div class="col-1">
-						<label class="form-control">Bands</label>
-					</div>
-					<div class="col-2">
-						<select class="form-select" name="band">
-							<option value="">Select Band</option>
-							<option value="0600-1200">0600-1200</option>
-							<option value="1200-1800">1200-1800</option>
-							<option value="1800-2400">1800-2400</option>
-							
-						</select>
-					</div>	
-					<div class="col-2">
-						<label class="form-control">Base rate</label>
-					</div>
-					<div class="col-2">
-						{{form.br}}
-					</div>	
-				</div>				 
+			<div class="container">
+				<div class="col-12">
+					<div class="row">
+						<div class="col-1">
+							<label class="form-label">Channels</label>
+						</div>
+						<div class="col-3">
+							<select class="form-select" name="channel">
+								<option value="">Select Channel</option>
+								<option value="INN">INN</option>
+								<option value="NX">NX</option>
+								<option value="IN UP">IN UP</option>
+								<option value="MP">MP</option>
+								<option value="RAJ">RAJ</option>
+								<option value="PUN">PUN</option>
+								<option value="HAR">HAR</option>
+								<option value="GUJ">GUJ</option>
+								<option value="NE NEWS">NE NEWS</option>
+							</select>
+						</div>	
+						<div class="col-1">
+							<label class="form-label">Bands</label>
+						</div>
+						<div class="col-2">
+							<select class="form-select" name="band">
+								<option value="">Select Band</option>
+								<option value="0600-1200">0600-1200</option>
+								<option value="1200-1800">1200-1800</option>
+								<option value="1800-2400">1800-2400</option>
+								
+							</select>
+						</div>	
+						<div class="col-2">
+							<label class="form-label">Base rate</label>
+						</div>
+						<div class="col-2">
+							{{form.br}}
+						</div>	
+					</div>				 
+				</div>
 			</div>
 			<div class="row g-3 align-items-start ">
 				<div class="col-3" style="margin-top: 20px;">
