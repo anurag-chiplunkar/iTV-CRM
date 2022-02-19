@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 from django.http import HttpResponse
@@ -11,6 +12,7 @@ from .models import *
 def home(request):
 	return render(request,'home.html')
 
+@login_required(login_url='accounts:emp_login')
 def fct_details(request):
 	form = form_fct_deal(request.POST or None)
 	fct_obj = fct_deal()
@@ -71,6 +73,7 @@ def fct_details(request):
 	
 	return render(request,'deal_fct_nonfct/fct.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def br_details(request):
 	form = base_form(request.POST or None)
 	obj = base()
@@ -92,6 +95,7 @@ def br_details(request):
 			print("outside view")
 	return render(request,'deal_fct_nonfct/base_rate.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def enter_channels(request):
 	form = channel_form(request.POST or None)
 	ch_obj = Channel()
@@ -106,6 +110,7 @@ def enter_channels(request):
 			print("outside view")
 	return render(request,'deal_fct_nonfct/channel.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def enter_disper(request):
 	form = disper_form(request.POST or None)
 	dis_obj = Disper()
@@ -120,6 +125,7 @@ def enter_disper(request):
 			print("outside view")
 	return render(request,'deal_fct_nonfct/dispersion.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def enter_band(request):
 	form = band_form(request.POST or None)
 	band_obj = Band()
@@ -134,6 +140,7 @@ def enter_band(request):
 			print("outside view")
 	return render(request,'deal_fct_nonfct/band.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def enter_base_rate(request):
 	form = base_rate_table_form(request.POST or None)
 	b_obj = base_rate_table()
@@ -163,27 +170,7 @@ def enter_base_rate(request):
 				return redirect('deal_fct_nonfct:enter_base_rate')
 	return render(request,'deal_fct_nonfct/base.html',context)
 
-def enter_33_base_rate(request):
-	form = base_rate_table_form(request.POST or None)
-	b_obj = base_rate_table()
-	context = {'form':form}
-	print(form.errors)
-	if request.method == 'POST':
-		if form.is_valid():
-			chan = request.POST.get('channel')
-			bd = request.POST.get('dispersion')
-			b_obj.br = form.cleaned_data.get('br')
-
-			uni = chan + bd[:2]
-			b_obj.unique_key = uni
-
-			print("----------",uni,chan,bd,b_obj.br)
-			b_obj.save()
-			messages.success(request,'Base Rate is saved!')
-
-	return render(request,'deal_fct_nonfct/33base.html',context)
-
-
+@login_required(login_url='accounts:emp_login')
 def load_br(request):
 	chan_id = request.GET.get('channel')
 	band1 = request.GET.get('band1')
@@ -234,6 +221,7 @@ def load_br(request):
 	# return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
 	return HttpResponse(rate)
 
+@login_required(login_url='accounts:emp_login')
 def load_br1(request):
 	chan_id = request.GET.get('channel')
 	band2 = request.GET.get('band2')
@@ -286,6 +274,7 @@ def load_br1(request):
 	# return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
 	return HttpResponse(rate2)
 
+@login_required(login_url='accounts:emp_login')
 def load_br2(request):
 	chan_id = request.GET.get('channel')
 	band3 = request.GET.get('band3')
@@ -337,61 +326,6 @@ def load_br2(request):
 	# return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
 	return HttpResponse(rate3)
 
-# def load_br3(request):
-# 	print("*******************REQUEST.GET",request.GET)
-# 	chan_id = request.GET.get('channel')
-# 	disp = request.GET.get('dis_dd')
-# 	rates = Channel.objects.filter(c_list__contains=chan_id)
-# 	b3 = Disper.objects.filter(dis_list__contains=disp)
-# 	context1 = {'qs':rates}
-# 	context2 = {'qs3':b3}
-# 	for i in context1['qs']:
-# 		c = i.c_list
-# 		print("------",c)
-
-# 	for p in context2['qs3']:
-# 		dis = p.dis_list[:2]
-# 		print("---****---",dis)
-# 	x2 = c + dis
-# 	print("*************",x2)
-# 	y2 = base_rate_table.objects.filter(unique_key=x2)
-# 	for k2 in y2:
-# 		rate4 = k2.br
-# 		print(rate4)
-# 		request.session['rate4'] = rate4
-# 	r = {'rate4': rate4}
-# 	print("******************",r)
-# 	return render(request,'deal_fct_nonfct/fct.html',{'rate4': rate4})
-
-
-def fct(request):
-	form2 = form_fct_deal(request.POST or None)
-	context = {'form2':form2}
-	if request.method == "POST":
-		if form2.is_valid():
-			fct_obj = fct_deal()
-			print("inside fct")
-			fct_obj.chan = request.POST.get('channel')
-			fct_obj.dis = request.POST.get('dis_dd')
-			fct_obj.band1 = request.POST.get('band1')
-			fct_obj.band2 = request.POST.get('band2')
-			fct_obj.band3 = request.POST.get('band3')
-			fct_obj.fct1 = request.POST.get('fct1')
-			fct_obj.fct2 = request.POST.get('fct2')
-			fct_obj.fct3 = request.POST.get('fct3')
-			fct_obj.eff_rate1 = request.POST.get('er1')
-			fct_obj.eff_rate2 = request.POST.get('er2')
-			fct_obj.eff_rate3 = request.POST.get('er3')
-			fct_obj.rev1 = request.POST.get('rev1')
-			fct_obj.rev2 = request.POST.get('rev2')
-			fct_obj.rev3 = request.POST.get('rev3')
-			fct_obj.total_rev = form2.cleaned_data.get('total_rev')
-			fct_obj.save()
-			print("inside!!!!!!!!")
-		else:
-			print("outside view")
-
-	return render(request,'events_afp/fct1.html',context)
 
 
 
