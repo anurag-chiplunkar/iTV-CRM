@@ -96,14 +96,6 @@ DATABASES = {
         'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'crm',
-    #     'USER': 'root',
-    #     'PASSWORD': '',
-    #     'HOST': '',
-    #     'PORT': '',
-    # }
 }
 
 # Password validation
@@ -144,8 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
-MEDIA_ROOT = os.path.join(os.path.dirname(
-    BASE_DIR), "static_cdn", "media_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
