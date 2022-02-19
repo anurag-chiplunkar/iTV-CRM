@@ -1,104 +1,108 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.forms import ValidationError
 from django.contrib import messages
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate,login,logout,get_user_model
+from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import *
 from . models import *
 
+
 def emp_registration(request):
-	form = Employee_registration(request.POST or None)
-	context = {"form":form}
-	print(request.POST)
-	print(form.errors)
- 
-	if form.is_valid():
-		emp_fname 			= form.cleaned_data.get('emp_fname')
-		emp_lname 			= form.cleaned_data.get('emp_lname')
-		emp_email 			= form.cleaned_data.get('emp_email')
-		emp_phone 			= form.cleaned_data.get('emp_phone')
-		emp_desgn 			= request.POST.get('jobtitle')
-		emp_reporting_mgr 	= form.cleaned_data.get('emp_reporting_mgr')
+    form = Employee_registration(request.POST or None)
+    context = {"form": form}
+    print(request.POST)
+    print(form.errors)
 
-		emp_pass1			= form.cleaned_data.get('emp_pass1')
-		emp_pass2			= form.cleaned_data.get('emp_pass2')
+    if form.is_valid():
+        emp_fname = form.cleaned_data.get('emp_fname')
+        emp_lname = form.cleaned_data.get('emp_lname')
+        emp_email = form.cleaned_data.get('emp_email')
+        print(type(emp_email))
+        print(emp_email)
+        emp_phone = form.cleaned_data.get('emp_phone')
+        emp_desgn = request.POST.get('jobtitle')
+        emp_reporting_mgr = form.cleaned_data.get('emp_reporting_mgr')
 
-		#passwords validation
-		def password_validation(emp_pass1,emp_pass2):
-			if (emp_pass1!=emp_pass2) and (emp_pass1.isalnum()==False and emp_pass2.isalnum()==False):
-				raise ValueError("Password incorrect")
-			else:
-				return emp_pass1
+        emp_pass1 = form.cleaned_data.get('emp_pass1')
+        emp_pass2 = form.cleaned_data.get('emp_pass2')
 
-		##phone number validation
-		def phone_validation(emp_phone):
-			if len(emp_phone) <10:
-				raise ValidationError("Enter valid number")
-				return redirect("/emp_registration")
-			else:
-				return emp_phone
+        # passwords validation
+        def password_validation(emp_pass1, emp_pass2):
+            if (emp_pass1 != emp_pass2) and (emp_pass1.isalnum() == False and emp_pass2.isalnum() == False):
+                raise ValueError("Password incorrect")
+            else:
+                return emp_pass1
 
-		##email validation
-		def email_validation(emp_email):
-			if '@cognitioworld.com' and '@itvnetwork.com' not in emp_email:
-				messages.error(request, "Please use cognitio or itvnetwork email for registration")
+        # phone number validation
+        def phone_validation(emp_phone):
+            if len(emp_phone) < 10:
+                raise ValidationError("Enter valid number")
+                return redirect("/emp_registration")
+            else:
+                return emp_phone
+
+        # email validation
+        def email_validation(emp_email):
+            if ('@cognitioworld.com' or '@itvnetwork.com') not in emp_email:
+                messages.error(
+                    request, "Please use cognitio or itvnetwork email for registration")
 # 				raise ValidationError("Enter valid email ID")
-				return redirect("/emp_registration")
-			else:
-				return emp_email
+                return redirect("/emp_registration")
+            else:
+                return emp_email
 
-		emp_pass1 = password_validation(emp_pass1,emp_pass2)
-		emp_phone = phone_validation(emp_phone)
-		emp_email = email_validation(emp_email)
+        emp_pass1 = password_validation(emp_pass1, emp_pass2)
+        emp_phone = phone_validation(emp_phone)
+        emp_email = email_validation(emp_email)
+        print(emp_email, '@@@@@@@@@@@@@@@')
+        obj = Employees(emp_fname=emp_fname,
+                        emp_lname=emp_lname,
+                        emp_email=emp_email,
+                        emp_phone=emp_phone,
+                        emp_desgn=emp_desgn,
+                        emp_reporting_mgr=emp_reporting_mgr
+                        )
 
-		obj = Employees(emp_fname = emp_fname,
-							emp_lname = emp_lname,
-							emp_email = emp_email,
-							emp_phone = emp_phone,
-							emp_desgn = emp_desgn,
-							emp_reporting_mgr = emp_reporting_mgr
-							)
+        obj.save()
+        # username = emp_email.split("@")[0]
+        # email before the '@' is saved as username in django backend
+        myuser = User.objects.create_user(
+            emp_email[:emp_email.find('@')], emp_email, emp_pass1)
+        return redirect('/emp_login')
 
-		obj.save()
-		myuser = User.objects.create_user(emp_email[:emp_email.find('@')],emp_email,emp_pass1) 	##email before the '@' is saved as username in django backend
-		return redirect('/emp_login')
+    else:
+        print("employee registration form invalid")
 
-
-
-	else:
-		print("employee registration form invalid")
-
-	return render(request,'accounts/emp_registration.html',context)
+    return render(request, 'accounts/emp_registration.html', context)
 
 
 def emp_login(request):
-	form = Employee_login(request.POST or None)
-	context = {"form":form}
+    form = Employee_login(request.POST or None)
+    context = {"form": form}
 
-	if form.is_valid():
-		print('login form is valid')
-		print(form.cleaned_data)
-		email = form.cleaned_data.get('emp_email')
-		username = email[:email.find('@')]
-		password = form.cleaned_data.get('emp_pass1')
-		print(username,'********')
-		print(password,'********')
+    if form.is_valid():
+        print('login form is valid')
+        print(form.cleaned_data)
+        email = form.cleaned_data.get('emp_email')
+        username = email[:email.find('@')]
+        password = form.cleaned_data.get('emp_pass1')
+        print(username, '********')
+        print(password, '********')
 
-		user = authenticate(request,username = username, password = password)
-		print(user)
+        user = authenticate(request, username=username, password=password)
+        print(user)
 
-		if user is not None:
-			login(request,user)
-			print(request.user)
-			print('You are logged in')
+        if user is not None:
+            login(request, user)
+            print(request.user)
+            print('You are logged in')
 
-			qs1 = Employees.objects.filter(emp_email=email)
-			qs_context = {"qs":qs1}
+            qs1 = Employees.objects.filter(emp_email=email)
+            qs_context = {"qs": qs1}
 
-			for i in qs_context['qs']:
-				email = i.emp_desgn
+            for i in qs_context['qs']:
+                email = i.emp_desgn
 
-			return render(request,'profiles/profile.html',qs_context)
+            return render(request, 'profiles/profile.html', qs_context)
 
-
-	return render(request,'accounts/emp_login.html',context)
+    return render(request, 'accounts/emp_login.html', context)
