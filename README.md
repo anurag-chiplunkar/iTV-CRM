@@ -4,4 +4,4 @@ Cognitio's Project
 
 Software versions:
 1. Python 3.7
-2. Djanog 3.2
+2. Django 3.2
