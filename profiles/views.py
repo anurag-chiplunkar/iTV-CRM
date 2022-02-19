@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from accounts.models import Employees
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout
+from django.contrib import messages
 
 def profile(request):
 	user = request.user
@@ -15,5 +16,6 @@ def profile(request):
 
 def logout_view(request):
 	logout(request)
+	messages.success(request,'You are logged out!!')
 	print('LOGGED OUT!!!!!!!!!!!!!')
 	return redirect('/')

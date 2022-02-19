@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+from django.contrib import messages
+from django.contrib.messages import constants as messages
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -96,7 +98,7 @@ DATABASES = {
     # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm',
+        'NAME': 'crm_db',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
@@ -156,3 +158,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 django_heroku.settings(locals())
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# Used to display appropriate bootstrap classes for the different message tags
+MESSAGE_TAGS = {
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.ERROR: 'alert-danger',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning'
+}

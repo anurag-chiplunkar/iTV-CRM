@@ -15,16 +15,20 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Band',
             fields=[
-                ('b_list', models.CharField(max_length=255, primary_key=True, serialize=False)),
+                ('b_list', models.CharField(max_length=255,
+                 primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='base',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('date', models.DateTimeField(default=django.utils.timezone.now)),
-                ('channel', models.CharField(blank=True, choices=[('INN', 'INN'), ('NX', 'NX'), ('IN UP', 'IN UP'), ('MP', 'MP'), ('RAJ', 'RAJ'), ('PUN', 'PUN'), ('HAR', 'HAR'), ('GUJ', 'GUJ'), ('NE NEWS', 'NE NEWS')], max_length=1000, null=True)),
-                ('dispersion', models.CharField(blank=True, max_length=1000, null=True)),
+                ('channel', models.CharField(blank=True, choices=[('INN', 'INN'), ('NX', 'NX'), ('IN UP', 'IN UP'), ('MP', 'MP'), (
+                    'RAJ', 'RAJ'), ('PUN', 'PUN'), ('HAR', 'HAR'), ('GUJ', 'GUJ'), ('NE NEWS', 'NE NEWS')], max_length=1000, null=True)),
+                ('dispersion', models.CharField(
+                    blank=True, max_length=1000, null=True)),
                 ('bands', models.CharField(blank=True, max_length=1000, null=True)),
                 ('br', models.IntegerField(blank=True, null=True)),
             ],
@@ -32,28 +36,34 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='base_rate_table',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('unique_key', models.CharField(blank=True, default='default', max_length=255, null=True)),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
+                ('unique_key', models.CharField(blank=True,
+                 default='default', max_length=255, null=True)),
                 ('br', models.IntegerField()),
             ],
         ),
         migrations.CreateModel(
             name='Channel',
             fields=[
-                ('c_list', models.CharField(max_length=255, primary_key=True, serialize=False)),
+                ('c_list', models.CharField(max_length=255,
+                 primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='Disper',
             fields=[
-                ('dis_list', models.CharField(max_length=255, primary_key=True, serialize=False)),
+                ('dis_list', models.CharField(
+                    max_length=255, primary_key=True, serialize=False)),
             ],
         ),
         migrations.CreateModel(
             name='fct_deal',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True,
+                 primary_key=True, serialize=False, verbose_name='ID')),
                 ('chan', models.CharField(blank=True, max_length=1000, null=True)),
+                ('deal_id', models.CharField(max_length=500)),
                 ('dis', models.CharField(blank=True, max_length=1000, null=True)),
                 ('band1', models.CharField(blank=True, max_length=1000, null=True)),
                 ('band2', models.CharField(blank=True, max_length=1000, null=True)),

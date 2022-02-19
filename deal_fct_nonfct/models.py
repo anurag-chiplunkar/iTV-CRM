@@ -5,6 +5,7 @@ from django.utils import timezone
 
 class fct_deal(models.Model):
 	chan = models.CharField(max_length=1000,blank=True,null=True)
+	deal_id = models.CharField(max_length=500)
 	dis = models.CharField(max_length=1000,blank=True,null=True)
 	band1 = models.CharField(max_length=1000,blank=True,null=True)
 	band2 = models.CharField(max_length=1000,blank=True,null=True)
@@ -18,7 +19,7 @@ class fct_deal(models.Model):
 	rev1 = models.IntegerField(blank=True,null=True)
 	rev2 = models.IntegerField(blank=True,null=True)
 	rev3 = models.IntegerField(blank=True,null=True)
-	total_rev = models.IntegerField()
+	total_rev = models.IntegerField(blank=True,null=True)
 	base_rate1 = models.IntegerField(blank=True,null=True)
 	base_rate2 = models.IntegerField(blank=True,null=True)
 	base_rate3 = models.IntegerField(blank=True,null=True)
