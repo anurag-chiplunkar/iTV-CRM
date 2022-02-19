@@ -6,30 +6,25 @@ from django.forms import ModelForm
 
 # Create your models here.
 
-class NFCT_Channels(models.Model):
-	"""docstring for NFCT_Channels
-	Registration of Channel Names"""
-	nfct_channels = models.CharField(max_length = 200, primary_key = True, unique = True)
+from xml.dom.minidom import Element
+from django.db import models
 
-	def __str__(self):
-		return self.nfct_channels
 
-class NFCT_Elements(models.Model):
-    """docstring for NFCT_Elements
-	Registration of Elements Names"""
-    nfct_elements = models.CharField(max_length = 200, primary_key = True, unique = True)
 
-    def __str__(self):
-        return self.nfct_elements
 
-class NFCT_Base_Rate(models.Model):
-    """docstring for NFCT_Base_Rate
-	Adding of Base Rates"""
-    nfct_unique_key = models.CharField(max_length=100,null=True,blank=True)
-    nfct_baserate = models.IntegerField(null=True,blank=True)
-    
-    def __str__(self):
-        return self.nfct_baserate
+# Create your models here.
+CHANNEL_CHOICE = [
+        ('INN','INN'),
+        ('NX','NX'),
+        ('GUJ','GUJ'),
+        ('PUN','PUN'),
+    ]
+
+ELEMENT_CHOICE = [
+        ('Aston','Aston'),
+        ('L Band','L Band'),
+        ('Logo Bug','Logo Bug'),
+    ]
 
 durations_choices = (
     ('days', 'Days'),
@@ -37,19 +32,92 @@ durations_choices = (
 
 )
 
-class NFCTDeal(models.Model):
-    """docstring for NFCT_Deal
-    Creating NFCT Deal Form"""
-    # nfct_reference_no = models.IntegerField(primary_key = True, unique = True)
-    ref_nfct_channels_id = models.ForeignKey(NFCT_Channels, on_delete = models.RESTRICT, null = True, blank = True)
-    ref_nfct_elements_id = models.ForeignKey(NFCT_Elements, on_delete = models.RESTRICT)
+class NFCT_Base_Rate(models.Model):
+    """docstring for NFCT_Base_Rate
+	Adding of Base Rates"""
+    nfct_unique_key = models.CharField(max_length=100,null=True,blank=True)
+    channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
+    element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
+    nfct_baserate = models.IntegerField(null=True,blank=True)
+
+
+class deal_nfct(models.Model):
+    
+    deal_id = models.CharField(max_length=500,default=None)
+    channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
+    element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
     duration_in = models.IntegerField(null = True, blank = True)
-    effective_rate = models.IntegerField(null = True, blank = True)
-    frequency = models.IntegerField(null = True, blank = True)
-    total_seconds = models.IntegerField(null = True, blank = True)
+    er = models.IntegerField(null=True,blank=True)
+    freq = models.IntegerField(null=True,blank=True)
+    total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
-    nfct_total = models.IntegerField(null = True, blank = True)
+    total = models.IntegerField(null=True,blank=True)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# class NFCT_Channels(models.Model):
+# 	"""docstring for NFCT_Channels
+# 	Registration of Channel Names"""
+# 	nfct_channels = models.CharField(max_length = 200, primary_key = True, unique = True)
+
+# 	def __str__(self):
+# 		return self.nfct_channels
+
+# class NFCT_Elements(models.Model):
+#     """docstring for NFCT_Elements
+# 	Registration of Elements Names"""
+#     nfct_elements = models.CharField(max_length = 200, primary_key = True, unique = True)
+
+#     def __str__(self):
+#         return self.nfct_elements
+
+# class NFCT_Base_Rate(models.Model):
+#     """docstring for NFCT_Base_Rate
+# 	Adding of Base Rates"""
+#     nfct_unique_key = models.CharField(max_length=100,null=True,blank=True)
+#     nfct_baserate = models.IntegerField(null=True,blank=True)
+    
+#     # def __str__(self):
+#     #     return self.nfct_baserate
+
+# durations_choices = (
+#     ('days', 'Days'),
+#     ('months', 'Months')
+
+# )
+
+# class NFCTDeal(models.Model):
+#     """docstring for NFCT_Deal
+#     Creating NFCT Deal Form"""
+#     # nfct_reference_no = models.IntegerField(primary_key = True, unique = True)
+#     ref_nfct_channels_id = models.ForeignKey(NFCT_Channels, on_delete = models.RESTRICT, null = True, blank = True)
+#     ref_nfct_elements_id = models.ForeignKey(NFCT_Elements, on_delete = models.RESTRICT)
+#     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
+#     duration_in = models.IntegerField(null = True, blank = True)
+#     effective_rate = models.IntegerField(null = True, blank = True)
+#     frequency = models.IntegerField(null = True, blank = True)
+#     total_seconds = models.IntegerField(null = True, blank = True)
+#     base_rate = models.IntegerField(null = True, blank = True)
+#     nfct_total = models.IntegerField(null = True, blank = True)
 
 
 

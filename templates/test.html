@@ -1,0 +1,530 @@
+{% extends "base2.html" %}
+{% load crispy_forms_tags %}
+{% block container %}
+{% if heading %}
+<h3>{{heading}}</h3>
+{% endif %}
+<body>
+<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
+    {% csrf_token %}
+{{ formset.management_form }}
+{% for form in formset %}
+
+<!-- creating rows -->
+<div class="row form-row spacer">
+   
+    <div class="col-4">
+        <div class="input-group" >
+            {{form.deal_id | as_crispy_field}}
+            
+        </div>
+    </div>
+</div>
+
+<!-- assign all the columns of formset to container -->
+
+<div class="container1">
+    <hr>
+    <div class="row form-row spacer">
+      
+        <div class="col-3">
+            <div class="input-group form-select col-auto ">
+                {{form.channel | as_crispy_field}}
+                
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="input-group form-select col-auto">
+                {{form.element | as_crispy_field}}
+                
+            </div>
+        </div>
+        <div class="col-3" id="div_duration">
+            <div class="input-group form-select col-auto class_durations">
+                {{form.durations | as_crispy_field}}  
+            </div>
+        </div>
+        <div class="col-3" id="div_duration_in">
+            <div class="input-group form-select col-auto class_duration_in">
+                {{form.duration_in | as_crispy_field}}
+                
+            </div>
+        </div>
+        
+    </div>
+
+<div class="row form-row spacer">
+   
+    <div class="col-3" id="div_effective_rate">
+        <div class="input-group">
+            {{form.er | as_crispy_field}}
+            
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="input-group">
+            {{form.freq | as_crispy_field}}
+            
+        </div>
+    </div>
+    <div class="col-3" id="div_total_seconds">
+
+        <div class="input-group">
+            {{form.total_seconds | as_crispy_field}}
+            <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
+            
+        </div>
+    </div>
+    <div class="col-3">
+        <div>
+            <label>Base Rate</label>
+        </div>
+        <div class="input-group">
+            {{form.base_rate}}
+            <!-- <input type="number" id="baserate1" value='{{nfctbaserate}}' name="baserate1" class="form-control class_baserate"> -->
+        </div>
+    </div>
+    
+</div>
+<div class="row form-row spacer">
+    <div class="col-3">
+        <div class="input-group class_total">
+            {{form.total | as_crispy_field}}
+            
+        </div>
+    </div>
+</div>
+    
+    
+</div>
+
+<!-- <div class="container-duplicate" hidden>
+    <hr>
+    <div class="row form-row spacer">
+      
+        <div class="col-3">
+            <div class="input-group form-select col-auto">
+                {{form.channel | as_crispy_field}}
+                
+            </div>
+        </div>
+        <div class="col-3">
+            <div class="input-group form-select col-auto">
+                {{form.element | as_crispy_field}}
+                
+            </div>
+        </div>
+        <div class="col-3" id="div_duration">
+            <div class="input-group form-select col-auto class_durations">
+                {{form.durations | as_crispy_field}}  
+            </div>
+        </div>
+        <div class="col-3" id="div_duration_in">
+            <div class="input-group form-select col-auto class_duration_in">
+                {{form.duration_in | as_crispy_field}}
+                
+            </div>
+        </div>
+        
+    </div>
+
+<div class="row form-row spacer">
+   
+    <div class="col-3" id="div_effective_rate">
+        <div class="input-group">
+            {{form.er | as_crispy_field}}
+            
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="input-group">
+            {{form.freq | as_crispy_field}}
+            
+        </div>
+    </div>
+    <div class="col-3" id="div_total_seconds">
+
+        <div class="input-group">
+            {{form.total_seconds | as_crispy_field}}
+            
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="input-group">
+            {{form.base_rate}}
+        </div>
+    </div>
+    
+</div>
+<div class="row form-row spacer">
+    <div class="col-3">
+        <div class="input-group class_total">
+            {{form.total | as_crispy_field}}
+            
+        </div>
+    </div>
+</div>
+    
+    
+</div> -->
+
+<hr>
+{% endfor %}
+
+<!-- Adding buttons -->
+<div class="row spacer">
+    <div class="input-group-append">
+        <button class="btn btn-success add-form-row">Add Another Element</button>
+    </div>
+    <div class="col-4 offset-2">
+        <button type="submit" class="btn btn-block btn-primary">Create</button>
+    </div>
+</div>
+
+</form>
+{% endblock %}
+
+
+<!-- Handles new form instance -->
+{% block custom_js %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+ var count = 0;
+function updateElementIndex(el, prefix, ndx) {
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+    if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    if (el.id) el.id = el.id.replace(id_regex, replacement);
+}
+var list_id = []
+function cloneMore(selector, prefix) {
+    
+    var newElement = $(selector).clone(true);
+    console.log(newElement, 'newElement')
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+    // newElement.attr('hidden', false)
+    // newElement.removeClass('container-duplicate')
+    // newElement.attr('class', `container_${count}`)
+    // count++;
+
+    newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+        var name = $(this).attr('name')
+        
+        if(name) {
+            name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+            var id = 'id_' + name;
+            // console.log(id)
+            list_id.push(id)
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        }
+    });
+    console.log(list_id)
+
+    newElement.find('label').each(function() {
+        var forValue = $(this).attr('for');
+        if (forValue) {
+          forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+          $(this).attr({'for': forValue});
+        }
+    });
+
+    
+    console.log("Hello world!!!!!!!!!!!!!!!!!")          // global variable for storing channel
+  
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('-');
+
+    var channel_id = `id_form-${total}-channel` 
+    var element_id = `id_form-${total}-element` 
+    var duration_id = `id_form-${total}-durations` 
+    var duration_in_id = `id_form-${total}-duration_in` 
+    var er_id = `id_form-${total}-er` 
+    var freq_id = `id_form-${total}-freq` 
+    var total_seconds_id = `id_form-${total}-total_seconds` 
+    var base_rate_id = `id_form-${total}-base_rate` 
+    var total_id = `id_form-${total}-total` 
+
+    document.getElementById(channel_id).style.display = 'block'
+    document.getElementById(element_id).style.display = 'block'
+    document.getElementById(duration_id).style.display = 'block'
+    document.getElementById(duration_in_id).style.display = 'block'
+    document.getElementById(er_id).style.display = 'block'
+    document.getElementById(freq_id).style.display = 'block'
+    document.getElementById(total_seconds_id).style.display = 'block'
+    document.getElementById(base_rate_id).style.display = 'block'
+    document.getElementById(total_id).style.display = 'block'
+    return false;
+}
+console.log(list_id, '****************************')
+// ajax
+
+$('.class_channel').change(function (e) {
+    var id_function = e.target.id
+
+    console.log(e.target.id, 'channel id')
+      var channel = $(this).val();  
+      console.log(channel, 'channel value')
+    //   element = $('.class_element').val();
+    var element_id = id_function.replace('channel', 'element');
+    console.log(element_id, 'element id')
+    var element = $(`#${element_id}`).val(); 
+    console.log(element, 'element value') 
+      if (element){
+        var url1 = $("#nfct_form").attr("url");
+        var data = {
+            'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
+          }
+
+     $.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+         success: function (data) {   // `data` is the return of the `load_br` view function
+        var base_id = id_function.replace('channel', 'base_rate')
+        console.log("API", data)
+        document.getElementById(base_id).value= data;
+      }
+     });
+ 
+      }                 // storing selected channel in trial variable
+    }); 
+    
+$('.class_element').change(function (e) {
+    
+    var id_function = e.target.id
+    attachevent(id_function)
+      var element = $(this).val();  
+      console.log(element, 'element value')
+    //   channel = $(`#id_form-${add}-channel`).val();
+    var channel_id = id_function.replace('element', 'channel')
+    console.log(channel_id, 'channel id2')
+    var channel = $(`#${channel_id}`).val();  
+    console.log(channel, 'channel value 2')
+      if (channel){
+        var url1 = $("#nfct_form").attr("url");
+        console.log(url1, 'url1')
+        var data = {
+            'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+        
+      }
+      
+      $.ajax({                       // initialize an AJAX request
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+      success: function (data) {   // `data` is the return of the `load_br` view function
+        
+        var base_id = id_function.replace('element', 'base_rate')
+        console.log("API2", data)
+        document.getElementById(base_id).value= data;
+          
+        }
+    });
+    }
+});
+
+
+// ajax
+
+//total and total seconds calculation start
+
+// frequency
+$('.class_freq').on('input',function(e)
+{
+    var freqid_function = e.target.id
+    console.log(freqid_function, 'frequency id')
+    
+    var frequency = $(this).val();
+    console.log(frequency, 'freq value')
+    var er_id = freqid_function.replace('freq', 'er')
+    var er = $(`#${er_id}`).val()
+    var tot_sec_id = freqid_function.replace('freq', 'total_seconds')
+    var tot_sec = $(`#${tot_sec_id}`).val()
+
+    var total = freqid_function.replace('freq', 'total')
+    var element_id = freqid_function.replace('freq', 'element')
+    var element = $(`#${element_id}`).val()
+
+    var base_id = freqid_function.replace('freq', 'base_rate')
+    var base = $(`#${base_id}`).val()
+
+    if (element === 'Aston' || element === "L Band"){
+        document.getElementById(tot_sec_id).value = frequency * 10;
+        document.getElementById(total).value = er * (frequency * 10);
+    }
+    else{
+        document.getElementById(total).value = base * frequency;
+    }
+    
+
+    
+
+
+})
+
+$('.class_er').on('input',function(e)
+{
+    var erid_function = e.target.id
+    // console.log(erid_function, 'Effective rate id')
+    
+    var eff_rate = parseInt($(this).val());
+    console.log({eff_rate})
+
+
+    var tot_sec_id = erid_function.replace('er', 'total_seconds')
+    var total_sec = $(`#${tot_sec_id}`).val();
+    console.log({total_sec})
+
+    var total = erid_function.replace('er', 'total')
+    console.log({total})
+
+    document.getElementById(total).value = eff_rate * total_sec;
+
+
+})
+
+// $('.class_total_seconds').on('input',function(e)
+// {
+//     var totid_function = e.target.id
+//     // console.log(totid_function, 'Total Seconds id')
+    
+//     var total_sec = parseInt($(this).val());
+//     // console.log({total_sec})
+
+
+//     var er_id = totid_function.replace('total_seconds', 'er')
+//     var eff_rate = $(`#${er_id}`).val();
+//     // console.log({eff_rate})
+
+//     var total = totid_function.replace('total_seconds', 'total')
+//     // console.log({total})
+
+//     document.getElementById(total).value = eff_rate * total_sec;
+
+
+// })
+// //aston & lband total
+
+// var total_sec;  
+// var eff_rate; 
+// $('#id_form-0-total_seconds').change(function () {
+
+//       total_sec = $(this).val();  
+//       console.log(total_sec, 'total_sec')
+//       eff_rate = $('#id_form-0-er').val();
+//       if (eff_rate){
+//         var url1 = $("#nfct_form").attr("url3");
+//         var data = {
+//             'total_sec': total_sec , 'eff_rate' :eff_rate   // add the channel and band to the GET                          parameters by default it is GET method
+//           }
+//       }});
+
+// $('#id_form-0-er').change(function () {
+//       eff_rate = $(this).val();  
+//       console.log(eff_rate, 'eff_rate***')
+//       total_sec = $('id_form-0-total_seconds').val();
+
+//       if (total_sec){
+//         var url1 = $("#nfct_form").attr("url3");
+//         var data = {
+//             'total_sec': total_sec , 'eff_rate' :eff_rate      // add the channel and band to the GET                          parameters by default it is GET method
+        
+
+//       }
+//       console.log(total_sec, "total_sec")  
+//       console.log(eff_rate, "eff_rate") 
+      
+//       $.ajax({                       // initialize an AJAX request
+//         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+//         data: {
+//           'total_sec': total_sec , 'eff_rate' :eff_rate      // add the channel and band to the GET                          parameters by default it is GET method
+//         },
+//       success: function (data) {   // `data` is the return of the `load_br` view function
+//         // console.log("API", data)
+//         document.getElementById('id_form-0-total').value= total_sec * eff_rate;
+          
+//         //   // var newval = $('#mybase').attr(value)
+//         //   // console.log(newval) 
+//         //   var multiidhtml = $(data);
+//         //   var multiid = multiidhtml.find('#baserate1').attr("value"); // prints base rate in input type
+//         //   console.log(multiid);
+//         //   $("#baserate1").val(multiid); 
+//         }
+//     });
+//     }
+// });
+
+//total and total seconds calculation end
+
+  
+function deleteForm(prefix, btn) {
+
+    var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+    if (total > 1){
+        btn.closest('.form-row').remove();
+        var forms = $('.form-row');
+        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+        for (var i=0, formCount=forms.length; i<formCount; i++) {
+            $(forms.get(i)).find(':input').each(function() {
+                updateElementIndex(this, prefix, i);
+            });
+        }
+    }
+    return false;
+}
+
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.container1:last', 'form');
+    return false;
+});
+
+$(document).on('click', '.remove-form-row', function(e){
+    e.preventDefault();
+    deleteForm('form', $(this));
+    return false;
+});
+
+    // event listener for onchange to hide or display fields
+function attachevent(ele_id){
+    console.log(ele_id, 'element id *********')
+    console.log('Attach')    
+    var durations = ele_id.replace('element', 'durations')
+    console.log({durations})
+    
+    var duration_in = ele_id.replace('element','duration_in')
+    console.log({duration_in})
+        var elements = document.getElementById(ele_id).value
+        console.log(elements, 'elements -------')
+        document.getElementById(durations).style.display = 'block'
+        document.getElementById(duration_in).style.display = 'block'
+        document.getElementById(ele_id.replace('element','er')).style.display = 'block'
+        document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'block'
+
+            if (elements === "Aston" || elements === "L Band"){
+        document.getElementById(durations).style.display = 'none'
+        document.getElementById(duration_in).style.display = 'none'
+            }
+            else{
+            document.getElementById(ele_id.replace('element','er')).style.display = 'none'
+            document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'none'
+            }
+            console.log('inside')
+             
+    }
+
+
+</script>
+
+{% endblock %}
+</body>

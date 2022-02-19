@@ -16,6 +16,7 @@ urlpatterns = [
 	path('load_br/',views.load_br,name="load_br"),
 	path('load_br1/',views.load_br1,name="load_br1"),
 	path('load_br2/',views.load_br2,name="load_br2"),
+	
 	path('afp_enter_base_rate/',views.afp_enter_base_rate,name="afp_enter_base_rate"),
 	path('afp_load_br/',views.afp_load_br,name="afp_load_br"),
     path('events/', views.events,name='events'),
