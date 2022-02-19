@@ -154,6 +154,26 @@ def enter_base_rate(request):
 
 	return render(request,'deal_fct_nonfct/base.html',context)
 
+def enter_33_base_rate(request):
+	form = base_rate_table_form(request.POST or None)
+	b_obj = base_rate_table()
+	context = {'form':form}
+	print(form.errors)
+	if request.method == 'POST':
+		if form.is_valid():
+			chan = request.POST.get('channel')
+			bd = request.POST.get('dispersion')
+			b_obj.br = form.cleaned_data.get('br')
+
+			uni = chan + bd[:2]
+			b_obj.unique_key = uni
+
+			print("----------",uni,chan,bd,b_obj.br)
+			b_obj.save()
+			messages.success(request,'Base Rate is saved!')
+
+	return render(request,'deal_fct_nonfct/33base.html',context)
+
 
 def load_br(request):
 	chan_id = request.GET.get('channel')
@@ -228,6 +248,32 @@ def load_br2(request):
 	r = {'rate3': rate3}
 	print("******************",r)
 	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
+
+def load_br3(request):
+	print("*******************REQUEST.GET",request.GET)
+	chan_id = request.GET.get('channel')
+	disp = request.GET.get('dis_dd')
+	rates = Channel.objects.filter(c_list__contains=chan_id)
+	b3 = Disper.objects.filter(dis_list__contains=disp)
+	context1 = {'qs':rates}
+	context2 = {'qs3':b3}
+	for i in context1['qs']:
+		c = i.c_list
+		print("------",c)
+
+	for p in context2['qs3']:
+		dis = p.dis_list[:2]
+		print("---****---",dis)
+	x2 = c + dis
+	print("*************",x2)
+	y2 = base_rate_table.objects.filter(unique_key=x2)
+	for k2 in y2:
+		rate4 = k2.br
+		print(rate4)
+		request.session['rate4'] = rate4
+	r = {'rate4': rate4}
+	print("******************",r)
+	return render(request,'deal_fct_nonfct/fct.html',{'rate4': rate4})
 
 
 def fct(request):

@@ -27,8 +27,17 @@
 	    	<label class="col-form-label"><h5>FCT Deal Details</h5></label> 
 	  	</div>
 	</div>
+	
 	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
-	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
+	url3 = "{% url 'deal_fct_nonfct:load_br2' %}" url4 = "{% url 'deal_fct_nonfct:load_br3' %}">{% csrf_token %}
+		<div class="row">
+			<div class="col-1">
+				<label class="form-label">Deal ID</label>
+			</div>
+			<div class="col-2">
+				{{form.deal_id}}
+			</div>
+		</div>
 		<div class="row">
 				<div class="col-1"> 
 					<label class="form-label">Channels</label>
@@ -54,30 +63,13 @@
 					<select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
 						<option value="">-------------</option>
 						<option value="25%-25%-50%">25%-25%-50%</option>
-						<!-- <option value="33%-33%-33%">33%-33%-33%</option> -->
+						<option value="33%-33%-33%">33%-33%-33%</option>
 						<option value="40%-20%-40%">40%-20%-40%</option>
 						<option value="50%-50%">50%-50%</option>
 						<option value="other">Other</option>
 					</select>
 				</div>
-				<div class="col-1">
-					<label class="form-label">Deal ID</label>
-				</div>
-				<div class="col-2">
-					{{form.deal_id}}
-				</div>
-				<!-- <div class="col-2"> 
-					<label class="form-control">Prev Year Eff Rate</label>
-				</div>
-				<div class="col-2">
-					<input type="text" class="form-control" name="prev">
-				</div>
-				<div class="col-2"> 
-					<label class="form-control">Current Year Eff Rate</label>
-				</div>
-				<div class="col-2">
-					<input type="text" class="form-control" name="current">
-				</div>	 -->
+				
 				
 		</div>
 		
@@ -117,11 +109,11 @@
 		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="text" id="base1" name="base1" class="form-control mb-3" value='{{rate}}' disabled>
+		  		<input type="text" id="base1" name="base1" class="form-control mb-3" value='{{rate}}{{rate4}}' disabled>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" disabled>
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
@@ -141,10 +133,11 @@
 		  		<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control mb-3" disabled>
+		  		<input type="number" id="base2" name="base2" value='{{rate2}}{{rate4}}' class="form-control mb-3" disabled>
+
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" disabled>
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
@@ -164,10 +157,10 @@
 		  		<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control mb-3" disabled >
+		  		<input type="number" id="base3" name="base3" value='{{rate3}}{{rate4}}' class="form-control mb-3" disabled >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" disabled>
 		  	</div>
 		</div>
 
@@ -359,6 +352,31 @@
 			var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
 			console.log(multiid);
           	$("#base3").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+        }
+        
+		});
+	});
+
+	$("#dis_dd").change(function () {
+		
+		var url3 = $("#fct_form").attr("url4");  // storing url....telling ajax to follow 													specified url
+		var disp = $(this).val();		// storing the band selected from row1
+		console.log(disp);
+		
+		$.ajax({                       // initialize an AJAX request
+        url: url3,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+        data: {
+          'dis_dd': disp , 'channel' :trial      // add the channel and dispersion to the GET 													parameters by default it is GET method
+        },
+
+        success: function (data) {   // `data` is the return of the `load_br` view function
+			console.log(data,"-------data---------")
+			var multiidhtml = $(data);
+			var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+			console.log(multiid);
+          	$("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
+			$("#base2").val(multiid); 
+			$("#base1").val(multiid); 
         }
         
 		});
