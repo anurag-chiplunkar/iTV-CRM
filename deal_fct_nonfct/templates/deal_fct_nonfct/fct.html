@@ -109,11 +109,11 @@
 		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="text" id="base1" name="base1" class="form-control mb-3" disabled>
+		  		<input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
@@ -133,11 +133,11 @@
 		  		<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base2" name="base2" value='{{rate2}}{{rate4}}' class="form-control mb-3" disabled>
+		  		<input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
 
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
@@ -157,14 +157,14 @@
 		  		<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base3" name="base3" value='{{rate3}}{{rate4}}' class="form-control mb-3" disabled >
+		  		<input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()">
+		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
 		  	</div>
 		</div>
 
-		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;">
+		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;" >
 						
 	  		<div class="col-auto">
 	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
