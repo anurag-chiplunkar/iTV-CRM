@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'customer',
     'agency',
     'nfct',
-    'crispy_forms',
+    'crispy-forms',
 ]
 
 MIDDLEWARE = [
@@ -136,7 +136,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn", "media_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), "static_cdn", "media_root")
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
