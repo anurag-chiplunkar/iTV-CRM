@@ -144,14 +144,23 @@ def enter_base_rate(request):
 			chan = request.POST.get('channel')
 			bd = request.POST.get('band')
 			b_obj.br = form.cleaned_data.get('br')
+			disp = request.POST.get('dis')
+			if disp is None:
+				uni = chan + bd[:2]
+				b_obj.unique_key = uni
 
-			uni = chan + bd[:2]
-			b_obj.unique_key = uni
+				print("----------",uni,chan,bd,b_obj.br)
+				b_obj.save()
+				messages.success(request,'Base Rate is saved!')
+				return redirect('deal_fct_nonfct:enter_base_rate')
+			else:
+				uni_33 = chan + disp[:2] + bd[:2]
+				b_obj.unique_key = uni_33
 
-			print("----------",uni,chan,bd,b_obj.br)
-			b_obj.save()
-			messages.success(request,'Base Rate is saved!')
-
+				print("----------",uni_33,chan,bd,disp,b_obj.br)
+				b_obj.save()
+				messages.success(request,'Base Rate is saved!')
+				return redirect('deal_fct_nonfct:enter_base_rate')
 	return render(request,'deal_fct_nonfct/base.html',context)
 
 def enter_33_base_rate(request):
@@ -178,102 +187,178 @@ def enter_33_base_rate(request):
 def load_br(request):
 	chan_id = request.GET.get('channel')
 	band1 = request.GET.get('band1')
-	print("9999",chan_id,band1)
+	disp1 = request.GET.get('dis_dd')
+	print("9999",chan_id,band1,request.GET)
 	rates = Channel.objects.filter(c_list__contains=chan_id)
 	b1 = Band.objects.filter(b_list__contains=band1)
-	context1 = {'qs':rates}
-	context2 = {'qs1':b1}
-	for i in context1['qs']:
-		c = i.c_list
-		print("------",c)
+	dis1 = Disper.objects.filter(dis_list__contains=disp1)
+	if dis1 is None:
+		context1 = {'qs':rates}
+		context2 = {'qs1':b1}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
 
-	for j in context2['qs1']:
-		b = j.b_list[:2]
-		print("---****---",b)
-	x = c + b 
-	print("*************",x)
-	y = base_rate_table.objects.filter(unique_key=x)
-	for k in y:
-		rate = k.br
-		print(rate)
-		request.session['rate'] = rate
+		for j in context2['qs1']:
+			b = j.b_list[:2]
+			print("---****---",b)
+		x = c + b 
+		print("*************",x)
+		y = base_rate_table.objects.filter(unique_key=x)
+		for k in y:
+			rate = k.br
+			print(rate)
+			request.session['rate'] = rate
+	else:
+		context1 = {'qs':rates}
+		context2 = {'qs1':b1}
+		context3 = {'qs2':dis1}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
+
+		for j in context2['qs1']:
+			b = j.b_list[:2]
+			print("---****---",b)
+
+		for m in context3['qs2']:
+			d = m.dis_list[:2]
+			print("---****---",d)
+		x = c + d + b
+		print("*************",x)
+		y = base_rate_table.objects.filter(unique_key=x)
+		for k in y:
+			rate = k.br
+			print(rate)
+			request.session['rate'] = rate
 	return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
 
 def load_br1(request):
 	chan_id = request.GET.get('channel')
 	band2 = request.GET.get('band2')
+	disp1 = request.GET.get('dis_dd')
 	rates = Channel.objects.filter(c_list__contains=chan_id)
 	b2 = Band.objects.filter(b_list__contains=band2)
-	context1 = {'qs':rates}
-	context2 = {'qs2':b2}
-	for i in context1['qs']:
-		c = i.c_list
-		print("------",c)
+	dis1 = Disper.objects.filter(dis_list__contains=disp1)
+	print("REQUEST.GET!!!!!!!!!!!!!!!!!!!!!!",request.GET)
+	if dis1 is None:
+		context1 = {'qs':rates}
+		context2 = {'qs2':b2}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
 
-	for p in context2['qs2']:
-		base2 = p.b_list[:2]
-		print("---****---",base2)
-	x1 = c + base2
-	print("*************",x1)
-	y1 = base_rate_table.objects.filter(unique_key=x1)
-	for k1 in y1:
-		rate2 = k1.br
-		print(rate2)
-		request.session['rate2'] = rate2
-	r = {'rate2': rate2}
-	print("******************",r)
+		for p in context2['qs2']:
+			base2 = p.b_list[:2]
+			print("---****---",base2)
+		x1 = c + base2
+		print("*************",x1)
+		y1 = base_rate_table.objects.filter(unique_key=x1)
+		for k1 in y1:
+			rate2 = k1.br
+			print(rate2)
+			request.session['rate2'] = rate2
+		r = {'rate2': rate2}
+		print("******************",r)
+	else:
+		context1 = {'qs':rates}
+		context2 = {'qs1':b2}
+		context3 = {'qs2':dis1}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
+
+		for j in context2['qs1']:
+			base2 = j.b_list[:2]
+			print("---****---",base2)
+
+		for m in context3['qs2']:
+			d = m.dis_list[:2]
+			print("---****---",d)
+		x = c + d + base2
+		print("*************",x)
+		y = base_rate_table.objects.filter(unique_key=x)
+		for k in y:
+			rate2 = k.br
+			print(rate2)
+			request.session['rate2'] = rate2
 	return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
 
 def load_br2(request):
 	chan_id = request.GET.get('channel')
 	band3 = request.GET.get('band3')
+	disp1 = request.GET.get('dis_dd')
 	rates = Channel.objects.filter(c_list__contains=chan_id)
 	b3 = Band.objects.filter(b_list__contains=band3)
-	context1 = {'qs':rates}
-	context2 = {'qs3':b3}
-	for i in context1['qs']:
-		c = i.c_list
-		print("------",c)
+	dis1 = Disper.objects.filter(dis_list__contains=disp1)
+	if dis1 is None:
+		context1 = {'qs':rates}
+		context2 = {'qs3':b3}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
 
-	for p in context2['qs3']:
-		base3 = p.b_list[:2]
-		print("---****---",base3)
-	x2 = c + base3
-	print("*************",x2)
-	y2 = base_rate_table.objects.filter(unique_key=x2)
-	for k2 in y2:
-		rate3 = k2.br
-		print(rate3)
-		request.session['rate3'] = rate3
-	r = {'rate3': rate3}
-	print("******************",r)
+		for p in context2['qs3']:
+			base3 = p.b_list[:2]
+			print("---****---",base3)
+		x2 = c + base3
+		print("*************",x2)
+		y2 = base_rate_table.objects.filter(unique_key=x2)
+		for k2 in y2:
+			rate3 = k2.br
+			print(rate3)
+			request.session['rate3'] = rate3
+		r = {'rate3': rate3}
+		print("******************",r)
+	else:
+		context1 = {'qs':rates} 
+		context2 = {'qs1':b3}
+		context3 = {'qs2':dis1}
+		for i in context1['qs']:
+			c = i.c_list
+			print("------",c)
+
+		for j in context2['qs1']:
+			b = j.b_list[:2]
+			print("---****---",b)
+
+		for m in context3['qs2']:
+			d = m.dis_list[:2]
+			print("---****---",d)
+		x = c + d + b
+		print("*************",x)
+		y = base_rate_table.objects.filter(unique_key=x)
+		for k in y:
+			rate3 = k.br
+			print(rate3)
+			request.session['rate3'] = rate3
 	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
 
-def load_br3(request):
-	print("*******************REQUEST.GET",request.GET)
-	chan_id = request.GET.get('channel')
-	disp = request.GET.get('dis_dd')
-	rates = Channel.objects.filter(c_list__contains=chan_id)
-	b3 = Disper.objects.filter(dis_list__contains=disp)
-	context1 = {'qs':rates}
-	context2 = {'qs3':b3}
-	for i in context1['qs']:
-		c = i.c_list
-		print("------",c)
+# def load_br3(request):
+# 	print("*******************REQUEST.GET",request.GET)
+# 	chan_id = request.GET.get('channel')
+# 	disp = request.GET.get('dis_dd')
+# 	rates = Channel.objects.filter(c_list__contains=chan_id)
+# 	b3 = Disper.objects.filter(dis_list__contains=disp)
+# 	context1 = {'qs':rates}
+# 	context2 = {'qs3':b3}
+# 	for i in context1['qs']:
+# 		c = i.c_list
+# 		print("------",c)
 
-	for p in context2['qs3']:
-		dis = p.dis_list[:2]
-		print("---****---",dis)
-	x2 = c + dis
-	print("*************",x2)
-	y2 = base_rate_table.objects.filter(unique_key=x2)
-	for k2 in y2:
-		rate4 = k2.br
-		print(rate4)
-		request.session['rate4'] = rate4
-	r = {'rate4': rate4}
-	print("******************",r)
-	return render(request,'deal_fct_nonfct/fct.html',{'rate4': rate4})
+# 	for p in context2['qs3']:
+# 		dis = p.dis_list[:2]
+# 		print("---****---",dis)
+# 	x2 = c + dis
+# 	print("*************",x2)
+# 	y2 = base_rate_table.objects.filter(unique_key=x2)
+# 	for k2 in y2:
+# 		rate4 = k2.br
+# 		print(rate4)
+# 		request.session['rate4'] = rate4
+# 	r = {'rate4': rate4}
+# 	print("******************",r)
+# 	return render(request,'deal_fct_nonfct/fct.html',{'rate4': rate4})
 
 
 def fct(request):

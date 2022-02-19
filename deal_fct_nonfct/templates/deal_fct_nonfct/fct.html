@@ -27,9 +27,9 @@
 	    	<label class="col-form-label"><h5>FCT Deal Details</h5></label> 
 	  	</div>
 	</div>
-	
+
 	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
-	url3 = "{% url 'deal_fct_nonfct:load_br2' %}" url4 = "{% url 'deal_fct_nonfct:load_br3' %}">{% csrf_token %}
+	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
 		<div class="row">
 			<div class="col-1">
 				<label class="form-label">Deal ID</label>
@@ -275,7 +275,12 @@
 	        var second_number = parseInt(document.getElementById("rev2").value);
 	        var third_number = parseInt(document.getElementById("rev3").value);
 	        var result = first_number + second_number + third_number;
+			result1 = document.getElementById("id_total_rev").value
+			console.log(result1,"/////////////////////////")
 	        document.getElementById("id_total_rev").value = result;
+			a = document.getElementById("id_total_rev").value;
+			console.log(a,"////////***********//////")
+
     	}
     	
     }
@@ -287,6 +292,11 @@
 		
 		trial = $(this).val();				// storing selected channel in trial variable
 	});	
+	var disper ;
+	$("#dis_dd").change(function () {
+		
+		trial_dis = $(this).val();				// storing selected dispersion in trial_dis variable
+	});	
 	
 	$("#band1").change(function () {
 		
@@ -297,7 +307,7 @@
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
         data: {
-          'band1': band_dd1 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
+          'band1': band_dd1 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
         },
 
         success: function (data) {   // `data` is the return of the `load_br` view function
@@ -320,7 +330,7 @@
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
         data: {
-          'band2': band_dd2 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
+          'band2': band_dd2 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
         },
 
         success: function (data) {   // `data` is the return of the `load_br` view function
@@ -343,7 +353,7 @@
 		$.ajax({                       // initialize an AJAX request
         url: url2,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
         data: {
-          'band3': band_dd3 , 'channel' :trial      // add the channel and band to the GET 													parameters by default it is GET method
+          'band3': band_dd3 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
         },
 
         success: function (data) {   // `data` is the return of the `load_br` view function
@@ -357,30 +367,30 @@
 		});
 	});
 
-	$("#dis_dd").change(function () {
+	// $("#dis_dd").change(function () {
 		
-		var url3 = $("#fct_form").attr("url4");  // storing url....telling ajax to follow 													specified url
-		var disp = $(this).val();		// storing the band selected from row1
-		console.log(disp);
+	// 	var url3 = $("#fct_form").attr("url4");  // storing url....telling ajax to follow 													specified url
+	// 	var disp = $(this).val();		// storing the band selected from row1
+	// 	console.log(disp);
 		
-		$.ajax({                       // initialize an AJAX request
-        url: url3,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
-        data: {
-          'dis_dd': disp , 'channel' :trial      // add the channel and dispersion to the GET 													parameters by default it is GET method
-        },
+	// 	$.ajax({                       // initialize an AJAX request
+    //     url: url3,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+    //     data: {
+    //       'dis_dd': disp , 'channel' :trial      // add the channel and dispersion to the GET 													parameters by default it is GET method
+    //     },
 
-        success: function (data) {   // `data` is the return of the `load_br` view function
-			console.log(data,"-------data---------")
-			var multiidhtml = $(data);
-			var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
-			console.log(multiid);
-          	$("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
-			$("#base2").val(multiid); 
-			$("#base1").val(multiid); 
-        }
+    //     success: function (data) {   // `data` is the return of the `load_br` view function
+	// 		console.log(data,"-------data---------")
+	// 		var multiidhtml = $(data);
+	// 		var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+	// 		console.log(multiid);
+    //       	$("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
+	// 		$("#base2").val(multiid); 
+	// 		$("#base1").val(multiid); 
+    //     }
         
-		});
-	});
+	// 	});
+	// });
 
 </script>
 {% endblock %}

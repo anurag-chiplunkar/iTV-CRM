@@ -16,5 +16,5 @@ path('enter_33_base_rate/',views.enter_33_base_rate,name="enter_33_base_rate"),
 path('load_br/',views.load_br,name="load_br"),
 path('load_br1/',views.load_br1,name="load_br1"),
 path('load_br2/',views.load_br2,name="load_br2"),
-path('load_br3/',views.load_br3,name="load_br3"),
+
 ]
