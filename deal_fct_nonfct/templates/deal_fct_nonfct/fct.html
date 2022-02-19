@@ -1,61 +1,15 @@
-
-
+{% extends "base.html" %}
 {% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
-<head>
-	<title></title>
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-</head>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	</head>
 <body>
-{% block content %}
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
-      </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-                <a class="nav-link active" href="{% url 'fct_details' %}">FCT</a>
-            </li>
-          
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'events' %}">EVENTS</a>
-            </li>
-            
-            <li class="nav-item">
-              <a class="nav-link active" href="{% url 'afp1' %}">AFP</a>
-            </li>
-        </ul>
-      </div>
-      <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-        <ul class="navbar-nav">
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">ABOUT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="#">CONTACT US</a>
-          </li>
-          
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_registration' %}">REGISTER</a>
-          </li>
 
-          <li class="nav-item">
-            <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
-          </li>
 
-        </ul>
-      </div>
-    </div>
-  </nav>
 <div class="container">
 	<div class="row">
 		<div class="col align-self-start"></div>
@@ -67,8 +21,8 @@
 	    	<label class="col-form-label"><h5>FCT Deal Details</h5></label> 
 	  	</div>
 	</div>
-	<form method="POST" id="fct_form" url="{% url 'load_br' %}" url2 = "{% url 'load_br1' %}"
-	url3 = "{% url 'load_br2' %}">{% csrf_token %}
+	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
+	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
 		<div class="row">
 				<div class="col-2"> 
 					<label class="form-control">Channels</label>
@@ -119,13 +73,13 @@
 		    	<label class="col-form-label">Bands</label> 
 		  	</div>
 				  	
-		  	<div class="col-2">
+		  	<div class="col-3">
 		  		<label class="col-form-label">FCT</label> 
 		  	</div>
 		  	<div class="col-2">
 		  		<label class="col-form-label">Effective Rate</label> 
 		  	</div>
-		  	<div class="col-2">
+		  	<div class="col-3">
 		  		<label class="col-form-label">Base Rate</label> 
 
 		  	</div>
@@ -146,23 +100,23 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct1" name="fct1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er1" name="er1" class="form-control" oninput="calculate1()">
+		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="text" id="base1" class="form-control" value='{{rate}}' disabled>
+		  		<input type="text" id="base1" name="base1" class="form-control mb-3" value='{{rate}}' disabled>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
 			<div class="col-auto">
 		    	<select name="band2" class="form-select" id="band2" aria-label="Default select example">
-				  <option selected>---------------</option>
+				  <option value="">---------------</option>
 				  <option value="0600-1200">0600-1200</option>
 				  <option value="1200-1800">1200-1800</option>
 				  <option value="1800-2400">1800-2400</option>
@@ -170,22 +124,22 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct2" name="fct2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er2" name="er2" class="form-control" oninput="calculate2()">
+		  		<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control" disabled>
+		  		<input type="number" id="base2" name="base2" value='{{rate2}}' class="form-control mb-3" disabled>
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
 			<div class="col-auto">
 		    	<select name="band3" class="form-select" id="band3" aria-label="Default select example">
-				  <option selected>---------------</option>
+				  <option value="">---------------</option>
 				  <option value="0600-1200">0600-1200</option>
 				  <option value="1200-1800">1200-1800</option>
 				  <option value="1800-2400">1800-2400</option>
@@ -193,26 +147,25 @@
 		  	</div>
 		  	
 		  	<div class="col-auto">
-		  		<input type="number" id="fct3" name="fct3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="er3" name="er3" class="form-control" oninput="calculate3()">
+		  		<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control" disabled >
+		  		<input type="number" id="base3" name="base3" value='{{rate3}}' class="form-control mb-3" disabled >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control" oninput="sum()">
+		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 
-		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 391px;">
+		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;">
 						
 	  		<div class="col-auto">
 	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
 	  		</div>
 	  		<div class="col-auto">
-	  			<!-- <input type="number" class="form-control" id="totalbox" > -->
 	  			{{form.total_rev}}
 	  		</div>
 		</div>
@@ -221,10 +174,16 @@
 			<div class="col-3" style="margin-top: 20px;">
 				<button type="submit" class="btn btn-primary">Save Deal</button>
 			</div>
+			
+			{% if user.is_authenticated %}
+			<div class="col-3" style="margin-top: 20px;">
+    			<button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    		</div>
+			{% endif %}
 		</div>
 	</form>
 </div>
-{% endblock content %}
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">	</script>
@@ -287,29 +246,25 @@
     	// console.log("i am in");
     	// console.log(add);
     	// document.getElementById('totalbox').value = add;
-    	var inp1 = parseInt(document.getElementById("rev1").value);
-    	console.log("input1",inp1)
-    	var inp2 = parseInt(document.getElementById("rev2").value);
-    	console.log("input2",inp2)
-    	var inp3 = parseInt(document.getElementById("rev3").value);
-    	console.log("input3",inp3)
-    	if ((inp1 != "") && (inp2 != "") && (inp3 != "")){
-    		console.log("yesss!!");
+    	var inp1 = document.getElementById("rev1").value;
+    	var inp2 = document.getElementById("rev2").value;
+    	var inp3 = document.getElementById("rev3").value;
+    	
+    	if ((inp1 != "") && (inp2 != "") && (inp3 == "")){
+    		
+    		var first_number = parseInt(document.getElementById("rev1").value);
+	        var second_number = parseInt(document.getElementById("rev2").value);
+	        var result = first_number + second_number ;
+        	document.getElementById("id_total_rev").value = result;
+    	} 
+    	else if((inp1 != "") && (inp2 != "") && (inp3 != "") ){
+    		
     		var first_number = parseInt(document.getElementById("rev1").value);
 	        var second_number = parseInt(document.getElementById("rev2").value);
 	        var third_number = parseInt(document.getElementById("rev3").value);
-	        var result = first_number + second_number + third_number ;
-        	document.getElementById("id_total_rev").value = result;
-    	} 
-    	// else if((inp1 != "") && (inp2 != "") ){
-    	// 	console.log("yesss again!!");
-    	// 	var first_number = parseInt(document.getElementById("rev1").value);
-	    //     var second_number = parseInt(document.getElementById("rev2").value);
-	    //     var third_number = parseInt(document.getElementById("rev3").value);
-	    //     var result = first_number + second_number + third_number;
-
-	    //     document.getElementById("id_total_rev").value = result;
-    	// }
+	        var result = first_number + second_number + third_number;
+	        document.getElementById("id_total_rev").value = result;
+    	}
     	
     }
 </script>
@@ -391,6 +346,6 @@
 	});
 
 </script>
-
+{% endblock %}
 </body>
 </html>

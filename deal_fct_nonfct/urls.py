@@ -2,6 +2,8 @@ from django.urls import path
 
 from . import views
 
+app_name = 'deal_fct_nonfct'
+
 urlpatterns = [ 
 path('', views.home, name="home"),
 path('fct_details/', views.fct_details, name="fct_details"),

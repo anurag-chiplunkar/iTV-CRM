@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<style type="text/css">
+
+		button{
+			border: none;
+			border-radius: 10px;
+			height: 40px;
+			color: black;
+		}
+
+		a{
+			text-decoration-line: none;
+			color: black;
+		}
+
+    h2{
+      text-transform: uppercase;
+    }
+
+	</style>
+</head>
+<body>
+{% if user.is_authenticated %}
+  {% for i in qs %}
+      <section>
+        {% if "salesperson" in i.emp_desgn %}
+        <div class="container py-5">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add FCT/NFCT Deals from your account</p>
+              </nav>
+            </div>
+          </div>
+        
+        {% endif %}
+      
+        {% if "admin" in i.emp_desgn %}
+        <div class="container py-5">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add FCT/NFCT Deals, Agency, Agency contacts, Client and Client contacts from your account</p>
+              </nav>
+            </div>
+          </div>
+        
+        {% endif %}
+      
+        {% if "md" in i.emp_desgn %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add new employees from your account</p>
+              </nav>
+            </div>
+          </div>
+      
+        {% endif %}
+      
+       <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img src="{% static 'media_root/blank_profile.png' %}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">{{i.emp_fname}} {{i.emp_lname}}</h5>
+          
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_fname}} {{i.emp_lname}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_email}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Role</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_desgn}}</p>
+                    </div>
+                    </div>
+                    <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_phone}}</p>
+                    </div>
+                  </div>
+                  <hr>
+       
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Reporting Manager</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_reporting_mgr}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+      
+      </section>
+      
+      {% endfor %}
+        
+   
+{% endif %}
+      
+{% endblock %}
+
+
+</body>
+</html>
+
+

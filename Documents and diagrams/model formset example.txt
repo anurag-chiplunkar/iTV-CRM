@@ -1,0 +1,71 @@
+
+
+			Models.py-----------------------
+
+class NCFT_DealFormset(models.Model):
+    name = models.CharField(max_length=100)
+
+
+
+			forms.py------------------
+
+class NCFT_DealFormsetForm(forms.ModelForm):
+    class Meta:
+        model = NCFT_DealFormset
+        fields = ('name', 'title')
+
+    def clean_name(self):
+        # custom validation for the name field
+        ...
+
+
+			views.py---------------------------
+
+def manage_authors(request):
+    NCFT_DealFormsetFormSet = modelformset_factory(NCFT_DealFormset, forms = NCFT_DealFormsetForm)
+    if request.method == 'POST':
+        formset = NCFT_DealFormsetForm(request.POST, request.FILES)
+        if formset.is_valid():
+            formset.save()
+            # do something.
+    else:
+        formset = NCFT_DealFormsetForm()
+    return render(request, 'manage_authors.html', {'formset': formset})
+
+
+
+			html------------------
+<div>
+
+
+<div class="Anurag">
+<form method="post">
+    {{ formset.management_form }}
+    {% for form in formset %}
+        {{ form }}
+    {% endfor %}
+</form>
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

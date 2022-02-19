@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import ValidationError
+# from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import User
 from . models import Employees
@@ -23,33 +25,9 @@ class Employee_registration(forms.ModelForm):
 		'emp_pass2'			: forms.PasswordInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Confirm Password'})
 		}
 
-	def clean_email(self):
-		email= self.cleaned_data.get("emp_email")
-		if not "cognitioworld.com" in email:
-			raise forms.ValidationError("Enter valid gmail ID")
-		return email
-
-	##to check that created and confirmed passwords match 
-	def confirm_pass(self):
-		pass1 = self.cleaned_data.get('emp_pass1')
-		pass2 = self.cleaned_data.get('emp_pass2')
-		if pass1 != pass2:
-			raise forms.ValidationError("Pass 1 and Pass2 do not match")
-		else:
-			pass
-		return pass1
-
-	##to check if the email already exists 
-	def confirm_email(self):
-		email = self.cleaned_data.get('email')
-		qs = User.objects.filter(emp_email = email)
-		print(qs)
-		if qs.exists():
-			raise forms.ValidationError("Email already exists")
-		else:
-			return email
-
-
+		# error_messages = {
+		# 			'emp_phone': {'max_length': _("This is invalid phone number"),},
+		# }
 
 class Employee_login(forms.ModelForm):
 	class Meta:
@@ -57,8 +35,8 @@ class Employee_login(forms.ModelForm):
 		fields = ['emp_email','emp_pass1']
 
 		widgets = {
-		'emp_email' 	: forms.EmailInput(attrs={'class': 'form-control'}),
-		'emp_pass1'		: forms.PasswordInput(attrs={'class': 'form-control'})
+		'emp_email' 	: forms.EmailInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Email ID'}),
+		'emp_pass1'		: forms.PasswordInput(attrs={'class': 'form-control bg-white border-left-0 border-md', 'placeholder':'Password'})
 
 		}
 

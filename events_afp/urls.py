@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.urls import path,include
 from . import views
 
+app_name = 'events_apf'
+
 urlpatterns = [
 	path('program-names/',views.afp_pname),
 	path('channel-names/',views.afp_chname),

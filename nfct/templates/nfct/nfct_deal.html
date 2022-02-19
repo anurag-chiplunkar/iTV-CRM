@@ -1,3 +1,7 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +16,7 @@
   </style>
 </head>
 <body onload="attachevent()">
+
 <div class="container">
   
 
@@ -106,19 +111,18 @@
       </div>
 
   </div>
-  <!-- {% endfor %} -->
-</div>
-</form>
-
-  {% endfor %}
-  <div class="col-sm-2">
-    <button type="submit" class = "btn btn-primary" id="add-form">Add New</button>
-  </div>
-
+  <!-- <div class="col-sm-2">
+    <button type="submit" class = "btn btn-primary">Add New</button>
+  </div> -->
   <div class="col-sm-2">
     <button type="submit" class = "btn btn-primary">Register Save</button>
+    
   </div>
- 
+  {% if user.is_authenticated %}
+  <div class="col-3" style="margin-top: 20px;">
+      <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    </div>
+  {% endif %}
 </div>
 
 
@@ -651,5 +655,7 @@
     });
   });
 </script> -->
+
+{% endblock %}
 </body> 
 </html>
