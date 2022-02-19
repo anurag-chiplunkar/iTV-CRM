@@ -52,7 +52,7 @@ def fct_details(request):
 			fct_obj.eff_rate1 = request.POST.get('er1')
 			fct_obj.eff_rate2 = request.POST.get('er2')
 			fct_obj.eff_rate3 = request.POST.get('er3')
-			fct_obj.rev1 = request.POST.get('rev1')
+			fct_obj.rev1 = form.cleaned_data.get('rev1')
 			fct_obj.rev2 = request.POST.get('rev2')
 			fct_obj.rev3 = request.POST.get('rev3')
 			fct_obj.total_rev = form.cleaned_data.get('total_rev')
@@ -192,7 +192,7 @@ def load_br(request):
 	rates = Channel.objects.filter(c_list__contains=chan_id)
 	b1 = Band.objects.filter(b_list__contains=band1)
 	dis1 = Disper.objects.filter(dis_list__contains=disp1)
-	if dis1 is None:
+	if band1 is not None and chan_id is not None and disp1 != "33%-33%-33%":
 		context1 = {'qs':rates}
 		context2 = {'qs1':b1}
 		for i in context1['qs']:
@@ -209,7 +209,7 @@ def load_br(request):
 			rate = k.br
 			print(rate)
 			request.session['rate'] = rate
-	else:
+	elif disp1 == "33%-33%-33%":
 		context1 = {'qs':rates}
 		context2 = {'qs1':b1}
 		context3 = {'qs2':dis1}
@@ -231,7 +231,8 @@ def load_br(request):
 			rate = k.br
 			print(rate)
 			request.session['rate'] = rate
-	return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
+	# return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
+	return HttpResponse(rate)
 
 def load_br1(request):
 	chan_id = request.GET.get('channel')
@@ -241,7 +242,7 @@ def load_br1(request):
 	b2 = Band.objects.filter(b_list__contains=band2)
 	dis1 = Disper.objects.filter(dis_list__contains=disp1)
 	print("REQUEST.GET!!!!!!!!!!!!!!!!!!!!!!",request.GET)
-	if dis1 is None:
+	if band2 is not None and chan_id is not None and disp1 != "33%-33%-33%":
 		context1 = {'qs':rates}
 		context2 = {'qs2':b2}
 		for i in context1['qs']:
@@ -260,7 +261,7 @@ def load_br1(request):
 			request.session['rate2'] = rate2
 		r = {'rate2': rate2}
 		print("******************",r)
-	else:
+	elif disp1 == "33%-33%-33%":
 		context1 = {'qs':rates}
 		context2 = {'qs1':b2}
 		context3 = {'qs2':dis1}
@@ -282,7 +283,8 @@ def load_br1(request):
 			rate2 = k.br
 			print(rate2)
 			request.session['rate2'] = rate2
-	return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
+	# return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
+	return HttpResponse(rate2)
 
 def load_br2(request):
 	chan_id = request.GET.get('channel')
@@ -291,7 +293,7 @@ def load_br2(request):
 	rates = Channel.objects.filter(c_list__contains=chan_id)
 	b3 = Band.objects.filter(b_list__contains=band3)
 	dis1 = Disper.objects.filter(dis_list__contains=disp1)
-	if dis1 is None:
+	if band3 is not None and chan_id is not None and disp1 != "33%-33%-33%":
 		context1 = {'qs':rates}
 		context2 = {'qs3':b3}
 		for i in context1['qs']:
@@ -310,7 +312,7 @@ def load_br2(request):
 			request.session['rate3'] = rate3
 		r = {'rate3': rate3}
 		print("******************",r)
-	else:
+	elif disp1 == "33%-33%-33%":
 		context1 = {'qs':rates} 
 		context2 = {'qs1':b3}
 		context3 = {'qs2':dis1}
@@ -332,7 +334,8 @@ def load_br2(request):
 			rate3 = k.br
 			print(rate3)
 			request.session['rate3'] = rate3
-	return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
+	# return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
+	return HttpResponse(rate3)
 
 # def load_br3(request):
 # 	print("*******************REQUEST.GET",request.GET)

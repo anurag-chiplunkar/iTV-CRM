@@ -109,11 +109,11 @@
 		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="text" id="base1" name="base1" class="form-control mb-3" value='{{rate}}{{rate4}}' disabled>
+		  		<input type="text" id="base1" name="base1" class="form-control mb-3" disabled>
 		  		
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" disabled>
+		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row2" style="display: none;">
@@ -137,7 +137,7 @@
 
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" disabled>
+		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 		<div class="row g-3 align-items-start" id="row3" style="display: none;">
@@ -160,7 +160,7 @@
 		  		<input type="number" id="base3" name="base3" value='{{rate3}}{{rate4}}' class="form-control mb-3" disabled >
 		  	</div>
 		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" disabled>
+		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()">
 		  	</div>
 		</div>
 
@@ -275,11 +275,11 @@
 	        var second_number = parseInt(document.getElementById("rev2").value);
 	        var third_number = parseInt(document.getElementById("rev3").value);
 	        var result = first_number + second_number + third_number;
-			result1 = document.getElementById("id_total_rev").value
-			console.log(result1,"/////////////////////////")
+			// result1 = document.getElementById("id_total_rev").value
+			// console.log(result1,"/////////////////////////")
 	        document.getElementById("id_total_rev").value = result;
-			a = document.getElementById("id_total_rev").value;
-			console.log(a,"////////***********//////")
+			// a = document.getElementById("id_total_rev").value;
+			// console.log(a,"////////***********//////")
 
     	}
     	
@@ -312,10 +312,13 @@
 
         success: function (data) {   // `data` is the return of the `load_br` view function
          
-			var multiidhtml = $(data);
-			var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
-			console.log(multiid);
-          	$("#base1").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+			console.log(data, "Data &&&&&&&&&&&&&&&&&")
+			document.getElementById('base1').value = data;
+			// var multiidhtml = $(data);
+			// console.log(multiidhtml, 'Data ##################')
+			// var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
+			// console.log(multiid);
+          	// $("#base1").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
         }
         
 		});
@@ -334,11 +337,12 @@
         },
 
         success: function (data) {   // `data` is the return of the `load_br` view function
-         
-			var multiidhtml = $(data);
-			var multiid = multiidhtml.find('#base2').attr("value"); // prints base rate in input type
-			console.log(multiid);
-          	$("#base2").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+			console.log(data, "Data &&&&&&&&&&&&&&&&&")
+			document.getElementById('base2').value = data;
+			// var multiidhtml = $(data);
+			// var multiid = multiidhtml.find('#base2').attr("value"); // prints base rate in input type
+			// console.log(multiid);
+          	// $("#base2").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
         }
         
 		});
@@ -357,40 +361,21 @@
         },
 
         success: function (data) {   // `data` is the return of the `load_br` view function
-         
-			var multiidhtml = $(data);
-			var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
-			console.log(multiid);
-          	$("#base3").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+			console.log(data, "Data &&&&&&&&&&&&&&&&&")
+			document.getElementById('base3').value = data;
+			// var multiidhtml = $(data);
+			// var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+			// console.log(multiid);
+          	// $("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
         }
         
 		});
 	});
 
-	// $("#dis_dd").change(function () {
-		
-	// 	var url3 = $("#fct_form").attr("url4");  // storing url....telling ajax to follow 													specified url
-	// 	var disp = $(this).val();		// storing the band selected from row1
-	// 	console.log(disp);
-		
-	// 	$.ajax({                       // initialize an AJAX request
-    //     url: url3,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
-    //     data: {
-    //       'dis_dd': disp , 'channel' :trial      // add the channel and dispersion to the GET 													parameters by default it is GET method
-    //     },
-
-    //     success: function (data) {   // `data` is the return of the `load_br` view function
-	// 		console.log(data,"-------data---------")
-	// 		var multiidhtml = $(data);
-	// 		var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
-	// 		console.log(multiid);
-    //       	$("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
-	// 		$("#base2").val(multiid); 
-	// 		$("#base1").val(multiid); 
-    //     }
-        
-	// 	});
-	// });
+	$('#rev1').on('input',function(){
+		 var rev1_val = $(this).val();	
+		 console.log(rev1_val,"-------============");
+	});
 
 </script>
 {% endblock %}
