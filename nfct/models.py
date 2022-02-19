@@ -28,8 +28,8 @@ class NFCT_Base_Rate(models.Model):
     nfct_unique_key = models.CharField(max_length=100,null=True,blank=True)
     nfct_baserate = models.IntegerField(null=True,blank=True)
     
-    def __str__(self):
-        return self.nfct_baserate
+    # def __str__(self):
+    #     return self.nfct_baserate
 
 durations_choices = (
     ('days', 'Days'),

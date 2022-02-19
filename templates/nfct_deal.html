@@ -5,6 +5,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js"></script>
   <title> </title>
   <style >
 
@@ -32,11 +33,12 @@
         <p>
         <h1>NFCT Deal Detail</h1>
         </p>
+        <input type="number" value = '{{nfctbaserate}}' id = "mybase">
         
         </div>
 
 <!-- nfct deal start -->
-<form class="row g-3" method="POST" id = "nfct_form" url = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
+<form class="row g-3" method="POST" id = "nfct_form" url = "{% url 'nfct:nfct_load_br' %}"> {% csrf_token %}
   {{nfct_deal_formset.management_form}}
   {% for form in nfct_deal_formset %}
  
@@ -95,7 +97,7 @@
   
       <div class="col-sm-2">
         <label class="form-label">Base Rate *</label>
-        <input type="text" name="base_rate" placeholder="BaseRate" class="form-control" id = "baserate1" value = '{{nfctbaserate}}' disabled>
+        <input type="number" name="base_rate" placeholder="BaseRate" class="form-control" id = "baserate1" value = "{{nfctbaserate}}">
       </div>
 
       <div class="col-sm-2">
@@ -144,6 +146,23 @@
 <script type="text/javascript">
    
     function attachevent(){
+
+      // data append for csrf token
+      // let data = new FormData(); // 2
+    
+      //   data.append("Channel", "INN")  
+      //   data.append("Element", "L Band")
+      //   data.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3
+      //   var url1 = $("#nfct_form").attr("url");
+      //   axios.post(url1, data) // 4
+      //   .then(function (response) {
+      //     console.log("Response: ",response);
+      //   })
+      //   .catch(function (error) {
+      //     console.log(error);
+      //   });
+
+
         console.log('Attach')
         var element = document.getElementById('id_form-0-ref_nfct_elements_id');
         element.addEventListener("change", function(){
@@ -158,7 +177,7 @@
             document.getElementById('div_duration_in').style.display = 'none'
              }
              else{
-                document.getElementById('div_effective_rate').style.display = 'none'
+                // document.getElementById('div_effective_rate').style.display = 'none'
                 document.getElementById('div_total_seconds').style.display = 'none'
              }
              console.log('inside')
@@ -166,41 +185,124 @@
     })
     }
 </script>
+
+
 <script type="text/javascript">
-    var tr ;             // global variable for storing channel
+    var channel ;  
+    var element;           // global variable for storing channel
     $("#id_form-0-ref_nfct_channels_id").change(function () {
       
-      tr = $(this).val();  
-      console.log(tr)      // storing selected channel in trial variable
-    }); 
+      channel = $(this).val();  
+      console.log(channel, 'channel')
+      element = $("#id_form-0-ref_nfct_elements_id").val();
+      if (element){
+        var url1 = $("#nfct_form").attr("url");
+        var data = {
+            'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
+          }
+        // axios.get('https://jsonplaceholder.typicode.com/todos/1', data)
+        // axios.post(url1, data)
+
+        // .then(function (response) {
+        //   console.log("Response: ",response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error);
+        // });
+
+        // data append for csrf token
+      let data1 = new FormData(); // 2
+    
+        data1.append("Channel", channel)  
+        data1.append("Element", element)
+        data1.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3
+        axios.post(url1, data1) // 4
+        .then(function (response) {
+          console.log("Response: ",response);
+        })
+        .catch(function (error) {
+          console.log(error, "axios error");
+        });
+      }
+      console.log(channel)  
+      console.log(element)    // storing selected channel in trial variable
+    })
+    ; 
     
     $("#id_form-0-ref_nfct_elements_id").change(function () {
-      
-      var url1 = $("#nfct_form").attr("url");  // storing url....telling ajax to follow                          specified url
-      var element = $(this).val();   // storing the band selected from row1
-      console.log(element)
-      console.log(tr)
+      element = $(this).val();  
+      console.log(channel, 'channel***')
+      channel = $("#id_form-0-ref_nfct_channels_id").val();
+      if (channel){
+        var url1 = $("#nfct_form").attr("url");
+        var data = {
+            'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+          }
+        // axios.get('https://jsonplaceholder.typicode.com/todos/1', data)
+        // axios.post(url1, data)
+        // .then(function (response) {
+        //   console.log("Response: ",response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error, 'error');
+        // });
+
+        // let data2 = new FormData(); // 2
+    
+        // data2.append("Channel", channel)  
+        // data2.append("Element", element)
+        // data2.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3
+        // axios.post(url1, data2) // 4
+        // .then(function (response) {
+        //   console.log("Response: ",response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error, 'error1');
+        // });
+
+      }
+      console.log(channel, "Channel")  
+      console.log(element, "Element") 
       
       $.ajax({                       // initialize an AJAX request
-          url: url1,                 // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
-          data: {
-            'element': element , 'channel' :tr      // add the channel and band to the GET                          parameters by default it is GET method
-          },
-  
-          success: function (data) {   // `data` is the return of the `load_br` view function
-          setTimeout(5)
-          console.log(data)
-          debugger
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+      success: function (data) {   // `data` is the return of the `load_br` view function
+          console.log("API", data)
+          // var newval = $('#mybase').attr(value)
+          // console.log(newval) 
           var multiidhtml = $(data);
           var multiid = multiidhtml.find('#baserate1').attr("value"); // prints base rate in input type
           console.log(multiid);
-                $("#baserate1").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
-            }, error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-    }  
-          
-      });
+          $("#baserate1").val(multiid); 
+
+          var multiid = multiidhtml.find('#mybase').attr("value"); // prints base rate in input type
+          console.log(multiid);
+          $("#mybase").val(multiid); 
+
+      }
+     });
     });
+
+
+
+      
+    //   var url1 = $("#nfct_form").attr("url");  // storing url....telling ajax to follow                          specified url
+    //   var element = $(this).val();   // storing the band selected from row1
+    //   console.log(element)
+    //   console.log(channel)
+      
+    //   $.ajax({                       // initialize an AJAX request
+    //       url: url1,                 // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+    //       data: {
+    //         'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+    //       },
+  
+              
+      // });
+    // });
   </script>
 
     <script type="text/javascript">
@@ -243,12 +345,13 @@
         }
             else{
                 var freq1 = document.getElementById('id_frequency').value
-                var base_rate1 = document.getElementById('baserate1').value
+                var base_rate1 = document.getElementById('id_effective_rate').value
                 var logo_total = freq1 * base_rate1
                 document.getElementById('id_form-0-nfct_total').value = logo_total;
         }
         }
     </script>
+
 
 <!-- <script>
   const addMoreButton = document.getElementById('add')
