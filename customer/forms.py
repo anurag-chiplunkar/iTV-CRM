@@ -3,17 +3,11 @@ from .models import CustomerType, CustomerName, CustomerContact
 
 
 class Cust_type(forms.ModelForm):
-	# cust_type_form = forms.ModelChoiceField(queryset= Modelname.objects.all())
 	class Meta:
 		model = CustomerType
 		fields = '__all__'
 
-		# widget = {
-		# 	'cust_type' : forms. 
-		# }
-
 class Cust_name(forms.ModelForm):
-	# cust_type_form = forms.ModelChoiceField(queryset= CustomerType.objects.all())
 	ref_customertype = forms.ModelChoiceField(queryset= CustomerType.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Client Type')
 
 	class Meta:
@@ -36,9 +30,7 @@ class Cust_contact(forms.ModelForm):
 	class Meta:
 		
 		model = CustomerContact
-		fields = '__all__'
-		# exclude = ('ref_cname',)
-		
+		fields = '__all__'		
 
 		widgets = {
 				'pri_fname' : forms.Textarea(attrs = {'rows': 1,'class' : 'form-control', 'style': 'resize:none;', 'placeholder': 'Enter First Name'}),
@@ -65,9 +57,6 @@ class Cust_contact(forms.ModelForm):
 				'sec_city' : forms.Textarea(attrs = {'rows': 1,'class' : 'form-control', 'style': 'resize:none;', 'placeholder': 'City'}),
 				'sec_pincode' : forms.Textarea(attrs = {'rows': 1,'class' : 'form-control', 'style': 'resize:none;', 'placeholder': 'Pincode'}),
 
-
-
-				# 'cname_form' : forms.Select(attrs = {'class' : 'custom-select', 'style': 'resize:none;', 'placeholder': 'Enter name'})
 		}
 		
 		

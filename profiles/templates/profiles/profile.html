@@ -28,9 +28,20 @@
 </head>
 <body>
 {% if user.is_authenticated %}
+  {% for message in messages %}
+  <div class="container-fluid p-0">
+      <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="True">&times;</span>
+          </button>
+          {{message}}
+      </div>
+  </div>
+  {% endfor %}
+  
   {% for i in qs %}
       <section>
-        {% if "salesperson" in i.emp_desgn %}
+        {% if "executive" in i.emp_desgn %}
         <div class="container py-5">
           <div class="row">
             <div class="col">
