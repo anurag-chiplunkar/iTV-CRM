@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.0/axios.min.js"></script>
   <title> </title>
   <style >
 
@@ -21,42 +22,8 @@
 
 <!-- SideBar -->
   <div class="row flex-nowrap">
-        <!-- <div class="col-auto col-md-3 col-xl-2 px-sm-2 px-0">
-            <div class="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
-                <a href="/" class="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-                    <span class="fs-5 d-none d-sm-inline">Menu</span>
-                </a>
-                <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="menu">
-                    <li class="nav-item">
-                        <a href="#" class="nav-link align-middle px-0">
-                            <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Home</span>
-                        </a>
-                    </li>
-                 
-                    <li>
-                        <a href="#submenu2" data-bs-toggle="collapse" class="nav-link px-0 align-middle ">
-                            <i class="fs-4 bi-bootstrap"></i> <span class="ms-1 d-none d-sm-inline">Registration</span></a>
-                        <ul class="collapse nav flex-column ms-1" id="submenu2" data-bs-parent="#menu">
-                            <li class="w-100">
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Client</span> </a>
-                            </li>
-                            <li>
-                                <a href="#" class="nav-link px-0"> <span class="d-none d-sm-inline">Register Agency</span> </a>
-                            </li>
-                        </ul>
-                    </li>
-                    
-                    <li>
-                        <a href="#" class="nav-link px-0 align-middle">
-                            <i class="fs-4 bi-people"></i> <span class="ms-1 d-none d-sm-inline">Client</span> </a>
-                    </li>
-                </ul>
-                <hr>
-              
-            </div>
-        </div> -->
-
-
+    
+      
 
         <!-- Main Content -->
 
@@ -71,78 +38,77 @@
         <p>
         <h1>NFCT Deal Detail</h1>
         </p>
+        <input type="number" value = '{{nfctbaserate}}' id = "mybase">
         
         </div>
 
 <!-- nfct deal start -->
-<form class="row g-3" method="POST" id = "nfct_form" url = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
+<form class="row g-3" method="POST" id = "nfct_form" url = "{% url 'nfct:nfct_load_br' %}"> {% csrf_token %}
   {{nfct_deal_formset.management_form}}
-        {% for form in nfct_deal_formset %}
+  {% for form in nfct_deal_formset %}
+ 
         <div class="bird-form">
-  <!-- <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">NFCT Deal</label>  -->
-  <div class="row g-3">
-    <div class="col-sm-2">
-    <label class="form-label">Channel *</label>
-    {{form.ref_nfct_channels_id}}
-    <!-- <div class="col">
-        <select class="form-select" id = "channel" name = "channel">
-            <option value = "">Select Channel</option>
-            <option value = "INN">INN</option>
-            <option value = "HAR">HAR</option>
+          <!-- <div class="row g-3">
 
-        </select>
-    </div> -->
-  </div>
-  <div class="col-sm-2">
-    <label class="form-label">Element *</label>
-    {{form.ref_nfct_elements_id}}
-    <!-- <div class="col">
-        <select class="form-select" id = "element" name = "element">
-            <option value = "">Select Element</option>
-            <option value = "L Band">L Band</option>
-            <option value = "Aston">Aston</option>
+            <div class="col-sm-2">
+               {{form.as_p}}
+               <hr>
+              </div>
+              </div> -->
+              <!-- {% for field in form %} -->
 
-        </select>
-    </div> -->
-  </div>
+    <div class="row g-3">
+
+      <div class="col-sm-2">
+        <label class="form-label">Channel *</label>
+        <div>
+        {{form.ref_nfct_channels_id}}
+      </div>
+      </div>
+
+      <div class="col-sm-2">
+        <label class="form-label">Element *</label>
+        <div>
+        {{form.ref_nfct_elements_id}} 
+      </div>
+      </div>
+    
+      <div class="col-sm-2" id = "div_duration">
+        <label class="form-label">Duration *</label>
+        <div>
+        {{form.durations}}
+      </div>
+      </div>
+
+      <div class="col-sm-2" id = "div_duration_in">
+        <label class="form-label">Duration In *</label>
+        {{form.duration_in}}
+      </div>
+
+      <div class="col-sm-2">
+        <label class="form-label">Frequency *</label>
+        <input type="number" onkeyup = "cal()" id = 'id_frequency' name = 'frequency' class="form-control">  
+      </div>
+
+      <div class="col-sm-2" id = "div_effective_rate">
+        <label class="form-label">Effective Rate *</label>
+        <input type="number" onkeyup="cal()" id = 'id_effective_rate' name = 'effective_rate' class="form-control">
+      </div>
+
+      <div class="col-sm-2" id = "div_total_seconds">
+        <label class="form-label">Total Seconds *</label>
+        <input type="number" id = 'id_total_seconds' name = 'total_seconds' class="form-control">
+      </div>
   
-    <div class="col-sm-2" id = "div_duration">
-    <label class="form-label">Duration *</label>
-    {{form.durations}}
-  </div>
-  <div class="col-sm-2" id = "div_duration_in">
-    <label class="form-label">Duration In *</label>
-    {{form.duration_in}}
-  </div>
-  <div class="col-sm-2">
-    <label class="form-label">Frequency *</label>
-    <!-- {{nfct_deal.frequency}} -->
-    <input type="number" onkeyup = "cal()" id = 'id_frequency' name = 'frequency' class="form-control">  
-  </div>
-  <div class="col-sm-2" id = "div_effective_rate">
-    <label class="form-label">Effective Rate *</label>
-    <!-- {{nfct_deal.effective_rate}} -->
-    <input type="number" onkeyup="cal()" id = 'id_effective_rate' name = 'effective_rate' class="form-control">
-  </div>
+      <div class="col-sm-2">
+        <label class="form-label">Base Rate *</label>
+        <input type="number" name="base_rate" placeholder="BaseRate" class="form-control" id = "baserate1" value = "{{nfctbaserate}}">
+      </div>
 
-  
-
-  <div class="col-sm-2" id = "div_total_seconds">
-    <label class="form-label">Total Seconds *</label>
-    <!-- {{nfct_deal.total_seconds}} -->
-    <input type="number" id = 'id_total_seconds' name = 'total_seconds' class="form-control">
-  </div>
-  
-  <div class="col-sm-2">
-    <label class="form-label">Base Rate *</label>
-    <!-- {{nfct_deal.base_rate}} -->
-    <input type="text" name="base_rate" placeholder="BaseRate" class="form-control" id = "baserate1" value = '{{nfctbaserate}}' disabled>
-  </div>
-
-  <div class="col-sm-2">
-    <label class="form-label">Total *</label>
-    {{form.nfct_total}}
-  </div>
+      <div class="col-sm-2">
+        <label class="form-label">Total *</label>
+        {{form.nfct_total}}
+      </div>
 
   </div>
   </div>
@@ -175,24 +141,6 @@
 
 </div>  
 
-<!-- <div class="main">
-  {% if formset %}
-           {{ formset.management_form }}
-           <div id="nfct-form-list">
-               {% for form in formset %}
-               <div class = 'nfct-form'>
-                   {{form.label_tag}}
-                   {{ form }}
-                   <hr>
-               </div>
-               {% endfor %}
-           </div>
-           <div id = 'empty-form' class="hidden">{{formset.empty_form}}</div>
-           <button type="button"  id="add">Add New</button>
-           {% endif %}
-           <button type="submit">Save</button>
-
-</div> -->
 
 <!-- Scripts -->
 
@@ -203,23 +151,12 @@
 
 
 <script type="text/javascript">
-    // function toggleform(){
-    //     var elements = document.getElementById('id_ref_nfct_elements').value
-    //     if (channels === "INN"){
-    //         document.getElementById('div_duration').style.display = 'none'
-    //     }
-
-    // }
-//     window.onload = function{
-//         var channels = document.getElementById('id_ref_nfct_channels').value
-//         if (channels === "INN"){
-//             document.getElementById('div_duration').style.display = 'none'
-//         }
-// }
-
+   
     function attachevent(){
+
+
         console.log('Attach')
-        var element = document.getElementById('id_form-0-ref_nfct_channels_id');
+        var element = document.getElementById('id_form-0-ref_nfct_elements_id');
         element.addEventListener("change", function(){
             var elements = document.getElementById('id_form-0-ref_nfct_elements_id').value
             document.getElementById('div_duration').style.display = 'block'
@@ -232,7 +169,7 @@
             document.getElementById('div_duration_in').style.display = 'none'
              }
              else{
-                document.getElementById('div_effective_rate').style.display = 'none'
+                // document.getElementById('div_effective_rate').style.display = 'none'
                 document.getElementById('div_total_seconds').style.display = 'none'
              }
              console.log('inside')
@@ -240,44 +177,140 @@
     })
     }
 </script>
+
+
 <script type="text/javascript">
-    var tr ;             // global variable for storing channel
+    var channel ;  
+    var element;           // global variable for storing channel
     $("#id_form-0-ref_nfct_channels_id").change(function () {
       
-      tr = $(this).val();  
-      console.log(tr)      // storing selected channel in trial variable
-    }); 
+      channel = $(this).val();  
+      console.log(channel, 'channel')
+      element = $("#id_form-0-ref_nfct_elements_id").val();
+      if (element){
+        var url1 = $("#nfct_form").attr("url");
+        var data = {
+            'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
+          }
+      
+      let data1 = new FormData(); // 2
+    
+        data1.append("Channel", channel)  
+        data1.append("Element", element)
+        data1.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3
+        axios.post(url1, data1) // 4
+        .then(function (response) {
+          console.log("Response: ",response);
+        })
+        .catch(function (error) {
+          console.log(error, "axios error");
+        });
+      }
+      console.log(channel)  
+      console.log(element)    // storing selected channel in trial variable
+    })
+    ; 
     
     $("#id_form-0-ref_nfct_elements_id").change(function () {
-      
-      var url1 = $("#nfct_form").attr("url");  // storing url....telling ajax to follow                          specified url
-      var element = $(this).val();   // storing the band selected from row1
-      console.log(element)
-      console.log(tr)
+      element = $(this).val();  
+      console.log(channel, 'channel***')
+      channel = $("#id_form-0-ref_nfct_channels_id").val();
+      if (channel){
+        var url1 = $("#nfct_form").attr("url");
+        var data = {
+            'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+          }
+        // axios.get('https://jsonplaceholder.typicode.com/todos/1', data)
+        // axios.post(url1, data)
+        // .then(function (response) {
+        //   console.log("Response: ",response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error, 'error');
+        // });
+
+        // let data2 = new FormData(); // 2
+    
+        // data2.append("Channel", channel)  
+        // data2.append("Element", element)
+        // data2.append("csrfmiddlewaretoken", '{{csrf_token}}') // 3
+        // axios.post(url1, data2) // 4
+        // .then(function (response) {
+        //   console.log("Response: ",response);
+        // })
+        // .catch(function (error) {
+        //   console.log(error, 'error1');
+        // });
+
+      }
+      console.log(channel, "Channel")  
+      console.log(element, "Element") 
       
       $.ajax({                       // initialize an AJAX request
-          url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
-          data: {
-            'element': element , 'channel' :tr      // add the channel and band to the GET                          parameters by default it is GET method
-          },
-  
-          success: function (data) {   // `data` is the return of the `load_br` view function
-          console.log(data)
+        url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+          'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+      success: function (data) {   // `data` is the return of the `load_br` view function
+          console.log("API", data)
+          // var newval = $('#mybase').attr(value)
+          // console.log(newval) 
           var multiidhtml = $(data);
-  
           var multiid = multiidhtml.find('#baserate1').attr("value"); // prints base rate in input type
           console.log(multiid);
-                $("#baserate1").val(multiid);     // replace the contents of the band1 input with the                   data that came from the server
-            }, error: function(XMLHttpRequest, textStatus, errorThrown) { 
-        alert("Status: " + textStatus); alert("Error: " + errorThrown); 
-    }  
-          
-      });
+          $("#baserate1").val(multiid); 
+
+          var multiid = multiidhtml.find('#mybase').attr("value"); // prints base rate in input type
+          console.log(multiid);
+          $("#mybase").val(multiid); 
+
+      }
+     });
     });
+
+
+
+      
+    //   var url1 = $("#nfct_form").attr("url");  // storing url....telling ajax to follow                          specified url
+    //   var element = $(this).val();   // storing the band selected from row1
+    //   console.log(element)
+    //   console.log(channel)
+      
+    //   $.ajax({                       // initialize an AJAX request
+    //       url: url1,                 // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+    //       data: {
+    //         'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+    //       },
+  
+              
+      // });
+    // });
   </script>
 
     <script type="text/javascript">
- 
+        // function aston_lband_cal(){
+        //     var f = (document.getElementById('id_frequency').value)
+        //     console.log(f)
+        //     var freq = f * 10;
+        //     console.log(freq) 
+        //     document.getElementById('id_total_seconds').value = freq
+        // }
+        
+       
+        // var f = $('#id_frequency').val();
+        // function frequency(f){
+        //     var fq = parseInt(f)
+        //     var freq = fq * 10;
+        //     document.getElementById('id_total_seconds').value = freq
+        // }
+        
+        // function logobug(){
+        //     var freq1 = document.getElementById('id_frequency').value
+        //     var base_rate1 = document.getElementById('nfct_baserate1').value
+        //     var logo_total = freq1 * base_rate1
+        //     document.getElementById('id_nfct_total').value = logo_total;
+        // }
+        
         function cal(){
             var elements = document.getElementById('id_form-0-ref_nfct_elements_id').value;
             console.log(elements.value, '*****************')
@@ -290,16 +323,17 @@
                 var eff_rate = document.getElementById('id_effective_rate').value
                 var tot_sec = document.getElementById('id_total_seconds').value
                 var total = eff_rate * tot_sec
-                document.getElementById('id_nfct_total').value = total;
+                document.getElementById('id_form-0-nfct_total').value = total;
         }
             else{
                 var freq1 = document.getElementById('id_frequency').value
-                var base_rate1 = document.getElementById('baserate1').value
+                var base_rate1 = document.getElementById('id_effective_rate').value
                 var logo_total = freq1 * base_rate1
-                document.getElementById('id_nfct_total').value = logo_total;
+                document.getElementById('id_form-0-nfct_total').value = logo_total;
         }
         }
     </script>
+
 
 <!-- <script>
   const addMoreButton = document.getElementById('add')
@@ -320,7 +354,7 @@
 
 <script>
   let birdForm = document.querySelectorAll(".bird-form")
-  let container = document.querySelector("#form-container")
+  let container = document.querySelector("#nfct_form")
   let addButton = document.querySelector("#add-form")
   let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
 

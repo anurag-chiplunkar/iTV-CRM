@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 from django.contrib import messages
 from django.contrib.messages import constants as messages
-# import django_heroku
+import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-@(3e5o6)-op@-3lt1m284^=n8^p)d#ngml+2mkoh#9654g%div
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# ALLOWED_HOSTS = ['crm_itv.herokuapp.com']
+ALLOWED_HOSTS = ['itv-crm-test.herokuapp.com']
 
 
 # Application definition
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'customer',
     'agency',
     'nfct',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -67,7 +68,7 @@ ROOT_URLCONF = 'crm_itv.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -86,28 +87,24 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dbcp8fgm4g62fk',
-#         'USER': 'fnpujchnoezmdb',
-#         'PASSWORD' :'91155f4afe79e74026cb7fd71e648ea5ae06216629379d8942732aa618c8ccc3',
-#         'HOST' : 'ec2-34-194-171-47.compute-1.amazonaws.com',
-#         'PORT' : '5432',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm_db',
-        'USER': 'root',
-        'PASSWORD' :'',
-        'HOST' : '',
-        'PORT' : '',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'dat2akb2j5td56',
+        'USER': 'gwxuakszdjknyt',
+        'PASSWORD': '5667e9a34ecb9a866bf3e7ecc6c29ccf2f9beea493bf3d676c5dcb7241f6e9ea',
+        'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
+        'PORT': '5432',
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'crm',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': '',
+    #     'PORT': '',
+    # }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -127,14 +124,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC'
-TIME_ZONE =  'Asia/Kolkata'
+TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
@@ -148,7 +144,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 STATIC_ROOT = str(BASE_DIR.joinpath('staticfiles'))
-MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_cdn","media_root")
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    BASE_DIR), "static_cdn", "media_root")
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static_cdn')]
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
@@ -158,14 +155,14 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# django_heroku.settings(locals())
+django_heroku.settings(locals())
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 # Used to display appropriate bootstrap classes for the different message tags
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-secondary',
     messages.INFO: 'alert-info',
     messages.ERROR: 'alert-danger',
     messages.SUCCESS: 'alert-success',
-    messages.WARNING: 'alert-warning' 
+    messages.WARNING: 'alert-warning'
 }
-

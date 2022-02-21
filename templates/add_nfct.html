@@ -1,12 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add deal</title>
+    <title>Add New Deal</title>
 </head>
 <body>
-    <h1>Add a new deal</h1>
+    <h1>Add NCFT Deal</h1>
     <form id="form-container" method="POST">
         {% csrf_token %}
         {{nfct_deal_formset.management_form}}
@@ -16,7 +20,7 @@
         </div>
         
         {% endfor %}
-        <button id="add-form" type="button">Add Another form</button>
+        <button id="add-form" type="button">Add Another Element</button>
         <button type="submit">Create Deal</button>
     </form>
 
@@ -42,6 +46,7 @@
             totalForms.setAttribute('value', `${formNum+1}`)
         }
     </script>
+   {% endblock %}
 
     </body>
 </html>

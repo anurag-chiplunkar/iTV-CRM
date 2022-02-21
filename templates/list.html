@@ -1,0 +1,32 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<table class="table">
+    <tr>
+        <th>Deal No</th>
+        <th>Channel</th>
+        <th>Element</th>
+        <th>Duration</th>
+        <th>Duration In</th>
+        <th>Effective Rate</th>
+        <th>Frequency</th>
+        <th>Total Seconds</th>
+        <th>Base Rate</th>
+        <th>Total</th>
+    </tr>
+{% for form in nfct %}
+    <tr>
+        <td>{{form.deal_id}}</td>
+        <td>{{form.channel}}</td>
+        <td>{{form.element}}</td>
+        <td>{{form.durations}}</td>
+        <td>{{form.duration_in}}</td>
+        <td>{{form.er}}</td>
+        <td>{{form.freq}}</td>
+        <td>{{form.total_seconds}}</td>
+        <td>{{form.base_rate}}</td>
+        <td>{{form.total}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}
