@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 # import requests
 from django.shortcuts import redirect
+from django.contrib import messages
 
 from .forms import *
 
@@ -45,13 +46,14 @@ def cname(request):
 		if form2.is_valid():
 			obj2 = CustomerName()
 			print("inside form2")
+			obj2.creg_no = form2.cleaned_data.get('creg_no')
 			obj2.cname = form2.cleaned_data.get('cname')
 			obj2.brand_name = form2.cleaned_data.get('brand_name')
 			obj2.ref_customertype = form2.cleaned_data.get('ref_customertype')		#should be same as defined in forms.py
 			print(obj2.ref_customertype)
-
 			obj2.save()
-
+			messages.success(request, 'Client name succesfully added')
+	
 		else:
 			print("invalid form2")
 	return render(request, 'customer/customer_name.html', context)
@@ -98,7 +100,7 @@ def ccontact(request):
 			obj3.sec_city = form3.cleaned_data.get('sec_city')
 			obj3.sec_pincode = form3.cleaned_data.get('sec_pincode')
 
-			obj3.ref_cname = form3.cleaned_data.get('ref_cname')
+			obj3.ref_creg_no = form3.cleaned_data.get('ref_creg_no')
 
 			obj3.save()
 
