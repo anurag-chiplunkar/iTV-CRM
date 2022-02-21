@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib import messages
-from django.contrib.messages import constants as messages
 import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
