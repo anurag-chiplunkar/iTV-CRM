@@ -1,7 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -39,17 +39,7 @@
 	</style>
 </head>
 <body>
-	<!-- Navbar-->
-	<header class="header">
-	    <nav class="navbar navbar-expand-lg navbar-light py-3">
-	        <div class="container">
-	            <!-- Navbar Brand -->
-	            <a href="#" class="navbar-brand">
-	                <img src="{% static 'media_root/itv1.jpg' %}" alt="logo" width="150">
-	            </a>
-	        </div>
-	    </nav>
-	</header>
+	
 
 <div class="container">
     <div class="row py-5 mt-4 align-items-center">
@@ -72,6 +62,7 @@
                             </span>
                         </div>
                         <!-- <input id="firstName" type="text" name="firstname" placeholder="First Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_fname.errors}}
                         {{form.emp_fname}}
                     </div>
 
@@ -83,6 +74,7 @@
                             </span>
                         </div>
                         <!-- <input id="lastName" type="text" name="lastname" placeholder="Last Name" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_lname.errors}}
                         {{form.emp_lname}}
                     </div>
 
@@ -94,6 +86,7 @@
                             </span>
                         </div>
                         <!-- <input id="email" type="email" name="email" placeholder="Email Address" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_email.errors}}
                         {{form.emp_email}}
                     </div>
 
@@ -110,7 +103,11 @@
                             
                         </select> -->
                         <!-- <input id="phoneNumber" type="tel" name="phone" placeholder="Phone Number" class="form-control bg-white border-md border-left-0 pl-3"> -->
+
+                        {{form.emp_phone.errors}}
                         {{form.emp_phone}}
+                        
+                        
                     </div>.
 
 
@@ -125,6 +122,7 @@
                             <option value="">Choose your job</option>
                             <option value="admin">Admin</option>
                             <option value="salesperson">Salesperson</option>
+                            <option value="md">MD</option>
                             
                         </select>
                     </div>
@@ -136,6 +134,7 @@
                                 <i class="fa fa-black-tie text-muted"></i>
                             </span>
                         </div>
+                        {{form.emp_reporting_mgr.errors}}
                         {{form.emp_reporting_mgr}}
                     </div>
 
@@ -146,8 +145,10 @@
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
+                            
                         <!-- <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md"> -->
                         {{form.emp_pass1}}
+                        {{form.emp_pass1.help_text}}
                     </div>
 
                     <!-- Password Confirmation -->
@@ -158,13 +159,21 @@
                             </span>
                         </div>
                         <!-- <input id="passwordConfirmation" type="text" name="passwordConfirmation" placeholder="Confirm Password" class="form-control bg-white border-left-0 border-md"> -->
+                        {{form.emp_pass2.errors}}
                         {{form.emp_pass2}}
+                        {{form.emp_pass2.help_text}}
                     </div>
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
-                        <button name="submit" type="submit" class="btn btn-primary">Create Account</button>
+                        <button name="submit" type="submit" class="btn btn-primary" onclick="errorMessage()">Create Account</button>
                     </div>
+
+                    {% if user.is_authenticated %}
+                    <div class="col-3" style="margin-top: 20px;">
+                        <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+                    </div>
+                    {% endif %}
 
                     <!-- Already Registered -->
                     <div class="text-center w-100">
@@ -192,4 +201,5 @@
 	});
 
 </script>
+
 </html>

@@ -1,3 +1,4 @@
+{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -5,54 +6,147 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+
+  <!-- Favicon-->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+  <!-- Core theme CSS (includes Bootstrap)-->
+  <link href="css/styles.css" rel="stylesheet" />
+
 	<title>Your Profile</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 	<style type="text/css">
 		button{
 			border: none;
 			border-radius: 10px;
 			height: 40px;
-			background-color: #993333;	/*#CC3300;*/
+			color: black;
 		}
 
 		a{
 			text-decoration-line: none;
-			color: white;
+			color: black;
 		}
+
 	</style>
 </head>
 <body>
-
 {% if user.is_authenticated %}
+  {% for i in qs %}
+      <section style="background-color: #eee;">
+        {% if "salesperson" in i.emp_desgn %}
+        <div class="container py-5">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add FCT/NFCT Deals from your account</p>
+              </nav>
+            </div>
+          </div>
+        {% endif %}
+      
+        {% if "admin" in i.emp_desgn %}
+        <div class="container py-5">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add FCT/NFCT Deals, Agency, Agency contacts, Client and Client contacts from your account</p>
+              </nav>
+            </div>
+          </div>
+        {% endif %}
+      
+        {% if "md" in i.emp_desgn %}
+        <div class="container">
+          <div class="row">
+            <div class="col">
+              <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+                <h2>Welcome! You are logged in as {{i.emp_desgn}}</h2>
+                <p>You can add new employees from your account</p>
+              </nav>
+            </div>
+          </div>
+        {% endif %}
+      
+       <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+                  <img src="{% static 'media_root/blank_profile.png' %}" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+                  <h5 class="my-3">{{i.emp_fname}} {{i.emp_lname}}</h5>
+          
+                </div>
+              </div>
+              
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_fname}} {{i.emp_lname}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_email}}</p>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Role</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_desgn}}</p>
+                    </div>
+                    </div>
+                    <hr>
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Phone</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_phone}}</p>
+                    </div>
+                  </div>
+                  <hr>
+       
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Reporting Manager</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0">{{i.emp_reporting_mgr}}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+      
+      </section>
+      
+      {% endfor %}
+        
+      
+      {% endif %}
+      
+      {% endblock %}
 
-	<h3>
-		{% for i in qs %}
 
-			<h1>Hi, {{ i.emp_fname }}</h1>
-			<h1>Welcome to your profile</h1>
-
-			First Name: {{i.emp_fname}}<br>
-			Last Name : {{i.emp_lname}}<br>
-			Designation: {{i.emp_desgn}}<br>
-			Phone : {{i.emp_phone}}<br>
-			Address: {{i.emp_flatno}},{{i.emp_street}},{{i.emp_landmark}},{{i.emp_city}},{{i.emp_pin}}<br>
-
-		
-	</h3><br>
-
-	{% if "Admin" in i.emp_desgn %}
-		<button type="submit" style="color: white;"><a href="{% url 'agency:agency_detail' %}">Add Agency</a></button>
-		<button type="submit"><a href="{% url 'agency:agency_contact' %}">Add Agency Contact</a></button>
-
-		<button type="submit" style="color: white;"><a href="{% url 'customer:cname' %}">Add Client</a></button>
-		<button type="submit"><a href="{% url 'customer:ccontact' %}">Add Client Contact</a></button>
-	{% endif %}
-
-		<button type="submit"><a href="{% url 'logout_view' %}">Logout</a></button>
-{% endfor %}
-	
-
-{% endif %}
-
-{% endblock %}
 </body>
 </html>

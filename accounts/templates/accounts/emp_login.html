@@ -60,9 +60,9 @@
           <img src="{% static 'media_root/Tablet login-rafiki.svg' %}" class="img-fluid mb-3 d-none d-md-block"> 
         </div>
 
-        <!-- Registeration Form -->
+        <!-- Login Form -->
         <div class="col-md-7 col-lg-6 ml-auto">
-            <form action="#">
+            <form method="POST">{% csrf_token %}
             	
                 
             		<h1 class="col-lg-8 mb-4">Login</h1>
@@ -73,7 +73,10 @@
                                 <i class="fa fa-user text-muted"></i>
                             </span>
                         </div>
-                        <input id="userName" type="text" name="username" placeholder="User Name" class="form-control bg-white border-left-0 border-md">
+                        <!-- <input id="userName" type="text" name="username" placeholder="User Name" class="form-control bg-white border-left-0 border-md">
+                         -->
+                         {{form.emp_email.errors}}
+                         {{form.emp_email}}
                     </div>
 
                     <!-- Password -->
@@ -83,22 +86,18 @@
                                 <i class="fa fa-lock text-muted"></i>
                             </span>
                         </div>
-                        <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                        <!-- <input id="password" type="password" name="password" placeholder="Password" class="form-control bg-white border-left-0 border-md">
+                         -->
+                         {{form.emp_pass1.errors}}
+                         {{form.emp_pass1}}
                     </div>
 
                    
                     <!-- Submit Button -->
-                    <div class="form-group col-lg-8 mb-4">
-                        <a href="#" class="btn btn-primary btn-block py-2">
-                            <span class="font-weight-bold">Login</span>
-                        </a>
+                    <div class="form-group col-lg-12 mx-auto mb-0">
+                        <button name="submit" type="submit" class="btn btn-primary">Login</button>
                     </div>
-
-                    <!-- Already Registered -->
-                    <div class="text-center w-100 col-lg-8 mb-4">
-                        <p class="text-muted font-weight-bold">Not Registered?<a href="#" class="text-primary ml-2">Register</a></p>
-                    </div>
-                
+<br>
                 
             </form>
         </div>

@@ -1,4 +1,7 @@
+{% extends "base.html" %}
 {% load static %}
+
+{% block content %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,7 +27,17 @@
 	</style>
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	{% for message in messages %}
+			<div class="container-fluid p-0">
+				<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+					<button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="True">&times;</span>
+					</button>
+					{{ message }}
+				</div>
+			</div>
+	{% endfor %}
+	<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	  <div class="container-fluid">
 	    <a class="navbar-brand" href="#">
 	    	<img style="height: 50px;width: 150px;" src="{% static 'media_root/itv1.jpg' %}">
@@ -43,10 +56,6 @@
 	        <li class="nav-item">
 	          <a class="nav-link active" href="#">CONTACT US</a>
 	        </li>
-	        
-	        <li class="nav-item">
-	          <a class="nav-link active" href="{% url 'accounts:emp_registration' %}">REGISTER</a>
-	        </li>
 
 	        <li class="nav-item">
 	          <a class="nav-link active" href="{% url 'accounts:emp_login' %}">LOGIN</a>
@@ -55,7 +64,7 @@
 	      </ul>
 	    </div>
 	  </div>
-	</nav>
+	</nav> -->
 	
   		<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
 			<div class="carousel-indicators">
@@ -144,5 +153,6 @@
 	  	
 		  <!-- Copyright -->
 	</footer>
+{% endblock %}
 </body>
 </html>
