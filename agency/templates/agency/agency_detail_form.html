@@ -27,6 +27,17 @@
 <h1>Add New Agency</h1>
 </p>
 
+{% for message in messages %}
+<div class="container-fluid p-0">
+    <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{message}}
+    </div>
+</div>
+{% endfor %}
+
 <div class="form-group">
   <div class="input-group">
     <div class="input-group-prepend">
@@ -127,8 +138,12 @@
     <div>
         {{form1.agency_pin}}
       </div>            
-  </div>
-  {{form1.agency_pin.errors}}
+  </div><br>
+<div style="background-color: rgb(245, 192, 192);">
+  {% if form1.agency_pin.errors %}
+  <span>Enter a valid pin code</span>
+  {% endif %}
+</div>
 </div>
 
 
@@ -140,16 +155,6 @@
     {% endif %}
   </div>
 
-  {% for message in messages %}
-        <div class="container-fluid p-0">
-            <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="True">&times;</span>
-                </button>
-                {{message}}
-            </div>
-        </div>
-    {% endfor %}
 </form>
 
 

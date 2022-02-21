@@ -12,7 +12,7 @@ class AgencyDetail(models.Model):
 	agency_pin			= models.IntegerField(max_length = 10)
 	
 	def __str__(self):
-		return self.a_id
+		return self.agency_name + ' -' + self.agency_state
 
 class AgencyContact(models.Model):
 	pri_firstName 	= models.CharField(max_length = 20)

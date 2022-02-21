@@ -34,11 +34,10 @@ def agency_detail(request):
 
 			##checking if the agency already exists and agency is not a number
 			try:
-				if apin.isdigit() == False:
-					messages.error(request,"Enter a valid pincode")
-
-				if aname.isalpha() and apin.isdigit() == True :
-					obj1 = AgencyDetail(agency_name = aname,
+				a = int(aname)
+				messages.error(request,"Enter a valid Agency Name")
+			except ValueError:
+				obj1 = AgencyDetail(agency_name = aname,
 									agency_officeno = aofficeno,
 									agency_street = astreet,
 									agency_state = astate,
@@ -46,17 +45,11 @@ def agency_detail(request):
 									agency_city = acity,
 									agency_pin = apin,
 									a_id = ag_id)
-					obj1.save()
-
-				else:
-					messages.error(request,"Agency Name Cannot be a number")
-
+				obj1.save()
+				messages.success(request,"Agency added successfully")
+		
 			except IntegrityError:
-				messages.error(request,"Agency already exists!")
-
-
-
-				
+				messages.error(request,"This Agency Already Exists")
 
 		else:
 			print("agency detail form invalid")
@@ -126,6 +119,7 @@ def agency_contact(request):
 								agency_details = agency_details
 								)
 			obj2.save()
+			messages.success(request,"Agency Contact successfully added")
 
 
 
