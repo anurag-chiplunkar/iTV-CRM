@@ -25,6 +25,172 @@
 
 	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
 	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="row">
+					<div class="col-auto">
+						<label for="salesperson" class="col-form-label">Executive</label>
+					</div>
+					<div class="col-auto">
+						{% for j in qs %}
+						
+							<input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+						{% endfor %}
+					</div>
+				</div>
+				
+			</div>
+			<div class="col-6">
+				<div class="row">
+					<div class="col-auto">
+						<label for="report" class="col-form-label">Reporting Manager</label>
+					</div>
+					<div class="col-auto">
+						{% for k in qs %}
+						
+							<input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+						{% endfor %}
+					</div>
+				</div>
+			</div> 
+		</div>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="row">
+					<div class="col-auto">
+						<label class="col-form-label">Client Name</label>
+					</div>
+					<div class="col-auto">
+						<select name="c_name" id="c_name" class="form-select">
+							<option value="">-----------------</option>
+							{% for cli in cli_name %}
+								<option value="{{ cli }}">{{ cli }}</option>
+							{% endfor %}
+						</select>
+						
+					</div>
+				</div>
+			</div> 
+			<div class="col-6">
+				<div class="row mb-6">
+					<div class="col-3">
+						<label for="agency_name" class="col-form-label">Agency Name</label>
+					</div>
+					<div class="col-3">
+						<select name="ag_name" id="ag_name" class="form-select">
+							<option value="">-----------------</option>
+							{% for ag in ag_det %}
+								<option value="{{ ag }}">{{ ag }}</option>
+							{% endfor %}
+						</select>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="row mb-6">
+					<div class="col-auto">
+						<label for="brand_name" class="col-form-label">Brand Name</label>
+					</div>
+					<div class="col-auto">
+						<select name="brand_name" id="brand_name" class="form-select">
+							<option value="">-----------------</option>
+							{% for cli in cli_name %}
+								<option value="{{ cli.brand_name }}">{{ cli.brand_name }}</option>
+							{% endfor %}
+						</select>
+						
+					</div>
+				</div>
+			</div> 
+			
+		</div>
+		<div class="row mb-3">
+			<div class="col-6">
+				<div class="col-auto">
+					<label for="client_contact" class="col-form-label">Contact Details</label>
+				</div>
+				<div class="col-auto">
+					<table class="table table-hover">
+						<thead>
+								<tr>
+								
+									<th scope="col">
+										Name
+									</th>
+									<th scope="col">
+										Designation
+									</th>
+									<th scope="col">
+										Email
+									</th>
+									<th scope="col">
+										Telephone
+									</th>
+								</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row"><select name="client_name" id="client_name" class="form-select">
+									<option value="">----------</option>
+									{% for client in cli_det %}
+										<option value="{{ client.pri_fname }} {{ client.pri_lname }}">{{ client.pri_fname }} {{ client.pri_lname }}</option>
+									{% endfor %}
+								</select></th>
+								<td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+								<td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+								<td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-6">
+				<div class="col-auto">
+					<label for="client_contact" class="col-form-label">Contact Details</label>
+				</div>
+				<div class="col-auto">
+					<table class="table table-hover">
+						<thead>
+								<tr>
+									<!-- <th scope="col"></th> -->
+									<th scope="col">
+										Name
+									</th>
+									<th scope="col">
+										Designation
+									</th>
+									<th scope="col">
+										Email
+									</th>
+									<th scope="col">
+										Telephone
+									</th>
+								</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th scope="row"><select name="agency_name" id="agency_name" class="form-select">
+									
+									<option value="">----------</option>
+									{% for age in agg %}
+										<option value="{{ age.pri_firstName }} {{ age.pri_lastName }}">{{ age.pri_firstName }} {{ age.pri_lastName }}</option>
+									{% endfor %}
+									
+								</select></th>
+								<td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+								<td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+								<td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+
+		</div>
 		<div class="row mt-2">
 			<div class="col-1">
 				<label class="form-label">Deal ID</label>
@@ -371,10 +537,61 @@
 		});
 	});
 
-	$('#rev1').on('input',function(){
-		 var rev1_val = $(this).val();	
-		 console.log(rev1_val,"-------============");
+	// $('#rev1').on('input',function(){
+	// 	 var rev1_val = $(this).val();	
+	// 	 console.log(rev1_val,"-------============");
+	// });
+	var cli_contact = '{{ tmpJson | safe }}';
+	$("#c_name").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+	$("#client_name").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#c_name').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+			
+			var des = cli_list[0]['fields']['pri_desg']
+			var ema = cli_list[0]['fields']['pri_email']
+			var tele = cli_list[0]['pk']
+			document.getElementById('clientdesignation').value = des
+			document.getElementById('clientemail').value = ema
+			document.getElementById('clienttele').value = tele
+		}
 	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+	$("#ag_name").change(function(){
+		var agency = $(this).val();
+	});
+
+	$("#agency_name").change(function(){
+		var a_con_name = $(this).val();	
+		var agency = $('#ag_name').val();
+		console.log("----------",a_con_name,agency);
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+			console.log(agn_list,"---------------")
+			console.log(agn_list[0],"-----/////----------")
+			console.log(agn_list[0]['fields'],"-----*****----------")
+			
+			var des = agn_list[0]['fields']['pri_designation']
+			var ema = agn_list[0]['fields']['pri_email']
+			var tele = agn_list[0]['pk']
+			document.getElementById('agencydesignation').value = des
+			document.getElementById('agencyemail').value = ema
+			document.getElementById('agencytele').value = tele
+		}
+	});
+
 
 </script>
 {% endblock %}

@@ -16,7 +16,7 @@ class Agency_details(forms.ModelForm):
 
 class Agency_contacts(forms.ModelForm):
 	##empty_label is for giving a placeholder to the dropdown
-	agency = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Agency')
+	agency = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency')
 	class Meta:
 		model = AgencyContact
 		fields = '__all__'
