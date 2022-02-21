@@ -8,7 +8,8 @@
 	{{form1}}
 	<button type="submit">Register Type</button>
 </form>
-	
-
+{% if form1.errors %}
+    <strong>This Client Type Already Exists!</strong>
+{% endif %}
 </body>
 </html>

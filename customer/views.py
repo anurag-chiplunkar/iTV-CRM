@@ -1,23 +1,16 @@
 from django.shortcuts import render
-
-# Create your views here.
+from django.contrib import messages
 from django.http import HttpResponse
-# import requests
 from django.shortcuts import redirect
-
 from .forms import *
-
 from .models import *
 
 
 def ctype(request):
 	form1 = Cust_type(request.POST or None)
-	# form2 = Cust_name(request.POST or None)
-	# form3 = Cust_contact(request.POST or None)
 
 	context = {"form1" : form1}
 	print(form1.is_valid())
-	print(form1.errors)
 	print(request.POST)
 
 	if request.method == "POST":
@@ -27,9 +20,8 @@ def ctype(request):
 			print("inside form1")
 			obj1.customer_type = form1.cleaned_data.get('customer_type')		#should be same as defined in forms.py
 			print(obj1.customer_type)
+			obj.save()
 
-			obj1.save()
-			# return redirect(reverse('cust_reg'))
 		else:
 			print("invalid form1")
 

@@ -1,5 +1,6 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,reverse
 from django.contrib import messages
+from django.db import IntegrityError
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from .forms import *
@@ -13,9 +14,14 @@ def agency_detail(request):
 		print(request.POST)
 
 		if form1.is_valid():
-			aname 	= form1.cleaned_data.get('agency_name')
-			astate 	= form1.cleaned_data.get('agency_state')
-
+			aname 		= form1.cleaned_data.get('agency_name')
+			aofficeno 	= form1.cleaned_data.get('agency_officeno')
+			astreet 	= form1.cleaned_data.get('agency_street')
+			astate 		= form1.cleaned_data.get('agency_state')
+			alandmark 	= form1.cleaned_data.get('agency_landmark')
+			acity 		= form1.cleaned_data.get('agency_city')
+			apin 		= form1.cleaned_data.get('agency_pin')
+			
 			##generating primary key
 			if ' ' in aname:
 				ag_name = aname.split(' ')
@@ -26,12 +32,36 @@ def agency_detail(request):
 				ag_id 	= aname + '_' + astate
 				print(ag_id)
 
-			obj1 = AgencyDetail(agency_name = aname, agency_state = astate, a_id = ag_id)
-			obj1.save()
+			##checking if the agency already exists and agency is not a number
+			try:
+				if apin.isdigit() == False:
+					messages.error(request,"Enter a valid pincode")
+
+				if aname.isalpha() and apin.isdigit() == True :
+					obj1 = AgencyDetail(agency_name = aname,
+									agency_officeno = aofficeno,
+									agency_street = astreet,
+									agency_state = astate,
+									agency_landmark = alandmark,
+									agency_city = acity,
+									agency_pin = apin,
+									a_id = ag_id)
+					obj1.save()
+
+				else:
+					messages.error(request,"Agency Name Cannot be a number")
+
+			except IntegrityError:
+				messages.error(request,"Agency already exists!")
+
+
+
+				
 
 		else:
 			print("agency detail form invalid")
-	return render(request,'agency/agency_detail_form.html',context1)   
+	return render(request,'agency/agency_detail_form.html',context1) 
+
 
 
 def agency_contact(request):
