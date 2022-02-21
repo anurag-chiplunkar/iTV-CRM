@@ -14,8 +14,11 @@
 <div class="row form-row spacer">
    
     <div class="col-4">
+        <div>
+            <label>Deal Id</label>
+        </div>
         <div class="input-group" >
-            {{form.deal_id | as_crispy_field}}
+            {{form.deal_id}}
             
         </div>
     </div>
@@ -28,25 +31,37 @@
     <div class="row form-row spacer">
       
         <div class="col-3">
+            <div>
+                <label>Channel</label>
+            </div>
             <div class="input-group form-select col-auto ">
-                {{form.channel | as_crispy_field}}
+                {{form.channel}}
                 
             </div>
         </div>
         <div class="col-3">
+            <div>
+                <label>Element</label>
+            </div>
             <div class="input-group form-select col-auto">
-                {{form.element | as_crispy_field}}
+                {{form.element}}
                 
             </div>
         </div>
         <div class="col-3" id="div_duration">
+            <div>
+                <label>Durations</label>
+            </div>
             <div class="input-group form-select col-auto class_durations">
-                {{form.durations | as_crispy_field}}  
+                {{form.durations}}  
             </div>
         </div>
         <div class="col-3" id="div_duration_in">
+            <div>
+                <label>Duration In</label>
+            </div>
             <div class="input-group form-select col-auto class_duration_in">
-                {{form.duration_in | as_crispy_field}}
+                {{form.duration_in}}
                 
             </div>
         </div>
@@ -56,21 +71,30 @@
 <div class="row form-row spacer">
    
     <div class="col-3" id="div_effective_rate">
+        <div>
+            <label>Effective Rate</label>
+        </div>
         <div class="input-group">
-            {{form.er | as_crispy_field}}
+            {{form.er}}
             
         </div>
     </div>
     <div class="col-3">
+        <div>
+            <label>Frequency</label>
+        </div>
         <div class="input-group">
-            {{form.freq | as_crispy_field}}
+            {{form.freq}}
             
         </div>
     </div>
     <div class="col-3" id="div_total_seconds">
+        <div>
+            <label>Total Seconds</label>
+        </div>
 
         <div class="input-group">
-            {{form.total_seconds | as_crispy_field}}
+            {{form.total_seconds}}
             <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
             
         </div>
@@ -88,8 +112,11 @@
 </div>
 <div class="row form-row spacer">
     <div class="col-3">
+        <div>
+            <label>Total</label>
+        </div>
         <div class="input-group class_total">
-            {{form.total | as_crispy_field}}
+            {{form.total}}
             
         </div>
     </div>
@@ -179,6 +206,7 @@
     <div class="col-4 offset-2">
         <button type="submit" class="btn btn-block btn-primary">Create</button>
     </div>
+    
 </div>
 
 </form>
@@ -360,16 +388,12 @@ $('.class_freq').on('input',function(e)
 
     if (element === 'Aston' || element === "L Band"){
         document.getElementById(tot_sec_id).value = frequency * 10;
-        document.getElementById(total).value = er * (frequency * 10);
+        document.getElementById(total).value = (er * (frequency * 10))/10;
     }
     else{
         document.getElementById(total).value = base * frequency;
     }
     
-
-    
-
-
 })
 
 $('.class_er').on('input',function(e)
