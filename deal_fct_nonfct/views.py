@@ -100,7 +100,6 @@ def enter_channels(request):
 	form = channel_form(request.POST or None)
 	ch_obj = Channel()
 	context = {'form': form,}
-	print("////////////",request.POST)
 	if request.method == 'POST':
 		if form.is_valid():
 			ch_obj.c_list = form.cleaned_data.get('c_list')
