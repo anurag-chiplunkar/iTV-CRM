@@ -30,7 +30,8 @@ class Cust_contact(forms.ModelForm):
 	class Meta:
 		
 		model = CustomerContact
-		fields = '__all__'		
+		fields = '__all__'	
+		exclude = ('ref_creg_no',)	
 
 		widgets = {
 				'pri_fname' : forms.Textarea(attrs = {'rows': 1,'class' : 'form-control', 'style': 'resize:none;', 'placeholder': 'Enter First Name'}),

@@ -96,6 +96,7 @@ def ccontact(request):
 			obj3.ref_creg_no = form3.cleaned_data.get('ref_creg_no')
 
 			obj3.save()
+			messages.success(request, 'Client Contact succesfully added')
 
 		else:
 			print("invalid form3")
