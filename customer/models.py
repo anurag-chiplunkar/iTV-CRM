@@ -14,12 +14,13 @@ class CustomerType(models.Model):
 
 
 class CustomerName(models.Model):
-	cname = 			models.CharField(max_length = 200, primary_key = True, unique = True)
+	creg_no = 			models.CharField(max_length = 255, unique=True, primary_key = True)
+	cname = 			models.CharField(max_length = 200)
 	brand_name = 		models.CharField(max_length = 200, blank = True, null = True)
-	ref_customertype =	models.ForeignKey(CustomerType, on_delete = models.CASCADE)
+	ref_customertype =	models.ForeignKey(CustomerType, models.SET_NULL, null=True)
 
 	def __str__(self):
-		return self.cname
+		return self.creg_no
 
 
 
@@ -51,4 +52,4 @@ class CustomerContact(models.Model):
 	sec_city = 				models.CharField(max_length = 50, blank = True, null = True)
 	sec_pincode = 			models.CharField(max_length = 10, blank = True, null = True)
 
-	ref_cname = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
+	ref_creg_no = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
