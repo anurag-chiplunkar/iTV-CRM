@@ -1,0 +1,221 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Add Agency Contact</title>
+  <style>
+  #secondary_contact{
+    display:none
+  }
+  </style>
+</head>
+<body>
+  <center><u><h1>Add New Agency Contact</h1></u></center>
+<div class="container">
+  
+<div class="col py-3">
+    <div class="row "> 
+      <!--Agency Details  -->
+      
+
+{% for message in messages %}
+      <div class="container-fluid p-0">
+          <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="True">&times;</span>
+              </button>
+              {{message}}
+          </div>
+      </div>
+  {% endfor %}
+
+<form class="row g-3" method="POST">{% csrf_token %}
+<!-- Primary Contact Details -->
+  <div class="form-group row">
+    <!-- <label>Select Agency</label> -->
+    <p> 
+      <div class="col-4">
+        {{form2.agency}}
+      </div>
+    </p>
+  </div> 
+
+
+  <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Primary Contact</label>
+  <hr style="width: 800px; color: blue;">
+ 
+  <div class="row g-3">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
+    <div class="col-sm-3">
+      <label for="inputEmail4" class="form-label">First Name*</label>
+      {{form2.pri_firstName}}  
+    </div>
+    <div class="col-sm-3">
+      <label for="inputPassword4" class="form-label">Last Name*</label>
+      {{form2.pri_lastName}}
+    </div>
+    <div class="col-sm-3">
+      <label for="inputEmail4" class="form-label">Email*</label>
+      {{form2.pri_email}}
+    </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+      <label class="form-label">Designation*</label>
+      {{form2.pri_designation}}
+    </div>
+    <div class="col-sm-3">
+      <label class="form-label">Phone Number*</label>
+      {{form2.pri_phone}}
+    </div>
+    <div class="col-sm-3">
+      <label class="form-label">Landline*</label>
+      {{form2.pri_landline}}
+    </div>
+  </div>
+
+  <div class="row g-3">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Address</label>
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Flat No./House/Block*</label>
+    <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
+    {{form2.pri_flatno}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputAddress2" class="form-label">Street Name*</label>
+    <!-- <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> -->
+    {{form2.pri_street}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
+    <!-- <input type="text" class="form-control" id="inputCity"> -->
+    {{form2.pri_landmark}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputState" class="form-label">City*</label>
+    {{form2.pri_city}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputZip" class="form-label">Pincode*</label>
+    <!-- <input type="text" class="form-control" id="inputZip"> -->
+    {{form2.pri_pin}}
+  </div>
+  </div>
+
+
+
+  <!-- Secondary Contact -->
+  <div class="row g-3">
+  <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="sec_contact" name="sec_contact" onclick="OnChangeCheckbox (this)" >
+        <label class="form-check-label" for="sec_contact" >Add Secondary Contact (Optional)</label>
+  </div>
+  </div>
+  <div id="secondary_contact" style="display: none;" class="row g-3">
+    
+  <div class="row g-3" id="seccondary_contact">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Secondary Contact</label>
+    <hr id = "hr-rule" style="width: 800px; color: blue;">
+    <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
+  <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">First Name*</label>
+    {{form2.sec_firstName}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputPassword4" class="form-label">Last Name*</label>
+    {{form2.sec_lastName}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputEmail4" class="form-label">Email*</label>
+    {{form2.sec_email}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label class="form-label">Designation*</label>
+    {{form2.sec_designation}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Phone Number*</label>
+    {{form2.sec_phone}}
+  </div>
+  <div class="col-sm-3">
+    <label class="form-label">Landline*</label>
+    {{form2.sec_landline}}
+  </div>
+
+  </div>
+  <div class="row g-3">
+    <label for="client_pri_ctc" style="font-weight: bold">Address</label>
+  <div class="col-sm-3">
+    <label for="inputAddress" class="form-label">Flat No./House/Block*</label>
+    {{form2.sec_flatno}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputAddress2" class="form-label">Street Name*</label>
+    {{form2.sec_street}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
+    {{form2.sec_landmark}}
+  </div>
+  </div>
+  
+  <div class="row g-3">
+    <div class="col-sm-3">
+    <label for="inputState" class="form-label">City*</label>
+    {{form2.sec_city}}
+  </div>
+  <div class="col-sm-3">
+    <label for="inputZip" class="form-label">Pincode*</label>
+    {{form2.sec_pin}}
+  </div>
+  </div>
+  </div>
+  <div class="row g-3">
+  <div class="form-group">
+    <button name="submit" type="submit" class="btn btn-primary">Register Agency Contact</button>
+    {% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+  </div>
+</div>
+</form>
+        </div>
+    </div>
+</div>  
+
+<!-- Scripts -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+
+<!-- Attach client script -->
+
+   <script type="text/javascript">
+        function OnChangeCheckbox (checkbox) {
+            if (checkbox.checked) {
+                // alert ("The check box is checked.");
+                document.getElementById("secondary_contact").style.display = 'block';
+            }
+            else {
+                // alert ("The check box is not checked.");
+                 document.getElementById("secondary_contact").style.display = 'none';
+            }
+        }
+    </script>
+{% endblock %}
+</body> 
+</html>
