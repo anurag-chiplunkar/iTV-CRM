@@ -32,7 +32,6 @@ class NFCT_Base_Rate(models.Model):
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     nfct_baserate = models.IntegerField(null=True,blank=True)
 
-
 class deal_nfct(models.Model):
     
     deal_id = models.CharField(max_length=500,default=None)
