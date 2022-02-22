@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     'agency',
     'nfct',
     'crispy_forms',
+    'agency_client',
 ]
 
 MIDDLEWARE = [
@@ -110,9 +111,9 @@ DATABASES = {
     # },
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm_db',
+        'NAME': 'crm',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': 'root123',
         'HOST': '',
         'PORT': '',
     }
