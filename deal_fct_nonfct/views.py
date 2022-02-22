@@ -6,8 +6,15 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.contrib import messages
+import json
+from django.core import serializers
 from .forms import *
 from .models import *
+from agency.models import *
+from customer.models import *
+from accounts.models import Employees
+from nfct.models import *
+from django.contrib.auth.models import User
 
 
 def home(request):
@@ -18,8 +25,16 @@ def home(request):
 def fct_details(request):
     form = form_fct_deal(request.POST or None)
     fct_obj = fct_deal()
-    print("---------------------", request.POST, form.is_valid(), form.errors)
-    context = {'form': form, }
+    user = request.user
+    ag_det = AgencyDetail.objects.all()
+    cli_name = CustomerName.objects.all()
+    cli_det = CustomerContact.objects.all()
+    agg = AgencyContact.objects.all()
+    qs1 = Employees.objects.filter(emp_email__contains=user)
+    tmpJson = serializers.serialize("json",cli_det)
+    tmpagen = serializers.serialize("json",agg)
+    
+    context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
     if request.method == "POST":
         if request.POST.get('dis_dd') == '50%-50%':
             if form.is_valid():
@@ -101,19 +116,17 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-    form = channel_form(request.POST or None)
-    ch_obj = Channel()
-    context = {'form': form, }
-    print("////////////", request.POST)
-    if request.method == 'POST':
-        if form.is_valid():
-            ch_obj.c_list = form.cleaned_data.get('c_list')
-            ch_obj.save()
-            messages.success(request, 'Channel is saved!')
-        else:
-            print("outside view")
-    return render(request, 'deal_fct_nonfct/channel.html', context)
-
+	form = channel_form(request.POST or None)
+	ch_obj = Channel()
+	context = {'form': form,}
+	if request.method == 'POST':
+		if form.is_valid():
+			ch_obj.c_list = form.cleaned_data.get('c_list')
+			ch_obj.save()
+			messages.success(request,'Channel is saved!')
+		else:
+			print("outside view")
+	return render(request,'deal_fct_nonfct/channel.html',context)
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):

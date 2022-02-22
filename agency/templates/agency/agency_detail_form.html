@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-
+  <h1><u><center>Add New Agency</center></u></h1>
 	<div class="container">
     
 
@@ -26,6 +26,21 @@
 <p>
 <h1>Add New Agency</h1>
 </p>
+      <div class="col-8">
+        <div class="form-group">
+          <!-- <label for="agncy_name">Agency Name</label> --> 
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-connectdevelop"></i>
+              </div>
+            </div>
+            <div>
+              {{form1.agency_name.errors}}
+              {{form1.agency_name}}
+            </div>
+          </div>
+        </div> 
 
 {% for message in messages %}
 <div class="container-fluid p-0">

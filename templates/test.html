@@ -2,9 +2,9 @@
 {% load crispy_forms_tags %}
 {% block container %}
 {% if heading %}
-<h3>{{heading}}</h3>
 {% endif %}
 <body>
+    <h1><u><center>NFCT Deal Details</center></u></h1>
 <form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
     {% csrf_token %}
 {{ formset.management_form }}
@@ -200,13 +200,17 @@
 
 <!-- Adding buttons -->
 <div class="row spacer">
-    <div class="input-group-append">
-        <button class="btn btn-success add-form-row">Add Another Element</button>
+    <div class="col-auto input-group-append">
+        <button class="btn btn-primary add-form-row">Add Another Element</button>
     </div>
-    <div class="col-4 offset-2">
+    <div class="col-auto">
         <button type="submit" class="btn btn-block btn-primary">Create</button>
     </div>
-    
+    <div class="col-auto">
+    {% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+    </div>
 </div>
 
 </form>

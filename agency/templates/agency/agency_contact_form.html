@@ -16,17 +16,13 @@
   </style>
 </head>
 <body>
-
+  <center><u><h1>Add New Agency Contact</h1></u></center>
 <div class="container">
   
 <div class="col py-3">
     <div class="row "> 
       <!--Agency Details  -->
-      <div class="col-8">
-        <p>
-          <h1>Add New Agency Contact</h1>
-        </p>
-      </div>
+      
 
 {% for message in messages %}
       <div class="container-fluid p-0">
@@ -57,30 +53,30 @@
   <div class="row g-3">
     <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
     <div class="col-sm-3">
-      <label for="inputEmail4" class="form-label">First Name</label>
+      <label for="inputEmail4" class="form-label">First Name*</label>
       {{form2.pri_firstName}}  
     </div>
     <div class="col-sm-3">
-      <label for="inputPassword4" class="form-label">Last Name</label>
+      <label for="inputPassword4" class="form-label">Last Name*</label>
       {{form2.pri_lastName}}
     </div>
     <div class="col-sm-3">
-      <label for="inputEmail4" class="form-label">Email</label>
+      <label for="inputEmail4" class="form-label">Email*</label>
       {{form2.pri_email}}
     </div>
   </div>
   
   <div class="row g-3">
     <div class="col-sm-3">
-      <label class="form-label">Designation</label>
+      <label class="form-label">Designation*</label>
       {{form2.pri_designation}}
     </div>
     <div class="col-sm-3">
-      <label class="form-label">Phone Number</label>
+      <label class="form-label">Phone Number*</label>
       {{form2.pri_phone}}
     </div>
     <div class="col-sm-3">
-      <label class="form-label">Landline</label>
+      <label class="form-label">Landline*</label>
       {{form2.pri_landline}}
     </div>
   </div>
@@ -88,17 +84,17 @@
   <div class="row g-3">
     <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Address</label>
   <div class="col-sm-3">
-    <label for="inputAddress" class="form-label">Flat No./House/Block</label>
+    <label for="inputAddress" class="form-label">Flat No./House/Block*</label>
     <!-- <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St"> -->
     {{form2.pri_flatno}}
   </div>
   <div class="col-sm-3">
-    <label for="inputAddress2" class="form-label">Street Name</label>
+    <label for="inputAddress2" class="form-label">Street Name*</label>
     <!-- <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor"> -->
     {{form2.pri_street}}
   </div>
   <div class="col-sm-3">
-    <label for="inputCity" class="form-label">Landmark</label>
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
     <!-- <input type="text" class="form-control" id="inputCity"> -->
     {{form2.pri_landmark}}
   </div>
@@ -106,11 +102,11 @@
   
   <div class="row g-3">
     <div class="col-sm-3">
-    <label for="inputState" class="form-label">City</label>
+    <label for="inputState" class="form-label">City*</label>
     {{form2.pri_city}}
   </div>
   <div class="col-sm-3">
-    <label for="inputZip" class="form-label">Pincode</label>
+    <label for="inputZip" class="form-label">Pincode*</label>
     <!-- <input type="text" class="form-control" id="inputZip"> -->
     {{form2.pri_pin}}
   </div>
@@ -132,30 +128,30 @@
     <hr id = "hr-rule" style="width: 800px; color: blue;">
     <label for="client_pri_ctc" style="font-weight: bold;font-size: 17px;">Contact details</label>
   <div class="col-sm-3">
-    <label for="inputEmail4" class="form-label">First Name</label>
+    <label for="inputEmail4" class="form-label">First Name*</label>
     {{form2.sec_firstName}}
   </div>
   <div class="col-sm-3">
-    <label for="inputPassword4" class="form-label">Last Name</label>
+    <label for="inputPassword4" class="form-label">Last Name*</label>
     {{form2.sec_lastName}}
   </div>
   <div class="col-sm-3">
-    <label for="inputEmail4" class="form-label">Email</label>
+    <label for="inputEmail4" class="form-label">Email*</label>
     {{form2.sec_email}}
   </div>
   </div>
   
   <div class="row g-3">
     <div class="col-sm-3">
-    <label class="form-label">Designation</label>
+    <label class="form-label">Designation*</label>
     {{form2.sec_designation}}
   </div>
   <div class="col-sm-3">
-    <label class="form-label">Phone Number</label>
+    <label class="form-label">Phone Number*</label>
     {{form2.sec_phone}}
   </div>
   <div class="col-sm-3">
-    <label class="form-label">Landline</label>
+    <label class="form-label">Landline*</label>
     {{form2.sec_landline}}
   </div>
 
@@ -163,26 +159,26 @@
   <div class="row g-3">
     <label for="client_pri_ctc" style="font-weight: bold">Address</label>
   <div class="col-sm-3">
-    <label for="inputAddress" class="form-label">Flat No./House/Block</label>
+    <label for="inputAddress" class="form-label">Flat No./House/Block*</label>
     {{form2.sec_flatno}}
   </div>
   <div class="col-sm-3">
-    <label for="inputAddress2" class="form-label">Street Name</label>
+    <label for="inputAddress2" class="form-label">Street Name*</label>
     {{form2.sec_street}}
   </div>
   <div class="col-sm-3">
-    <label for="inputCity" class="form-label">Landmark</label>
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
     {{form2.sec_landmark}}
   </div>
   </div>
   
   <div class="row g-3">
     <div class="col-sm-3">
-    <label for="inputState" class="form-label">City</label>
+    <label for="inputState" class="form-label">City*</label>
     {{form2.sec_city}}
   </div>
   <div class="col-sm-3">
-    <label for="inputZip" class="form-label">Pincode</label>
+    <label for="inputZip" class="form-label">Pincode*</label>
     {{form2.sec_pin}}
   </div>
   </div>

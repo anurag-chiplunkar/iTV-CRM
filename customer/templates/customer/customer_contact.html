@@ -17,20 +17,14 @@
   </style>
 </head>
 <body>
+  <center><u><h1>Add New Client Contact</h1></u></center>
 
 <div class="container">
   
     <div class="row ">
       
       <!--Agency Details  -->
-      <div class="col-8">
-        <p>
-        <h1>Client Contact Registration</h1>
-        </p>
-        
-      </div>
-
-
+     
 <!-- Primary Contact Details -->
 
 <form method="POST" class="row g-3">{% csrf_token %}
@@ -120,7 +114,7 @@
   <div class="row g-3">
   <div class="form-check">
         <input type="checkbox" class="form-check-input" id="sec_contact" name="sec_contact" onclick="OnChangeCheckbox (this)" >
-        <label class="form-check-label" for="sec_contact" >Add Second Person</label>
+        <label class="form-check-label" for="sec_contact" >Add Secondary Contact (Optional)</label>
   </div>
   </div>
   <div id="secondary_contact" style="display: none;" class="row g-3">
@@ -128,31 +122,31 @@
   <div class="row g-3" id="seccondary_contact">
     <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Secondary Contact</label> 
     <div class="col-sm-3">
-    <label for="inputEmail4" class="form-label">First Name</label>
+    <label for="inputEmail4" class="form-label">First Name*</label>
 
     {{form3.sec_fname}}
   </div>
   <div class="col-sm-3">
-    <label for="inputPassword4" class="form-label">Last Name</label>
+    <label for="inputPassword4" class="form-label">Last Name*</label>
     {{form3.sec_lname}}
   </div>
   <div class="col-sm-3">
-    <label for="inputEmail4" class="form-label">Email</label>
+    <label for="inputEmail4" class="form-label">Email*</label>
     {{form3.sec_email}}
   </div>
   </div>
   
   <div class="row g-3">
     <div class="col-sm-3">
-    <label class="form-label">Designation</label>
+    <label class="form-label">Designation*</label>
     {{form3.sec_desg}}
   </div>
   <div class="col-sm-3">
-    <label class="form-label">Phone Number</label>
+    <label class="form-label">Phone Number*</label>
     {{form3.sec_phone}}
   </div>
   <div class="col-sm-3">
-    <label class="form-label">Landline</label>
+    <label class="form-label">Landline*</label>
     {{form3.sec_landline}}
   </div>
 
@@ -160,26 +154,26 @@
   <div class="row g-3">
     <label for="client_pri_ctc" style="font-weight: bold">Address</label>
   <div class="col-sm-3">
-    <label for="inputAddress" class="form-label">Flat No./House/Block</label>
+    <label for="inputAddress" class="form-label">Flat No./House/Block*</label>
     {{form3.sec_flatno}}
   </div>
   <div class="col-sm-3">
-    <label for="inputAddress2" class="form-label">Street Name</label>
+    <label for="inputAddress2" class="form-label">Street Name*</label>
     {{form3.sec_streetname}}
   </div>
   <div class="col-sm-3">
-    <label for="inputCity" class="form-label">Landmark</label>
+    <label for="inputCity" class="form-label">Landmark (Optional)</label>
     {{form3.sec_landmark}}
   </div>
   </div>
   
   <div class="row g-3">
     <div class="col-sm-3">
-    <label for="inputState" class="form-label">City</label>
+    <label for="inputState" class="form-label">City*</label>
     {{form3.sec_city}}
   </div>
   <div class="col-sm-3">
-    <label for="inputZip" class="form-label">Pincode</label>
+    <label for="inputZip" class="form-label">Pincode*</label>
     {{form3.sec_pincode}}
   </div>
   </div>
