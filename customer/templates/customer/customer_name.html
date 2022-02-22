@@ -18,14 +18,15 @@
 <body>
 
 <div class="container">
-  
+  <form method="POST">{% csrf_token %}
     <div class="row">
-      
+     
       <!--Agency Details  -->
       <div class="col-8">
         <p>
         <h1>Client Registration</h1>
         </p>
+     
         <div class="form-group">
           <!-- <label for="agncy_name">Agency Name</label> --> 
           <div class="input-group">

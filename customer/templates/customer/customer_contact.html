@@ -33,7 +33,7 @@
 
 <!-- Primary Contact Details -->
 
-<form method="POST">{% csrf_token %}
+<form method="POST" class="row g-3">{% csrf_token %}
     <div class="form-group row">
     <p>
     <div class="col-4">
@@ -42,9 +42,9 @@
     </div>
     </p>
   </div> 
-</form>
 
-<form class="row g-3" method="POST">{% csrf_token %}
+
+<!-- <form class="row g-3" method="POST">{% csrf_token %} -->
   <label for="client_pri_ctc" style="font-weight: bold;font-size: 23px;">Primary Contact</label> 
   <div class="row g-3">
     <div class="col-sm-3">
