@@ -1,8 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
-
 class AFP_ProgramName(models.Model):
 	"""docstring for AFP_ProgramName
 	Registration of Program Names"""

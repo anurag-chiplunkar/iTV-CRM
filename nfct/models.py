@@ -2,17 +2,9 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.forms import ModelForm
 
-
-
-# Create your models here.
-
 from xml.dom.minidom import Element
 from django.db import models
 
-
-
-
-# Create your models here.
 CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
