@@ -3,6 +3,9 @@ from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django.forms import (formset_factory, modelformset_factory)
 from . models import *
+from nfct.forms import *
+from nfct.models import *
+
 
 class FinalFctNfctDealDetails(forms.ModelForm):
 	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Client Name')

@@ -10,11 +10,18 @@
 <body>
 <div class="container">
     <form method="POST" id="dependent_dropdown" url1="{% url 'load_client_contacts' %}" url2="{% url 'load_agency_contacts' %}"
-    url3 = "{% url 'load_br' %}" url4 = "{% url 'load_br1' %}" url5 = "{% url 'load_br2' %}">{% csrf_token %}
+    url3 = "{% url 'load_br' %}" url4 = "{% url 'load_br1' %}" url5 = "{% url 'load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
     <div class="row g-3">
         <center><h3>Deal Details</h3></center>
     </div>
-  
+    <div class="row">
+        <div class="col-1">
+            <label class="form-label">Deal ID</label>
+        </div>
+        <div class="col-2">
+            {{form.deal_id}}
+        </div>
+    </div>
     <div class="row mb-3">
         <!-- salesperson input -->
         <div class="col-6">
@@ -179,21 +186,7 @@
             <div class="col align-self-center"><h1>FCT Deal Details</h1></div>
             <div class="col align-self-end"></div>
         </div>
-        <div class="row g-3 align-items-start">
-            <div class="col-auto">
-                <label class="col-form-label"><h5>FCT Deal Details</h5></label> 
-              </div>
-        </div>
-    
         
-        <div class="row">
-            <div class="col-1">
-                <label class="form-label">Deal ID</label>
-            </div>
-            <div class="col-2">
-                {{form1.deal_id}}
-            </div>
-        </div>
         <div class="row">
                 <div class="col-1"> 
                     <label class="form-label">Channels</label>
@@ -344,7 +337,7 @@
     </div>
 
 <h1>NFCT Deal Details</h1>
-            {% endfor %}
+            
             <!-- <div class="row g-3 align-items-start ">
                 <div class="col-3" style="margin-top: 20px;">
                     <button type="submit" class="btn btn-primary">Save Deal</button>
@@ -364,20 +357,6 @@
         <!-- {% csrf_token %} -->
         {{ formset.management_form }}
         {% for form in formset %}
-    
-    <!-- deal id
-    <div class="row form-row spacer">
-       
-        <div class="col-4">
-            <div>
-                <label>Deal Id</label>
-            </div>
-            <div class="input-group" >
-                {{form.deal_id}}
-                
-            </div>
-        </div>
-    </div> -->
     
     <!-- assign all the columns of formset to container -->
     
@@ -483,8 +462,8 @@
          
     </div>
     
-    <hr>
-    {% endfor %}
+            <hr>
+            {% endfor %}
     
     <!--Buttons -->
     <div class="row spacer">
@@ -691,7 +670,8 @@
 	$("#band1").change(function () {
 		
 		var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
-		var band_dd1 = $(this).val();		// storing the band selected from row1
+		console.log("url1-----------",url1)
+        var band_dd1 = $(this).val();		// storing the band selected from row1
 		console.log("band",band_dd1,)
 		
 		$.ajax({                       // initialize an AJAX request
@@ -898,7 +878,7 @@
        var element = $(`#${element_id}`).val(); 
        console.log(element, 'element value') 
          if (element){
-           var url1 = $("#form").attr("url");
+           var url1 = $("#dependent_dropdown").attr("url6");
            var data = {
                'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
              }
@@ -931,7 +911,7 @@
        var channel = $(`#${channel_id}`).val();  
        console.log(channel, 'channel value 2')
          if (channel){
-           var url1 = $("#form").attr("url");
+           var url1 = $("#dependent_dropdown").attr("url6");
            console.log(url1, 'url1')
            var data = {
                'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
@@ -1050,6 +1030,11 @@
        }
    
    </script>
+
+<script>
+    const uid = 'Deal' + Date.now(); 
+    document.getElementById("id_deal_id").value = uid;
+</script>
    
 </body>
 </html>
