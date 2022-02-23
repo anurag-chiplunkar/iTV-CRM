@@ -92,3 +92,6 @@ class CustomerContact(models.Model):
 	sec_pincode = 			models.CharField(max_length = 10, blank = True, null = True)
 
 	ref_creg_no = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
+
+	def __str__(self):
+		return self.pri_fname + ' ' + self.pri_lname
