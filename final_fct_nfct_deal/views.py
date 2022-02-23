@@ -27,13 +27,13 @@ def final_deal(request):
     
     context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
 
-    ##generating deal id
-    try:
-        deal_id = random.randint(1,100)
-        print(deal_id)
-    except IntegrityError:
-        deal_id = random.randint(101,200)
-        print(deal_id)
+    # ##generating deal id
+    # try:
+    #     deal_id = random.randint(1,100)
+    #     print(deal_id)
+    # except IntegrityError:
+    #     deal_id = random.randint(101,200)
+    #     print(deal_id)
 
     if request.method == "POST":
         if form.is_valid():
@@ -56,11 +56,9 @@ def final_deal(request):
 def load_client_contacts(request):
     client_id = request.GET.get('client')
     client_contacts = CustomerContact.objects.filter(ref_cname=client_id).order_by('pri_fname')
-    print(client_contacts)
     return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
 def load_agency_contacts(request):
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(agency_details=agency_id).order_by('pri_firstName')
-    print(agency_contacts)
     return render(request, 'final_fct_nfct_deal/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
