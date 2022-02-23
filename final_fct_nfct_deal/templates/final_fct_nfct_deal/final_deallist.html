@@ -1,0 +1,33 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<table class="table">
+    <tr>
+        <th>Deal No</th>
+        <th>Client Name</th>
+        <th>Client Contact</th>
+        <th>Agency Name</th>
+        <th>Agency Contact</th>
+        <th>Brand Name</th>
+        <th>FCT Total</th>
+        <th>NFCT Total</th>
+        <th>Grand Total</th>
+    </tr>
+{% for form1 in form %}
+    <tr>
+        <td>{{form1.deal_id}}</td>
+        <td>{{form1.client_name_ref}}</td>
+        <td>{{form1.agency_name_ref}}</td>
+        <td>{{form1.agency_contact_ref}}</td>
+        <td>{{form1.brand_name_ref}}</td>
+        <td>{{form1.fct_total}}</td>
+        <td>{{form1.nfct_total}}</td>
+        <td>{{form1.total_seconds}}</td>
+        <td>{{form1.grandtotal}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'nfct:create_deal_model_form' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+{% endblock %}
