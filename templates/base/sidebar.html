@@ -10,6 +10,10 @@
       width: 200px;
       float: left;
       position: relative;
+      
+    }
+    .sidebar{
+      background-color: bisque;
     }
     </style>
 </head>
@@ -20,9 +24,9 @@
         {% if "executive" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
-              <div class="border-end bg-white" id="sidebar-wrapper">
+              <div class="border-end" id="sidebar-wrapper">
                   
-                  <div class="list-group list-group-flush">
+                  <div class="list-group list-group-flush sidebar">
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:create_deal_model_form' %}">Add NFCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
@@ -35,9 +39,9 @@
           {% if "admin" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
-              <div class="border-end bg-white" id="sidebar-wrapper">
+              <div class="border-end" id="sidebar-wrapper">
                   
-                  <div class="list-group list-group-flush">
+                  <div class="list-group list-group-flush sidebar">
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:create_deal_model_form' %}">Add NFCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>

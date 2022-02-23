@@ -9,8 +9,9 @@
 </head>
 <body>
 <div class="container">
-    <form method="POST" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
-    url3 = "{% url 'deal_fct_nonfct:load_br2' %}" id = "form">{% csrf_token %}
+   
+    <form method="POST" id="dependent_dropdown" url1="{% url 'load_client_contacts' %}" url2="{% url 'load_agency_contacts' %}"
+    url3 = "{% url 'load_br' %}" url4 = "{% url 'load_br1' %}" url5 = "{% url 'load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
     <div class="row g-3">
         <center><h3>Deal Details</h3></center>
     </div>
@@ -185,164 +186,157 @@
               </div>
         </div>
     
-        <!-- <form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}" -->
-        <!-- url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %} -->
-            <div class="row">
+        
+        <div class="row">
+            <div class="col-1">
+                <label class="form-label">Deal ID</label>
+            </div>
+            <div class="col-2">
+                {{form1.deal_id}}
+            </div>
+        </div>
+        <div class="row">
+                <div class="col-1"> 
+                    <label class="form-label">Channels</label>
+                </div>
+                <div class="col-2">
+                    <select class="form-select channel" name="channel" id="channel">
+                        <option selected>---------------</option>
+                        <option value="INN">INN</option>
+                        <option value="NX">NX</option>
+                        <option value="IN UP">IN UP</option>
+                        <option value="MP">MP</option>
+                        <option value="RAJ">RAJ</option>
+                        <option value="PUN">PUN</option>
+                        <option value="HAR">HAR</option>
+                        <option value="GUJ">GUJ</option>
+                        <option value="NE NEWS">NE NEWS</option>
+                    </select>
+                </div>
                 <div class="col-1">
-                    <label class="form-label">Deal ID</label>
+                    <label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
                 </div>
-                <div class="col-2">
-                    {{form.deal_id}}
+                <div class="col-2">	
+                    <select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
+                        <option value="">-------------</option>
+                        <option value="25%-25%-50%">25%-25%-50%</option>
+                        <option value="33%-33%-33%">33%-33%-33%</option>
+                        <option value="40%-20%-40%">40%-20%-40%</option>
+                        <option value="50%-50%">50%-50%</option>
+                        <option value="other">Other</option>
+                    </select>
                 </div>
-            </div>
-            <div class="row">
-                    <div class="col-1"> 
-                        <label class="form-label">Channels</label>
-                    </div>
-                    <div class="col-2">
-                        <select class="form-select channel" name="channel" id="channel">
-                            <option selected>---------------</option>
-                            <option value="INN">INN</option>
-                            <option value="NX">NX</option>
-                            <option value="IN UP">IN UP</option>
-                            <option value="MP">MP</option>
-                            <option value="RAJ">RAJ</option>
-                            <option value="PUN">PUN</option>
-                            <option value="HAR">HAR</option>
-                            <option value="GUJ">GUJ</option>
-                            <option value="NE NEWS">NE NEWS</option>
-                        </select>
-                    </div>
-                    <div class="col-1">
-                        <label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
-                    </div>
-                    <div class="col-2">	
-                        <select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
-                            <option value="">-------------</option>
-                            <option value="25%-25%-50%">25%-25%-50%</option>
-                            <option value="33%-33%-33%">33%-33%-33%</option>
-                            <option value="40%-20%-40%">40%-20%-40%</option>
-                            <option value="50%-50%">50%-50%</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    
-                    
-            </div>
-            
-            <div class="row g-3 align-items-start">
-                <div class="col-2">
-                    <label class="col-form-label">Bands</label> 
-                  </div>
-                          
-                  <div class="col-3">
-                      <label class="col-form-label">FCT</label> 
-                  </div>
-                  <div class="col-2">
-                      <label class="col-form-label">Effective Rate</label> 
-                  </div>
-                  <div class="col-3">
-                      <label class="col-form-label">Base Rate</label> 
-                  </div>
-                  <div class="col-2">
-                      <label class="col-form-label">Revenue</label> 
-                  </div>
                 
-            </div>
-            <div class="row g-3 align-items-start" id="row1" style="display: none;">
-                <div class="col-auto">
-                    <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
-                      
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-            <div class="row g-3 align-items-start" id="row2" style="display: none;">
-                <div class="col-auto">
-                    <select name="band2" class="form-select" id="band2" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
-    
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-            <div class="row g-3 align-items-start" id="row3" style="display: none;">
-                <div class="col-auto">
-                    <select name="band3" class="form-select" id="band3" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-    
-            <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;" >
-                            
-                  <div class="col-auto">
-                      <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
-                  </div>
-                  <div class="col-auto">
-                      {{form.total_rev}}
-                  </div>
-            </div>
-            {% for message in messages %}
-                <div class="container-fluid p-0">
-                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
-                        <button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="True">&times;</span>
-                        </button>
-                        {{ message }}
-                    </div>
+                
+        </div>
+        
+        <div class="row g-3 align-items-start">
+            <div class="col-2">
+                <label class="col-form-label">Bands</label> 
                 </div>
-            {% endfor %}
-            <div class="row g-3 align-items-start ">
-                <div class="col-3" style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary">Save Deal</button>
+                        
+                <div class="col-3">
+                    <label class="col-form-label">FCT</label> 
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Effective Rate</label> 
+                </div>
+                <div class="col-3">
+                    <label class="col-form-label">Base Rate</label> 
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Revenue</label> 
+                </div>
+            
+        </div>
+        <div class="row g-3 align-items-start" id="row1" style="display: none;">
+            <div class="col-auto">
+                <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
+                    
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
+        </div>
+        <div class="row g-3 align-items-start" id="row2" style="display: none;">
+            <div class="col-auto">
+                <select name="band2" class="form-select" id="band2" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
+
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
+        </div>
+        <div class="row g-3 align-items-start" id="row3" style="display: none;">
+            <div class="col-auto">
+                <select name="band3" class="form-select" id="band3" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
+        </div>
+    
+        <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;" >
+                        
+                <div class="col-auto">
+                    <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
+                </div>
+                <div class="col-auto">
+                    {{form1.total_rev}}
+                </div>
+        </div>
+        {% for message in messages %}
+            <div class="container-fluid p-0">
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+                    <button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                    </button>
+                    {{ message }}
                 </div>
             </div>
     </div>
@@ -666,25 +660,24 @@
     // storing selected channel in trial variable
     $("#channel").change(function () {
 		
-		trial = $(this).val();		
-        console.log(trial, 'trial')				
+		trial = $(this).val();				// storing selected channel in trial variable
+        console.log("channel",trial)
 	});	
 	var disper ;
 
     // storing selected dispersion in trial_dis variable
 	$("#dis_dd").change(function () {
 		
-		trial_dis = $(this).val();
-        console.log(trial_dis, 'trial_dis')				
+		trial_dis = $(this).val();				// storing selected dispersion in trial_dis variable
+        console.log("dispersion",trial_dis)
 	});	
 	
     // ajax for band 1
 	$("#band1").change(function () {
 		
-		var url1 = $("#form").attr("url1");  // storing url....telling ajax to follow 	
-        console.log(url1)												
+		var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
 		var band_dd1 = $(this).val();		// storing the band selected from row1
-		console.log(band_dd1, 'band_dd1')
+		console.log("band",band_dd1,)
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
@@ -696,11 +689,6 @@
          
 			console.log(data, "Data &&&&&&&&&&&&&&&&&")
 			document.getElementById('base1').value = data;
-			// var multiidhtml = $(data);
-			// console.log(multiidhtml, 'Data ##################')
-			// var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
-			// console.log(multiid);
-          	// $("#base1").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
         }
         
 		});
@@ -709,7 +697,7 @@
     // ajax for band 2
 	$("#band2").change(function () {
 		
-		var url1 = $("#form").attr("url2");  // storing url....telling ajax to follow 													specified url
+		var url1 = $("#dependent_dropdown").attr("url4");  // storing url....telling ajax to follow 													specified url
 		var band_dd2 = $(this).val();		// storing the band selected from row1
 		console.log(band_dd2);
 		
@@ -734,7 +722,7 @@
     // ajax for band 3
 	$("#band3").change(function () {
 		
-		var url2 = $("#form").attr("url3");  // storing url....telling ajax to follow 													specified url
+		var url2 = $("#dependent_dropdown").attr("url5");  // storing url....telling ajax to follow 													specified url
 		var band_dd3 = $(this).val();		// storing the band selected from row1
 		console.log(band_dd3);
 		
@@ -854,7 +842,7 @@
        var element = $(`#${element_id}`).val(); 
        console.log(element, 'element value') 
          if (element){
-           var url1 = $("#form").attr("url");
+           var url1 = $("#dependent_dropdown").attr("url");
            var data = {
                'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
              }
@@ -887,7 +875,7 @@
        var channel = $(`#${channel_id}`).val();  
        console.log(channel, 'channel value 2')
          if (channel){
-           var url1 = $("#form").attr("url");
+           var url1 = $("#dependent_dropdown").attr("url");
            console.log(url1, 'url1')
            var data = {
                'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
@@ -1007,5 +995,46 @@
    
    </script>
    
+<!-- script for dependent dropdown for client contact---------------------------------------------- -->
+
+  <script>
+    $("#id_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url1");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_agency_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url2");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+  </script>
 </body>
 </html>

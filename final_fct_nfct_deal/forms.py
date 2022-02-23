@@ -23,4 +23,19 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 		'grandtotal' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter grand total'}),
 		}
 
+	def __init__(self, *args, **kwargs):
+		super().__init__(*args, **kwargs)
+		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
+
+class form_fct_deal(forms.ModelForm):
+
+	class Meta:
+		model = fct_deal
+		fields = '__all__'
+
+		widgets = {
+		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
+		'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
+		}
+
 	
