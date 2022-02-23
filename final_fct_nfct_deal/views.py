@@ -5,10 +5,10 @@ from django.shortcuts import redirect
 from django.db import IntegrityError
 from .forms import *
 from .models import *
-from agency.models import *
-from customer.models import *
+from agency_client.models import *
 from accounts.models import Employees
 from nfct.models import *
+from nfct.forms import *
 from deal_fct_nonfct.models import *
 from deal_fct_nonfct.forms import *
 import random
@@ -19,7 +19,21 @@ from django.contrib.auth.models import User
 def final_deal(request):
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
+    formset = DealModelFormset(request.POST or None)
+    nfct_form = NFCT_Base_Rate_Form(request.POST or None)
+    fct_form = base_rate_table_form(request.POST or None)
     fct_obj = fct_deal()
+
+    # if request.method == 'GET':
+    #     formset = DealModelFormset(queryset=deal_nfct.objects.none())
+    #     return render(request, 'final_fct_nfct_deal/final_fct_nfct_deal.html', {'formset': formset})
+    # elif request.method == 'POST':
+
+        # formset = DealModelFormset(request.POST or None)
+        # if formset.is_valid():
+        #     formset.save()
+            # return redirect('nfct:deallist')
+
     user = request.user
     ag_det = AgencyDetail.objects.all()
     cli_name = CustomerName.objects.all()
@@ -28,8 +42,8 @@ def final_deal(request):
     qs1 = Employees.objects.filter(emp_email__contains=user)
     tmpJson = serializers.serialize("json",cli_det)
     tmpagen = serializers.serialize("json",agg)
-    
-    context = {'form': form, 'form1':form1, 'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
+    formset = DealModelFormset(queryset=deal_nfct.objects.none())
+    context = {'form': form,'form1': form1,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen, 'formset': formset, 'nfct_form': nfct_form, 'fct_form': fct_form}
 
     ##generating deal id
     try:
@@ -39,9 +53,15 @@ def final_deal(request):
         deal_id = random.randint(101,200)
         print(deal_id)
 
-    if request.method == "POST":
-        if form.is_valid() and form1.is_valid():
-            fct_total   = form.cleaned_data.get('fct_total')
+    if request.method == 'GET':
+        # formset = DealModelFormset(queryset=deal_nfct.objects.none())
+        return render(request, 'final_fct_nfct_deal/final_fct_nfct_deal.html', context)
+    
+    elif request.method == "POST":
+        if form.is_valid() and formset.is_valid() and form1.is_valid():
+            formset = DealModelFormset(request.POST or None)
+
+            fct_total   = form.cleaned_data.get('total_rev')
             nfct_total  = form.cleaned_data.get('nfct_total')
             grand_total = form.cleaned_data.get('grand_total')
             client_name_ref     = form.cleaned_data.get('client_name_ref')
@@ -51,6 +71,59 @@ def final_deal(request):
             brand_name_ref = form.cleaned_data.get('brand_name_ref')
 
             if request.POST.get('dis_dd') == '50%-50%':
+                fct_obj.chan = request.POST.get('channel')
+                fct_obj.dis = request.POST.get('dis_dd')
+                fct_obj.band1 = request.POST.get('band1')
+                fct_obj.band2 = request.POST.get('band2')
+                fct_obj.fct1 = request.POST.get('fct1')
+                fct_obj.fct2 = request.POST.get('fct2')
+
+                fct_obj.eff_rate1 = request.POST.get('er1')
+                fct_obj.eff_rate2 = request.POST.get('er2')
+
+                fct_obj.rev1 = request.POST.get('rev1')
+                fct_obj.rev2 = request.POST.get('rev2')
+                rate1 = request.session['rate']
+                fct_obj.base_rate1 = rate1
+                rate2 = request.session['rate2']
+                fct_obj.base_rate2 = rate2
+                fct_obj.total_rev = form.cleaned_data.get('total_rev')
+                fct_obj.deal_id = form.cleaned_data.get('deal_id')
+                # fct_obj.save()
+                messages.success(request, 'Form is saved!')
+
+            else:
+                fct_obj.chan = request.POST.get('channel')
+                fct_obj.dis = request.POST.get('dis_dd')
+                fct_obj.band1 = request.POST.get('band1')
+                fct_obj.band2 = request.POST.get('band2')
+                fct_obj.band3 = request.POST.get('band3')
+                fct_obj.fct1 = request.POST.get('fct1')
+                fct_obj.fct2 = request.POST.get('fct2')
+                fct_obj.fct3 = request.POST.get('fct3')
+                fct_obj.eff_rate1 = request.POST.get('er1')
+                fct_obj.eff_rate2 = request.POST.get('er2')
+                fct_obj.eff_rate3 = request.POST.get('er3')
+                fct_obj.rev1 = form.cleaned_data.get('rev1')
+                fct_obj.rev2 = request.POST.get('rev2')
+                fct_obj.rev3 = request.POST.get('rev3')
+                fct_obj.total_rev = form.cleaned_data.get('total_rev')
+                fct_obj.deal_id = form.cleaned_data.get('deal_id')
+                rate1 = request.session['rate']
+                fct_obj.base_rate1 = rate1
+                rate2 = request.session['rate2']
+                fct_obj.base_rate2 = rate2
+                rate3 = request.session['rate3']
+                fct_obj.base_rate3 = rate3
+
+                # fct_obj.save()
+                messages.success(request, 'Form is saved!')
+    
+
+            # formset.save()
+
+
+
             
                 fct_obj.chan = request.POST.get('channel')
                 fct_obj.dis = request.POST.get('dis_dd')

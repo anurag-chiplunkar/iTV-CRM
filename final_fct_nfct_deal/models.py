@@ -1,6 +1,5 @@
 from django.db import models
-from customer.models import *
-from agency.models import *
+from agency_client.models import *
 from nfct.forms import *
 from nfct.models import *
 from deal_fct_nonfct.forms import *
