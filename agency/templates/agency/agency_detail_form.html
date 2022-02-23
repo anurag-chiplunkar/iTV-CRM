@@ -22,27 +22,53 @@
     <div class="row ">
       
       <!--Agency Details  -->
-      <div class="col-8">
-        <div class="form-group">
-          <!-- <label for="agncy_name">Agency Name</label> --> 
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <div class="input-group-text">
-                <i class="fa fa-connectdevelop"></i>
-              </div>
-            </div>
-            <div>
-              {{form1.agency_name.errors}}
-              {{form1.agency_name}}
-            </div>
-          </div>
-        </div> 
+<div class="col-8">
+<p>
+<h1>Add New Agency</h1>
+</p>
 
+{% for message in messages %}
+<div class="container-fluid p-0">
+    <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="True">&times;</span>
+        </button>
+        {{message}}
+    </div>
+</div>
+{% endfor %}
 
-
-<!-- Agency State -->
 <div class="form-group">
-          <!-- <label for="agncy_name">Agency Name</label> --> 
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <i class="fa fa-connectdevelop"></i>
+      </div>
+    </div>
+    <div>
+      
+      {{form1.agency_name}}
+    </div>
+  </div>
+  {{form1.agency_name.errors}}
+</div> 
+
+<div class="form-group">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <i class="fa fa-map-marker"></i>
+      </div>
+    </div>
+    <div>
+        
+        {{form1.agency_officeno}}
+      </div>            
+  </div>
+  {{form1.agency_officeno.errors}}
+</div>
+
+<div class="form-group">
           <div class="input-group">
             <div class="input-group-prepend">
               <div class="input-group-text">
@@ -50,17 +76,85 @@
               </div>
             </div>
             <div>
-                {{form1.agency_state.errors}}
-                {{form1.agency_state}}
+                
+                {{form1.agency_street}}
               </div>            
           </div>
+          {{form1.agency_street.errors}}
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <div class="input-group-text">
+          <i class="fa fa-map-marker"></i>
         </div>
+      </div>
+      <div>
+         
+          {{form1.agency_state}}
+        </div>            
+    </div>
+    {{form1.agency_state.errors}}
+</div>
+
+<div class="form-group">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <i class="fa fa-map-marker"></i>
+      </div>
+    </div>
+    <div>
+        
+        {{form1.agency_landmark}}
+      </div>            
+  </div>
+  {{form1.agency_landmark.errors}}
+</div>
+
+<div class="form-group">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <i class="fa fa-map-marker"></i>
+      </div>
+    </div>
+    <div>
+        
+        {{form1.agency_city}}
+      </div>            
+  </div>
+  {{form1.agency_city.errors}}
+</div>
+
+<div class="form-group">
+  <div class="input-group">
+    <div class="input-group-prepend">
+      <div class="input-group-text">
+        <i class="fa fa-map-marker"></i>
+      </div>
+    </div>
+    <div>
+        {{form1.agency_pin}}
+      </div>            
+  </div><br>
+<div style="background-color: rgb(245, 192, 192);">
+  {% if form1.agency_pin.errors %}
+  <span>Enter a valid pin code</span>
+  {% endif %}
+</div>
+</div>
+
+
         <div class="form-group">
     <button name="submit" type="submit" class="btn btn-primary">Add Agency</button>
+    
     {% if user.is_authenticated %}
     <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
     {% endif %}
   </div>
+
 </form>
 
 

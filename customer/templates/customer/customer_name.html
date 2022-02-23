@@ -20,9 +20,9 @@
   <center><u><h1>Add new Client</h1></u></center>
    
 <div class="container">
-  
+  <form method="POST">{% csrf_token %}
     <div class="row">
-      <form method="POST">{% csrf_token %}
+     
       <!--Agency Details  -->
       <div class="col-8">
         <p>
