@@ -340,11 +340,11 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="row g-3 align-items-start ">
+            <!-- <div class="row g-3 align-items-start ">
                 <div class="col-3" style="margin-top: 20px;">
                     <button type="submit" class="btn btn-primary">Save Deal</button>
                 </div>
-            </div>
+            </div> -->
     </div>
 
     <!-- NFCT Details -->
@@ -486,9 +486,9 @@
         <div class="col-auto input-group-append">
             <button class="btn btn-primary add-form-row">Add Another Element</button>
         </div>
-        <div class="col-auto">
+        <!-- <div class="col-auto">
             <button type="submit" class="btn btn-block btn-primary">Create</button>
-        </div>
+        </div> -->
         <div class="col-auto">
         {% if user.is_authenticated %}
         <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
@@ -496,7 +496,11 @@
         </div>
     </div>
     </div>
-     
+    <div class="row g-3 align-items-start ">
+        <div class="col-3" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Save Deal</button>
+        </div>
+    </div>
     </form>
 </div>
 <!----------------------------------------------------------- scripts ---------------------------------------------------- -->

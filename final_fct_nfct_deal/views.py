@@ -89,7 +89,7 @@ def final_deal(request):
                 fct_obj.base_rate2 = rate2
                 fct_obj.total_rev = form.cleaned_data.get('total_rev')
                 fct_obj.deal_id = form.cleaned_data.get('deal_id')
-                fct_obj.save()
+                # fct_obj.save()
                 messages.success(request, 'Form is saved!')
 
             else:
@@ -116,11 +116,11 @@ def final_deal(request):
                 rate3 = request.session['rate3']
                 fct_obj.base_rate3 = rate3
 
-                fct_obj.save()
+                # fct_obj.save()
                 messages.success(request, 'Form is saved!')
     
 
-            formset.save()
+            # formset.save()
 
 
 
