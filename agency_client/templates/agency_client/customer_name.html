@@ -20,9 +20,9 @@
   <center><u><h1>Add new Client</h1></u></center>
    
 <div class="container">
-  <form method="POST">{% csrf_token %}
+  
     <div class="row">
-     
+      <form method="POST">{% csrf_token %}
       <!--Agency Details  -->
       <div class="col-8">
         <p>
@@ -42,7 +42,7 @@
               </div> 
               <!-- <input id="client_name" name="client_name" type="text" required="required" class="form-control" placeholder="Name of the Client"> -->
               <div>
-                  {{form2.creg_no}}
+                  {{form4.creg_no}}
                   
               </div>
             </div>
@@ -61,7 +61,7 @@
             </div> 
             <!-- <input id="client_name" name="client_name" type="text" required="required" class="form-control" placeholder="Name of the Client"> -->
             <div>
-                {{form2.cname}}
+                {{form4.cname}}
             </div>
           </div>
         </div>
@@ -77,7 +77,7 @@
             </div> 
             <!-- <input id="client_name" name="client_name" type="text" required="required" class="form-control" placeholder="Name of the Client"> -->
             <div>
-                {{form2.brand_name}}
+                {{form4.brand_name}}
             </div>
           </div>
         </div>
@@ -95,7 +95,7 @@
         <option value="retail">Retail</option>
       </select> -->
 
-      {{form2.ref_customertype}}
+      {{form4.ref_customertype}}
     </div>
   </div>
 

@@ -9,13 +9,21 @@ CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
         ('GUJ','GUJ'),
+        ('HAR','HAR'),
+        ('MP','MP'),
+        ('NE NEWS','NE NEWS'),
         ('PUN','PUN'),
+        ('RAJ','RAJ'),
+        ('UP','UP'),
     ]
 
 ELEMENT_CHOICE = [
         ('Aston','Aston'),
         ('L Band','L Band'),
         ('Logo Bug','Logo Bug'),
+        ('Headline Sponsership Tag','Headline Sponsership Tag'),
+        ('Ticker','Ticker'),
+        ('Weather Branding','Weather Branding'),
     ]
 
 durations_choices = (

@@ -9,21 +9,21 @@
 </head>
 <body>
 <div class="container">
-    <form method="POST" id="dependent_dropdown" url1="{% url 'load_client_contacts' %}" url2="{% url 'load_agency_contacts' %}">{% csrf_token %}
+    <form method="POST" id="dependent_dropdown" url1="{% url 'load_client_contacts' %}" url2="{% url 'load_agency_contacts' %}"
+    url3 = "{% url 'load_br' %}" url4 = "{% url 'load_br1' %}" url5 = "{% url 'load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
     <div class="row g-3">
         <center><h3>Deal Details</h3></center>
     </div>
-  
-    <div class="row mb-3">
-        <div class="row">
-            <div class="col-1">
-                <label class="form-label">Deal ID</label>
-            </div>
-            <div class="col-2">
-                {{form.deal_id}}
-            </div>
+    <div class="row">
+        <div class="col-1">
+            <label class="form-label">Deal ID</label>
         </div>
-        
+        <div class="col-2">
+            {{form.deal_id}}
+        </div>
+    </div>
+    <div class="row mb-3">
+        <!-- salesperson input -->
         <div class="col-6">
             <div class="row">
                 <div class="col-auto">
@@ -34,6 +34,8 @@
                 </div>
             </div> 
         </div>
+
+        <!-- Reporting manager input -->
          <div class="col-6">
             <div class="row">
                 <div class="col-auto">
@@ -45,6 +47,8 @@
             </div>
         </div> 
     </div>
+
+    <!-- client name dropdown -->
     <div class="row mb-3">
         <div class="col-6">
             <div class="row">
@@ -58,6 +62,8 @@
                 </div>
             </div>
         </div>
+
+        <!-- agency name dropdown -->
         <div class="row mb-3">
         <div class="col-6">
             <div class="row mb-6">
@@ -71,6 +77,8 @@
             </div>
         </div>
     </div>
+
+    <!-- brand name dropdown -->
     <div class="row mb-3">
         <div class="col-6">
             <div class="row mb-6">
@@ -82,7 +90,9 @@
         </div> 
         
     </div>
+
     <div class="row mb-3">
+        <!-- client contact details -->
         <div class="col-6">
             <div class="col-auto">
                 <label for="client_contact" class="col-form-label">Contact Details</label>
@@ -119,6 +129,8 @@
                 </table>
             </div>
         </div>
+
+        <!-- agency contact details -->
         <div class="col-6">
             <div class="col-auto">
                 <label for="client_contact" class="col-form-label">Contact Details</label>
@@ -156,16 +168,138 @@
         </div>
     </div>
 
+    <!-- FCT Details -->
     <div class="container">
         <div class="row">
             <div class="col align-self-start"></div>
             <div class="col align-self-center"><h1>FCT Deal Details</h1></div>
             <div class="col align-self-end"></div>
         </div>
+        
+        <div class="row">
+                <div class="col-1"> 
+                    <label class="form-label">Channels</label>
+                </div>
+                <div class="col-2">
+                    <select class="form-select channel" name="channel" id="channel">
+                        <option selected>---------------</option>
+                        <option value="INN">INN</option>
+                        <option value="NX">NX</option>
+                        <option value="IN UP">IN UP</option>
+                        <option value="MP">MP</option>
+                        <option value="RAJ">RAJ</option>
+                        <option value="PUN">PUN</option>
+                        <option value="HAR">HAR</option>
+                        <option value="GUJ">GUJ</option>
+                        <option value="NE NEWS">NE NEWS</option>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
+                </div>
+                <div class="col-2">	
+                    <select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
+                        <option value="">-------------</option>
+                        <option value="25%-25%-50%">25%-25%-50%</option>
+                        <option value="33%-33%-33%">33%-33%-33%</option>
+                        <option value="40%-20%-40%">40%-20%-40%</option>
+                        <option value="50%-50%">50%-50%</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                
+        </div>
+        
         <div class="row g-3 align-items-start">
+            <div class="col-2">
+                <label class="col-form-label">Bands</label> 
+                </div>
+                        
+                <div class="col-3">
+                    <label class="col-form-label">FCT</label> 
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Effective Rate</label> 
+                </div>
+                <div class="col-3">
+                    <label class="col-form-label">Base Rate</label> 
+                </div>
+                <div class="col-2">
+                    <label class="col-form-label">Revenue</label> 
+                </div>
+            
+        </div>
+        <div class="row g-3 align-items-start" id="row1" style="display: none;">
             <div class="col-auto">
-                <label class="col-form-label"><h5>FCT Deal Details</h5></label> 
-              </div>
+                <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+                </div>
+                <div class="col-auto">
+                    <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
+                    
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
+        </div>
+        <div class="row g-3 align-items-start" id="row2" style="display: none;">
+            <div class="col-auto">
+                <select name="band2" class="form-select" id="band2" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
+
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
+        </div>
+        <div class="row g-3 align-items-start" id="row3" style="display: none;">
+            <div class="col-auto">
+                <select name="band3" class="form-select" id="band3" aria-label="Default select example">
+                    <option value="">---------------</option>
+                    <option value="0600-1200">0600-1200</option>
+                    <option value="1200-1800">1200-1800</option>
+                    <option value="1800-2400">1800-2400</option>
+                </select>
+                </div>
+                
+                <div class="col-auto">
+                    <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
+                </div>
+                <div class="col-auto">
+                    <input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+                </div>
         </div>
     
         <form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
@@ -227,123 +361,200 @@
             </div>
             <div class="row g-3 align-items-start" id="row1" style="display: none;">
                 <div class="col-auto">
-                    <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
-                      
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-            <div class="row g-3 align-items-start" id="row2" style="display: none;">
-                <div class="col-auto">
-                    <select name="band2" class="form-select" id="band2" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
-    
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-            <div class="row g-3 align-items-start" id="row3" style="display: none;">
-                <div class="col-auto">
-                    <select name="band3" class="form-select" id="band3" aria-label="Default select example">
-                      <option value="">---------------</option>
-                      <option value="0600-1200">0600-1200</option>
-                      <option value="1200-1800">1200-1800</option>
-                      <option value="1800-2400">1800-2400</option>
-                    </select>
-                  </div>
-                  
-                  <div class="col-auto">
-                      <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
-                  </div>
-                  <div class="col-auto">
-                      <input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
-                  </div>
-            </div>
-    
-            <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;" >
-                            
-                  <div class="col-auto">
-                      <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
-                  </div>
-                  <div class="col-auto">
-                      {{form.total_rev}}
-                  </div>
-            </div>
-            {% for message in messages %}
-                <div class="container-fluid p-0">
-                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
-                        <button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="True">&times;</span>
-                        </button>
-                        {{ message }}
-                    </div>
+                    <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
                 </div>
-            {% endfor %}
-            <div class="row g-3 align-items-start ">
-                <div class="col-3" style="margin-top: 20px;">
-                    <button type="submit" class="btn btn-primary">Save Deal</button>
+                <div class="col-auto">
+                    {{form1.total_rev}}
+                </div>
+        </div>
+        {% for message in messages %}
+            <div class="container-fluid p-0">
+                <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+                    <button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="True">&times;</span>
+                    </button>
+                    {{ message }}
                 </div>
             </div>
-        </form>
+        {% endfor %}
+        
+        
     </div>
 
 <h1>NFCT Deal Details</h1>
+            
+            <!-- <div class="row g-3 align-items-start ">
+                <div class="col-3" style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary">Save Deal</button>
+                </div>
+            </div> -->
+    </div>
 
-        {{nfct_deal_formset.management_form}}
-        {% for form in nfct_deal_formset %}
-        <div class="bird-form">
-        {{form.as_p}}
+    <!-- NFCT Details -->
+    <div class="container">
+    <div class="row">
+        <div class="col align-self-start"></div>
+        <div class="col align-self-center"><h1>NFCT Deal Details</h1></div>
+        <div class="col align-self-end"></div>
+    </div>
+
+    <!-- <form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}"> -->
+        <!-- {% csrf_token %} -->
+        {{ formset.management_form }}
+        {% for form in formset %}
+    
+    <!-- assign all the columns of formset to container -->
+    
+    <div class="container1">
+        <hr>
+        <!-- first row -->
+        <div class="row form-row spacer">
+          
+            <div class="col-3">
+                <div>
+                    <label>Channel</label>
+                </div>
+                <div class="input-group form-select col-auto ">
+                    {{form.channel}}
+                    
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <label>Element</label>
+                </div>
+                <div class="input-group form-select col-auto">
+                    {{form.element}}
+                    
+                </div>
+            </div>
+            <div class="col-3" id="div_duration">
+                <div>
+                    <label>Durations</label>
+                </div>
+                <div class="input-group form-select col-auto class_durations">
+                    {{form.durations}}  
+                </div>
+            </div>
+            <div class="col-3" id="div_duration_in">
+                <div>
+                    <label>Duration In</label>
+                </div>
+                <div class="input-group form-select col-auto class_duration_in">
+                    {{form.duration_in}}
+                    
+                </div>
+            </div>
+            
         </div>
-        {% endfor %}
-        <button id="add-form" type="button">Add Another Element</button>
-        <button type="submit">Create Deal</button>
+    
+        <!-- second row -->
+        <div class="row form-row spacer">
+        
+            <div class="col-3" id="div_effective_rate">
+                <div>
+                    <label>Effective Rate</label>
+                </div>
+                <div class="input-group">
+                    {{form.er}}
+                    
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <label>Frequency</label>
+                </div>
+                <div class="input-group">
+                    {{form.freq}}
+                    
+                </div>
+            </div>
+            <div class="col-3" id="div_total_seconds">
+                <div>
+                    <label>Total Seconds</label>
+                </div>
+    
+                <div class="input-group">
+                    {{form.total_seconds}}
+                    <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
+                    
+                </div>
+            </div>
+            <div class="col-3">
+                <div>
+                    <label>Base Rate</label>
+                </div>
+                <div class="input-group">
+                    {{form.base_rate}}
+                    <!-- <input type="number" id="baserate1" value='{{nfctbaserate}}' name="baserate1" class="form-control class_baserate"> -->
+                </div>
+            </div>
+            
+        </div>
+    
+        <!-- total -->
+        <div class="row form-row spacer">
+            <div class="col-3">
+                <div>
+                    <label>Total</label>
+                </div>
+                <div class="input-group class_total">
+                    {{form.total}}
+                    
+                </div>
+            </div>
+        </div>
+         
+    </div>
+    
+            <hr>
+            {% endfor %}
+    
+    <!--Buttons -->
+    <div class="row spacer">
+        <div class="col-auto input-group-append">
+            <button class="btn btn-primary add-form-row">Add Another Element</button>
+        </div>
+        <!-- <div class="col-auto">
+            <button type="submit" class="btn btn-block btn-primary">Create</button>
+        </div> -->
+        <div class="col-auto">
+        {% if user.is_authenticated %}
+        <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+        {% endif %}
+        </div>
+    </div>
+    </div>
+    {% for message in messages %}
+			<div class="container-fluid p-0">
+				<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+					<button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="True">&times;</span>
+					</button>
+					{{ message }}
+				</div>
+			</div>
+    {% endfor %}
+    <div class="row g-3 align-items-start ">
+        <div class="col-3" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Save Deal</button>
+        </div>
+    </div>
     </form>
 </div>
-<!-- scripts for common deal form---------------------------------------------------- -->
-    <script>
-        var cli_contact = '{{ tmpJson | safe }}';
+<!----------------------------------------------------------- scripts ---------------------------------------------------- -->
+
+<!-- common form -->
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
 	$("#id_client_name_ref").change(function () {
 		
 		var client = $(this).val();			
 	});	
 
+    // on change auto display
 	$("#id_client_contact_ref").change(function(){
 		var c_con_name = $(this).val();	
 		var client = $('#id_client_name_ref').val();
@@ -367,10 +578,12 @@
 
 	var ag_contact = '{{ tmpagen | safe }}';
 
+    // onchange agency JSON
 	$("#id_agency_name_ref").change(function(){
 		var agency = $(this).val();
 	});
 
+    // on change auto display
 	$("#id_agency_contact_ref").change(function(){
 		var a_con_name = $(this).val();
 		var agency = $('#id_agency_name_ref').val();
@@ -393,11 +606,12 @@
           
 		}
 	});
-    </script>
+</script>
 
-<!-- scripts for fct deal------------------------------------------------------- -->
+<!-- fct deal -->
 <script type="text/javascript">
-	
+
+    // onselect dispersion
 	function showdiv(){
 		var val = event.target.options[event.target.selectedIndex].value;
 		if ((val === "25%-25%-50%") || (val === "33%-33%-33%") || (val === "40%-20%-40%") || (val === "other")){
@@ -414,7 +628,9 @@
 			document.getElementById("row4").style.display = "flex";
 		}
 	}
-	function calculate1 (){
+	
+    // revenue 1
+    function calculate1 (){
     	var box1 = document.getElementById('fct1').value;
     	
     	var box2 = document.getElementById('er1').value;
@@ -425,6 +641,8 @@
     	result.value = mul1;
 
     }
+    
+    // revenue 2
     function calculate2 (){
     	var box21 = document.getElementById('fct2').value;
     	
@@ -436,6 +654,8 @@
     	result1.value = mul21;
 
     }
+    
+    // revenue 3
     function calculate3 (){
     	var box31 = document.getElementById('fct3').value;
     	
@@ -447,6 +667,8 @@
     	result2.value = mul31;
 
     }
+    
+    // sum of 3 revenue
     function sum(){
     	// var num1 = parseInt(document.getElementById('a_fct1').value);
     	// var num2 = parseInt(document.getElementById('a_fct2').value);
@@ -481,25 +703,31 @@
     	}
     	
     }
-</script>
 
-<script>
 	var trial ;							// global variable for storing channel
-	$("#channel").change(function () {
+	
+    // storing selected channel in trial variable
+    $("#channel").change(function () {
 		
 		trial = $(this).val();				// storing selected channel in trial variable
+        console.log("channel",trial)
 	});	
 	var disper ;
+
+    // storing selected dispersion in trial_dis variable
 	$("#dis_dd").change(function () {
 		
 		trial_dis = $(this).val();				// storing selected dispersion in trial_dis variable
+        console.log("dispersion",trial_dis)
 	});	
 	
+    // ajax for band 1
 	$("#band1").change(function () {
 		
-		var url1 = $("#fct_form").attr("url");  // storing url....telling ajax to follow 													specified url
-		var band_dd1 = $(this).val();		// storing the band selected from row1
-		
+		var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
+		console.log("url1-----------",url1)
+        var band_dd1 = $(this).val();		// storing the band selected from row1
+		console.log("band",band_dd1,)
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
@@ -516,9 +744,10 @@
 		});
 	});
 
+    // ajax for band 2
 	$("#band2").change(function () {
 		
-		var url1 = $("#fct_form").attr("url2");  // storing url....telling ajax to follow 													specified url
+		var url1 = $("#dependent_dropdown").attr("url4");  // storing url....telling ajax to follow 													specified url
 		var band_dd2 = $(this).val();		// storing the band selected from row1
 		console.log(band_dd2);
 		
@@ -540,9 +769,10 @@
 		});
 	});
 
+    // ajax for band 3
 	$("#band3").change(function () {
 		
-		var url2 = $("#fct_form").attr("url3");  // storing url....telling ajax to follow 													specified url
+		var url2 = $("#dependent_dropdown").attr("url5");  // storing url....telling ajax to follow 													specified url
 		var band_dd3 = $(this).val();		// storing the band selected from row1
 		console.log(band_dd3);
 		
@@ -564,10 +794,6 @@
 		});
 	});
 
-	$('#rev1').on('input',function(){
-		 var rev1_val = $(this).val();	
-		 console.log(rev1_val,"-------============");
-	});
 
 </script>
 
@@ -618,5 +844,258 @@
     const uid = 'Deal' + Date.now(); 
     document.getElementById("id_deal_id").value = uid;
 </script>
+<!-- nfct deal -->
+<script type="text/javascript">
+    var count = 0;
+   
+   //  update element function
+   function updateElementIndex(el, prefix, ndx) {
+       var id_regex = new RegExp('(' + prefix + '-\\d+)');
+       var replacement = prefix + '-' + ndx;
+       if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+       if (el.id) el.id = el.id.replace(id_regex, replacement);
+   }
+   var list_id = []
+   
+   // clone function
+   function cloneMore(selector, prefix) {
+       
+       var newElement = $(selector).clone(true);
+       console.log(newElement, 'newElement')
+       var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+       // newElement.attr('hidden', false)
+       // newElement.removeClass('container-duplicate')
+       // newElement.attr('class', `container_${count}`)
+       // count++;
+   
+       newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+           var name = $(this).attr('name')
+           
+           if(name) {
+               name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+               var id = 'id_' + name;
+               // console.log(id)
+               list_id.push(id)
+               $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+           }
+       });
+       console.log(list_id)
+   
+       newElement.find('label').each(function() {
+           var forValue = $(this).attr('for');
+           if (forValue) {
+             forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+             $(this).attr({'for': forValue});
+           }
+       });
+   
+       
+       console.log("Hello world!!!!!!!!!!!!!!!!!")          // global variable for storing channel
+     
+       total++;
+       $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+       $(selector).after(newElement);
+       var conditionRow = $('.form-row:not(:last)');
+       conditionRow.find('.btn.add-form-row')
+       .removeClass('btn-success').addClass('btn-danger')
+       .removeClass('add-form-row').addClass('remove-form-row')
+       .html('-');
+   
+       var channel_id = `id_form-${total}-channel` 
+       var element_id = `id_form-${total}-element` 
+       var duration_id = `id_form-${total}-durations` 
+       var duration_in_id = `id_form-${total}-duration_in` 
+       var er_id = `id_form-${total}-er` 
+       var freq_id = `id_form-${total}-freq` 
+       var total_seconds_id = `id_form-${total}-total_seconds` 
+       var base_rate_id = `id_form-${total}-base_rate` 
+       var total_id = `id_form-${total}-total` 
+   
+       document.getElementById(channel_id).style.display = 'block'
+       document.getElementById(element_id).style.display = 'block'
+       document.getElementById(duration_id).style.display = 'block'
+       document.getElementById(duration_in_id).style.display = 'block'
+       document.getElementById(er_id).style.display = 'block'
+       document.getElementById(freq_id).style.display = 'block'
+       document.getElementById(total_seconds_id).style.display = 'block'
+       document.getElementById(base_rate_id).style.display = 'block'
+       document.getElementById(total_id).style.display = 'block'
+       return false;
+   }
+   console.log(list_id, '****************************')
+   // ajax
+   
+   
+   // on change channel
+   $('.class_channel').change(function (e) {
+       var id_function = e.target.id
+   
+       console.log(e.target.id, 'channel id')
+         var channel = $(this).val();  
+         console.log(channel, 'channel value')
+       //   element = $('.class_element').val();
+       var element_id = id_function.replace('channel', 'element');
+       console.log(element_id, 'element id')
+       var element = $(`#${element_id}`).val(); 
+       console.log(element, 'element value') 
+         if (element){
+           var url1 = $("#dependent_dropdown").attr("url6");
+           var data = {
+               'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
+             }
+   
+        $.ajax({                       // initialize an AJAX request
+           url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+           data: {
+             'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+           },
+            success: function (data) {   // `data` is the return of the `load_br` view function
+           var base_id = id_function.replace('channel', 'base_rate')
+           console.log("API", data)
+           document.getElementById(base_id).value= data;
+         }
+        });
+    
+         }                 // storing selected channel in trial variable
+       }); 
+       
+   // on change element
+   $('.class_element').change(function (e) {
+       
+       var id_function = e.target.id
+       attachevent(id_function)
+         var element = $(this).val();  
+         console.log(element, 'element value')
+       //   channel = $(`#id_form-${add}-channel`).val();
+       var channel_id = id_function.replace('element', 'channel')
+       console.log(channel_id, 'channel id2')
+       var channel = $(`#${channel_id}`).val();  
+       console.log(channel, 'channel value 2')
+         if (channel){
+           var url1 = $("#dependent_dropdown").attr("url6");
+           console.log(url1, 'url1')
+           var data = {
+               'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+           
+         }
+         
+         $.ajax({                       // initialize an AJAX request
+           url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+           data: {
+             'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+           },
+         success: function (data) {   // `data` is the return of the `load_br` view function
+           
+           var base_id = id_function.replace('element', 'base_rate')
+           console.log("API2", data)
+           document.getElementById(base_id).value= data;
+             
+           }
+       });
+       }
+   });
+   
+   
+   // frequency calculation
+   $('.class_freq').on('input',function(e)
+   {
+       var freqid_function = e.target.id
+       console.log(freqid_function, 'frequency id')
+       
+       var frequency = $(this).val();
+       console.log(frequency, 'freq value')
+       var er_id = freqid_function.replace('freq', 'er')
+       var er = $(`#${er_id}`).val()
+       var tot_sec_id = freqid_function.replace('freq', 'total_seconds')
+       var tot_sec = $(`#${tot_sec_id}`).val()
+   
+       var total = freqid_function.replace('freq', 'total')
+       var element_id = freqid_function.replace('freq', 'element')
+       var element = $(`#${element_id}`).val()
+   
+       var base_id = freqid_function.replace('freq', 'base_rate')
+       var base = $(`#${base_id}`).val()
+   
+       if (element === 'Aston' || element === "L Band"){
+           document.getElementById(tot_sec_id).value = frequency * 10;
+           document.getElementById(total).value = (er * (frequency * 10))/10;
+       }
+       else{
+           document.getElementById(total).value = base * frequency;
+       }
+       
+   })
+   
+   // effective rate calculation
+   $('.class_er').on('input',function(e)
+   {
+       var erid_function = e.target.id
+       // console.log(erid_function, 'Effective rate id')
+       
+       var eff_rate = parseInt($(this).val());
+       console.log({eff_rate})
+   
+   
+       var tot_sec_id = erid_function.replace('er', 'total_seconds')
+       var total_sec = $(`#${tot_sec_id}`).val();
+       console.log({total_sec})
+   
+       var total = erid_function.replace('er', 'total')
+       console.log({total})
+   
+       document.getElementById(total).value = eff_rate * total_sec;
+   
+   
+   })
+   
+   // add more
+   $(document).on('click', '.add-form-row', function(e){
+       e.preventDefault();
+       cloneMore('.container1:last', 'form');
+       return false;
+   });
+   
+   // remove more
+   $(document).on('click', '.remove-form-row', function(e){
+       e.preventDefault();
+       deleteForm('form', $(this));
+       return false;
+   });
+   
+       // event listener for onchange to hide or display fields
+   function attachevent(ele_id){
+       console.log(ele_id, 'element id *********')
+       console.log('Attach')    
+       var durations = ele_id.replace('element', 'durations')
+       console.log({durations})
+       
+       var duration_in = ele_id.replace('element','duration_in')
+       console.log({duration_in})
+           var elements = document.getElementById(ele_id).value
+           console.log(elements, 'elements -------')
+           document.getElementById(durations).style.display = 'block'
+           document.getElementById(duration_in).style.display = 'block'
+           document.getElementById(ele_id.replace('element','er')).style.display = 'block'
+           document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'block'
+   
+               if (elements === "Aston" || elements === "L Band"){
+           document.getElementById(durations).style.display = 'none'
+           document.getElementById(duration_in).style.display = 'none'
+               }
+               else{
+               document.getElementById(ele_id.replace('element','er')).style.display = 'none'
+               document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'none'
+               }
+               console.log('inside')
+                
+       }
+   
+   </script>
+
+<script>
+    const uid = 'Deal' + Date.now(); 
+    document.getElementById("id_deal_id").value = uid;
+</script>
+   
 </body>
 </html>
