@@ -2,28 +2,28 @@ from django.db import models
 from django.db.models.signals import pre_save
 from django.forms import ModelForm
 
-
-
-# Create your models here.
-
 from xml.dom.minidom import Element
 from django.db import models
 
-
-
-
-# Create your models here.
 CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
         ('GUJ','GUJ'),
+        ('HAR','HAR'),
+        ('MP','MP'),
+        ('NE NEWS','NE NEWS'),
         ('PUN','PUN'),
+        ('RAJ','RAJ'),
+        ('UP','UP'),
     ]
 
 ELEMENT_CHOICE = [
         ('Aston','Aston'),
         ('L Band','L Band'),
         ('Logo Bug','Logo Bug'),
+        ('Headline Sponsership Tag','Headline Sponsership Tag'),
+        ('Ticker','Ticker'),
+        ('Weather Branding','Weather Branding'),
     ]
 
 durations_choices = (
@@ -39,7 +39,6 @@ class NFCT_Base_Rate(models.Model):
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     nfct_baserate = models.IntegerField(null=True,blank=True)
-
 
 class deal_nfct(models.Model):
     

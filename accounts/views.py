@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from .forms import *
 from . models import *
+import re
 
 
 def emp_registration(request):
@@ -17,45 +18,60 @@ def emp_registration(request):
         emp_fname = form.cleaned_data.get('emp_fname')
         emp_lname = form.cleaned_data.get('emp_lname')
         emp_email = form.cleaned_data.get('emp_email')
-        print(type(emp_email))
-        print(emp_email)
         emp_phone = form.cleaned_data.get('emp_phone')
+        print(type(emp_phone))
         emp_desgn = request.POST.get('jobtitle')
         emp_reporting_mgr = form.cleaned_data.get('emp_reporting_mgr')
 
         emp_pass1 = form.cleaned_data.get('emp_pass1')
         emp_pass2 = form.cleaned_data.get('emp_pass2')
 
-        # passwords validation
-        def password_validation(emp_pass1, emp_pass2):
-            if (emp_pass1 != emp_pass2) and (emp_pass1.isalnum() == False and emp_pass2.isalnum() == False):
-                raise ValueError("Password incorrect")
+        flag = 0
+        while True:  
+            if (len(emp_pass1)<8):
+                flag = -1
+                break
+            elif not re.search("[a-z]", emp_pass1):
+                flag = -1
+                break
+            elif not re.search("[A-Z]", emp_pass1):
+                flag = -1
+                break
+            elif not re.search("[0-9]", emp_pass1):
+                flag = -1
+                break
+            elif not re.search("[_@$]", emp_pass1):
+                flag = -1
+                break
+           
             else:
-                return emp_pass1
+                flag = 0
+                print("Valid Password")
+                break
+        
+        #validations
+        if flag ==-1:
+            print("Not a Valid Password")
+            messages.error(request,"Password should have minimum 8 characters. \
+                                    Password should contain atleast one uppercase character.\
+                                    Password should contain atleast one lowercase character.\
+                                    Password should contain atleast one '@', '_' or '$'\
+                                    ")
+        
+        elif (emp_pass1 != emp_pass2):
+            messages.error(request, "Password is not matching")
 
-        # phone number validation
-        def phone_validation(emp_phone):
-            if len(emp_phone) < 10:
-                raise ValidationError("Enter valid number")
-                return redirect("/emp_registration")
-            else:
-                return emp_phone
+        elif ('@cognitioworld.com' or '@itvnetwork.com') not in emp_email:
+            messages.error(request,"Email id should have '@itvnetwork.com' or '@cognitioworld.com'")
 
-        # email validation
-        def email_validation(emp_email):
-            if ('@cognitioworld.com' or '@itvnetwork.com') not in emp_email:
-                messages.error(
-                    request, "Please use cognitio or itvnetwork email for registration")
-# 				raise ValidationError("Enter valid email ID")
-                return redirect("/emp_registration")
-            else:
-                return emp_email
+        elif len(emp_phone)<10:
+            messages.error(request,"Enter a valid phone number")
+        
+        elif type(emp_phone) != int:
+            messages.error(request,"Phone number should only contain numbers")
 
-        emp_pass1 = password_validation(emp_pass1, emp_pass2)
-        emp_phone = phone_validation(emp_phone)
-        emp_email = email_validation(emp_email)
-        print(emp_email, '@@@@@@@@@@@@@@@')
-        obj = Employees(emp_fname=emp_fname,
+        else:
+            obj = Employees(emp_fname=emp_fname,
                         emp_lname=emp_lname,
                         emp_email=emp_email,
                         emp_phone=emp_phone,
@@ -63,12 +79,12 @@ def emp_registration(request):
                         emp_reporting_mgr=emp_reporting_mgr
                         )
 
-        obj.save()
-        # username = emp_email.split("@")[0]
-        # email before the '@' is saved as username in django backend
-        myuser = User.objects.create_user(
-            emp_email[:emp_email.find('@')], emp_email, emp_pass1)
-        return redirect('/emp_login')
+            obj.save()
+
+            # email before the '@' is saved as username in django backend
+            myuser = User.objects.create_user(emp_email[:emp_email.find('@')], emp_email, emp_pass1)
+            return redirect('/emp_login')
+            messages.success(request,"Account successfully created!")
 
     else:
         print("employee registration form invalid")
@@ -86,8 +102,6 @@ def emp_login(request):
         email = form.cleaned_data.get('emp_email')
         username = email[:email.find('@')]
         password = form.cleaned_data.get('emp_pass1')
-        print(username, '********')
-        print(password, '********')
 
         user = authenticate(request, username=username, password=password)
         print(user)
@@ -96,6 +110,7 @@ def emp_login(request):
             login(request, user)
             print(request.user)
             print('You are logged in')
+            return redirect('/profile')
 
             qs1 = Employees.objects.filter(emp_email=email)
             qs_context = {"qs": qs1}

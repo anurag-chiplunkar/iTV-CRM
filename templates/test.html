@@ -2,20 +2,23 @@
 {% load crispy_forms_tags %}
 {% block container %}
 {% if heading %}
-<h3>{{heading}}</h3>
 {% endif %}
 <body>
+    <h1><u><center>NFCT Deal Details</center></u></h1>
 <form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
     {% csrf_token %}
-{{ formset.management_form }}
-{% for form in formset %}
+    {{ formset.management_form }}
+    {% for form in formset %}
 
-<!-- creating rows -->
+<!-- deal id -->
 <div class="row form-row spacer">
    
     <div class="col-4">
+        <div>
+            <label>Deal Id</label>
+        </div>
         <div class="input-group" >
-            {{form.deal_id | as_crispy_field}}
+            {{form.deal_id}}
             
         </div>
     </div>
@@ -25,159 +28,121 @@
 
 <div class="container1">
     <hr>
+    <!-- first row -->
     <div class="row form-row spacer">
       
         <div class="col-3">
+            <div>
+                <label>Channel</label>
+            </div>
             <div class="input-group form-select col-auto ">
-                {{form.channel | as_crispy_field}}
+                {{form.channel}}
                 
             </div>
         </div>
         <div class="col-3">
+            <div>
+                <label>Element</label>
+            </div>
             <div class="input-group form-select col-auto">
-                {{form.element | as_crispy_field}}
+                {{form.element}}
                 
             </div>
         </div>
         <div class="col-3" id="div_duration">
+            <div>
+                <label>Durations</label>
+            </div>
             <div class="input-group form-select col-auto class_durations">
-                {{form.durations | as_crispy_field}}  
+                {{form.durations}}  
             </div>
         </div>
         <div class="col-3" id="div_duration_in">
+            <div>
+                <label>Duration In</label>
+            </div>
             <div class="input-group form-select col-auto class_duration_in">
-                {{form.duration_in | as_crispy_field}}
+                {{form.duration_in}}
                 
             </div>
         </div>
         
     </div>
 
-<div class="row form-row spacer">
-   
-    <div class="col-3" id="div_effective_rate">
-        <div class="input-group">
-            {{form.er | as_crispy_field}}
-            
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="input-group">
-            {{form.freq | as_crispy_field}}
-            
-        </div>
-    </div>
-    <div class="col-3" id="div_total_seconds">
-
-        <div class="input-group">
-            {{form.total_seconds | as_crispy_field}}
-            <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
-            
-        </div>
-    </div>
-    <div class="col-3">
-        <div>
-            <label>Base Rate</label>
-        </div>
-        <div class="input-group">
-            {{form.base_rate}}
-            <!-- <input type="number" id="baserate1" value='{{nfctbaserate}}' name="baserate1" class="form-control class_baserate"> -->
-        </div>
-    </div>
-    
-</div>
-<div class="row form-row spacer">
-    <div class="col-3">
-        <div class="input-group class_total">
-            {{form.total | as_crispy_field}}
-            
-        </div>
-    </div>
-</div>
-    
-    
-</div>
-
-<!-- <div class="container-duplicate" hidden>
-    <hr>
+    <!-- second row -->
     <div class="row form-row spacer">
-      
-        <div class="col-3">
-            <div class="input-group form-select col-auto">
-                {{form.channel | as_crispy_field}}
+    
+        <div class="col-3" id="div_effective_rate">
+            <div>
+                <label>Effective Rate</label>
+            </div>
+            <div class="input-group">
+                {{form.er}}
                 
             </div>
         </div>
         <div class="col-3">
-            <div class="input-group form-select col-auto">
-                {{form.element | as_crispy_field}}
+            <div>
+                <label>Frequency</label>
+            </div>
+            <div class="input-group">
+                {{form.freq}}
                 
             </div>
         </div>
-        <div class="col-3" id="div_duration">
-            <div class="input-group form-select col-auto class_durations">
-                {{form.durations | as_crispy_field}}  
+        <div class="col-3" id="div_total_seconds">
+            <div>
+                <label>Total Seconds</label>
+            </div>
+
+            <div class="input-group">
+                {{form.total_seconds}}
+                <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
+                
             </div>
         </div>
-        <div class="col-3" id="div_duration_in">
-            <div class="input-group form-select col-auto class_duration_in">
-                {{form.duration_in | as_crispy_field}}
-                
+        <div class="col-3">
+            <div>
+                <label>Base Rate</label>
+            </div>
+            <div class="input-group">
+                {{form.base_rate}}
+                <!-- <input type="number" id="baserate1" value='{{nfctbaserate}}' name="baserate1" class="form-control class_baserate"> -->
             </div>
         </div>
         
     </div>
 
-<div class="row form-row spacer">
-   
-    <div class="col-3" id="div_effective_rate">
-        <div class="input-group">
-            {{form.er | as_crispy_field}}
-            
+    <!-- total -->
+    <div class="row form-row spacer">
+        <div class="col-3">
+            <div>
+                <label>Total</label>
+            </div>
+            <div class="input-group class_total">
+                {{form.total}}
+                
+            </div>
         </div>
     </div>
-    <div class="col-3">
-        <div class="input-group">
-            {{form.freq | as_crispy_field}}
-            
-        </div>
-    </div>
-    <div class="col-3" id="div_total_seconds">
-
-        <div class="input-group">
-            {{form.total_seconds | as_crispy_field}}
-            
-        </div>
-    </div>
-    <div class="col-3">
-        <div class="input-group">
-            {{form.base_rate}}
-        </div>
-    </div>
-    
+     
 </div>
-<div class="row form-row spacer">
-    <div class="col-3">
-        <div class="input-group class_total">
-            {{form.total | as_crispy_field}}
-            
-        </div>
-    </div>
-</div>
-    
-    
-</div> -->
 
 <hr>
 {% endfor %}
 
-<!-- Adding buttons -->
+<!--Buttons -->
 <div class="row spacer">
-    <div class="input-group-append">
-        <button class="btn btn-success add-form-row">Add Another Element</button>
+    <div class="col-auto input-group-append">
+        <button class="btn btn-primary add-form-row">Add Another Element</button>
     </div>
-    <div class="col-4 offset-2">
+    <div class="col-auto">
         <button type="submit" class="btn btn-block btn-primary">Create</button>
+    </div>
+    <div class="col-auto">
+    {% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
     </div>
 </div>
 
@@ -192,6 +157,8 @@
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 <script type="text/javascript">
  var count = 0;
+
+//  update element function
 function updateElementIndex(el, prefix, ndx) {
     var id_regex = new RegExp('(' + prefix + '-\\d+)');
     var replacement = prefix + '-' + ndx;
@@ -199,6 +166,8 @@ function updateElementIndex(el, prefix, ndx) {
     if (el.id) el.id = el.id.replace(id_regex, replacement);
 }
 var list_id = []
+
+// clone function
 function cloneMore(selector, prefix) {
     
     var newElement = $(selector).clone(true);
@@ -266,6 +235,8 @@ function cloneMore(selector, prefix) {
 console.log(list_id, '****************************')
 // ajax
 
+
+// on change channel
 $('.class_channel').change(function (e) {
     var id_function = e.target.id
 
@@ -298,6 +269,7 @@ $('.class_channel').change(function (e) {
       }                 // storing selected channel in trial variable
     }); 
     
+// on change element
 $('.class_element').change(function (e) {
     
     var id_function = e.target.id
@@ -334,11 +306,7 @@ $('.class_element').change(function (e) {
 });
 
 
-// ajax
-
-//total and total seconds calculation start
-
-// frequency
+// frequency calculation
 $('.class_freq').on('input',function(e)
 {
     var freqid_function = e.target.id
@@ -360,18 +328,15 @@ $('.class_freq').on('input',function(e)
 
     if (element === 'Aston' || element === "L Band"){
         document.getElementById(tot_sec_id).value = frequency * 10;
-        document.getElementById(total).value = er * (frequency * 10);
+        document.getElementById(total).value = (er * (frequency * 10))/10;
     }
     else{
         document.getElementById(total).value = base * frequency;
     }
     
-
-    
-
-
 })
 
+// effective rate calculation
 $('.class_er').on('input',function(e)
 {
     var erid_function = e.target.id
@@ -393,102 +358,14 @@ $('.class_er').on('input',function(e)
 
 })
 
-// $('.class_total_seconds').on('input',function(e)
-// {
-//     var totid_function = e.target.id
-//     // console.log(totid_function, 'Total Seconds id')
-    
-//     var total_sec = parseInt($(this).val());
-//     // console.log({total_sec})
-
-
-//     var er_id = totid_function.replace('total_seconds', 'er')
-//     var eff_rate = $(`#${er_id}`).val();
-//     // console.log({eff_rate})
-
-//     var total = totid_function.replace('total_seconds', 'total')
-//     // console.log({total})
-
-//     document.getElementById(total).value = eff_rate * total_sec;
-
-
-// })
-// //aston & lband total
-
-// var total_sec;  
-// var eff_rate; 
-// $('#id_form-0-total_seconds').change(function () {
-
-//       total_sec = $(this).val();  
-//       console.log(total_sec, 'total_sec')
-//       eff_rate = $('#id_form-0-er').val();
-//       if (eff_rate){
-//         var url1 = $("#nfct_form").attr("url3");
-//         var data = {
-//             'total_sec': total_sec , 'eff_rate' :eff_rate   // add the channel and band to the GET                          parameters by default it is GET method
-//           }
-//       }});
-
-// $('#id_form-0-er').change(function () {
-//       eff_rate = $(this).val();  
-//       console.log(eff_rate, 'eff_rate***')
-//       total_sec = $('id_form-0-total_seconds').val();
-
-//       if (total_sec){
-//         var url1 = $("#nfct_form").attr("url3");
-//         var data = {
-//             'total_sec': total_sec , 'eff_rate' :eff_rate      // add the channel and band to the GET                          parameters by default it is GET method
-        
-
-//       }
-//       console.log(total_sec, "total_sec")  
-//       console.log(eff_rate, "eff_rate") 
-      
-//       $.ajax({                       // initialize an AJAX request
-//         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
-//         data: {
-//           'total_sec': total_sec , 'eff_rate' :eff_rate      // add the channel and band to the GET                          parameters by default it is GET method
-//         },
-//       success: function (data) {   // `data` is the return of the `load_br` view function
-//         // console.log("API", data)
-//         document.getElementById('id_form-0-total').value= total_sec * eff_rate;
-          
-//         //   // var newval = $('#mybase').attr(value)
-//         //   // console.log(newval) 
-//         //   var multiidhtml = $(data);
-//         //   var multiid = multiidhtml.find('#baserate1').attr("value"); // prints base rate in input type
-//         //   console.log(multiid);
-//         //   $("#baserate1").val(multiid); 
-//         }
-//     });
-//     }
-// });
-
-//total and total seconds calculation end
-
-  
-function deleteForm(prefix, btn) {
-
-    var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-    if (total > 1){
-        btn.closest('.form-row').remove();
-        var forms = $('.form-row');
-        $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-        for (var i=0, formCount=forms.length; i<formCount; i++) {
-            $(forms.get(i)).find(':input').each(function() {
-                updateElementIndex(this, prefix, i);
-            });
-        }
-    }
-    return false;
-}
-
+// add more
 $(document).on('click', '.add-form-row', function(e){
     e.preventDefault();
     cloneMore('.container1:last', 'form');
     return false;
 });
 
+// remove more
 $(document).on('click', '.remove-form-row', function(e){
     e.preventDefault();
     deleteForm('form', $(this));
@@ -522,7 +399,6 @@ function attachevent(ele_id){
             console.log('inside')
              
     }
-
 
 </script>
 
