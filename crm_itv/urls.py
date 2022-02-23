@@ -26,6 +26,7 @@ urlpatterns = [
     path('',include('profiles.urls')),
     path('',include('agency.urls',namespace='agency')),
     path('',include('customer.urls',namespace='customer')),
+    path('',include('final_fct_nfct_deal.urls')),
     path('nfct/',include('nfct.urls',namespace='nfct')),
     path('',include('agency_client.urls', namespace="agency_client")),
 ]

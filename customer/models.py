@@ -17,8 +17,6 @@ class CustomerName(models.Model):
 		return self.creg_no
 
 
-
-
 class CustomerContact(models.Model):
 
 
@@ -46,4 +44,8 @@ class CustomerContact(models.Model):
 	sec_city = 				models.CharField(max_length = 50, blank = True, null = True)
 	sec_pincode = 			models.CharField(max_length = 10, blank = True, null = True)
 
-	ref_creg_no = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
+	ref_creg_no = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default', related_name='cust_ref')
+	ref_cname = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default', related_name='cust_name')
+
+	def __str__(self):
+		return self.pri_fname + ' ' + self.pri_lname

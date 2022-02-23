@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'customer',
     'agency',
     'nfct',
+    'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
 ]
