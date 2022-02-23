@@ -19,7 +19,7 @@ from django.contrib.auth.models import User
 def final_deal(request):
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
-    formset = DealModelFormset(request.POST or None)
+    # formset = DealModelFormset(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
     fct_form = base_rate_table_form(request.POST or None)
     fct_obj = fct_deal()
@@ -39,20 +39,20 @@ def final_deal(request):
     
     if request.method == "POST":
         print(request.POST,"all forms request.post---------------------")
-        if form.is_valid() and formset.is_valid() and form1.is_valid():
-            print("form errors--------------------",form.errors)
-            print("form1 error===========",form1.errors)
+        print("form errors--------------------",form.errors)
+        print("form1 error===========",form1.errors)
+        print("formset.errors here~~~~~~~",formset.errors)
+        if form.is_valid() or formset.is_valid() or form1.is_valid():
+            print("checking validating in form")
+            
             formset = DealModelFormset(request.POST or None)
 
-            final_obj.fct_total   = form.cleaned_data.get('total_rev')
-            final_obj.nfct_total  = form.cleaned_data.get('nfct_total')
-            final_obj.grandtotal = form.cleaned_data.get('grandtotal')
             final_obj.client_name_ref     = form.cleaned_data.get('client_name_ref')
             final_obj.client_contact_ref  = form.cleaned_data.get('client_contact_ref')
             final_obj.agency_name_ref     = form.cleaned_data.get('agency_name_ref')
             final_obj.agency_contact_ref  = form.cleaned_data.get('agency_contact_ref')
             final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
-
+            
 
             if request.POST.get('dis_dd') == '50%-50%':
                 fct_obj.chan = request.POST.get('channel')
@@ -74,6 +74,7 @@ def final_deal(request):
                 fct_obj.total_rev = form.cleaned_data.get('total_rev')
                 fct_obj.deal_id = form.cleaned_data.get('deal_id')
                 fct_obj.save()
+                print("reached after fct saved")
                 messages.success(request, 'Form is saved!')
 
             else:
@@ -101,10 +102,17 @@ def final_deal(request):
                 fct_obj.base_rate3 = rate3
 
                 fct_obj.save()
+                print("reached after fct saved")
                 messages.success(request, 'Form is saved!')
 
-
+            print("reached before formset saved")
+            final_obj.fct_total   = form1.cleaned_data.get('total_rev')
+            final_obj.nfct_total  = request.POST.get('form-0-total')
+            print("total here***************",final_obj.fct_total,final_obj.nfct_total)
+            final_obj.grandtotal = int(final_obj.fct_total) + int(final_obj.nfct_total)
+            print("*****grandtotal",final_obj.grandtotal)
             formset.save()     
+            print("reached before final saved")
             final_obj.save()  
     else:
         print("Form is invalid")

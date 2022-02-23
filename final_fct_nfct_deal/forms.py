@@ -29,7 +29,17 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
-
+		print("self.data",self.data,"------------------")
+		
+		if 'client_name_ref' in self.data:
+			print("client name exists/////")
+			try:
+				client_id = self.data.get('client_name_ref')
+				self.fields['client_contact_ref'].queryset = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
+			except (ValueError, TypeError):
+				pass  # invalid input from the client; ignore and fallback to empty City queryset
+		elif self.instance.pk:
+			self.fields['client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
 class form_fct_deal(forms.ModelForm):
 
 	class Meta:
