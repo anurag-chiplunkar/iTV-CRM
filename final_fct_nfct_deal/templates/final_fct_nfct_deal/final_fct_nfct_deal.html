@@ -666,22 +666,25 @@
     // storing selected channel in trial variable
     $("#channel").change(function () {
 		
-		trial = $(this).val();				
+		trial = $(this).val();		
+        console.log(trial, 'trial')				
 	});	
 	var disper ;
 
     // storing selected dispersion in trial_dis variable
 	$("#dis_dd").change(function () {
 		
-		trial_dis = $(this).val();				
+		trial_dis = $(this).val();
+        console.log(trial_dis, 'trial_dis')				
 	});	
 	
     // ajax for band 1
 	$("#band1").change(function () {
 		
-		var url1 = $("#form").attr("url1");  // storing url....telling ajax to follow 													specified url
+		var url1 = $("#form").attr("url1");  // storing url....telling ajax to follow 	
+        console.log(url1)												
 		var band_dd1 = $(this).val();		// storing the band selected from row1
-		
+		console.log(band_dd1, 'band_dd1')
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
