@@ -26,7 +26,14 @@ def final_deal(request):
     tmpagen = serializers.serialize("json",agg)
     
     context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
-    # context = {"form" : form}
+
+    ##generating deal id
+    try:
+        deal_id = random.randint(1,100)
+        print(deal_id)
+    except IntegrityError:
+        deal_id = random.randint(101,200)
+        print(deal_id)
 
     if request.method == "POST":
         if form.is_valid():
@@ -39,12 +46,8 @@ def final_deal(request):
             agency_contact_ref  = form.cleaned_data.get('agency_contact_ref')
             brand_name_ref = form.cleaned_data.get('brand_name_ref')
 
-            try:
-                deal_id = random.randint(1,100)
-                print(deal_id)
-            except IntegrityError:
-                deal_id = random.randint(101,200)
-                print(deal_id)
+            obj = FinalFctNfctDeal()
+            
         else:
             print("Form is invalid")
 

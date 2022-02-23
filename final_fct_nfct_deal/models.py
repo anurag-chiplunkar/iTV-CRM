@@ -1,6 +1,11 @@
 from django.db import models
 from customer.models import *
 from agency.models import *
+from nfct.forms import *
+from nfct.models import *
+from deal_fct_nonfct.forms import *
+from deal_fct_nonfct.models import *
+
 
 class FinalFctNfctDeal(models.Model):
     deal_id             = models.CharField(max_length = 10, primary_key = True, unique = True)
