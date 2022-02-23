@@ -52,3 +52,9 @@ def final_deal(request):
             print("Form is invalid")
 
     return render(request,"final_fct_nfct_deal/final_fct_nfct_deal.html",context)
+
+def load_client_contacts(request):
+    client_id = request.GET.get('client')
+    client_contacts = CustomerContact.objects.filter(ref_cname=client_id).order_by('pri_fname')
+    print(client_contacts)
+    return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})

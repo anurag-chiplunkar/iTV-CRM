@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <form method="POST">{% csrf_token %}
+    <form method="POST" id="dependent_dropdown" url="{% url 'load_client_contacts' %}">{% csrf_token %}
     <div class="row g-3">
         <center><h3>Deal Details</h3></center>
     </div>
@@ -334,7 +334,7 @@
         </form>
     </div>
 
-    <h1>NFCT Deal Details</h1>
+<h1>NFCT Deal Details</h1>
 
         {{nfct_deal_formset.management_form}}
         {% for form in nfct_deal_formset %}
@@ -521,11 +521,6 @@
          
 			console.log(data, "Data &&&&&&&&&&&&&&&&&")
 			document.getElementById('base1').value = data;
-			// var multiidhtml = $(data);
-			// console.log(multiidhtml, 'Data ##################')
-			// var multiid = multiidhtml.find('#base1').attr("value"); // prints base rate in input type
-			// console.log(multiid);
-          	// $("#base1").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
         }
         
 		});
@@ -585,5 +580,28 @@
 	});
 
 </script>
+
+<!-- script for dependent dropdown---------------------------------------------- -->
+
+  <script>
+    $("#id_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+  </script>
 </body>
 </html>

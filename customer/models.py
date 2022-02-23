@@ -46,4 +46,4 @@ class CustomerContact(models.Model):
 	ref_cname = 			models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
 
 	def __str__(self):
-		return self.pri_fname + ' ' + self.pri_lname
+		return self.pri_fname
