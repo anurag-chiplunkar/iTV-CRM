@@ -5,7 +5,7 @@ from django.utils import timezone
 
 class fct_deal(models.Model):
 	chan = models.CharField(max_length=1000,blank=True,null=True)
-	deal_id = models.CharField(max_length=500)
+	# deal_id = models.CharField(max_length=500)
 	dis = models.CharField(max_length=1000,blank=True,null=True)
 	band1 = models.CharField(max_length=1000,blank=True,null=True)
 	band2 = models.CharField(max_length=1000,blank=True,null=True)

@@ -29,7 +29,7 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
 		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
-		print("self.data",self.data,"------------------")
+		# print("self.data",self.data,"------------------")
 		
 		if 'client_name_ref' in self.data:
 			print("client name exists/////")

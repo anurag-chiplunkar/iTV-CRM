@@ -42,7 +42,7 @@ class NFCT_Base_Rate(models.Model):
 
 class deal_nfct(models.Model):
     
-    deal_id = models.CharField(max_length=500,default=None)
+    # deal_id = models.CharField(max_length=500,default=None)
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
