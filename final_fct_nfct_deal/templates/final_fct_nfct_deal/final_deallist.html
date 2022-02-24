@@ -9,9 +9,6 @@
         <th>Agency Name</th>
         <th>Agency Contact</th>
         <th>Brand Name</th>
-        <th>FCT Total</th>
-        <th>NFCT Total</th>
-        <th>Grand Total</th>
     </tr>
 {% for f in qs %}
     <tr>
@@ -20,23 +17,28 @@
         <td>{{f.agency_name_ref}}</td>
         <td>{{f.agency_contact_ref}}</td>
         <td>{{f.brand_name_ref}}</td>
-        <td>{{f.total_seconds}}</td>
     </tr>
 {% endfor %}
 </table>
-<table>
-{% for f in qs1 %}  # this is for fct
+<table class="table">
+{% for f1 in qs1 %}  
+<tr>
+    <th>FCT Total</th>
+</tr>
     <tr>
-        <td>{{f.total_rev}}</td>
+        <td>{{f1.total_rev}}</td>
     </tr>
 {% endfor %}
 </table>
-<table>
-    {% for f in qs2 %}  # this is for nfct
-        <tr>
-            <td>{{f.total}}</td>
-        </tr>
-    {% endfor %}
+<table class="table">
+{% for f2 in qs2 %}  
+    <tr>
+        <th>NFCT Total</th>
+    </tr>
+    <tr>
+        <td>{{f2.total}}</td>
+    </tr>
+{% endfor %}
     </table>
 {% if user.is_authenticated %}
     <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_fct_nfct_deal:final_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
