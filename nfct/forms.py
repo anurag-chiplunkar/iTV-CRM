@@ -44,17 +44,17 @@ DealModelFormset = modelformset_factory(
         #     'placeholder': 'Enter Deal ID here'
         # }),
         'channel': forms.Select(attrs={
-            'class': 'class_channel form-control',
+            'class': 'class_channel form-select',
             'placeholder': 'Channel'
             }
         ),
         'element': forms.Select(attrs={
-            'class': 'class_element form-control',
+            'class': 'class_element form-select',
             'placeholder': 'Element'
             }
         ),
         'durations': forms.Select(attrs={
-            'class': 'class_durations form-control',
+            'class': 'class_durations form-select',
             'placeholder': 'Duration'
             }
         ),
@@ -78,7 +78,7 @@ DealModelFormset = modelformset_factory(
             'placeholder': 'Total Seconds'
         }),
         'base_rate' : forms.NumberInput(attrs={
-            'class' : 'form-control class_base_rate form-control',
+            'class' : 'class_base_rate form-control',
             'readonly' : 'readonly',
             'placeholder': 'Base Rate'
         }),
