@@ -8,7 +8,8 @@ urlpatterns = [
          views.load_client_contacts, name='load_client_contacts'),
     path('ajax/load_agency_contacts/',
          views.load_agency_contacts, name='load_agency_contacts'),
-    path('load_br/', views.load_br, name="load_br"),
-    path('load_br1/', views.load_br1, name="load_br1"),
-    path('load_br2/', views.load_br2, name="load_br2"),
+    path('final_load_br/', views.final_load_br, name="final_load_br"),
+    path('final_load_br1/', views.final_load_br1, name="final_load_br1"),
+    path('final_load_br2/', views.final_load_br2, name="final_load_br2"),
+    path('/final_deallist', views.finalDealListView, name='final_deallist'),
 ]
