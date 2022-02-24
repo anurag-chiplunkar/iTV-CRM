@@ -108,7 +108,7 @@ DATABASES = {
         'PASSWORD': '5667e9a34ecb9a866bf3e7ecc6c29ccf2f9beea493bf3d676c5dcb7241f6e9ea',
         'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
         'PORT': '5432',
-    },
+    }
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql',
     #     'NAME': 'crm',
