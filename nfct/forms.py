@@ -33,15 +33,16 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
 
 
 
-DealModelFormset = modelformset_factory(
-    deal_nfct,
-    fields=('deal_id','channel', 'element','durations','duration_in', 'er', 'freq','total_seconds','base_rate','total'),
+DealModelFormset = modelformset_factory( 
+    deal_nfct,          
+    # 'deal_id' we removed this from fields
+    fields=('channel', 'element','durations','duration_in', 'er', 'freq','total_seconds','base_rate','total'),
     extra=1,
     widgets={
-        'deal_id': forms.TextInput(attrs={
-            'class': 'form-control',
-            'placeholder': 'Enter Deal ID here'
-        }),
+        # 'deal_id': forms.TextInput(attrs={
+        #     'class': 'form-control',
+        #     'placeholder': 'Enter Deal ID here'
+        # }),
         'channel': forms.Select(attrs={
             'class': 'class_channel form-control',
             'placeholder': 'Channel'

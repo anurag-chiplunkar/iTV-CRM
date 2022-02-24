@@ -9,8 +9,8 @@
 </head>
 <body>
 <div class="container">
-    <form method="POST" id="dependent_dropdown" url1="{% url 'load_client_contacts' %}" url2="{% url 'load_agency_contacts' %}"
-    url3 = "{% url 'load_br' %}" url4 = "{% url 'load_br1' %}" url5 = "{% url 'load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
+    <form method="POST" id="dependent_dropdown" url1="{% url 'final_fct_nfct_deal:load_client_contacts' %}" url2="{% url 'final_fct_nfct_deal:load_agency_contacts' %}"
+    url3 = "{% url 'final_fct_nfct_deal:final_load_br' %}" url4 = "{% url 'final_fct_nfct_deal:final_load_br1' %}" url5 = "{% url 'final_fct_nfct_deal:final_load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
     <div class="row g-3">
         <center><h3>Deal Details</h3></center>
     </div>
