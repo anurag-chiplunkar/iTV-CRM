@@ -9,4 +9,5 @@ urlpatterns = [
 	path('load_br/',views.load_br,name="load_br"),
 	path('load_br1/',views.load_br1,name="load_br1"),
 	path('load_br2/',views.load_br2,name="load_br2"),
+	path('/final_deallist',views.finalDealListView, name = 'final_deallist'),
 ]
