@@ -28,6 +28,6 @@
 {% endfor %}
 </table>
 {% if user.is_authenticated %}
-    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'nfct:create_deal_model_form' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_fct_nfct_deal:final_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
     {% endif %}
 {% endblock %}
