@@ -132,25 +132,25 @@ def final_deal(request):
                     formset.save()
                     print("reached at the end---------------------")
 
+                    return redirect('/final_deallist')
+
+                print("reached after form-1 saved commit false")
+                messages.success(request, 'Form is saved!')
+                form1.fct_total = total_revenue
+                nfct_total = request.POST.get('form-0-total')
+
+                nfct_total = int(nfct_total)
+                form1.nfct_total = nfct_total
+
+                formset = DealModelFormset(request.POST or None)
+                print("if-----", formset.is_valid())
+                if formset.is_valid():
+
+                    form1.save(commit=True)
+                    form.save(commit=True)
+                    formset.save()
+                    print("reached at the end---------------------")
                     return redirect('final_deallist')
-
-                    print("reached after form-1 saved commit false")
-                    messages.success(request, 'Form is saved!')
-                    form1.fct_total = total_revenue
-                    nfct_total = request.POST.get('form-0-total')
-
-                    nfct_total = int(nfct_total)
-                    form1.nfct_total = nfct_total
-
-                    formset = DealModelFormset(request.POST or None)
-                    print("if-----", formset.is_valid())
-                    if formset.is_valid():
-
-                        form1.save(commit=True)
-                        form.save(commit=True)
-                        formset.save()
-                        print("reached at the end---------------------")
-                        return redirect('final_deallist')
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
