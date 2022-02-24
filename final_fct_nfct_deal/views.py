@@ -19,7 +19,9 @@ from django.contrib.auth.models import User
 
 def finalDealListView(request):
     qs = FinalFctNfctDeal.objects.all()
-    mycontext = {'qs': qs}
+    qs1 = fct_deal.objects.all()
+    qs2 = deal_nfct.objects.all()
+    mycontext = {'qs': qs, 'qs1': qs1, 'qs2': qs2}
     template_name = 'final_fct_nfct_deal/final_deallist.html'
     return render(request, template_name, mycontext)
 
