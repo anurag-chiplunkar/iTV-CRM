@@ -13,17 +13,17 @@
         <th>NFCT Total</th>
         <th>Grand Total</th>
     </tr>
-{% for form1 in form %}
+{% for f in qs %}
     <tr>
-        <td>{{form1.deal_id}}</td>
-        <td>{{form1.client_name_ref}}</td>
-        <td>{{form1.agency_name_ref}}</td>
-        <td>{{form1.agency_contact_ref}}</td>
-        <td>{{form1.brand_name_ref}}</td>
-        <td>{{form1.fct_total}}</td>
-        <td>{{form1.nfct_total}}</td>
-        <td>{{form1.total_seconds}}</td>
-        <td>{{form1.grandtotal}}</td>
+        <td>{{f.deal_id}}</td>
+        <td>{{f.client_name_ref}}</td>
+        <td>{{f.agency_name_ref}}</td>
+        <td>{{f.agency_contact_ref}}</td>
+        <td>{{f.brand_name_ref}}</td>
+        <td>{{f.fct_total}}</td>
+        <td>{{f.nfct_total}}</td>
+        <td>{{f.total_seconds}}</td>
+        <td>{{f.grandtotal}}</td>
     </tr>
 {% endfor %}
 </table>
