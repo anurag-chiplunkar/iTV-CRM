@@ -21,20 +21,20 @@
 {% endfor %}
 </table>
 <table class="table">
-{% for f1 in qs1 %}  
 <tr>
     <th>FCT Total</th>
 </tr>
+{% for f1 in qs1 %}  
     <tr>
         <td>{{f1.total_rev}}</td>
     </tr>
 {% endfor %}
 </table>
 <table class="table">
-{% for f2 in qs2 %}  
     <tr>
         <th>NFCT Total</th>
     </tr>
+    {% for f2 in qs2 %}  
     <tr>
         <td>{{f2.total}}</td>
     </tr>
