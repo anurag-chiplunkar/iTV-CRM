@@ -127,7 +127,7 @@ def final_deal(request):
                     formset.save()
                     print("reached at the end---------------------")
                     
-                    return redirect('final_deallist')              
+                    return redirect('/final_deallist')              
 
     return render(request,"final_fct_nfct_deal/final_fct_nfct_deal.html",context)
 
