@@ -17,10 +17,10 @@ from django.core import serializers
 from django.contrib.auth.models import User
 
 def finalDealListView(request):
-
-    model = FinalFctNfctDeal
+    qs = FinalFctNfctDeal.objects.all()
+    mycontext = {'qs':qs}
     template_name = 'final_fct_nfct_deal/final_deallist.html'
-    return render(request, template_name)
+    return render(request, template_name,mycontext)
 
 def final_deal(request):
     form = FinalFctNfctDealDetails(request.POST or None)
@@ -114,19 +114,19 @@ def final_deal(request):
                 print("reached after form-1 saved commit false")
                 messages.success(request, 'Form is saved!')
                 form1.fct_total   = total_revenue
-                nfct_total = request.POST.get('form-0-total')
-                
-                nfct_total=int(nfct_total)
-                form1.nfct_total = nfct_total
-                
+            
                 formset = DealModelFormset(request.POST or None)
                 print("if-----", formset.is_valid())
                 if formset.is_valid():
-                    
+                    nfct_total = request.POST.get('form-0-total')
+                    nfct_total=int(nfct_total)
+                    form1.nfct_total = nfct_total
+                    print("-----nfct total here -***---",nfct_total)
                     form1.save(commit=True)
                     form.save(commit=True)
                     formset.save()
                     print("reached at the end---------------------")
+                    
                     return redirect('final_deallist')              
 
     return render(request,"final_fct_nfct_deal/final_fct_nfct_deal.html",context)
