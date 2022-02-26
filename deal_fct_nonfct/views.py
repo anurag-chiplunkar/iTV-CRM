@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import json
+from django.views import generic
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -21,6 +22,12 @@ def home(request):
     return render(request, 'home.html')
 
 
+class FctDealListView(generic.ListView):
+
+    model = fct_deal
+    template_name = 'fct_deallist.html'
+
+
 @login_required(login_url='accounts:emp_login')
 def fct_details(request):
     form = form_fct_deal(request.POST or None)
@@ -31,10 +38,11 @@ def fct_details(request):
     cli_det = CustomerContact.objects.all()
     agg = AgencyContact.objects.all()
     qs1 = Employees.objects.filter(emp_email__contains=user)
-    tmpJson = serializers.serialize("json",cli_det)
-    tmpagen = serializers.serialize("json",agg)
-    
-    context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
+    tmpJson = serializers.serialize("json", cli_det)
+    tmpagen = serializers.serialize("json", agg)
+
+    context = {'form': form, 'ag_det': ag_det, 'cli_name': cli_name,
+               'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson, 'qs': qs1, 'tmpagen': tmpagen}
     if request.method == "POST":
         if request.POST.get('dis_dd') == '50%-50%':
             if form.is_valid():
@@ -84,8 +92,9 @@ def fct_details(request):
             fct_obj.base_rate3 = rate3
 
             fct_obj.save()
+            return redirect('deal_fct_nonfct:fct_deallist')
             messages.success(request, 'Form is saved!')
-    
+
     else:
         print("outside view")
 
@@ -117,17 +126,18 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-	form = channel_form(request.POST or None)
-	ch_obj = Channel()
-	context = {'form': form,}
-	if request.method == 'POST':
-		if form.is_valid():
-			ch_obj.c_list = form.cleaned_data.get('c_list')
-			ch_obj.save()
-			messages.success(request,'Channel is saved!')
-		else:
-			print("outside view")
-	return render(request,'deal_fct_nonfct/channel.html',context)
+    form = channel_form(request.POST or None)
+    ch_obj = Channel()
+    context = {'form': form, }
+    if request.method == 'POST':
+        if form.is_valid():
+            ch_obj.c_list = form.cleaned_data.get('c_list')
+            ch_obj.save()
+            messages.success(request, 'Channel is saved!')
+        else:
+            print("outside view")
+    return render(request, 'deal_fct_nonfct/channel.html', context)
+
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):

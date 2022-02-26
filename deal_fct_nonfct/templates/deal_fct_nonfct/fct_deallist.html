@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block container %}
+<table class="table">
+    <tr>
+        <th>Deal No</th>
+        <th>Channel</th>
+        <th>Dispersion</th>
+        <th>Band 1</th>
+        <th>Band 2</th>
+        <th>Band 3</th>
+        <th>FCT 1</th>
+        <th>FCT 2</th>
+        <th>FCT 3</th>
+        <th>Effective Rate 1</th>
+        <th>Effective Rate 2</th>
+        <th>Effective Rate 3</th>
+        <th>Base Rate 1</th>
+        <th>Base Rate 2</th>
+        <th>Base Rate 3</th>
+        <th>Revenue 1</th>
+        <th>Revenue 2</th>
+        <th>Revenue 3</th>
+        <th>Total Revenue</th>
+    </tr>
+{% for f in form %}
+    <tr>
+        <td>{{f.deal_id}}</td>
+        <td>{{f.chan}}</td>
+        <td>{{f.dis}}</td>
+        <td>{{f.band1}}</td>
+        <td>{{f.band2}}</td>
+        <td>{{f.band3}}</td>
+        <td>{{f.fct1}}</td>
+        <td>{{f.fct2}}</td>
+        <td>{{f.fct3}}</td>
+        <td>{{f.eff_rate1}}</td>
+        <td>{{f.eff_rate2}}</td>
+        <td>{{f.eff_rate3}}</td>
+        <td>{{f.rev1}}</td>
+        <td>{{f.rev2}}</td>
+        <td>{{f.rev3}}</td>
+        <td>{{f.base_rate1}}</td>
+        <td>{{f.base_rate2}}</td>
+        <td>{{f.base_rate3}}</td>
+        <td>{{f.total_rev}}</td>
+    </tr>
+{% endfor %}
+</table>
+{% endblock %}

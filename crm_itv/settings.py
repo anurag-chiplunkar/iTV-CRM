@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'django_extensions',
 ]
 
 MIDDLEWARE = [
@@ -177,4 +178,10 @@ MESSAGE_TAGS = {
     messages.ERROR: 'alert-danger',
     messages.SUCCESS: 'alert-success',
     messages.WARNING: 'alert-warning'
+}
+
+
+GRAPH_MODELS = {
+    "all_applications": True,
+    "group_models": True,
 }
