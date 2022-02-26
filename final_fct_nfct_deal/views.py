@@ -149,10 +149,9 @@ def final_deal(request):
                     form1.nfct_total = nfct_total
                     form.nfct_total = nfct_total
                     grandtotal = fct_total + nfct_total
-                    final_obj.grandtotal = form.cleaned_data.get('grandtotal')
-                    print("GRAND TOTAL-----------:", grandtotal)
+                    final_obj.grandtotal = grandtotal
                     form.grandtotal = grandtotal
-                  
+                    print("GRAND TOTAL-----------:", final_obj.grandtotal,"------",form.grandtotal)
                     print("-----nfct total here -***---", nfct_total)
                     form1.save(commit=True)
                     form.save(commit=True)
