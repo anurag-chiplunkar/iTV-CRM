@@ -10,8 +10,7 @@ import json
 from django.core import serializers
 from .forms import *
 from .models import *
-from agency.models import *
-from customer.models import *
+from agency_client.models import *
 from accounts.models import Employees
 from nfct.models import *
 from django.contrib.auth.models import User
