@@ -10,13 +10,18 @@ class Agency_details(forms.ModelForm):
 		exclude = ('a_id',)			##exclude this because this is automatically generated in views.py
 
 		widgets = {
-		'agency_name' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Agency Name'}),
-		'agency_state' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Agency State'})
+		'agency_name' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Name'}),
+		'agency_officeno' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Office Flat Number'}),
+		'agency_street' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Street'}),
+		'agency_state' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter State'}),
+		'agency_landmark' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Landmark'}),
+		'agency_city' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter City'}),
+		'agency_pin' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Pincode'}),
 		}
 
 class Agency_contacts(forms.ModelForm):
 	##empty_label is for giving a placeholder to the dropdown
-	agency = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Agency')
+	agency = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency')
 	class Meta:
 		model = AgencyContact
 		fields = '__all__'
@@ -47,15 +52,6 @@ class Agency_contacts(forms.ModelForm):
 		'sec_city': forms.TextInput(attrs={'class': 'form-control'}),
 		'sec_pin': forms.TextInput(attrs={'class': 'form-control'}),
 		}
-
-	# def confirm_email(self):
-	# 	email = self.cleaned_data.get('email')
-	# 	qs = User.objects.filter(email = email)
-	# 	print(qs)
-	# 	if qs.exists():
-	# 		raise forms.ValidationError("Email already exists")
-	# 	else:
-	# 		return email
 
 
 

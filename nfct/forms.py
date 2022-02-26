@@ -33,9 +33,10 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
 
 
 
-DealModelFormset = modelformset_factory(
-    deal_nfct,
-    fields=('deal_id','channel', 'element','durations','duration_in', 'er', 'freq','total_seconds','base_rate','total'),
+DealModelFormset = modelformset_factory( 
+    deal_nfct,          
+    # 'deal_id' we removed this from fields
+    fields=('channel', 'element','durations','duration_in', 'er', 'freq','total_seconds','base_rate','total'),
     extra=1,
     widgets={
         # 'deal_id': forms.TextInput(attrs={
@@ -43,44 +44,47 @@ DealModelFormset = modelformset_factory(
         #     'placeholder': 'Enter Deal ID here'
         # }),
         'channel': forms.Select(attrs={
-            'class': 'class_channel',
+            'class': 'class_channel form-select',
             'placeholder': 'Channel'
             }
         ),
         'element': forms.Select(attrs={
-            'class': 'class_element',
+            'class': 'class_element form-select',
             'placeholder': 'Element'
             }
         ),
         'durations': forms.Select(attrs={
-            'class': 'class_durations',
+            'class': 'class_durations form-select',
             'placeholder': 'Duration'
             }
         ),
         'duration_in': forms.TextInput(attrs={
-            'class': 'class_duration_in',
+            'class': 'class_duration_in form-control',
             'placeholder': 'Duration In'
             }
         ),
         'er': forms.NumberInput(attrs={
-            'class': 'class_er',
+            'class': 'class_er form-control',
             'placeholder': 'Enter Effective Rate here'
             }
         ),
         'freq' : forms.NumberInput(attrs={
-            'class' : 'class_freq',
+            'class' : 'class_freq form-control',
             'placeholder': 'Enter Frequency here'
         }),
         'total_seconds' : forms.NumberInput(attrs={
-            'class' : 'class_total_seconds',
+            'class' : 'class_total_seconds form-control',
+            'readonly' : 'readonly',
             'placeholder': 'Total Seconds'
         }),
         'base_rate' : forms.NumberInput(attrs={
-            'class' : 'form-control class_base_rate',
+            'class' : 'class_base_rate form-control',
+            'readonly' : 'readonly',
             'placeholder': 'Base Rate'
         }),
         'total' : forms.NumberInput(attrs={
-            'class' : 'class_total',
+            'class' : 'class_total form-control',
+            'readonly' : 'readonly',
             'placeholder': 'Total'
         })
     }

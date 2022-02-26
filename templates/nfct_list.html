@@ -13,6 +13,7 @@
     <h1>Deal List</h1>
     <a href='{% url "nfct:add_nfct" %}'>Add Deal</a>
     {% for deal in object_list %}
+    <div class="container-fluid">
         <p>{{deal.ref_nfct_channels_id}}</p>
         <p>{{deal.ref_nfct_elements_id}}</p>
         <p>{{deal.durations}}</p>
@@ -23,6 +24,7 @@
         <p>{{deal.base_rate}}</p>
         <p>{{deal.nfct_total}}</p>
         <hr>
+   </div>
 
     {% endfor %}
 

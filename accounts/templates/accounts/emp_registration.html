@@ -119,9 +119,9 @@
                             </span>
                         </div>
                         <select id="job" name="jobtitle" class="form-control custom-select bg-white border-left-0 border-md">
-                            <option value="">Choose your job</option>
+                            <option value="">Choose role</option>
                             <option value="admin">Admin</option>
-                            <option value="salesperson">Salesperson</option>
+                            <option value="executive">Executive</option>
                             <option value="md">MD</option>
                             
                         </select>
@@ -163,6 +163,17 @@
                         {{form.emp_pass2}}
                         {{form.emp_pass2.help_text}}
                     </div>
+
+                    {% for message in messages %}
+                    <div class="container-fluid p-0">
+                        <div class="alert {{message.tags}} alert-dismissible fade show" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="True">&times;</span>
+                            </button>
+                            {{message}}
+                        </div>
+                    </div>
+                    {% endfor %}
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">

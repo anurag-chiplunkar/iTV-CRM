@@ -3,15 +3,19 @@ from django.http import HttpResponse
 import requests
 from django.shortcuts import redirect
 from django.views import generic
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+
 
 from .forms import (
-    
-    DealModelFormset,  
-    NFCT_Base_Rate_Form, 
+
+    DealModelFormset,
+    NFCT_Base_Rate_Form,
 )
 from .models import *
 
 # Create your views here.
+
 
 class DealListView(generic.ListView):
 
@@ -20,21 +24,21 @@ class DealListView(generic.ListView):
     template_name = 'list.html'
 
 
+@login_required(login_url='accounts:emp_login')
 def create_deal_model_form(request):
     template_name = 'test.html'
     if request.method == 'GET':
         formset = DealModelFormset(queryset=deal_nfct.objects.none())
-        return render(request, template_name,{'formset':formset})
+        return render(request, template_name, {'formset': formset})
     elif request.method == 'POST':
         formset = DealModelFormset(request.POST or None)
         if formset.is_valid():
             formset.save()
             return redirect('nfct:deallist')
-        return render(request, template_name,{'formset':formset})
+        return render(request, template_name, {'formset': formset})
 
 
-
-
+@login_required(login_url='accounts:emp_login')
 def eff_sec(request):
     print('inside eff_sec function')
     print(request.session['eff_seconds'])
@@ -44,32 +48,36 @@ def eff_sec(request):
         return HttpResponse(eff_seconds)
 
 
+@login_required(login_url='accounts:emp_login')
 def nfct_enter_base_rate(request):
-	nfct_form = NFCT_Base_Rate_Form(request.POST or None)
-	nfct_obj = NFCT_Base_Rate()
-	context = {'nfct_form':nfct_form}
-	print(nfct_form.errors)
-	print(request.POST)
-	if request.method == 'POST':
-		if nfct_form.is_valid():
-			nfct_obj.channel = nfct_form.cleaned_data.get('channel')
-			# print(nfct_channels)
+    nfct_form = NFCT_Base_Rate_Form(request.POST or None)
+    nfct_obj = NFCT_Base_Rate()
+    context = {'nfct_form': nfct_form}
+    print(nfct_form.errors)
+    print(request.POST)
+    if request.method == 'POST':
+        if nfct_form.is_valid():
+            nfct_obj.channel = nfct_form.cleaned_data.get('channel')
+            # print(nfct_channels)
 
-			nfct_obj.element = nfct_form.cleaned_data.get('element')
-			# print(nfct_elements)
-			nfct_obj.nfct_baserate = nfct_form.cleaned_data.get('nfct_baserate')
+            nfct_obj.element = nfct_form.cleaned_data.get('element')
+            # print(nfct_elements)
+            nfct_obj.nfct_baserate = nfct_form.cleaned_data.get(
+                'nfct_baserate')
 
-			uni = str(nfct_obj.channel) + str(nfct_obj.element)
-			print(uni)
-			nfct_obj.nfct_unique_key = uni
+            uni = str(nfct_obj.channel) + str(nfct_obj.element)
+            print(uni)
+            nfct_obj.nfct_unique_key = uni
 
-			print("----------",nfct_obj.channel,nfct_obj.element,nfct_obj.nfct_baserate)
-			print(request.POST, '*********************************')
-			nfct_obj.save()
+            print("----------", nfct_obj.channel,
+                  nfct_obj.element, nfct_obj.nfct_baserate)
+            print(request.POST, '*********************************')
+            nfct_obj.save()
 
-	return render(request,'nfct/nfct_base.html',context)
+    return render(request, 'nfct/nfct_base.html', context)
 
 
+@login_required(login_url='accounts:emp_login')
 def nfct_load_br(request):
     chan_id = request.GET.get('channel')
     print(request.GET)
@@ -77,32 +85,32 @@ def nfct_load_br(request):
     element = request.GET.get('element')
     print(element, '&&&&&&&&&&&&&&&&&&')
     print("**************************************************************")
-    
+
     rates = NFCT_Base_Rate.objects.filter(channel__contains=chan_id)
     print(rates, '++++++++++++++')
     element_name = NFCT_Base_Rate.objects.filter(element__contains=element)
     print(element_name, '++++++++++++++++++++')
 
-    context1 = {'qs':rates}
-    context2 = {'qs1':element_name}
-    
+    context1 = {'qs': rates}
+    context2 = {'qs1': element_name}
+
     print("CONTEXT1", context1)
     print("CONTEXT2", context2)
-    
+
     for i in context1['qs']:
         c = i.channel
-        print("------",c)
-        
+        print("------", c)
+
     for j in context2['qs1']:
         b = j.element
-        print("------",b)
-        
+        print("------", b)
+
     x = c + b
-    print("*************",x)
-    
+    print("*************", x)
+
     y = NFCT_Base_Rate.objects.filter(nfct_unique_key__contains=x)
-    print("*************",y)
-    
+    print("*************", y)
+
     for k in y:
         # print(k)
         nfctbaserate = k.nfct_baserate
@@ -112,49 +120,6 @@ def nfct_load_br(request):
     mycontext = {'nfctbaserate': nfctbaserate}
     print(mycontext)
     return HttpResponse(nfctbaserate)
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 # from django.shortcuts import render
@@ -168,7 +133,6 @@ def nfct_load_br(request):
 # from .models import *
 # from .models import NFCT_Base_Rate
 # from django.forms import modelformset_factory
-
 
 
 # Add Channel Names
@@ -307,7 +271,7 @@ def nfct_load_br(request):
 
 # 	context1 = {'qs':rates}
 # 	context2 = {'qs1':element_name}
-	
+
 # 	print("CONTEXT1", context1)
 # 	print("CONTEXT2", context2)
 
@@ -318,9 +282,9 @@ def nfct_load_br(request):
 # 	for j in context2['qs1']:
 # 		b = j.nfct_elements
 # 		print("------",b)
-		
 
-# 	x = c + b  
+
+# 	x = c + b
 # 	print("*************",x)
 
 # 	y = NFCT_Base_Rate.objects.filter(nfct_unique_key__contains=x)
@@ -333,7 +297,6 @@ def nfct_load_br(request):
 # 	# return '200'
 # 	mycontext = {'nfctbaserate': nfctbaserate}
 # 	return render(request,'nfct_deal.html',mycontext)
-
 
 
 # class NFCT_Deal(ListView):

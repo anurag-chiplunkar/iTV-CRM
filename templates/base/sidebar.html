@@ -3,20 +3,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-    section{
-      float: right;
-      width: 1150px;
-      position: relative;
-    }
-
+  
     .id-flex{
+      padding: 50px 0px 0px 0px;
       width: 200px;
       float: left;
-      position: absolute;
+      position: relative;
+      
+    }
+    .sidebar{
+      background-color: bisque;
     }
     </style>
 </head>
@@ -24,14 +21,13 @@
 {% if user.is_authenticated %}
 
   {% for i in qs %}
-        {% if "salesperson" in i.emp_desgn %}
+        {% if "executive" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
-              <div class="border-end bg-white" id="sidebar-wrapper">
+              <div class="border-end" id="sidebar-wrapper">
                   
-                  <div class="list-group list-group-flush">
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:nfct_list' %}">Add NFCT Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
+                  <div class="list-group list-group-flush sidebar">
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'final_fct_nfct_deal:final_deal' %}">Add FCT/NFCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add AFP Deal</a>
                   </div>
@@ -42,17 +38,16 @@
           {% if "admin" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
-              <div class="border-end bg-white" id="sidebar-wrapper">
+              <div class="border-end" id="sidebar-wrapper">
                   
-                  <div class="list-group list-group-flush">
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'nfct:nfct_list' %}">Add NFCT Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'deal_fct_nonfct:fct_details' %}">Add FCT Deal</a>
+                  <div class="list-group list-group-flush sidebar">
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'final_fct_nfct_deal:final_deal' %}">Add FCT/NFCT Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
                       <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add AFP Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency:agency_detail' %}">Add Agency Details</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency:agency_contact' %}">Add Agency Contacts</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'customer:cname' %}">Add Client Details</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'customer:ccontact' %}">Add Client Contacts</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:agency_detail' %}">Add Agency Details</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:agency_contact' %}">Add Agency Contacts</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:cname' %}">Add Client Details</a>
+                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:ccontact' %}">Add Client Contacts</a>
 
                   </div>
               </div>

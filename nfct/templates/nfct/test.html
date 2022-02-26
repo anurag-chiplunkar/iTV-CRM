@@ -1,9 +1,10 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% load crispy_forms_tags %}
 {% block container %}
-{% if heading %}
-<h3>{{heading}}</h3>
-{% endif %}
+<!-- {% if heading %}
+    <u><h3>{{heading}}</h3></u>
+{% endif %} -->
+<u><h3>NFCT Deal Details</h3></u>
 <body>
 <form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
     {% csrf_token %}

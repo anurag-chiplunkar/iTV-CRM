@@ -11,169 +11,341 @@
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">	</script>
-
-</head>
+	</head>
 <body>
 
 
 <div class="container">
-	<div class="row">
+	<div class="row row spacer">
 		<div class="col align-self-start"></div>
-		<div class="col align-self-center"><h1>FCT Deal Details</h1></div>
+		<div class="col align-self-center"><h1><u>FCT Deal Details</u></h1></div>
 		<div class="col align-self-end"></div>
-	</div>
-	<div class="row g-3 align-items-start">
-		<div class="col-auto">
-	    	<label class="col-form-label"><h5>FCT Deal Details</h5></label> 
-	  	</div>
 	</div>
 
 	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
 	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
-		<div class="row">
-			<div class="col-1">
-				<label class="form-label">Deal ID</label>
+	<div class="card mb-1">
+		<div class="card-body mb-0">
+			<div class="row mb-3">
+					<div class="col-6">
+						<div class="row">
+							<div class="col-auto">
+								<label for="salesperson" class="col-form-label">Executive</label>
+							</div>
+							<div class="col-auto">
+								{% for j in qs %}
+								
+									<input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+								{% endfor %}
+							</div>
+						</div>
+						
+					</div>
+					<div class="col-6">
+						<div class="row">
+							<div class="col-auto">
+								<label for="report" class="col-form-label">Reporting Manager</label>
+							</div>
+							<div class="col-auto">
+								{% for k in qs %}
+								
+									<input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+								{% endfor %}
+							</div>
+						</div>
+					</div> 
 			</div>
-			<div class="col-2">
-				{{form.deal_id}}
+			<div class="row mb-3">
+				<div class="col-6">
+					<div class="row">
+						<div class="col-auto">
+							<label class="col-form-label">Client Name</label>
+						</div>
+						<div class="col-auto">
+							<select name="c_name" id="c_name" class="form-select">
+								<option value="">-----------------</option>
+								{% for cli in cli_name %}
+									<option value="{{ cli }}">{{ cli }}</option>
+								{% endfor %}
+							</select>
+							
+						</div>
+					</div>
+				</div> 
+				<div class="col-6">
+					<div class="row mb-6">
+						<div class="col-3">
+							<label for="agency_name" class="col-form-label">Agency Name</label>
+						</div>
+						<div class="col-3">
+							<select name="ag_name" id="ag_name" class="form-select">
+								<option value="">-----------------</option>
+								{% for ag in ag_det %}
+									<option value="{{ ag }}">{{ ag }}</option>
+								{% endfor %}
+							</select>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-2">
+				<div class="col-6">
+					<div class="row mb-6">
+						<div class="col-auto">
+							<label for="brand_name" class="col-form-label">Brand Name</label>
+						</div>
+						<div class="col-auto">
+							<select name="brand_name" id="brand_name" class="form-select">
+								<option value="">-----------------</option>
+								{% for cli in cli_name %}
+									<option value="{{ cli.brand_name }}">{{ cli.brand_name }}</option>
+								{% endfor %}
+							</select>
+							
+						</div>
+					</div>
+				</div> 
+				
+			</div>
+		
+			<div class="row">
+				<div class="col-6">
+					<div class="col-auto">
+						<label for="client_contact" class="col-form-label">Contact Details</label>
+					</div>
+					<div class="col-auto">
+						<table class="table table-hover">
+							<thead>
+									<tr>
+									
+										<th scope="col">
+											Name
+										</th>
+										<th scope="col">
+											Designation
+										</th>
+										<th scope="col">
+											Email
+										</th>
+										<th scope="col">
+											Telephone
+										</th>
+									</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row"><select name="client_name" id="client_name" class="form-select">
+										<option value="">----------</option>
+										{% for client in cli_det %}
+											<option value="{{ client.pri_fname }} {{ client.pri_lname }}">{{ client.pri_fname }} {{ client.pri_lname }}</option>
+										{% endfor %}
+									</select></th>
+									<td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+									<td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+									<td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-6">
+					<div class="col-auto">
+						<label for="client_contact" class="col-form-label">Contact Details</label>
+					</div>
+					<div class="col-auto">
+						<table class="table table-hover">
+							<thead>
+									<tr>
+										<!-- <th scope="col"></th> -->
+										<th scope="col">
+											Name
+										</th>
+										<th scope="col">
+											Designation
+										</th>
+										<th scope="col">
+											Email
+										</th>
+										<th scope="col">
+											Telephone
+										</th>
+									</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th scope="row"><select name="agency_name" id="agency_name" class="form-select">
+										
+										<option value="">----------</option>
+										{% for age in agg %}
+											<option value="{{ age.pri_firstName }} {{ age.pri_lastName }}">{{ age.pri_firstName }} {{ age.pri_lastName }}</option>
+										{% endfor %}
+										
+									</select></th>
+									<td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+									<td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+									<td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+
 			</div>
 		</div>
-		<div class="row">
-				<div class="col-1"> 
-					<label class="form-label">Channels</label>
+	</div>
+	<div class="card mb-1">
+		<div class="card-body">
+			<div class="row mb-2">
+				<div class="row mt-2">
+					<div class="col-1">
+						<label class="form-label">Deal ID</label>
+					</div>
+					<div class="col-2">
+						{{form.deal_id}}
+					</div>
+				</div>
+				<div class="row mt-2">
+						<div class="col-1"> 
+							<label class="form-label">Channels</label>
+						</div>
+						<div class="col-2">
+							<select class="form-select channel" name="channel" id="channel">
+								<option selected>---------------</option>
+								<option value="INN">INN</option>
+								<option value="NX">NX</option>
+								<option value="GUJ">GUJ</option>
+								<option value="HAR">HAR</option>
+								<option value="MP">MP</option>
+								<option value="NE NEWS">NE NEWS</option>
+								<option value="PUN">PUN</option>
+								<option value="RAJ">RAJ</option>
+								<option value="UP">UP</option>
+							</select>
+						</div>
+						<div class="col-1">
+							<label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
+						</div>
+						<div class="col-2">	
+							<select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
+								<option value="">-------------</option>
+								<option value="25%-25%-50%">25%-25%-50%</option>
+								<option value="33%-33%-33%">33%-33%-33%</option>
+								<option value="40%-20%-40%">40%-20%-40%</option>
+								<option value="50%-50%">50%-50%</option>
+								<option value="other">Other</option>
+							</select>
+						</div>
+						
+						
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="card mb-1" style="margin-left: 85px;">
+		<div class="card-body">	
+			<div class="row">
+				<div class="col-2">
+					<label class="col-form-label">Bands</label> 
+				</div>	
+				<div class="col-2">
+					<label class="col-form-label">FCT</label> 
 				</div>
 				<div class="col-2">
-					<select class="form-select channel" name="channel" id="channel">
-						<option selected>---------------</option>
-						<option value="INN">INN</option>
-						<option value="NX">NX</option>
-						<option value="IN UP">IN UP</option>
-						<option value="MP">MP</option>
-						<option value="RAJ">RAJ</option>
-						<option value="PUN">PUN</option>
-						<option value="HAR">HAR</option>
-						<option value="GUJ">GUJ</option>
-						<option value="NE NEWS">NE NEWS</option>
-					</select>
+					<label class="col-form-label">Effective Rate</label> 
 				</div>
-				<div class="col-1">
-					<label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
+				<div class="col-3 align-right">
+					<label class="col-form-label">Base Rate</label> 
 				</div>
-				<div class="col-2">	
-					<select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
-						<option value="">-------------</option>
-						<option value="25%-25%-50%">25%-25%-50%</option>
-						<option value="33%-33%-33%">33%-33%-33%</option>
-						<option value="40%-20%-40%">40%-20%-40%</option>
-						<option value="50%-50%">50%-50%</option>
-						<option value="other">Other</option>
+				<div class="col-3 justify-content-right">
+					<label class="col-form-label">Revenue</label> 
+				</div>
+			</div>
+			<div class="row g-3 align-items-start mt-1" id="row1" style="display: none;">
+				<div class="col-auto">
+					<select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+					<option value="">---------------</option>
+					<option value="0600-1200">0600-1200</option>
+					<option value="1200-1800">1200-1800</option>
+					<option value="1800-2400">1800-2400</option>
 					</select>
 				</div>
 				
+				<div class="col-auto">
+					<input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
+				</div>
+				<div class="col-auto">
+					<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+				</div>
+				<div class="col-auto">
+					<input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
+					
+				</div>
+				<div class="col-auto">
+					<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+				</div>
+			</div>
+			<div class="row g-3 align-items-start mt-2" id="row2" style="display: none;">
+				<div class="col-auto">
+					<select name="band2" class="form-select" id="band2" aria-label="Default select example">
+					<option value="">---------------</option>
+					<option value="0600-1200">0600-1200</option>
+					<option value="1200-1800">1200-1800</option>
+					<option value="1800-2400">1800-2400</option>
+					</select>
+				</div>
 				
-		</div>
+				<div class="col-auto">
+					<input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
+				</div>
+				<div class="col-auto">
+					<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+				</div>
+				<div class="col-auto">
+					<input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
+
+				</div>
+				<div class="col-auto">
+					<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+				</div>
+			</div>
+			<div class="row g-3 align-items-start mt-2" id="row3" style="display: none;">
+				<div class="col-auto">
+					<select name="band3" class="form-select" id="band3" aria-label="Default select example">
+					<option value="">---------------</option>
+					<option value="0600-1200">0600-1200</option>
+					<option value="1200-1800">1200-1800</option>
+					<option value="1800-2400">1800-2400</option>
+					</select>
+				</div>
+				
+				<div class="col-auto">
+					<input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
+				</div>
+				<div class="col-auto">
+					<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+				</div>
+				<div class="col-auto">
+					<input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
+				</div>
+				<div class="col-auto">
+					<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+				</div>
+			</div>
 		
-		<div class="row g-3 align-items-start">
-			<div class="col-2">
-		    	<label class="col-form-label">Bands</label> 
-		  	</div>
-				  	
-		  	<div class="col-2">
-		  		<label class="col-form-label">FCT</label> 
-		  	</div>
-		  	<div class="col-2">
-		  		<label class="col-form-label">Effective Rate</label> 
-		  	</div>
-		  	<div class="col-2">
-		  		<label class="col-form-label">Base Rate</label> 
-		  	</div>
-		  	<div class="col-2">
-		  		<label class="col-form-label">Revenue</label> 
-		  	</div>
-			
-		</div>
-		<div class="row g-3 align-items-start" id="row1" style="display: none;">
-			<div class="col-auto">
-		    	<select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
-				  <option value="">---------------</option>
-				  <option value="0600-1200">0600-1200</option>
-				  <option value="1200-1800">1200-1800</option>
-				  <option value="1800-2400">1800-2400</option>
-				</select>
-		  	</div>
-		  	
-		  	<div class="col-auto">
-		  		<input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
-		  		
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
-		  	</div>
-		</div>
-		<div class="row g-3 align-items-start" id="row2" style="display: none;">
-			<div class="col-auto">
-		    	<select name="band2" class="form-select" id="band2" aria-label="Default select example">
-				  <option value="">---------------</option>
-				  <option value="0600-1200">0600-1200</option>
-				  <option value="1200-1800">1200-1800</option>
-				  <option value="1800-2400">1800-2400</option>
-				</select>
-		  	</div>
-		  	
-		  	<div class="col-auto">
-		  		<input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
 
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
-		  	</div>
+			<div class="row" id="row4" style="display:none; margin-left: 600px;" >
+							
+				<div class="col-auto">
+					<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
+				</div>
+				<div class="col-auto">
+					{{form.total_rev}}
+				</div>
+			</div>
 		</div>
-		<div class="row g-3 align-items-start" id="row3" style="display: none;">
-			<div class="col-auto">
-		    	<select name="band3" class="form-select" id="band3" aria-label="Default select example">
-				  <option value="">---------------</option>
-				  <option value="0600-1200">0600-1200</option>
-				  <option value="1200-1800">1200-1800</option>
-				  <option value="1800-2400">1800-2400</option>
-				</select>
-		  	</div>
-		  	
-		  	<div class="col-auto">
-		  		<input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
-		  	</div>
-		  	<div class="col-auto">
-		  		<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
-		  	</div>
-		</div>
-
-		<div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 368px;" >
-						
-	  		<div class="col-auto">
-	  			<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
-	  		</div>
-	  		<div class="col-auto">
-	  			<!-- <input type="number" class="form-control" id="totalbox" > -->
-	  			{{form.total_rev}}
-	  		</div>
-		</div>
+	</div>
 		{% for message in messages %}
 			<div class="container-fluid p-0">
 				<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
@@ -184,13 +356,13 @@
 				</div>
 			</div>
 		{% endfor %}
-		<div class="row g-3 align-items-start ">
-			<div class="col-3" style="margin-top: 20px;">
+		<div class="row g-3 align-items-start" style="margin-left: 85px;">
+			<div class="col-2">
 				<button type="submit" class="btn btn-primary">Save Deal</button>
 			</div>
 			
 			{% if user.is_authenticated %}
-			<div class="col-3" style="margin-top: 20px;">
+			<div class="col-2">
     			<button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
     		</div>
 			{% endif %}
@@ -203,8 +375,7 @@
 	
 	function showdiv(){
 		var val = event.target.options[event.target.selectedIndex].value;
-		if ((val === "25%-25%-50%") || (val === "33%-33%-33%") || (val === "40%-20%-40%") || (val === "other")){
-			console.log("yes");
+		if ((val === "25%-25%-50%") || (val === "33%-33%-33%") || (val === "40%-20%-40%")){
 			document.getElementById("row1").style.display = "flex";
 			document.getElementById("row2").style.display = "flex";
 			document.getElementById("row3").style.display = "flex";
@@ -215,6 +386,19 @@
 			document.getElementById("row2").style.display = "flex";
 			document.getElementById('row3').style.display = "none";
 			document.getElementById("row4").style.display = "flex";
+		}
+		if (val === "other"){
+			document.getElementById("row1").style.display = "flex";
+			document.getElementById("row2").style.display = "flex";
+			document.getElementById("row3").style.display = "flex";
+			document.getElementById("row4").style.display = "flex";
+			document.getElementById('fct2').value = 0
+			document.getElementById('er2').value = 0
+			document.getElementById('rev2').value = 0
+			document.getElementById('fct3').value = 0
+			document.getElementById('er3').value = 0
+			document.getElementById('rev3').value = 0
+			
 		}
 	}
 	function calculate1 (){
@@ -251,13 +435,6 @@
 
     }
     function sum(){
-    	// var num1 = parseInt(document.getElementById('a_fct1').value);
-    	// var num2 = parseInt(document.getElementById('a_fct2').value);
-    	// var num3 = document.getElementById('a_fct3').value;
-    	// var add = num1 + num2 + num3;
-    	// console.log("i am in");
-    	// console.log(add);
-    	// document.getElementById('totalbox').value = add;
     	var inp1 = document.getElementById("rev1").value;
     	var inp2 = document.getElementById("rev2").value;
     	var inp3 = document.getElementById("rev3").value;
@@ -372,10 +549,61 @@
 		});
 	});
 
-	$('#rev1').on('input',function(){
-		 var rev1_val = $(this).val();	
-		 console.log(rev1_val,"-------============");
+	// $('#rev1').on('input',function(){
+	// 	 var rev1_val = $(this).val();	
+	// 	 console.log(rev1_val,"-------============");
+	// });
+	var cli_contact = '{{ tmpJson | safe }}';
+	$("#c_name").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+	$("#client_name").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#c_name').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+			
+			var des = cli_list[0]['fields']['pri_desg']
+			var ema = cli_list[0]['fields']['pri_email']
+			var tele = cli_list[0]['pk']
+			document.getElementById('clientdesignation').value = des
+			document.getElementById('clientemail').value = ema
+			document.getElementById('clienttele').value = tele
+		}
 	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+	$("#ag_name").change(function(){
+		var agency = $(this).val();
+	});
+
+	$("#agency_name").change(function(){
+		var a_con_name = $(this).val();	
+		var agency = $('#ag_name').val();
+		console.log("----------",a_con_name,agency);
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+			console.log(agn_list,"---------------")
+			console.log(agn_list[0],"-----/////----------")
+			console.log(agn_list[0]['fields'],"-----*****----------")
+			
+			var des = agn_list[0]['fields']['pri_designation']
+			var ema = agn_list[0]['fields']['pri_email']
+			var tele = agn_list[0]['pk']
+			document.getElementById('agencydesignation').value = des
+			document.getElementById('agencyemail').value = ema
+			document.getElementById('agencytele').value = tele
+		}
+	});
+
 
 </script>
 {% endblock %}

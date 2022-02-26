@@ -12,7 +12,7 @@ def profile(request):
 
 	context = {"qs":qs1}
 
-	return render(request,'profiles/admin_profile.html',context)
+	return render(request,'profiles/profile.html',context)
 
 def logout_view(request):
 	logout(request)
