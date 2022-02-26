@@ -134,8 +134,8 @@ def final_deal(request):
                     formset.save()
                     print("reached at the end---------------------")
 
-                    return redirect('/final_deallist')
-
+                    # return redirect('/final_deallist')
+                print("-----nfct total here outside if!!-***---", nfct_total)
                 print("reached after form-1 saved commit false")
                 messages.success(request, 'Form is saved!')
                 form1.fct_total = total_revenue
@@ -152,7 +152,7 @@ def final_deal(request):
                     form.save(commit=True)
                     formset.save()
                     print("reached at the end---------------------")
-                    return redirect('final_deallist')
+                    return redirect('/final_deallist')
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
