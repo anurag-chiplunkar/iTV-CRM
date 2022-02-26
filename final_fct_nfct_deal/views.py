@@ -15,8 +15,9 @@ import random
 import json
 from django.core import serializers
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='accounts:emp_login')
 def finalDealListView(request):
     qs = FinalFctNfctDeal.objects.all()
     qs1 = fct_deal.objects.all()
@@ -25,7 +26,7 @@ def finalDealListView(request):
     template_name = 'final_fct_nfct_deal/final_deallist.html'
     return render(request, template_name, mycontext)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_deal(request):
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
@@ -51,6 +52,7 @@ def final_deal(request):
         print("formset.errors here~~~~~~~", formset.errors)
         if form.is_valid():
             print(form.cleaned_data, "from form-------******------")
+            final_obj.deal_id = request.POST.get('deal_id')
             final_obj.client_name_ref = form.cleaned_data.get(
                 'client_name_ref')
             final_obj.client_contact_ref = form.cleaned_data.get(
@@ -86,7 +88,7 @@ def final_deal(request):
                     fct_obj.total_rev = total_revenue
                     print("total rev here!!!!", fct_obj.total_rev)
 
-                    form1.save(commit=False)
+                    fct_obj.save()
                     print("reached after form-1-1 saved commit false")
                     messages.success(request, 'Form is saved!')
 
@@ -107,52 +109,62 @@ def final_deal(request):
                     fct_obj.rev3 = request.POST.get('rev3')
                     total_revenue = form1.cleaned_data.get('total_rev')
                     fct_obj.total_rev = total_revenue
+                    request.session['fcttotal'] = fct_obj.total_rev
                     grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
                     rate1 = request.session['rate']
+
                     fct_obj.base_rate1 = rate1
                     rate2 = request.session['rate2']
                     fct_obj.base_rate2 = rate2
                     rate3 = request.session['rate3']
                     fct_obj.base_rate3 = rate3
 
-                    form1.save(commit=False)
+                    fct_obj.save()
+                    messages.success(request, 'Form is saved!')
+
 
                 print("reached after form-1 saved commit false")
-                messages.success(request, 'Form is saved!')
-                form1.fct_total = total_revenue
+                form.fct_total = total_revenue
 
                 formset = DealModelFormset(request.POST or None)
                 print("if-----", formset.is_valid())
                 if formset.is_valid():
                     nfct_total = request.POST.get('form-0-total')
                     nfct_total = int(nfct_total)
-                    form1.nfct_total = nfct_total
-                    print("-----nfct total here -***---", nfct_total)
-                    form1.save(commit=True)
-                    form.save(commit=True)
+                    final_obj.nfct_total = nfct_total
+                    final_obj.fct_total = total_revenue
+                    # fct_total = request.session['fcttotal']
+                    print("-----nfct total here -***---", nfct_total,total_revenue)
+                    
+                    final_obj.grandtotal = total_revenue + nfct_total
+                    # final_obj.grandtotal = gtotal
+                    print("grandtotal here!!!!!!~~~~~", final_obj.grandtotal)
+                    final_obj.save()
+                    # form1.save(commit=True)
+                    # form.save(commit=True)
                     formset.save()
                     print("reached at the end---------------------")
 
                     return redirect('/final_deallist')
+                # print("-----nfct total here outside if!!-***---", nfct_total)
+                # print("reached after form-1 saved commit false")
+                # messages.success(request, 'Form is saved!')
+                # form1.fct_total = total_revenue
+                # nfct_total = request.POST.get('form-0-total')
 
-                print("reached after form-1 saved commit false")
-                messages.success(request, 'Form is saved!')
-                form1.fct_total = total_revenue
-                nfct_total = request.POST.get('form-0-total')
+                # nfct_total = int(nfct_total)
+                # form1.nfct_total = nfct_total
 
-                nfct_total = int(nfct_total)
-                form1.nfct_total = nfct_total
+                # formset = DealModelFormset(request.POST or None)
+                # print("if-----", formset.is_valid())
+                # if formset.is_valid():
 
-                formset = DealModelFormset(request.POST or None)
-                print("if-----", formset.is_valid())
-                if formset.is_valid():
-
-                    form1.save(commit=True)
-                    form.save(commit=True)
-                    formset.save()
-                    print("reached at the end---------------------")
-                    return redirect('final_deallist')
+                #     form1.save(commit=True)
+                #     form.save(commit=True)
+                #     formset.save()
+                #     print("reached at the end---------------------")
+                #     return redirect('/final_deallist')
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
