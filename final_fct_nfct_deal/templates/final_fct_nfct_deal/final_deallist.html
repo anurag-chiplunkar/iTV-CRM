@@ -1,6 +1,7 @@
 {% extends "base2.html" %}
 
 {% block container %}
+<div class="" style="position: absolute; left: 100px; top: 150px;">
 <table class="table">
     <tr>
         <th>Deal No</th>
@@ -8,26 +9,71 @@
         <th>Client Contact</th>
         <th>Agency Name</th>
         <th>Agency Contact</th>
-        <th>Brand Name</th>
-        <th>FCT Total</th>
-        <th>NFCT Total</th>
-        <th>Grand Total</th>
     </tr>
-{% for form1 in form %}
+{% for f in qs %}
     <tr>
-        <td>{{form1.deal_id}}</td>
-        <td>{{form1.client_name_ref}}</td>
-        <td>{{form1.agency_name_ref}}</td>
-        <td>{{form1.agency_contact_ref}}</td>
-        <td>{{form1.brand_name_ref}}</td>
-        <td>{{form1.fct_total}}</td>
-        <td>{{form1.nfct_total}}</td>
-        <td>{{form1.total_seconds}}</td>
-        <td>{{form1.grandtotal}}</td>
+        <td>{{f.deal_id}}</td>
+        <td>{{f.client_name_ref}}</td>
+        <td>{{f.client_contact_ref}}</td>
+        <td>{{f.agency_name_ref}}</td>
+        <td>{{f.agency_contact_ref}}</td>
     </tr>
 {% endfor %}
 </table>
+</div>
+
+
+
+<div class="" style="float: right; position: relative; right: 250px; top: 84px;">
+<table class="table">
+    <tr>
+        <th>FCT Total</th>
+    </tr>
+{% for f1 in qs1 %}
+    <tr>
+        <td>{{f1.total_rev}}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="" style="float: right; position: relative; right: 255px; top: 84px;">
+<table class="table">
+    <tr>
+        <th>NFCT Total</th>
+    </tr>
+{% for f2 in qs2 %}
+    <tr>
+        <td>{{f2.total}}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+
+<div class="" style="float: right; position: relative; top: 83px; left: 70px;">
+<table class="table">
+    <tr>
+        <th>Grand Total</th>
+    </tr>
+    <tr>
+        <td>{{qs1.0.total_rev|add:qs2.0.total}}</td>
+    </tr>
+    <tr>
+        <td>{{qs1.1.total_rev|add:qs2.1.total}}</td>
+    </tr>
+    <tr>
+        <td>{{qs1.2.total_rev|add:qs2.2.total}}</td>
+    </tr>
+    <tr>
+        <td>{{qs1.3.total_rev|add:qs2.3.total}}</td>
+    </tr>
+    
+</table>
+</div>
+
+
 {% if user.is_authenticated %}
-    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'nfct:create_deal_model_form' %}" style="color: white; text-decoration-line: none;">Back</a></button>
-    {% endif %}
+    <button name="submit" type="submit" class="btn btn-primary" style="position: relative; top: 500px; left: 100px;"><a href="{% url 'final_fct_nfct_deal:final_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+{% endif %}
+
 {% endblock %}
