@@ -61,14 +61,14 @@ def emp_registration(request):
         elif (emp_pass1 != emp_pass2):
             messages.error(request, "Password is not matching")
 
-        elif ('@cognitioworld.com' or '@itvnetwork.com') not in emp_email:
-            messages.error(request,"Email id should have '@itvnetwork.com' or '@cognitioworld.com'")
+        elif ('@itvnetwork.com') not in emp_email:
+            messages.error(request,"Email id should have '@itvnetwork.com'")
 
         elif len(emp_phone)<10:
             messages.error(request,"Enter a valid phone number")
         
-        elif type(emp_phone) != int:
-            messages.error(request,"Phone number should only contain numbers")
+        #elif type(emp_phone) != int:
+            #messages.error(request,"Phone number should only contain numbers")
 
         else:
             obj = Employees(emp_fname=emp_fname,
