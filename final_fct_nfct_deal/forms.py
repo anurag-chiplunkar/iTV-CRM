@@ -5,7 +5,8 @@ from django.forms import (formset_factory, modelformset_factory)
 from . models import *
 from nfct.forms import *
 from nfct.models import *
-
+from deal_fct_nonfct.forms import *
+from deal_fct_nonfct.models import *
 
 class FinalFctNfctDealDetails(forms.ModelForm):
 	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client Name')
@@ -43,7 +44,7 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 class form_fct_deal(forms.ModelForm):
 
 	class Meta:
-		model = fct_deal
+		model = Fct_deal
 		fields = '__all__'
 
 		widgets = {

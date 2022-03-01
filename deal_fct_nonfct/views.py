@@ -23,7 +23,7 @@ def home(request):
 @login_required(login_url='accounts:emp_login')
 def fct_details(request):
     form = form_fct_deal(request.POST or None)
-    fct_obj = fct_deal()
+    fct_obj = Fct_deal()
     user = request.user
     ag_det = AgencyDetail.objects.all()
     cli_name = CustomerName.objects.all()
@@ -93,8 +93,8 @@ def fct_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def br_details(request):
-    form = base_form(request.POST or None)
-    obj = base()
+    form = Base_form(request.POST or None)
+    obj = Base()
     print("---------------------", request.POST, form.is_valid(), form.errors)
 
     # print("***********",master)
@@ -116,7 +116,7 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-	form = channel_form(request.POST or None)
+	form = Channel_form(request.POST or None)
 	ch_obj = Channel()
 	context = {'form': form,}
 	if request.method == 'POST':
@@ -130,7 +130,7 @@ def enter_channels(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):
-    form = disper_form(request.POST or None)
+    form = Disper_form(request.POST or None)
     dis_obj = Disper()
     context = {'form': form, }
     print("////////////", request.POST)
@@ -146,7 +146,7 @@ def enter_disper(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_band(request):
-    form = band_form(request.POST or None)
+    form = Band_form(request.POST or None)
     band_obj = Band()
     context = {'form': form, }
     print("////////////", request.POST)
@@ -162,8 +162,8 @@ def enter_band(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_base_rate(request):
-    form = base_rate_table_form(request.POST or None)
-    b_obj = base_rate_table()
+    form = Base_rate_table_form(request.POST or None)
+    b_obj = Base_rate_table()
     context = {'form': form}
     print(form.errors)
     if request.method == 'POST':
@@ -212,7 +212,7 @@ def load_br(request):
             print("---****---", b)
         x = c + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -234,7 +234,7 @@ def load_br(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -264,7 +264,7 @@ def load_br1(request):
             print("---****---", base2)
         x1 = c + base2
         print("*************", x1)
-        y1 = base_rate_table.objects.filter(unique_key=x1)
+        y1 = Base_rate_table.objects.filter(unique_key=x1)
         for k1 in y1:
             rate2 = k1.br
             print(rate2)
@@ -288,7 +288,7 @@ def load_br1(request):
             print("---****---", d)
         x = c + d + base2
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate2 = k.br
             print(rate2)
@@ -317,7 +317,7 @@ def load_br2(request):
             print("---****---", base3)
         x2 = c + base3
         print("*************", x2)
-        y2 = base_rate_table.objects.filter(unique_key=x2)
+        y2 = Base_rate_table.objects.filter(unique_key=x2)
         for k2 in y2:
             rate3 = k2.br
             print(rate3)
@@ -341,7 +341,7 @@ def load_br2(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate3 = k.br
             print(rate3)

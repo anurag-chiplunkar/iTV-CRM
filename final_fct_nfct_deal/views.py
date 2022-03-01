@@ -20,8 +20,8 @@ from django.contrib.auth.decorators import login_required
 @login_required(login_url='accounts:emp_login')
 def finalDealListView(request):
     qs = FinalFctNfctDeal.objects.all()
-    qs1 = fct_deal.objects.all()
-    qs2 = deal_nfct.objects.all()
+    qs1 = Fct_deal.objects.all()
+    qs2 = Deal_nfct.objects.all()
     mycontext = {'qs': qs, 'qs1': qs1, 'qs2': qs2}
     template_name = 'final_fct_nfct_deal/final_deallist.html'
     return render(request, template_name, mycontext)
@@ -31,8 +31,8 @@ def final_deal(request):
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
-    fct_form = base_rate_table_form(request.POST or None)
-    fct_obj = fct_deal()
+    fct_form = Base_rate_table_form(request.POST or None)
+    fct_obj = Fct_deal()
     user = request.user
     ag_det = AgencyDetail.objects.all()
     cli_name = CustomerName.objects.all()
@@ -41,7 +41,7 @@ def final_deal(request):
     qs1 = Employees.objects.filter(emp_email__contains=user)
     tmpJson = serializers.serialize("json", cli_det)
     tmpagen = serializers.serialize("json", agg)
-    formset = DealModelFormset(queryset=deal_nfct.objects.none())
+    formset = DealModelFormset(queryset=Deal_nfct.objects.none())
     final_obj = FinalFctNfctDeal()
     context = {'form': form, 'form1': form1, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson, 'qs': qs1, 'tmpagen': tmpagen, 'formset': formset,
                'nfct_form': nfct_form, 'fct_form': fct_form}
@@ -112,13 +112,13 @@ def final_deal(request):
                     request.session['fcttotal'] = fct_obj.total_rev
                     grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-                    rate1 = request.session['rate']
+                    # rate1 = request.session['rate']
 
-                    fct_obj.base_rate1 = rate1
-                    rate2 = request.session['rate2']
-                    fct_obj.base_rate2 = rate2
-                    rate3 = request.session['rate3']
-                    fct_obj.base_rate3 = rate3
+                    # fct_obj.base_rate1 = rate1
+                    # rate2 = request.session['rate2']
+                    # fct_obj.base_rate2 = rate2
+                    # rate3 = request.session['rate3']
+                    # fct_obj.base_rate3 = rate3
 
                     fct_obj.save()
                     messages.success(request, 'Form is saved!')
@@ -308,7 +308,7 @@ def final_load_br(request):
             print("---****---", b)
         x = c + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -330,7 +330,7 @@ def final_load_br(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -359,7 +359,7 @@ def final_load_br1(request):
             print("---****---", base2)
         x1 = c + base2
         print("*************", x1)
-        y1 = base_rate_table.objects.filter(unique_key=x1)
+        y1 = Base_rate_table.objects.filter(unique_key=x1)
         for k1 in y1:
             rate2 = k1.br
             print(rate2)
@@ -383,7 +383,7 @@ def final_load_br1(request):
             print("---****---", d)
         x = c + d + base2
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate2 = k.br
             print(rate2)
@@ -411,7 +411,7 @@ def final_load_br2(request):
             print("---****---", base3)
         x2 = c + base3
         print("*************", x2)
-        y2 = base_rate_table.objects.filter(unique_key=x2)
+        y2 = Base_rate_table.objects.filter(unique_key=x2)
         for k2 in y2:
             rate3 = k2.br
             print(rate3)
@@ -435,7 +435,7 @@ def final_load_br2(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate3 = k.br
             print(rate3)

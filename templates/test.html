@@ -124,17 +124,41 @@
                 
             </div>
         </div>
+        
+          
+        
     </div>
+
+
+       
+
      
 </div>
 
 <hr>
 {% endfor %}
+<div class="row form-row spacer">
+<div class="col-3">
+    <div>
+        <label>Grand Total</label>
+    </div>
+    <div class="input-group">
+        {{nfct_form.nfct_grandtotal}} 
+        
+    </div>
+    <br>
+   
+</div>
+</div>
 
 <!--Buttons -->
+<div class="input-group">
+    <button class="btn btn-primary" id="calcu">Calculate Grand Total</button>
+
+</div>
 <div class="row spacer">
     <div class="col-auto input-group-append">
-        <button class="btn btn-primary add-form-row">Add Another Element</button>
+        <button class="btn btn-primary add-form-row" id="add_form">Add Another Element</button>
     </div>
     <div class="col-auto">
         <button type="submit" class="btn btn-block btn-primary">Create</button>
@@ -319,7 +343,9 @@ $('.class_freq').on('input',function(e)
     var tot_sec_id = freqid_function.replace('freq', 'total_seconds')
     var tot_sec = $(`#${tot_sec_id}`).val()
 
+    console.log('##########################')
     var total = freqid_function.replace('freq', 'total')
+    console.log($(`#${total}`).val())
     var element_id = freqid_function.replace('freq', 'element')
     var element = $(`#${element_id}`).val()
 
@@ -329,6 +355,7 @@ $('.class_freq').on('input',function(e)
     if (element === 'Aston' || element === "L Band"){
         document.getElementById(tot_sec_id).value = frequency * 10;
         document.getElementById(total).value = (er * (frequency * 10))/10;
+        // grand_total = document.getElementById(total).value = (er * (frequency * 10))/10;
     }
     else{
         document.getElementById(total).value = base * frequency;
@@ -340,7 +367,7 @@ $('.class_freq').on('input',function(e)
 $('.class_er').on('input',function(e)
 {
     var erid_function = e.target.id
-    // console.log(erid_function, 'Effective rate id')
+    console.log(erid_function, 'Effective rate id')
     
     var eff_rate = parseInt($(this).val());
     console.log({eff_rate})
@@ -399,6 +426,59 @@ function attachevent(ele_id){
             console.log('inside')
              
     }
+
+
+// grandtotal
+// $('.class_total').on('focus', function(e)
+// {
+//     console.log('+++++++++++++++++++++++++')
+//     var gtid = e.target.id
+
+//     var total = $(this).val()
+//     console.log({total})
+//     grandtotal = (($(`#${total}`)).last().attr('id'))
+//     console.log(grandtotal, '7777777777777777777')
+//     grand = parseInt($(`#${grandtotal}`).val()) + parseInt(grand_total)
+//     console.log(grand, ']]]]]]]]]]]]]]]')
+//     console.log('--------------------------')
+// })
+
+
+// grandtotal
+$('#add_form').on('click',function(e){
+    var gtid = e.target.id
+
+    console.log(gtid, '5555555555555')
+    var total_forms_id = gtid.replace('add_form', 'id_form-TOTAL_FORMS')
+    var total_forms = $(`#${total_forms_id}`).val();
+    console.log(total_forms)
+    var total_id = gtid.replace('add_form', 'id_form-0-total')
+    console.log(total_id)
+    var total = $(`#${total_id}`).val();
+    console.log(total)
+    
+    var grandtotal = 0
+    // document.getElementById('id_nfct_grandtotal').value = 0
+    for(i = 0; i<=parseInt(total_forms); i++){
+        console.log('i', i)
+        console.log('grandtotal', grandtotal)
+        grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-total`).val())
+        console.log('grandtotal after', grandtotal)
+        // document.getElementById('id_nfct_grandtotal').value = parseInt(grandtotal);
+        // $("#id_nfct_grandtotal").val() = grandtotal
+        // console.log(document.getElementById('id_nfct_grandtotal').value, '+++++++++++++++++++++++++++')
+        // console.log(grandtotal, 'grandtotal')
+        // console.log(document.getElementById('id_nfct_grandtotal').value = grandtotal)
+        // document.getElementById('id_nfct_grandtotal').value = document.getElementById('id_nfct_grandtotal').value;
+       
+
+    }
+    console.log('grandtotal loop', grandtotal, typeof(grandtotal))
+    document.getElementsByClassName('class_grandtotal').value = grandtotal
+    // document.getElementById('id_nfct_grandtotal').value = grandtotal
+    // console.log(document.getElementById('id_nfct_grandtotal').value)
+    
+})
 
 </script>
 

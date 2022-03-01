@@ -11,6 +11,7 @@ from .forms import (
 
     DealModelFormset,
     NFCT_Base_Rate_Form,
+    NFCTGrandTotal,
 )
 from .models import *
 
@@ -19,7 +20,7 @@ from .models import *
 
 class DealListView(generic.ListView):
 
-    model = deal_nfct
+    model = Deal_nfct
     context_object_name = 'nfct'
     template_name = 'list.html'
 
@@ -28,12 +29,23 @@ class DealListView(generic.ListView):
 def create_deal_model_form(request):
     template_name = 'test.html'
     if request.method == 'GET':
-        formset = DealModelFormset(queryset=deal_nfct.objects.none())
-        return render(request, template_name, {'formset': formset})
+        nfct_form = NFCTGrandTotal(request.POST or None)
+        formset = DealModelFormset(queryset=Deal_nfct.objects.none())
+        return render(request, template_name, {'formset': formset, 'nfct_form' : nfct_form})
     elif request.method == 'POST':
+        nfct_form = NFCTGrandTotal(request.POST or None)
         formset = DealModelFormset(request.POST or None)
         if formset.is_valid():
-            formset.save()
+            formset.save(commit=False)
+            # if nfct_form.is_valid():
+                # nfct_gt = deal_nfct()
+                # print(request.POST, 'request*****************')
+                # nfct_gt.nfct_grandtotal = request.POST.get('nfct_grandtotal')
+                # # nfct_gt.nfct_grandtotal = int(nfct_gt.nfct_grandtotal)
+                # print(nfct_gt.nfct_grandtotal, 'nfct_grandtotal')
+                # # print(int(nfct_gt.nfct_grandtotal), 'int nfct_grandtotal')
+                # nfct_gt.save()
+            formset.save(commit=True)
             return redirect('nfct:deallist')
         return render(request, template_name, {'formset': formset})
 

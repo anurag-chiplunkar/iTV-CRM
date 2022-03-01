@@ -4,7 +4,9 @@ from django.forms import ModelForm
 
 from xml.dom.minidom import Element
 from django.db import models
+from final_fct_nfct_deal.models import *
 
+# from final_fct_nfct_deal.models import FinalFctNfctDeal
 CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
@@ -40,9 +42,8 @@ class NFCT_Base_Rate(models.Model):
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     nfct_baserate = models.IntegerField(null=True,blank=True)
 
-class deal_nfct(models.Model):
-    
-    # deal_id = models.CharField(max_length=500,default=None)
+class Deal_nfct(models.Model):
+    dealid_nfct_ref = models.ForeignKey('final_fct_nfct_deal.FinalFctNfctDeal',on_delete = models.CASCADE)
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
@@ -52,6 +53,7 @@ class deal_nfct(models.Model):
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
     total = models.IntegerField(null=True,blank=True)
+    nfct_grandtotal = models.IntegerField(null=True, blank=True)
 
 
 

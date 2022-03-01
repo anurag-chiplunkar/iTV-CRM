@@ -21,7 +21,7 @@
 {% if user.is_authenticated %}
 
   {% for i in qs %}
-        {% if "executive" in i.emp_desgn %}
+        {% if "Executive" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end" id="sidebar-wrapper">
@@ -35,7 +35,7 @@
             </div>
           {% endif %}
 
-          {% if "admin" in i.emp_desgn %}
+          {% if "Admin" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end" id="sidebar-wrapper">
@@ -54,7 +54,7 @@
             </div>
           {% endif %}
 
-          {% if "md" in i.emp_desgn %}
+          {% if "MD" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end bg-white" id="sidebar-wrapper">

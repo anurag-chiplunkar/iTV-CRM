@@ -4,7 +4,7 @@ from django.forms import ModelForm
 from django.forms import modelformset_factory
 
 from django import forms
-from .models import *
+
 from django.forms import (formset_factory, modelformset_factory)
 
 
@@ -31,10 +31,17 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
 		'nfct_baserate' : forms.NumberInput(attrs = {'class': 'form-control'})
 		}
 
+class NFCTGrandTotal(forms.ModelForm):
+    class Meta:
+        model = Deal_nfct
+        fields = ('nfct_grandtotal',)
 
+        widgets = {
+            'nfct_grandtotal' : forms.NumberInput(attrs = {'class' : 'form-control class_grandtotal', 'readonly' : 'readonly', 'placeholder' : 'Grand Total'})
+        }
 
 DealModelFormset = modelformset_factory( 
-    deal_nfct,          
+    Deal_nfct,          
     # 'deal_id' we removed this from fields
     fields=('channel', 'element','durations','duration_in', 'er', 'freq','total_seconds','base_rate','total'),
     extra=1,
@@ -86,7 +93,7 @@ DealModelFormset = modelformset_factory(
             'class' : 'class_total form-control',
             'readonly' : 'readonly',
             'placeholder': 'Total'
-        })
+        }),
     }
 )
 
