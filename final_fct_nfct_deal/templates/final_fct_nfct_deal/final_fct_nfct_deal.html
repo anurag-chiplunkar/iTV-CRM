@@ -254,7 +254,7 @@
                 <div class="col-2">
                     <label class="col-form-label">Revenue</label> 
                 </div>
-            
+            </div>
         </div>
         <div class="row g-3 align-items-start" id="row1" style="display: none;">
             <div class="col-auto">
@@ -338,7 +338,7 @@
                 </div>
         </div>
         <hr>
-    </div>
+    <!-- </div> -->
 
     
 
@@ -458,8 +458,8 @@
          
     </div>
     
-            <hr>
-            {% endfor %}
+    <hr>
+    {% endfor %}
     
     <!--Buttons -->
     <div class="row spacer  mt-3">
@@ -1051,6 +1051,7 @@
    
    </script>
 
+<!-- Generating Deal Id -->
 <script>
     const uid = 'Deal' + Date.now(); 
     document.getElementById("id_deal_id").value = uid;
