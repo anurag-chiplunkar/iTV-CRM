@@ -13,7 +13,11 @@
       
     }
     .sidebar{
-      background-color: bisque;
+      background-color: black;
+    }
+    .nav-link{
+      text-decoration: none;
+      color: white;
     }
     </style>
 </head>
@@ -21,7 +25,7 @@
 {% if user.is_authenticated %}
 
   {% for i in qs %}
-        {% if "executive" in i.emp_desgn %}
+        {% if "Executive" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end" id="sidebar-wrapper">
@@ -35,26 +39,26 @@
             </div>
           {% endif %}
 
-          {% if "admin" in i.emp_desgn %}
+          {% if "Admin" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end" id="sidebar-wrapper">
                   
-                  <div class="list-group list-group-flush sidebar">
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'final_fct_nfct_deal:final_deal' %}">Add FCT/NFCT Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add Events Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Add AFP Deal</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:agency_detail' %}">Add Agency Details</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:agency_contact' %}">Add Agency Contacts</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:cname' %}">Add Client Details</a>
-                      <a class="list-group-item list-group-item-action list-group-item-light p-3" href="{% url 'agency_client:ccontact' %}">Add Client Contacts</a>
+                  <div class="sidebar">
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="{% url 'final_fct_nfct_deal:final_deal' %}">Add FCT/NFCT Deal</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="#!">Add Events Deal</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="#!">Add AFP Deal</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="{% url 'agency_client:agency_detail' %}">Add Agency Details</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="{% url 'agency_client:agency_contact' %}">Add Agency Contacts</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="{% url 'agency_client:cname' %}">Add Client Details</a>
+                      <a class="nav-link active navbar-dark bg-dark p-3" href="{% url 'agency_client:ccontact' %}">Add Client Contacts</a>
 
                   </div>
               </div>
             </div>
           {% endif %}
 
-          {% if "md" in i.emp_desgn %}
+          {% if "MD" in i.emp_desgn %}
           <div class="id-flex" id="wrapper">
               <!-- Sidebar-->
               <div class="border-end bg-white" id="sidebar-wrapper">
