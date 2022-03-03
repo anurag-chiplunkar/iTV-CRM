@@ -9,7 +9,7 @@ class AgencyDetail(models.Model):
 	agency_state 		= models.CharField(max_length = 50)
 	agency_landmark		= models.CharField(max_length = 100,null = True, blank = True)
 	agency_city			= models.CharField(max_length = 100)
-	agency_pin			= models.IntegerField(max_length = 10)
+	agency_pin			= models.IntegerField()
 	
 	def __str__(self):
 		return self.agency_name + ' -' + self.agency_state

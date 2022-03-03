@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
-    'events_afp',
     'accounts',
     'profiles',
     'customer',
@@ -53,6 +52,7 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'afp_deal',
 ]
 
 MIDDLEWARE = [
