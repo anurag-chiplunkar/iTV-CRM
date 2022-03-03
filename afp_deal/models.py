@@ -1,5 +1,6 @@
 from django.db import models
 from agency_client.models import *
+import datetime
 
 class AFPProgramName(models.Model):
 	"""	Registration of Program Names"""
@@ -45,7 +46,6 @@ class AFPDeal(models.Model):
 	ref_slot            = models.ForeignKey(AFPSlots, on_delete = models.CASCADE)
 	afp_eff_rate        = models.CharField(max_length = 200)
 	afp_base_rate       = models.IntegerField()
-	# afp_total           = models.ForeignKey(AFPDealFinalTotal, on_delete = models.CASCADE,default = 'default')
 
 class AFPDealFinalTotal(models.Model):
 	afp_final_total = models.IntegerField(primary_key = True)
@@ -62,6 +62,7 @@ class FinalAFPDeal(models.Model):
 	afp_agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
 	afp_brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brand2')
 	afp_total_ref           = models.IntegerField(null=True,blank=True)
+	afp_deal_created		= models.DateTimeField(auto_now_add = True)
 	
 	def __str__(self):
 		return self.afp_deal_id
