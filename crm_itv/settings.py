@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'final_events',
 ]
 
 MIDDLEWARE = [
