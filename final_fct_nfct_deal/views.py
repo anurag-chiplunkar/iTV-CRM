@@ -21,18 +21,6 @@ from django.contrib.auth.decorators import login_required
 def finalDealListView(request):
     qs = FinalFctNfctDeal.objects.all()
     qs1 = fct_deal.objects.all()
-
-# ##getting the id of currently saved deal
-#     for i in qs1:
-#         qs1_id = i.id
-#     print(qs1_id)
-# ##filtering the fct deal table with that current id
-#     iD = fct_deal.objects.filter(id=qs1_id)
-#     print("FCT iD:",iD)
-# ##getting the total rev of that current id
-#     total_rev1 = iD.values()
-#     print(total_rev1)
-
     qs2 = deal_nfct.objects.all()
 
     mycontext = {'qs': qs, 'qs1': qs1, 'qs2': qs2}
@@ -182,109 +170,6 @@ def final_deal(request):
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
-
-# def final_deal(request):
-#     form = FinalFctNfctDealDetails(request.POST or None)
-#     form1 = form_fct_deal(request.POST or None)
-#     # formset = DealModelFormset(request.POST or None)
-#     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
-#     fct_form = base_rate_table_form(request.POST or None)
-#     fct_obj = fct_deal()
-#     user = request.user
-#     ag_det = AgencyDetail.objects.all()
-#     cli_name = CustomerName.objects.all()
-#     cli_det = CustomerContact.objects.all()
-#     agg = AgencyContact.objects.all()
-#     qs1 = Employees.objects.filter(emp_email__contains=user)
-#     tmpJson = serializers.serialize("json",cli_det)
-#     tmpagen = serializers.serialize("json",agg)
-#     formset = DealModelFormset(queryset=deal_nfct.objects.none())
-#     final_obj = FinalFctNfctDeal()
-#     context = {'form': form,'form1': form1,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen, 'formset': formset,
-#     'nfct_form': nfct_form, 'fct_form': fct_form}
-
-
-#     if request.method == "POST":
-#         print(request.POST,"all forms request.post---------------------")
-#         print("form errors--------------------",form.errors)
-#         print("form1 error===========",form1.errors)
-#         print("formset.errors here~~~~~~~",formset.errors)
-#         if form.is_valid() or formset.is_valid() or form1.is_valid():
-#             print("checking validating in form")
-
-#             formset = DealModelFormset(request.POST or None)
-
-#             final_obj.client_name_ref     = form.cleaned_data.get('client_name_ref')
-#             final_obj.client_contact_ref  = form.cleaned_data.get('client_contact_ref')
-#             final_obj.agency_name_ref     = form.cleaned_data.get('agency_name_ref')
-#             final_obj.agency_contact_ref  = form.cleaned_data.get('agency_contact_ref')
-#             final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
-
-
-#             if request.POST.get('dis_dd') == '50%-50%':
-#                 fct_obj.chan = request.POST.get('channel')
-#                 fct_obj.dis = request.POST.get('dis_dd')
-#                 fct_obj.band1 = request.POST.get('band1')
-#                 fct_obj.band2 = request.POST.get('band2')
-#                 fct_obj.fct1 = request.POST.get('fct1')
-#                 fct_obj.fct2 = request.POST.get('fct2')
-
-#                 fct_obj.eff_rate1 = request.POST.get('er1')
-#                 fct_obj.eff_rate2 = request.POST.get('er2')
-
-#                 fct_obj.rev1 = request.POST.get('rev1')
-#                 fct_obj.rev2 = request.POST.get('rev2')
-#                 rate1 = request.session['rate']
-#                 fct_obj.base_rate1 = rate1
-#                 rate2 = request.session['rate2']
-#                 fct_obj.base_rate2 = rate2
-#                 fct_obj.total_rev = form.cleaned_data.get('total_rev')
-#                 fct_obj.deal_id = form.cleaned_data.get('deal_id')
-#                 fct_obj.save()
-#                 print("reached after fct saved")
-#                 messages.success(request, 'Form is saved!')
-
-#             else:
-#                 fct_obj.chan = request.POST.get('channel')
-#                 fct_obj.dis = request.POST.get('dis_dd')
-#                 fct_obj.band1 = request.POST.get('band1')
-#                 fct_obj.band2 = request.POST.get('band2')
-#                 fct_obj.band3 = request.POST.get('band3')
-#                 fct_obj.fct1 = request.POST.get('fct1')
-#                 fct_obj.fct2 = request.POST.get('fct2')
-#                 fct_obj.fct3 = request.POST.get('fct3')
-#                 fct_obj.eff_rate1 = request.POST.get('er1')
-#                 fct_obj.eff_rate2 = request.POST.get('er2')
-#                 fct_obj.eff_rate3 = request.POST.get('er3')
-#                 fct_obj.rev1 = form.cleaned_data.get('rev1')
-#                 fct_obj.rev2 = request.POST.get('rev2')
-#                 fct_obj.rev3 = request.POST.get('rev3')
-#                 fct_obj.total_rev = form.cleaned_data.get('total_rev')
-#                 fct_obj.deal_id = form.cleaned_data.get('deal_id')
-#                 rate1 = request.session['rate']
-#                 fct_obj.base_rate1 = rate1
-#                 rate2 = request.session['rate2']
-#                 fct_obj.base_rate2 = rate2
-#                 rate3 = request.session['rate3']
-#                 fct_obj.base_rate3 = rate3
-
-#                 fct_obj.save()
-#                 print("reached after fct saved")
-#                 messages.success(request, 'Form is saved!')
-
-#             print("reached before formset saved")
-#             final_obj.fct_total   = form1.cleaned_data.get('total_rev')
-#             final_obj.nfct_total  = request.POST.get('form-0-total')
-#             print("total here***************",final_obj.fct_total,final_obj.nfct_total)
-#             final_obj.grandtotal = int(final_obj.fct_total) + int(final_obj.nfct_total)
-#             print("*****grandtotal",final_obj.grandtotal)
-#             formset.save()
-#             print("reached before final saved")
-#             final_obj.save()
-#     else:
-#         print("Form is invalid")
-
-#     return render(request,"final_fct_nfct_deal/final_fct_nfct_deal.html",context)
 
 def load_client_contacts(request):
     client_id = request.GET.get('client')

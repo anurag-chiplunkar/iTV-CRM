@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
-    'events_afp',
     'accounts',
     'profiles',
     'customer',
@@ -52,6 +51,7 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'afp_deal',
 ]
 
 MIDDLEWARE = [
@@ -111,7 +111,7 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm_db',
+        'NAME': 'crm1',
         'USER': 'root',
         'PASSWORD': '',
         'HOST': '',
