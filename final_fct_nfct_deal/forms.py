@@ -18,7 +18,7 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 	class Meta:
 		model = FinalFctNfctDeal
 		fields = '__all__'
-		# exclude = ('deal_id',)			
+		# exclude = ('fct_total','nfct_total','grandtotal')			
 
 		widgets = {
 		'deal_id'	 : forms.TextInput(attrs={'class':'form-control','readonly':'readonly','placeholder': 'Enter deal id'}),

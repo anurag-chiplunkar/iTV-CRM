@@ -190,7 +190,6 @@
                 <table class="table table-hover">
                     <thead>
                             <tr>
-                                <!-- <th scope="col"></th> -->
                                 <th scope="col">
                                     Name
                                 </th>
@@ -209,7 +208,6 @@
                         <tr  class="col-auto">
                             <th scope="row"  class="col-3">
                                 {{form.agency_contact_ref}}
-                             
                         </th>
                             <td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
                             <td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
@@ -727,7 +725,7 @@
 		trial = $(this).val();				// storing selected channel in trial variable
         console.log("channel",trial)
 	});	
-	var disper ;
+	var trial_dis ;
 
     // storing selected dispersion in trial_dis variable
 	$("#dis_dd").change(function () {
@@ -742,7 +740,7 @@
 		var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
 		console.log("url1-----------",url1)
         var band_dd1 = $(this).val();		// storing the band selected from row1
-		console.log("band",band_dd1,)
+		console.log("band",band_dd1)
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
@@ -853,6 +851,7 @@
 
     });
   </script>
+
 <!-- nfct deal -->
 <script type="text/javascript">
     var count = 0;
