@@ -12,7 +12,7 @@ from final_fct_nfct_deal.models import (
 # Create your models here.
 
 class Fct_deal(models.Model):
-	dealid_fct_ref     = models.ForeignKey('final_fct_nfct_deal.FinalFctNfctDeal',on_delete = models.CASCADE)
+	dealid_fct_ref = models.CharField(max_length=100, default='default', primary_key=True)
 	chan = models.CharField(max_length=1000,blank=True,null=True)
 	# deal_id = models.CharField(max_length=500)
 	dis = models.CharField(max_length=1000,blank=True,null=True)
@@ -79,4 +79,3 @@ class Base_rate_table(models.Model):
 	def __str__(self):
 		return self.br
 
-	

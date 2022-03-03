@@ -22,6 +22,10 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 
 		widgets = {
 		'deal_id'	 : forms.TextInput(attrs={'class':'form-control','readonly':'readonly','placeholder': 'Enter deal id'}),
+		'executive'  : forms.TextInput(attrs={'class':'form-control'}),
+		'reporting_manager' : forms.TextInput(attrs={'class':'form-control'}),
+		'RO_number' : 	forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter RO Number'}),
+		'RO_value'  :	forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter RO Value'}),
 		'fct_total'  : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter fct total'}),
 		'nfct_total' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter nfct total'}),
 		'grandtotal' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter grand total'}),
@@ -41,15 +45,17 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 				pass  # invalid input from the client; ignore and fallback to empty City queryset
 		elif self.instance.pk:
 			self.fields['client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
+			
 class form_fct_deal(forms.ModelForm):
 
 	class Meta:
 		model = Fct_deal
 		fields = '__all__'
+		exclude = ('dealid_fct_ref',)
 
 		widgets = {
 		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
-		'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
+		# 'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
 		}
 
 	

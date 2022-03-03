@@ -22,7 +22,7 @@ def home(request):
 
 @login_required(login_url='accounts:emp_login')
 def fct_details(request):
-    form = form_fct_deal(request.POST or None)
+    form = Form_fct_deal(request.POST or None)
     fct_obj = Fct_deal()
     user = request.user
     ag_det = AgencyDetail.objects.all()
@@ -37,6 +37,7 @@ def fct_details(request):
     if request.method == "POST":
         if request.POST.get('dis_dd') == '50%-50%':
             if form.is_valid():
+                fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
                 fct_obj.chan = request.POST.get('channel')
                 fct_obj.dis = request.POST.get('dis_dd')
                 fct_obj.band1 = request.POST.get('band1')
@@ -59,6 +60,7 @@ def fct_details(request):
                 messages.success(request, 'Form is saved!')
 
         else:
+            fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
             fct_obj.chan = request.POST.get('channel')
             fct_obj.dis = request.POST.get('dis_dd')
             fct_obj.band1 = request.POST.get('band1')

@@ -59,6 +59,7 @@ class Form_fct_deal(forms.ModelForm):
 	class Meta:
 		model = Fct_deal
 		fields = '__all__'
+		# exclude = ('dealid_fct_ref',)
 
 		widgets = {
 		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),

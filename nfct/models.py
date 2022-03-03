@@ -1,12 +1,8 @@
 from django.db import models
-from django.db.models.signals import pre_save
-from django.forms import ModelForm
-
-from xml.dom.minidom import Element
-from django.db import models
-from final_fct_nfct_deal.models import *
-
 # from final_fct_nfct_deal.models import FinalFctNfctDeal
+from agency_client.models import *
+
+# from deal_fct_nonfct.models import (Fct_deal,)
 CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
@@ -43,7 +39,7 @@ class NFCT_Base_Rate(models.Model):
     nfct_baserate = models.IntegerField(null=True,blank=True)
 
 class Deal_nfct(models.Model):
-    dealid_nfct_ref = models.ForeignKey('final_fct_nfct_deal.FinalFctNfctDeal',on_delete = models.CASCADE)
+    main_dealid_nfct_ref = models.CharField(max_length=100, default='default', null=True, blank=True)
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
@@ -53,8 +49,29 @@ class Deal_nfct(models.Model):
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
     total = models.IntegerField(null=True,blank=True)
-    nfct_grandtotal = models.IntegerField(null=True, blank=True)
+    
 
+class NFCTGrandTotal(models.Model):
+    dealid_nfct_ref = models.CharField(max_length=100, default='default')
+    nfct_grandtotal = models.IntegerField(primary_key=True)
+
+
+class FinalNFCT(models.Model):
+    deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
+    created_at          = models.DateTimeField(auto_now_add = True)
+    executive           = models.CharField(max_length= 255)
+    reporting_manager   = models.CharField(max_length= 255)
+    RO_number           = models.CharField(max_length=255)
+    RO_value            = models.DecimalField(max_digits=12, decimal_places=2)
+    client_name_ref     = models.ForeignKey(CustomerName,on_delete = models.CASCADE,default = 'default',related_name = 'clientnfct')
+    client_contact_ref  = models.ForeignKey(CustomerContact,on_delete = models.CASCADE,default = 'default')
+    agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
+    agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
+    brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brandnfct')
+    fct_total           = models.IntegerField(null=True,blank=True, default=0)
+    
+    def __str__(self):
+        return self.deal_id
 
 
 
