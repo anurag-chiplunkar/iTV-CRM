@@ -58,4 +58,4 @@ class form_fct_deal(forms.ModelForm):
 		# 'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
 		}
 
-	
+

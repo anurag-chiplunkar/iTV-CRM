@@ -8,8 +8,10 @@ from django.shortcuts import redirect
 from django.contrib import messages
 import json
 from django.core import serializers
-from .forms import *
+# from . forms import FinalFCTForm, Form_fctdeal, Base_rate_table_form
 from .models import *
+from .forms import *
+
 from agency_client.models import *
 from accounts.models import Employees
 from nfct.models import *
@@ -19,6 +21,13 @@ from django.contrib.auth.models import User
 def home(request):
     return render(request, 'home.html')
 
+
+
+def FCTFinal(request):
+    qs = FinalFCT.objects.all()
+    mycontext = {'qs': qs}
+    template_name = 'deal_fct_nonfct/fctfinal_deallist.html'
+    return render(request, template_name, mycontext)
 
 @login_required(login_url='accounts:emp_login')
 def fct_details(request):
@@ -350,3 +359,142 @@ def load_br2(request):
             request.session['rate3'] = rate3
     # return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
     return HttpResponse(rate3)
+
+def load_client_contacts(request):
+    client_id = request.GET.get('client')
+    client_contacts = CustomerContact.objects.filter(
+        ref_creg_no=client_id).order_by('pri_fname')
+    print(client_contacts)
+    return render(request, 'deal_fct_nonfct/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
+
+
+def load_agency_contacts(request):
+    agency_id = request.GET.get('agency')
+    agency_contacts = AgencyContact.objects.filter(
+        agency_details=agency_id).order_by('pri_firstName')
+    print(agency_contacts)
+    return render(request, 'deal_fct_nonfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+
+
+def fctdeal(request):
+    form = FinalFCTForm(request.POST or None)
+    form1 = Form_fctdeal(request.POST or None)
+    fct_form = Base_rate_table_form(request.POST or None)
+    fct_obj = DealFct()
+    user = request.user
+    ag_det = AgencyDetail.objects.all()
+    cli_name = CustomerName.objects.all()
+    cli_det = CustomerContact.objects.all()
+    agg = AgencyContact.objects.all()
+    qs = Employees.objects.filter(emp_email__contains=user)
+    tmpJson = serializers.serialize("json", cli_det)
+    tmpagen = serializers.serialize("json", agg)
+    final_obj = FinalFCT()
+    context = {'form': form, 'form1': form1, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson, 'qs': qs, 'tmpagen': tmpagen, 
+                'fct_form': fct_form}
+    
+    if request.method == 'POST':
+        print('REQUEST POST', request.POST)
+        fct_obj.dealid_fct = request.POST.get('deal_id')
+        print('fct_obj.dealid_fct_ref', fct_obj.dealid_fct)
+        print("form errors--------------------", form.errors)
+        print("form1 error===========", form1.errors)
+        if form.is_valid():
+            print('inside form')
+            print(form.cleaned_data, "from form-------******------")
+            final_obj.deal_id = request.POST.get('deal_id')
+            final_obj.executive = request.POST.get('executive')
+            final_obj.reporting_manager = request.POST.get('reporting_manager')
+            final_obj.RO_number = form.cleaned_data.get('RO_number')
+            final_obj.RO_value = form.cleaned_data.get('RO_value')
+            print('RO VALUE', final_obj.RO_value)
+            final_obj.client_name_ref = form.cleaned_data.get(
+                'client_name_ref')
+            final_obj.client_contact_ref = form.cleaned_data.get(
+                'client_contact_ref')
+            final_obj.agency_name_ref = form.cleaned_data.get(
+                'agency_name_ref')
+            final_obj.agency_contact_ref = form.cleaned_data.get(
+                'agency_contact_ref')
+            final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
+            final_obj.fct_total_rev = request.POST.get('total_rev')
+            print('FCT TOTAL REVENUE', final_obj.fct_total_rev)
+            
+            form.save(commit=False)
+            print("save commit false!!!")
+            
+            print(form1.is_valid)
+            if form1.is_valid():
+                
+                print('indise form1')
+                print(request.POST, "////////////")
+                if request.POST.get('dis_dd') == '50%-50%':
+                    fct_obj.dealid_fct = fct_obj.dealid_fct
+                    print('fct_obj.dealid_fct',fct_obj.dealid_fct)
+                    fct_obj.chan = request.POST.get('channel')
+                    fct_obj.dis = request.POST.get('dis_dd')
+                    fct_obj.band1 = request.POST.get('band1')
+                    fct_obj.band2 = request.POST.get('band2')
+                    fct_obj.fct1 = request.POST.get('fct1')
+                    fct_obj.fct2 = request.POST.get('fct2')
+
+                    fct_obj.eff_rate1 = request.POST.get('er1')
+                    fct_obj.eff_rate2 = request.POST.get('er2')
+
+                    fct_obj.rev1 = request.POST.get('rev1')
+                    fct_obj.rev2 = request.POST.get('rev2')
+                    # rate1 = request.session['rate']
+                    # fct_obj.base_rate1 = rate1
+                    # rate2 = request.session['rate2']
+                    # fct_obj.base_rate2 = rate2
+                    total_revenue = form1.cleaned_data.get('total_rev')
+                    fct_obj.total_rev = total_revenue
+                    print("total rev here!!!!", fct_obj.total_rev)
+
+                    fct_obj.save()
+                    print("reached after form-1-1 saved commit false")
+                    messages.success(request, 'Form is saved!')
+
+                else:
+                    fct_obj.dealid_fct = fct_obj.dealid_fct
+                    fct_obj.chan = request.POST.get('channel')
+                    fct_obj.dis = request.POST.get('dis_dd')
+                    fct_obj.band1 = request.POST.get('band1')
+                    fct_obj.band2 = request.POST.get('band2')
+                    fct_obj.band3 = request.POST.get('band3')
+                    fct_obj.fct1 = request.POST.get('fct1')
+                    fct_obj.fct2 = request.POST.get('fct2')
+                    fct_obj.fct3 = request.POST.get('fct3')
+                    fct_obj.eff_rate1 = request.POST.get('er1')
+                    fct_obj.eff_rate2 = request.POST.get('er2')
+                    fct_obj.eff_rate3 = request.POST.get('er3')
+                    fct_obj.rev1 = request.POST.get('rev1')
+                    fct_obj.rev2 = request.POST.get('rev2')
+                    fct_obj.rev3 = request.POST.get('rev3')
+                    total_revenue = form1.cleaned_data.get('total_rev')
+                    fct_obj.total_rev = total_revenue
+                    request.session['fcttotal'] = fct_obj.total_rev
+                    # grandtotal.append(total_revenue)
+                    print("total rev here!!!!", fct_obj.total_rev)
+                    # rate1 = request.session['rate']
+                    # fct_obj.base_rate1 = rate1
+                    # rate2 = request.session['rate2']
+                    # fct_obj.base_rate2 = rate2
+                    # rate3 = request.session['rate3']
+                    # fct_obj.base_rate3 = rate3
+
+                    fct_obj.save()
+                    print("FORM SAVED")
+                    messages.success(request, 'Form is saved!')
+
+
+                print("reached after form-1 saved commit false")
+                final_obj.save()
+                # form1.save(commit=True)
+                # form.save(commit=True)
+                print("reached at the end---------------------")
+
+                return redirect('deal_fct_nonfct:fctfinal_deallist')
+               
+
+    return render(request, "deal_fct_nonfct/fct.html", context)

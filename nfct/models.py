@@ -1,3 +1,4 @@
+from pyexpat import model
 from django.db import models
 # from final_fct_nfct_deal.models import FinalFctNfctDeal
 from agency_client.models import *
@@ -48,6 +49,8 @@ class Deal_nfct(models.Model):
     freq = models.IntegerField(null=True,blank=True)
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
+    fct_total = models.IntegerField(null=True,blank=True)
+    nfct_total = models.IntegerField(null=True,blank=True)
     total = models.IntegerField(null=True,blank=True)
     
 
@@ -55,6 +58,8 @@ class NFCTGrandTotal(models.Model):
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
     nfct_grandtotal = models.IntegerField(primary_key=True)
 
+
+# single NFCT
 
 class FinalNFCT(models.Model):
     deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
@@ -68,7 +73,6 @@ class FinalNFCT(models.Model):
     agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
     agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
     brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brandnfct')
-    fct_total           = models.IntegerField(null=True,blank=True, default=0)
     
     def __str__(self):
         return self.deal_id
@@ -76,7 +80,23 @@ class FinalNFCT(models.Model):
 
 
 
+class NFCTDeal(models.Model):
+    dealid_nfct = models.CharField(max_length=100, default='default', null=True, blank=True)
+    channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
+    element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
+    durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
+    duration_in = models.IntegerField(null = True, blank = True)
+    er = models.IntegerField(null=True,blank=True)
+    freq = models.IntegerField(null=True,blank=True)
+    total_seconds = models.IntegerField(null=True,blank=True)
+    base_rate = models.IntegerField(null = True, blank = True)
+    nfct_total = models.IntegerField(null=True,blank=True)
+    
+    
 
+class DealNFCTGrandTotal(models.Model):
+    dealid_nfct_ref = models.CharField(max_length=100, default='default')
+    nfct_grand_total = models.IntegerField(primary_key=True)
 
 
 

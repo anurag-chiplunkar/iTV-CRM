@@ -5,7 +5,7 @@
 {% endif %}
 <body>
     <h1><u><center>NFCT Deal Details</center></u></h1>
-<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
+<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'afp_deal:load_afp_client_contacts' %}" url2="{% url 'afp_deal:load_afp_agency_contacts' %}">
     {% csrf_token %}
     <!-- deal id -->
 <div class="row form-row spacer">
@@ -305,7 +305,7 @@
                 <label>Total</label>
             </div>
             <div class="input-group class_total">
-                {{form.total}}
+                {{form.nfct_total}}
                 
             </div>
         </div>
@@ -531,7 +531,7 @@ $('.class_freq').on('input',function(e)
     var tot_sec = $(`#${tot_sec_id}`).val()
 
     console.log('##########################')
-    var total = freqid_function.replace('freq', 'total')
+    var total = freqid_function.replace('freq', 'nfct_total')
     console.log($(`#${total}`).val())
     var element_id = freqid_function.replace('freq', 'element')
     var element = $(`#${element_id}`).val()
@@ -564,7 +564,7 @@ $('.class_er').on('input',function(e)
     var total_sec = $(`#${tot_sec_id}`).val();
     console.log({total_sec})
 
-    var total = erid_function.replace('er', 'total')
+    var total = erid_function.replace('er', 'nfct_total')
     document.getElementById(total).value = eff_rate * total_sec;
 
 
@@ -620,7 +620,7 @@ $('#cal').on('click',function(e){
     var total_forms_id = gtid.replace('cal', 'id_form-TOTAL_FORMS')
     var total_forms = $(`#${total_forms_id}`).val();
     console.log(total_forms)
-    var total_id = gtid.replace('cal', 'id_form-0-total')
+    var total_id = gtid.replace('cal', 'id_form-0-nfct_total')
     console.log(total_id)
     var total = $(`#${total_id}`).val();
     console.log(total)
@@ -630,7 +630,7 @@ $('#cal').on('click',function(e){
         console.log('i', i)
         console.log('grandtotal', grandtotal)
         $("#id_nfct_grandtotal").val(parseInt(grandtotal)) 
-        grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-total`).val())
+        grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-nfct_total`).val())
         console.log('grandtotal after', grandtotal) 
     }
   
@@ -641,7 +641,113 @@ $('#cal').on('click',function(e){
     document.getElementById("id_deal_id").value = uid;
 
 
+    $("#id_client_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url1");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_agency_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url2");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+
+
 </script>
+
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
+	$("#id_client_name_ref").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+    // on change auto display
+	$("#id_client_contact_ref").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#id_client_name_ref').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+            for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                    if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                        var des = cli_list[i]['fields']['pri_desg'];
+                        var ema = cli_list[i]['fields']['pri_email'];
+                        var tele = cli_list[i]['pk'];
+                        document.getElementById('clientdesignation').value = des;
+                        document.getElementById('clientemail').value = ema;
+                        document.getElementById('clienttele').value = tele;
+
+		}}}
+	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+    // onchange agency JSON
+	$("#id_agency_name_ref").change(function(){
+		var agency = $(this).val();
+	});
+
+    // on change auto display
+	$("#id_agency_contact_ref").change(function(){
+		var a_con_name = $(this).val();
+		var agency = $('#id_agency_name_ref').val();
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+            for (i=0;i<agn_list.length;i++){
+                var field = agn_list[i]['fields'];
+                    if (a_con_name == agn_list[i]['pk']){
+                        var des = agn_list[i]['fields']['pri_designation']
+                        var ema = agn_list[i]['fields']['pri_email']
+                        var tele = agn_list[i]['pk']
+                        document.getElementById('agencydesignation').value = des
+                        document.getElementById('agencyemail').value = ema
+                        document.getElementById('agencytele').value = tele
+                    }
+                
+            }
+          
+		}
+	});
+</script>
+
+
+
 
 {% endblock %}
 </body>

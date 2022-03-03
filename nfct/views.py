@@ -6,7 +6,8 @@ from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from accounts.models import Employees
-
+import json
+from django.core import serializers
 
 
 from .forms import (
@@ -15,6 +16,7 @@ from .forms import (
     NFCT_Base_Rate_Form,
     NFCTGrandTotal,
     FinalNFCTForm,
+    NFCTDealModelFormset,
 )
 from .models import *
 
@@ -26,6 +28,13 @@ class DealListView(generic.ListView):
     model = Deal_nfct
     context_object_name = 'nfct'
     template_name = 'list.html'
+
+
+def NFCTFinal(request):
+    qs = FinalNFCT.objects.all()
+    mycontext = {'qs': qs}
+    template_name = 'nfct/nfctfinal_deallist.html'
+    return render(request, template_name, mycontext)
 
 
 # @login_required(login_url='accounts:emp_login')
@@ -147,10 +156,12 @@ def nfct_finaldeal(request):
     cli_det = CustomerContact.objects.all()
     agg = AgencyContact.objects.all()
     qs1 = Employees.objects.filter(emp_email__contains=user)
+    tmpJson = serializers.serialize("json", cli_det)
+    tmpagen = serializers.serialize("json", agg)
 
-    formset = DealModelFormset(queryset=Deal_nfct.objects.none())
+    formset = NFCTDealModelFormset(queryset=NFCTDeal.objects.none())
     final_obj = FinalNFCT()
-    context = {'form': form, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg,'qs1': qs1,'formset': formset, 'nfct_form': nfct_form}
+    context = {'form': form, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg,'qs1': qs1,'formset': formset, 'nfct_form': nfct_form,'tmpJson': tmpJson,'tmpagen': tmpagen}
     grandtotal = []
     if request.method == 'POST':
         print("form errors--------------------", form.errors)
@@ -174,17 +185,17 @@ def nfct_finaldeal(request):
             final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
             form.save(commit=False)
             print("save commit false!!!")
-            formset = DealModelFormset(request.POST or None)
-            
+            formset = NFCTDealModelFormset(request.POST or None)
+            print('if ``````````````````', formset.is_valid())
             if formset.is_valid():
                 for f in formset.forms:
                     obj = f.save(commit=False)
-                    obj.main_dealid_nfct_ref = request.POST.get('deal_id')
+                    obj.dealid_nfct = request.POST.get('deal_id')
                     obj.save()
                     print("Saved")
-                gt_obj = NFCTGrandTotal()
-                gt_obj.nfct_grandtotal = request.POST.get('nfct_grandtotal')
-                print('gt_obj.nfct_grandtotal', gt_obj.nfct_grandtotal)
+                gt_obj = DealNFCTGrandTotal()
+                gt_obj.nfct_grand_total = request.POST.get('nfct_grandtotal')
+                print('gt_obj.nfct_grandtotal', int(gt_obj.nfct_grand_total))
                 gt_obj.dealid_nfct_ref = request.POST.get('deal_id')
                 print('gt_obj.dealid_nfct_ref', gt_obj.dealid_nfct_ref)
                 gt_obj.save()
@@ -197,7 +208,7 @@ def nfct_finaldeal(request):
                 formset.save()
                 print("reached at the end---------------------")
 
-                # return redirect('/final_deallist')
+                return redirect('nfct:nfctfinaldeallist')
             
 
     return render(request, "test.html", context)
