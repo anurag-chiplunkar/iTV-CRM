@@ -1,9 +1,11 @@
 from django import forms
-from .models import base, Channel, Disper, Band, base_rate_table, fct_deal
+from .models import *
+# from . models import (Base, Channel, Disper, Band, Base_rate_table, Fct_deal)
+from .models import Base
 
-class base_form(forms.ModelForm):
+class Base_form(forms.ModelForm):
 	class Meta:
-		model = base
+		model = Base
 		fields = '__all__'
 		# fields = ['date',]
 		# widgets = {
@@ -11,8 +13,8 @@ class base_form(forms.ModelForm):
 		# }
 
 
-class channel_form(forms.ModelForm):
-	"""docstring for """
+class Channel_form(forms.ModelForm):
+	"""docstring for Channel"""
 	class Meta:
 		model = Channel
 		fields = '__all__'
@@ -21,7 +23,7 @@ class channel_form(forms.ModelForm):
 		'c_list' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
-class disper_form(forms.ModelForm):
+class Disper_form(forms.ModelForm):
 
 	class Meta:
 		model = Disper 
@@ -31,7 +33,7 @@ class disper_form(forms.ModelForm):
 		'dis_list' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
-class band_form(forms.ModelForm):
+class Band_form(forms.ModelForm):
 
 	class Meta:
 		model = Band 
@@ -42,24 +44,25 @@ class band_form(forms.ModelForm):
 		}
 
 
-class base_rate_table_form(forms.ModelForm):
+class Base_rate_table_form(forms.ModelForm):
 
 	class Meta:
-		model = base_rate_table
+		model = Base_rate_table
 		fields = '__all__'
 
 		widgets = {
 		'br' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
-class form_fct_deal(forms.ModelForm):
+class Form_fct_deal(forms.ModelForm):
 
 	class Meta:
-		model = fct_deal
+		model = Fct_deal
 		fields = '__all__'
+		# exclude = ('dealid_fct_ref',)
 
 		widgets = {
 		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
-		'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
+		
 		}
 

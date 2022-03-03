@@ -10,8 +10,7 @@ import json
 from django.core import serializers
 from .forms import *
 from .models import *
-from agency.models import *
-from customer.models import *
+from agency_client.models import *
 from accounts.models import Employees
 from nfct.models import *
 from django.contrib.auth.models import User
@@ -23,8 +22,8 @@ def home(request):
 
 @login_required(login_url='accounts:emp_login')
 def fct_details(request):
-    form = form_fct_deal(request.POST or None)
-    fct_obj = fct_deal()
+    form = Form_fct_deal(request.POST or None)
+    fct_obj = Fct_deal()
     user = request.user
     ag_det = AgencyDetail.objects.all()
     cli_name = CustomerName.objects.all()
@@ -38,6 +37,7 @@ def fct_details(request):
     if request.method == "POST":
         if request.POST.get('dis_dd') == '50%-50%':
             if form.is_valid():
+                fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
                 fct_obj.chan = request.POST.get('channel')
                 fct_obj.dis = request.POST.get('dis_dd')
                 fct_obj.band1 = request.POST.get('band1')
@@ -60,6 +60,7 @@ def fct_details(request):
                 messages.success(request, 'Form is saved!')
 
         else:
+            fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
             fct_obj.chan = request.POST.get('channel')
             fct_obj.dis = request.POST.get('dis_dd')
             fct_obj.band1 = request.POST.get('band1')
@@ -94,8 +95,8 @@ def fct_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def br_details(request):
-    form = base_form(request.POST or None)
-    obj = base()
+    form = Base_form(request.POST or None)
+    obj = Base()
     print("---------------------", request.POST, form.is_valid(), form.errors)
 
     # print("***********",master)
@@ -117,7 +118,7 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-	form = channel_form(request.POST or None)
+	form = Channel_form(request.POST or None)
 	ch_obj = Channel()
 	context = {'form': form,}
 	if request.method == 'POST':
@@ -131,7 +132,7 @@ def enter_channels(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):
-    form = disper_form(request.POST or None)
+    form = Disper_form(request.POST or None)
     dis_obj = Disper()
     context = {'form': form, }
     print("////////////", request.POST)
@@ -147,7 +148,7 @@ def enter_disper(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_band(request):
-    form = band_form(request.POST or None)
+    form = Band_form(request.POST or None)
     band_obj = Band()
     context = {'form': form, }
     print("////////////", request.POST)
@@ -163,8 +164,8 @@ def enter_band(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_base_rate(request):
-    form = base_rate_table_form(request.POST or None)
-    b_obj = base_rate_table()
+    form = Base_rate_table_form(request.POST or None)
+    b_obj = Base_rate_table()
     context = {'form': form}
     print(form.errors)
     if request.method == 'POST':
@@ -201,45 +202,45 @@ def load_br(request):
     rates = Channel.objects.filter(c_list__contains=chan_id)
     b1 = Band.objects.filter(b_list__contains=band1)
     dis1 = Disper.objects.filter(dis_list__contains=disp1)
-    # if band1 is not None and chan_id is not None and disp1 != "33%-33%-33%":
-    context1 = {'qs': rates}
-    context2 = {'qs1': b1}
-    for i in context1['qs']:
-        c = i.c_list
-        print("------", c)
+    if band1 is not None and chan_id is not None and disp1 != "33%-33%-33%":
+        context1 = {'qs': rates}
+        context2 = {'qs1': b1}
+        for i in context1['qs']:
+            c = i.c_list
+            print("------", c)
 
-    for j in context2['qs1']:
-        b = j.b_list[:2]
-        print("---****---", b)
-    x = c + b
-    print("*************", x)
-    y = base_rate_table.objects.filter(unique_key=x)
-    for k in y:
-        rate = k.br
-        print(rate)
-        request.session['rate'] = rate
-    # elif disp1 == "33%-33%-33%":
-    #     context1 = {'qs': rates}
-    #     context2 = {'qs1': b1}
-    #     context3 = {'qs2': dis1}
-    #     for i in context1['qs']:
-    #         c = i.c_list
-    #         print("------", c)
+        for j in context2['qs1']:
+            b = j.b_list[:2]
+            print("---****---", b)
+        x = c + b
+        print("*************", x)
+        y = Base_rate_table.objects.filter(unique_key=x)
+        for k in y:
+            rate = k.br
+            print(rate)
+            request.session['rate'] = rate
+    elif disp1 == "33%-33%-33%":
+        context1 = {'qs': rates}
+        context2 = {'qs1': b1}
+        context3 = {'qs2': dis1}
+        for i in context1['qs']:
+            c = i.c_list
+            print("------", c)
 
-    #     for j in context2['qs1']:
-    #         b = j.b_list[:2]
-    #         print("---****---", b)
+        for j in context2['qs1']:
+            b = j.b_list[:2]
+            print("---****---", b)
 
-    #     for m in context3['qs2']:
-    #         d = m.dis_list[:2]
-    #         print("---****---", d)
-    #     x = c + d + b
-    #     print("*************", x)
-    #     y = base_rate_table.objects.filter(unique_key=x)
-    #     for k in y:
-    #         rate = k.br
-    #         print(rate)
-    #         request.session['rate'] = rate
+        for m in context3['qs2']:
+            d = m.dis_list[:2]
+            print("---****---", d)
+        x = c + d + b
+        print("*************", x)
+        y = Base_rate_table.objects.filter(unique_key=x)
+        for k in y:
+            rate = k.br
+            print(rate)
+            request.session['rate'] = rate
     # return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
     return HttpResponse(rate)
 
@@ -265,7 +266,7 @@ def load_br1(request):
             print("---****---", base2)
         x1 = c + base2
         print("*************", x1)
-        y1 = base_rate_table.objects.filter(unique_key=x1)
+        y1 = Base_rate_table.objects.filter(unique_key=x1)
         for k1 in y1:
             rate2 = k1.br
             print(rate2)
@@ -289,7 +290,7 @@ def load_br1(request):
             print("---****---", d)
         x = c + d + base2
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate2 = k.br
             print(rate2)
@@ -318,7 +319,7 @@ def load_br2(request):
             print("---****---", base3)
         x2 = c + base3
         print("*************", x2)
-        y2 = base_rate_table.objects.filter(unique_key=x2)
+        y2 = Base_rate_table.objects.filter(unique_key=x2)
         for k2 in y2:
             rate3 = k2.br
             print(rate3)
@@ -342,7 +343,7 @@ def load_br2(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate3 = k.br
             print(rate3)

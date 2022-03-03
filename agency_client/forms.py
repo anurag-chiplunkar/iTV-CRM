@@ -84,6 +84,8 @@ class Cust_name(forms.ModelForm):
 
 class Cust_contact(forms.ModelForm):
 	ref_creg_no = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Registration Number')
+	# ref_cname = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Registration Number')
+
 	class Meta:
 		
 		model = CustomerContact
