@@ -88,8 +88,8 @@ def final_deal(request):
                     if total_revenue is None:
                         total_revenue = 0
                     else:
-                        fct_obj.total_rev = total_revenue
-                    fct_obj.total_rev = total_revenue
+                        fct_obj.total_rev = int(total_revenue)
+                    
                     print("total rev here!!!!", fct_obj.total_rev)
 
                     fct_obj.save()
@@ -115,7 +115,7 @@ def final_deal(request):
                     if total_revenue is None:
                         total_revenue = 0
                     else:
-                        fct_obj.total_rev = total_revenue
+                        fct_obj.total_rev = int(total_revenue)
                     request.session['fcttotal'] = fct_obj.total_rev
                     grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
@@ -143,7 +143,7 @@ def final_deal(request):
                     # fct_total = request.session['fcttotal']
                     print("-----nfct total here -***---", nfct_total,total_revenue)
                     
-                    final_obj.grandtotal = total_revenue + nfct_total
+                    final_obj.grandtotal = total_revenue + int(nfct_total)
                     # final_obj.grandtotal = gtotal
                     print("grandtotal here!!!!!!~~~~~", final_obj.grandtotal)
                     final_obj.save()

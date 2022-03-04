@@ -49,6 +49,9 @@ class Eventmodel(models.Model):
     fct_total_amt       = models.IntegerField(null=True,blank=True)
     nfct_total_amt      = models.IntegerField(null=True,blank=True)
     grandtotal_amt      = models.IntegerField(null=True,blank=True)
+    ro_value            = models.CharField(max_length = 100, null=True, blank=True)
+    ro_number           = models.CharField(max_length = 100, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):
@@ -71,9 +74,9 @@ class EventFCTModel(models.Model):
     rev2 = models.IntegerField(blank=True,null=True)
     rev3 = models.IntegerField(blank=True,null=True)
     total_rev = models.IntegerField(blank=True,null=True)
-    base_rate1 = models.IntegerField(blank=True,null=True)
-    base_rate2 = models.IntegerField(blank=True,null=True)
-    base_rate3 = models.IntegerField(blank=True,null=True)
+    base_rate1 = models.IntegerField(blank=True,null=True,default='0')
+    base_rate2 = models.IntegerField(blank=True,null=True,default='0')
+    base_rate3 = models.IntegerField(blank=True,null=True,default='0')
     prev_yr_fct = models.IntegerField(blank=True,null=True)
     curr_fct = models.IntegerField(blank=True,null=True)
 
@@ -116,7 +119,7 @@ class Event_NFCT_Base_Rate(models.Model):
 
 class Event_Deal_Nfct(models.Model):
     
-    deal_id_nfct = models.CharField(max_length=255,primary_key=True,default='default')
+    deal_id_nfct = models.CharField(max_length=255,null=True,blank=True,default='default')
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)

@@ -3,8 +3,8 @@ from django.contrib.auth import get_user_model
 from django.forms import ModelForm
 from django.forms import (formset_factory, modelformset_factory)
 from . models import *
-from nfct.forms import *
-from nfct.models import *
+# from nfct.forms import *
+# from nfct.models import *
 from deal_fct_nonfct.forms import *
 from deal_fct_nonfct.models import *
 
@@ -113,7 +113,6 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
         widgets = {
 		'nfct_baserate' : forms.NumberInput(attrs = {'class': 'form-control'})
 		}
-
 
 
 DealModelFormset = modelformset_factory( 

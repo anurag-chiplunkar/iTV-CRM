@@ -69,6 +69,28 @@
                     </div>
                 </div> 
             </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label class="col-form-label">RO Number</label>
+                        </div>
+                        <div class="col-auto">
+                                <input type="text" name="ro_number" id="ro_number" class="form-control">
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label class="col-form-label">RO Value</label>
+                        </div>
+                        <div class="col-auto">
+                                <input type="text" name="ro_value" id="ro_value" class="form-control">
+                        </div>
+                    </div>
+                </div> 
+            </div>
 
             <!-- client name dropdown -->
             <div class="row mb-3">
@@ -194,55 +216,7 @@
             </div>
             <hr>
 
-            <!-- Events -->
-            <div class="row mt-3">
-                <table class="table table-hover">
-                    <thead>
-                        <tr>
-                            <th scope="col">
-                                Category
-                            </th>
-                            <th scope="col">
-                                Description
-                            </th>
-                            <th scope="col">
-                                Channel
-                            </th>
-                            <th scope="col">
-                                Merit Money
-                            </th>
-                            <th scope="col">
-                                FCT(seconds)
-                            </th>
-                            <th scope="col">
-                                FCT Total
-                            </th>
-                            <th scope="col">
-                                NonFCT Total
-                            </th>
-                            <th scope="col">
-                                Events Total
-                            </th>
-                        </tr>
-                </thead>
-                <tbody>
-                    <tr class="col-auto">
-                        <td scope="row">
-                            {{evt_form.category}}
-                        </td>
-                        <td>{{evt_form.description}}</td>
-                        <td>{{evt_form.channel}}</td>
-                        <td><input type="number" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
-                        <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds"></td>
-                        <td><input type="number" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()"></td>
-                        <td><input type="number" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()"></td>
-                        <td><input type="number" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly ></td>
-                    </tr>
-                </tbody>
-
-                </table>
-                
-            </div>
+            
 
             <!-- FCT Details -->
             <div class="row mt-3 offset-2">
@@ -529,14 +503,67 @@
                 <!-- <div class="col-auto">
                     <button type="submit" class="btn btn-block btn-primary">Create</button>
                 </div> -->
-                <div class="col-auto">
-                {% if user.is_authenticated %}
-                <button name="submit" type="submit" class="btn btn-primary ms-3"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
-                {% endif %}
-                </div>
+                
             </div>
             
         </div>
+
+        <!-- Events -->
+        <div class="row mt-3 offset-2">
+            <div class="col align-self-start"></div>
+            <div class="col align-self-center mb-5"><h3>Event Deal</h3></div>
+            <div class="col align-self-end"></div>
+        </div>
+
+        <div class="row mt-3">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Category
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Channel
+                        </th>
+                        <th scope="col">
+                            Merit Money
+                        </th>
+                        <th scope="col">
+                            FCT(seconds)
+                        </th>
+                        <th scope="col">
+                            FCT Total
+                        </th>
+                        <th scope="col">
+                            NonFCT Total
+                        </th>
+                        <th scope="col">
+                            Events Total
+                        </th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr class="col-auto">
+                    <td scope="row">
+                        {{evt_form.category}}
+                    </td>
+                    <td>{{evt_form.description}}</td>
+                    <td>{{evt_form.channel}}</td>
+                    <td><input type="number" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
+                    <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds"></td>
+                    <td><input type="number" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()"></td>
+                    <td><input type="number" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()"></td>
+                    <td><input type="number" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly ></td>
+                </tr>
+            </tbody>
+
+            </table>
+            
+        </div>
+
         {% for message in messages %}
                 <div class="container-fluid p-0">
                     <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
@@ -549,8 +576,13 @@
         {% endfor %}
         <div class="container">
             <div class="row mt-3">
-                <div class="col-md-12 mb-5 text-right">
+                <div class="col-auto mb-5 text-right">
                     <button type="submit" class="btn btn-primary float-left">Save Deal</button>
+                </div>
+                <div class="col-auto">
+                    {% if user.is_authenticated %}
+                    <button name="submit" type="submit" class="btn btn-primary ms-3"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -622,18 +654,7 @@
         });
     </script>
 
-    <!-- Events Grand Total -->
-    <script>
-        function add_number(){
-            var merit = document.getElementById('merit_money').value;
-            var fct = document.getElementById('fct_amt').value;
-            var nfct = document.getElementById('nfct_amt').value;
-            var gtotal = parseInt(merit) + parseInt(fct) + parseInt(nfct);
-            console.log("-------------Grand Total--------------",gtotal);
-            document.getElementById('gtotal').value = gtotal
-        }
-        
-    </script>
+    
 
     <!-- fct deal -->
     <script type="text/javascript">
@@ -708,6 +729,7 @@
         }
         
         // sum of 3 revenue
+        var fct;
         function sum(){
             var inp1 = document.getElementById("rev1").value;
             var inp2 = document.getElementById("rev2").value;
@@ -729,7 +751,7 @@
                 // result1 = document.getElementById("id_total_rev").value
                 // console.log(result1,"/////////////////////////")
                 document.getElementById("id_total_rev").value = result;
-                // a = document.getElementById("id_total_rev").value;
+                fct = document.getElementById("id_total_rev").value;
                 // console.log(a,"////////***********//////")
 
             }
@@ -827,6 +849,23 @@
         });
 
 
+    </script>
+
+    <!-- Events Grand Total -->
+    <script>
+        function add_number(){
+            var merit = document.getElementById('merit_money').value;
+            var fct = document.getElementById('id_total_rev').value;
+            document.getElementById('fct_amt').value = fct;
+            console.log("******************fct total",fct);
+            var nfct = document.getElementById('id_nfct_grandtotal').value;
+            document.getElementById('nfct_amt').value = nfct;
+            console.log("******#####****nfct total",nfct);
+            var gtotal = parseInt(merit) + parseInt(fct) + parseInt(nfct);
+            console.log("-------------Grand Total--------------",gtotal);
+            document.getElementById('gtotal').value = gtotal
+        }
+        
     </script>
 
     <!-- script for dependent dropdown for client contact---------------------------------------------- -->
@@ -1143,8 +1182,10 @@
     <script>
         const uid = 'Deal' + Date.now(); 
         document.getElementById('id_deal_id').value = uid;
+        // document.getElementsByName('deal_id_nfct').value = uid;
         document.getElementById('id_deal_id_fct').value = uid;
-        console.log("deal id here=====",document.getElementById('id_deal_id_fct').value)
+        
+        console.log("deal id here=====",document.getElementsByName('deal_id_nfct'))
         //  = uid;
     </script>
 

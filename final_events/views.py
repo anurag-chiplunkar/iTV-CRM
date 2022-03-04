@@ -8,8 +8,8 @@ from .forms import *
 from .models import *
 from agency_client.models import *
 from accounts.models import Employees
-from nfct.models import *
-from nfct.forms import *
+# from nfct.models import *
+# from nfct.forms import *
 from deal_fct_nonfct.models import *
 from deal_fct_nonfct.forms import *
 import random
@@ -69,9 +69,8 @@ def final_event_deal(request):
             final_obj.channel = request.POST.get('channel')
             
             final_obj.fct_seconds = request.POST.get('fct_secs')
-            # final_obj.fct_total_amt = request.POST.get('fct_amt')
-            # final_obj.nfct_total_amt = request.POST.get('nfct_amt')
-            # final_obj.grandtotal_amt = request.POST.get('gtotal')
+            final_obj.ro_number = request.POST.get('ro_number')
+            final_obj.ro_value = request.POST.get('ro_value')
             evt_form.save(commit=False)
             print("save commit false above!!!")
             print(fct_form.is_valid(),"***********fct_form.is_valid()************")
@@ -141,16 +140,18 @@ def final_event_deal(request):
                 evt_form.fct_total = total_revenue
 
                 formset = DealModelFormset(request.POST or None)
-                print("if-----", formset.is_valid())
+                print("//////formset.forms",formset.forms)
+                print("if-----", formset.is_valid(),formset.errors)
                 if formset.is_valid():
                     print("print inside formset~~~~")
                     for f in formset.forms:
                         obj = f.save(commit=False)
-                        obj.deal_id_nfct = request.POST.get('deal_id')
+                        obj.deal_id_nfct = evt_form.cleaned_data.get('deal_id')
                         print("deal id nfct inside for",obj.deal_id_nfct)
                         obj.save()
-                        # f.save()
+                        f.save()
                         print("Saved")
+                    # nfctdeal_id.deal_id_nfct = evt_form.cleaned_data.get('deal_id')
                     gt_obj = NFCTGrandTotal()
                     gt_obj.nfct_grandtotal = request.POST.get('nfct_grandtotal')
                     print('gt_obj.nfct_grandtotal', gt_obj.nfct_grandtotal)
