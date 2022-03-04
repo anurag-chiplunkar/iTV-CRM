@@ -2,22 +2,28 @@
 
 {% block container %}
 <div class="" style="position: absolute; left: 100px; top: 150px;">
-<table class="table">
+<table class="table table-striped">
     <tr>
+        <th>Date & Time</th>
         <th>Deal No</th>
+        <th>RO No</th>
         <th>Client Name</th>
         <th>Client Contact</th>
         <th>Agency Name</th>
         <th>Agency Contact</th>
+        <th>RO Value</th>
         <th>FCT Total Revenue</th>
     </tr>
 {% for f in qs %}
     <tr>
+        <td>{{f.created_at}}</td>
         <td>{{f.deal_id}}</td>
+        <td>{{f.RO_number}}</td>
         <td>{{f.client_name_ref}}</td>
         <td>{{f.client_contact_ref}}</td>
         <td>{{f.agency_name_ref}}</td>
         <td>{{f.agency_contact_ref}}</td>
+        <td>{{f.RO_value}}</td>
         <td>{{f.fct_total_rev}}</td>
         
     </tr>
