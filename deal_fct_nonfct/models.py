@@ -1,9 +1,18 @@
 from django.db import models
 from datetime import date, datetime
 from django.utils import timezone
+from final_fct_nfct_deal.models import *
+from agency_client.models import *
+from nfct.models import *
+from final_fct_nfct_deal.models import (
+
+  FinalFctNfctDeal,
+)
+# from final_fct_nfct_deal.models import FinalFctNfctDeal
 # Create your models here.
 
-class fct_deal(models.Model):
+class Fct_deal(models.Model):
+	dealid_fct_ref = models.CharField(max_length=100, default='default', primary_key=True)
 	chan = models.CharField(max_length=1000,blank=True,null=True)
 	# deal_id = models.CharField(max_length=500)
 	dis = models.CharField(max_length=1000,blank=True,null=True)
@@ -26,7 +35,7 @@ class fct_deal(models.Model):
 	prev_yr_fct = models.IntegerField(blank=True,null=True)
 	curr_fct = models.IntegerField(blank=True,null=True)
 
-class base(models.Model):
+class Base(models.Model):
 	CHANNEL_CHOICES = [
 	('INN','INN'),
 	('NX','NX'),
@@ -62,7 +71,7 @@ class Band(models.Model):
 	def __str__(self):
 		return self.b_list
 
-class base_rate_table(models.Model):
+class Base_rate_table(models.Model):
 	unique_key = models.CharField(max_length=255,default="default",null=True,blank=True)
 	br = models.IntegerField()
 	
@@ -70,4 +79,50 @@ class base_rate_table(models.Model):
 	def __str__(self):
 		return self.br
 
-	
+
+# single Fct_deal
+
+
+class FinalFCT(models.Model):
+    deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
+    created_at          = models.DateTimeField(auto_now_add = True)
+    executive           = models.CharField(max_length= 255)
+    reporting_manager   = models.CharField(max_length= 255)
+    RO_number           = models.CharField(max_length=255)
+    RO_value            = models.DecimalField(max_digits=12, decimal_places=2)
+    client_name_ref     = models.ForeignKey(CustomerName,on_delete = models.CASCADE,default = 'default',related_name = 'clientfct')
+    client_contact_ref  = models.ForeignKey(CustomerContact,on_delete = models.CASCADE,default = 'default')
+    agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
+    agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
+    brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brandfct')
+    fct_total_rev = models.IntegerField(blank=True,null=True)
+
+
+    def __str__(self):
+        return self.deal_id
+
+class DealFct(models.Model):
+	dealid_fct = models.CharField(max_length=100, default='default', primary_key=True)
+	chan = models.CharField(max_length=1000,blank=True,null=True)
+	# deal_id = models.CharField(max_length=500)
+	dis = models.CharField(max_length=1000,blank=True,null=True)
+	band1 = models.CharField(max_length=1000,blank=True,null=True)
+	band2 = models.CharField(max_length=1000,blank=True,null=True)
+	band3 = models.CharField(max_length=1000,blank=True,null=True)
+	fct1 = models.IntegerField(blank=True,null=True)
+	fct2 = models.IntegerField(blank=True,null=True)
+	fct3 = models.IntegerField(blank=True,null=True)
+	eff_rate1 = models.IntegerField(blank=True,null=True)
+	eff_rate2 = models.IntegerField(blank=True,null=True)
+	eff_rate3 = models.IntegerField(blank=True,null=True)
+	rev1 = models.IntegerField(blank=True,null=True)
+	rev2 = models.IntegerField(blank=True,null=True)
+	rev3 = models.IntegerField(blank=True,null=True)
+	total_rev = models.IntegerField(blank=True,null=True)
+	base_rate1 = models.IntegerField(blank=True,null=True)
+	base_rate2 = models.IntegerField(blank=True,null=True)
+	base_rate3 = models.IntegerField(blank=True,null=True)
+	prev_yr_fct = models.IntegerField(blank=True,null=True)
+	curr_fct = models.IntegerField(blank=True,null=True)
+
+

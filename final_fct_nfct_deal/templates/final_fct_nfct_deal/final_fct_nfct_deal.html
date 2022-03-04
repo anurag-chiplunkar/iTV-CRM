@@ -28,7 +28,8 @@
     </div>
 
     <!-- Deal Id -->
-    <div class="row">
+    <!-- common form -->
+    <div class="row mb-3">
         <div class="col-1">
             <label class="form-label">Deal ID</label>
         </div>
@@ -37,6 +38,7 @@
         </div>
     </div>
     <br>
+    
     <div class="row mb-3">
         <!-- salesperson input -->
         <div class="col-6">
@@ -47,7 +49,7 @@
                 <div class="col-auto">
                     {% for j in qs %}
                     
-                        <input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+                        <input type="text" name="executive" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
                     {% endfor %}
                 </div>
             </div> 
@@ -62,8 +64,35 @@
                 <div class="col-auto">
                     {% for k in qs %}
                     
-                        <input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+                        <input type="text" name="reporting_manager" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
                     {% endfor %}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <!-- RO -->
+    <div class="row mb-3">
+        <!-- RO Number input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Number" class="col-form-label">RO Number</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_number}}
+                </div>
+            </div> 
+        </div>
+
+        <!-- RO Value input -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Value" class="col-form-label">RO Value</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_value}}
                 </div>
             </div>
         </div> 
@@ -161,7 +190,6 @@
                 <table class="table table-hover">
                     <thead>
                             <tr>
-                                <!-- <th scope="col"></th> -->
                                 <th scope="col">
                                     Name
                                 </th>
@@ -180,7 +208,6 @@
                         <tr  class="col-auto">
                             <th scope="row"  class="col-3">
                                 {{form.agency_contact_ref}}
-                             
                         </th>
                             <td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
                             <td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
@@ -458,22 +485,40 @@
          
     </div>
     
-    <hr>
-    {% endfor %}
+            <hr>
+            {% endfor %}
+            <div class="row form-row spacer">
+                <div class="col-3">
+                    <div>
+                        <label>Grand Total</label>
+                    </div>
+                    <div class="input-group">
+                    <input type = "text" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
+                        
+                    </div>
+                    <br>
+                   
+                </div>
+                </div>
     
     <!--Buttons -->
     <div class="row spacer  mt-3">
-        <div class="col-auto input-group-append">
+        <div class="col-auto">
+            <!-- <button class="btn btn-primary" id="cal">Calculate Grand Total</button> -->
+            <input type="button" class="btn btn-primary" id="cal" value="Calculate Grand Total">
+        </div>
+            <div class="col-auto">
             <button class="btn btn-primary add-form-row">Add Another Element</button>
-        <!-- </div> -->
-        <!-- <div class="col-auto">
-            <button type="submit" class="btn btn-block btn-primary">Create</button>
-        </div> -->
-        <!-- <div class="col-auto"> -->
+            </div>
+            <br>
+            
+        <br>
+        <div class="col-auto">
         {% if user.is_authenticated %}
         <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
         {% endif %}
-        </div>
+    </div>
+        
     </div>
     </div>
     {% for message in messages %}
@@ -486,6 +531,9 @@
 				</div>
 			</div>
     {% endfor %}
+
+    
+
     <div class="container">
     <div class="row mt-3">
         <div class="col-md-12 mb-5 text-right" style="margin-top: 20px;">
@@ -677,7 +725,7 @@
 		trial = $(this).val();				// storing selected channel in trial variable
         console.log("channel",trial)
 	});	
-	var disper ;
+	var trial_dis ;
 
     // storing selected dispersion in trial_dis variable
 	$("#dis_dd").change(function () {
@@ -692,7 +740,7 @@
 		var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
 		console.log("url1-----------",url1)
         var band_dd1 = $(this).val();		// storing the band selected from row1
-		console.log("band",band_dd1,)
+		console.log("band",band_dd1)
 		
 		$.ajax({                       // initialize an AJAX request
         url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
@@ -803,6 +851,7 @@
 
     });
   </script>
+
 <!-- nfct deal -->
 <script type="text/javascript">
     var count = 0;
@@ -1097,6 +1146,31 @@
         });
 
     });
+
+
+    $('#cal').on('click',function(e){
+    var gtid = e.target.id
+
+    console.log(gtid, '5555555555555')
+    var total_forms_id = gtid.replace('cal', 'id_form-TOTAL_FORMS')
+    var total_forms = $(`#${total_forms_id}`).val();
+    console.log(total_forms)
+    var total_id = gtid.replace('cal', 'id_form-0-total')
+    console.log(total_id)
+    var total = $(`#${total_id}`).val();
+    console.log(total)
+    
+    var grandtotal = 0
+    for(i = 0; i<=parseInt(total_forms); i++){
+        console.log('i', i)
+        console.log('grandtotal', grandtotal)
+        $("#id_nfct_grandtotal").val(parseInt(grandtotal)) 
+        grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-total`).val())
+        console.log('grandtotal after', grandtotal) 
+    }
+  
+})
+
   </script>
 </body>
 </html>

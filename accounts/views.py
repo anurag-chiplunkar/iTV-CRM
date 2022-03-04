@@ -67,8 +67,8 @@ def emp_registration(request):
         elif len(emp_phone)<10:
             messages.error(request,"Enter a valid phone number")
         
-        #elif type(emp_phone) != int:
-            #messages.error(request,"Phone number should only contain numbers")
+        # elif type(emp_phone) != int:
+        #     messages.error(request,"Phone number should only contain numbers")
 
         else:
             obj = Employees(emp_fname=emp_fname,

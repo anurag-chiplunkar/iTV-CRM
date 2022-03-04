@@ -1,0 +1,31 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<div class="" style="position: absolute; left: 100px; top: 150px;">
+<table class="table">
+    <tr>
+        <th>Deal No</th>
+        <th>Client Name</th>
+        <th>Client Contact</th>
+        <th>Agency Name</th>
+        <th>Agency Contact</th>
+        <th>FCT Total Revenue</th>
+    </tr>
+{% for f in qs %}
+    <tr>
+        <td>{{f.deal_id}}</td>
+        <td>{{f.client_name_ref}}</td>
+        <td>{{f.client_contact_ref}}</td>
+        <td>{{f.agency_name_ref}}</td>
+        <td>{{f.agency_contact_ref}}</td>
+        <td>{{f.fct_total_rev}}</td>
+        
+    </tr>
+{% endfor %}
+</table>
+
+{% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_fct_nfct_deal:final_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+{% endif %}
+
+{% endblock %}

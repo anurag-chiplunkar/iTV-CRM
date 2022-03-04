@@ -1,6 +1,7 @@
 {% extends "base2.html" %}
 
 {% block container %}
+<div class="container-fluid">
 <table class="table">
     <tr>
         <th>Deal No</th>
@@ -36,4 +37,5 @@
 {% if user.is_authenticated %}
     <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_events:final_event_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
     {% endif %}
+</div>
 {% endblock %}

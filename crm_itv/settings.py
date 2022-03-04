@@ -18,6 +18,7 @@ import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR, 'BASE_DIR')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
-    'events_afp',
     'accounts',
     'profiles',
     'customer',
@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'afp_deal',
     'final_events',
 ]
 
@@ -110,8 +111,15 @@ DATABASES = {
         'HOST': '',
         'PORT': '',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'crm',
+    #     'USER': 'root',
+    #     'PASSWORD': 'root123',
+    #     'HOST': '',
+    #     'PORT': '',
+    # }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -135,14 +143,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = False
+# TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
