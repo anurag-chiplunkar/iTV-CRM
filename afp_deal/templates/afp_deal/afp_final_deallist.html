@@ -1,0 +1,49 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<div style="position: absolute; padding: 20px;">
+<div class="" style="position: relative; float: left;">
+    <table class="table">
+        <tr>
+            <th>Deal No</th>
+            <th>Channel</th>
+            <th>Program Name</th>
+            <th>Promo</th>
+            <th>Slot</th>
+            <th>Effective Rate</th>
+            <th>Base Rate</th>
+        </tr>
+    {% for ele in afp_deals %}
+        <tr>
+            <td>{{ele.afp_deal_id}}</td>
+            <td>{{ele.ref_channels}}</td>
+            <td>{{ele.ref_program_name}}</td>
+            <td>{{ele.ref_promos}}</td>
+            <td>{{ele.ref_slot}}</td>
+            <td>{{ele.afp_eff_rate}}</td>
+            <td>{{ele.afp_base_rate}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+
+<div style="position: relative; float: left; left: 100px;">
+    <table class="table">
+        <tr>
+            <th>Deal Id</th>
+            <th>Total Effective Rate</th>
+        </tr>
+    {% for ele1 in afp_totals %}
+        <tr>
+            <td style="text-align: center;">{{ele1.afp_final_deal_id}}</td>
+            <td style="text-align: center;">{{ele1.afp_final_total}}</td>
+        </tr>
+    {% endfor %}
+    </table>
+</div>
+</div>
+{% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary" style="position: relative; top: 500px; left: 100px;"><a href="{% url 'afp_deal:afp_final_deallist' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+{% endif %}
+
+{% endblock %}

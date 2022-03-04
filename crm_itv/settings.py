@@ -18,6 +18,7 @@ import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR, 'BASE_DIR')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
-    'events_afp',
     'accounts',
     'profiles',
     'customer',
@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'agency_client',
     'django_extensions',
+    'afp_deal',
+    'final_events',
 ]
 
 MIDDLEWARE = [
@@ -90,6 +92,7 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -99,8 +102,15 @@ DATABASES = {
         'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
         'PORT': '5432',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'crm',
+    #     'USER': 'root',
+    #     'PASSWORD': 'root123',
+    #     'HOST': '',
+    #     'PORT': '',
+    # }
 }
-
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -124,14 +134,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
