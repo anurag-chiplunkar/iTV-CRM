@@ -49,6 +49,9 @@ class Eventmodel(models.Model):
     fct_total_amt       = models.IntegerField(null=True,blank=True)
     nfct_total_amt      = models.IntegerField(null=True,blank=True)
     grandtotal_amt      = models.IntegerField(null=True,blank=True)
+    ro_value            = models.CharField(max_length = 100, null=True, blank=True)
+    ro_number           = models.CharField(max_length = 100, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
     def __str__(self):

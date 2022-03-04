@@ -69,9 +69,8 @@ def final_event_deal(request):
             final_obj.channel = request.POST.get('channel')
             
             final_obj.fct_seconds = request.POST.get('fct_secs')
-            # final_obj.fct_total_amt = request.POST.get('fct_amt')
-            # final_obj.nfct_total_amt = request.POST.get('nfct_amt')
-            # final_obj.grandtotal_amt = request.POST.get('gtotal')
+            final_obj.ro_number = request.POST.get('ro_number')
+            final_obj.ro_value = request.POST.get('ro_value')
             evt_form.save(commit=False)
             print("save commit false above!!!")
             print(fct_form.is_valid(),"***********fct_form.is_valid()************")
