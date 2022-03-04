@@ -30,8 +30,17 @@ class DealListView(generic.ListView):
     template_name = 'list.html'
 
 
-def NFCTFinal(request):
+# class NFCTFinal(generic.ListView):
+
+#     model = FinalNFCT
+#     context_object_name = 'nfct'
+#     template_name = 'nfctfinal_deallist1.html'
+
+
+
+def nfctfinal(request):
     qs = FinalNFCT.objects.all()
+    print(qs, '--------------------------')
     mycontext = {'qs': qs}
     template_name = 'nfct/nfctfinal_deallist.html'
     return render(request, template_name, mycontext)
@@ -183,6 +192,8 @@ def nfct_finaldeal(request):
             final_obj.agency_contact_ref = form.cleaned_data.get(
                 'agency_contact_ref')
             final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
+            final_obj.grandtotal = request.POST.get('nfct_grandtotal')
+            print("GRANDTOTAL", final_obj.grandtotal)
             form.save(commit=False)
             print("save commit false!!!")
             formset = NFCTDealModelFormset(request.POST or None)
@@ -208,7 +219,7 @@ def nfct_finaldeal(request):
                 formset.save()
                 print("reached at the end---------------------")
 
-                return redirect('nfct:nfctfinaldeallist')
+                return redirect('/nfct/nfctdeallist')
             
 
     return render(request, "test.html", context)
@@ -219,7 +230,7 @@ def load_client_contacts(request):
     client_contacts = CustomerContact.objects.filter(
         ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
-    return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
+    return render(request, 'nfct/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
 
 def load_agency_contacts(request):
@@ -227,7 +238,7 @@ def load_agency_contacts(request):
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
-    return render(request, 'final_fct_nfct_deal/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+    return render(request, 'nfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
 
 # from django.shortcuts import render

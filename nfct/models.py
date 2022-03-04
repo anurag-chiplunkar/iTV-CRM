@@ -52,6 +52,7 @@ class Deal_nfct(models.Model):
     fct_total = models.IntegerField(null=True,blank=True)
     nfct_total = models.IntegerField(null=True,blank=True)
     total = models.IntegerField(null=True,blank=True)
+    created_at  = models.DateTimeField(auto_now_add = True)
     
 
 class NFCTGrandTotal(models.Model):
@@ -73,7 +74,8 @@ class FinalNFCT(models.Model):
     agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
     agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
     brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brandnfct')
-    
+    grandtotal = models.IntegerField(null=True,blank=True)
+
     def __str__(self):
         return self.deal_id
 

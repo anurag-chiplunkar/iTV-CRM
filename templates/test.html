@@ -5,12 +5,13 @@
 {% endif %}
 <body>
     <h1><u><center>NFCT Deal Details</center></u></h1>
-<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'afp_deal:load_afp_client_contacts' %}" url2="{% url 'afp_deal:load_afp_agency_contacts' %}">
+<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'nfct:load_client_contacts' %}" url2="{% url 'nfct:load_agency_contacts' %}">
     {% csrf_token %}
     <!-- deal id -->
+    <div class="container-fluid">
 <div class="row form-row spacer">
    
-    <div class="col-4">
+    <div class="col-2">
         <div>
             <label>Deal Id</label>
         </div>
@@ -203,6 +204,7 @@
             </div>
         </div>
     </div>
+</div>
     <hr>
     {{ formset.management_form }}
     {% for form in formset %}
