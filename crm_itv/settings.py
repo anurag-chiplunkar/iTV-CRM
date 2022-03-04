@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'agency_client',
     'afp_deal',
+    'final_events',
 ]
 
 MIDDLEWARE = [
