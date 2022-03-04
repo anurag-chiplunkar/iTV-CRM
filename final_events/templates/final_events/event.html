@@ -626,8 +626,8 @@
     <script>
         function add_number(){
             var merit = document.getElementById('merit_money').value;
-            var fct = document.getElementById('fct_amt').value;
-            var nfct = document.getElementById('nfct_amt').value;
+            var fct = document.getElementById("id_total_rev").value
+            var nfct = document.getElementById('id_nfct_grandtotal').value;
             var gtotal = parseInt(merit) + parseInt(fct) + parseInt(nfct);
             console.log("-------------Grand Total--------------",gtotal);
             document.getElementById('gtotal').value = gtotal
@@ -1143,8 +1143,10 @@
     <script>
         const uid = 'Deal' + Date.now(); 
         document.getElementById('id_deal_id').value = uid;
+        // document.getElementsByName('deal_id_nfct').value = uid;
         document.getElementById('id_deal_id_fct').value = uid;
-        console.log("deal id here=====",document.getElementById('id_deal_id_fct').value)
+        
+        console.log("deal id here=====",document.getElementsByName('deal_id_nfct'))
         //  = uid;
     </script>
 

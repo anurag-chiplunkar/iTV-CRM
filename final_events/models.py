@@ -116,7 +116,7 @@ class Event_NFCT_Base_Rate(models.Model):
 
 class Event_Deal_Nfct(models.Model):
     
-    deal_id_nfct = models.CharField(max_length=255,primary_key=True,default='default')
+    deal_id_nfct = models.CharField(max_length=255,null=True,blank=True,default='default')
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
