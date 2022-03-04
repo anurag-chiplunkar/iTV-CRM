@@ -28,7 +28,9 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
         fields = '__all__'
         
         widgets = {
-		'nfct_baserate' : forms.NumberInput(attrs = {'class': 'form-control'})
+		'nfct_baserate' : forms.NumberInput(attrs = {'class': 'form-control'}),
+        'channel': forms.Select(attrs={'class':'form-select'}),
+        'element' : forms.Select(attrs={'class':'form-select'})
 		}
 
 
