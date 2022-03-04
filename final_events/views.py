@@ -1,4 +1,4 @@
-from typing import final
+# from typing import final
 from django.shortcuts import render
 from django.contrib import messages
 from django.http import HttpResponse
@@ -28,7 +28,7 @@ def final_event_deal(request):
     evt_form = FinalEventsForm(request.POST or None)
     fct_form = Form_FCT_Deal(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
-    fct_br_form = base_rate_table_form(request.POST or None)
+    fct_br_form = Base_rate_table_form(request.POST or None)
     fct_obj = EventFCTModel()
     user = request.user
     ag_det = AgencyDetail.objects.all()
@@ -199,8 +199,11 @@ def final_load_br(request):
     disp1 = request.GET.get('dis_dd')
     print("9999", chan_id, band1, disp1, request.GET)
     rates = Channel.objects.filter(c_list__contains=chan_id)
+    print('RATES', rates)
     b1 = Band.objects.filter(b_list__contains=band1)
+    print('BAND1', b1)
     dis1 = Disper.objects.filter(dis_list__contains=disp1)
+    print('DISPERSION', dis1)
     if band1 is not None and chan_id is not None and disp1 != "33%-33%-33%":
         context1 = {'qs': rates}
         context2 = {'qs1': b1}
@@ -213,7 +216,7 @@ def final_load_br(request):
             print("---****---", b)
         x = c + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -235,7 +238,7 @@ def final_load_br(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate = k.br
             print(rate)
@@ -263,7 +266,7 @@ def final_load_br1(request):
             print("---****---", base2)
         x1 = c + base2
         print("*************", x1)
-        y1 = base_rate_table.objects.filter(unique_key=x1)
+        y1 = Base_rate_table.objects.filter(unique_key=x1)
         for k1 in y1:
             rate2 = k1.br
             print(rate2)
@@ -287,7 +290,7 @@ def final_load_br1(request):
             print("---****---", d)
         x = c + d + base2
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate2 = k.br
             print(rate2)
@@ -315,7 +318,7 @@ def final_load_br2(request):
             print("---****---", base3)
         x2 = c + base3
         print("*************", x2)
-        y2 = base_rate_table.objects.filter(unique_key=x2)
+        y2 = Base_rate_table.objects.filter(unique_key=x2)
         for k2 in y2:
             rate3 = k2.br
             print(rate3)
@@ -339,7 +342,7 @@ def final_load_br2(request):
             print("---****---", d)
         x = c + d + b
         print("*************", x)
-        y = base_rate_table.objects.filter(unique_key=x)
+        y = Base_rate_table.objects.filter(unique_key=x)
         for k in y:
             rate3 = k.br
             print(rate3)
