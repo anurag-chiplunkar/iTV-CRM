@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block container %}
 
-<u><h3 style="text-align: center;">AFP Deal Details</h3></u>
+<u><h3 style="text-align: center;">AFP Deal Details</h3></u><br>
 <body>
 <form class="form-horizontal" method="POST" id = "afp_form" action="" url="{% url 'afp_deal:afp_deal_load_br' %}" url1="{% url 'afp_deal:load_afp_client_contacts' %}" url2="{% url 'afp_deal:load_afp_agency_contacts' %}">
     {% csrf_token %}
@@ -19,16 +19,16 @@
         <div class="col-1">
             <label class="form-label">Deal ID</label>
         </div>
-        <div class="col-2">
+        <div class="col-3">
             {{common_form.afpdeal_id}}
         </div>
     </div>
-    <br>
+    <br><hr>
     <div class="row mb-3">
         <!-- salesperson input -->
         <div class="col-6">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-3">
                     <label for="salesperson" class="col-form-label">Executive</label>
                 </div>
                 <div class="col-auto">
@@ -43,7 +43,7 @@
         <!-- Reporting manager input -->
          <div class="col-6">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-4">
                     <label for="report" class="col-form-label">Reporting Manager</label>
                 </div>
                 <div class="col-auto">
@@ -60,7 +60,7 @@
         <!-- salesperson input -->
         <div class="col-6">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-3">
                     <label for="salesperson" class="col-form-label">RO Number</label>
                 </div>
                 <div class="col-auto">
@@ -72,7 +72,7 @@
         <!-- RO inputs -->
          <div class="col-6">
             <div class="row">
-                <div class="col-auto">
+                <div class="col-4">
                     <label for="report" class="col-form-label">RO Value</label>
                 </div>
                 <div class="col-auto">
@@ -84,11 +84,11 @@
     <!-- client name dropdown -->
     <div class="row mb-3">
         <div class="col-3">
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-auto">
                     <label for="client_name" class="col-form-label">Client Name</label>
                 </div>
-                <div> 
+                <div class="col-auto"> 
                     {{common_form.afp_client_name_ref}}
                 </div>
                     
@@ -102,7 +102,7 @@
                 <div class="col-auto">
                     <label for="agency_name" class="col-form-label">Agency Name</label>
                 </div>
-                <div>
+                <div class="col-auto">
                     {{common_form.afp_agency_name_ref}}
                 </div>
                 
@@ -117,7 +117,7 @@
                 <div class="col-auto">
                     <label for="brand_name" class="col-form-label">Brand Name</label>
                 </div>
-                <div>
+                <div class="col-auto">
                     {{common_form.afp_brand_name_ref}}
                 </div>
             </div>
@@ -266,7 +266,7 @@
     <div class="input-group-append m-5">
         <button class="btn btn-success add-form-row">Add Another Element</button>
     </div>
-    <div class="col-2 m-5">
+    <div class="col-2 mt-5">
         <button type="submit" class="btn btn-primary">Create</button>
     </div>
     <div class="col-3 m-5">

@@ -40,12 +40,12 @@ class AFPBaseRate(models.Model):
 class AFPDeal(models.Model):
 	"""Registration of AFP Deals"""
 	afp_deal_id         = models.CharField(max_length = 20)
-	ref_program_name    = models.ForeignKey(AFPProgramName, on_delete = models.CASCADE)
-	ref_channels        = models.ForeignKey(AFPChannels, on_delete = models.CASCADE)
-	ref_promos          = models.ForeignKey(AFPPromos, on_delete = models.CASCADE)
-	ref_slot            = models.ForeignKey(AFPSlots, on_delete = models.CASCADE)
-	afp_eff_rate        = models.CharField(max_length = 200)
-	afp_base_rate       = models.IntegerField()
+	ref_program_name    = models.ForeignKey(AFPProgramName, on_delete = models.CASCADE,verbose_name = 'program Name')
+	ref_channels        = models.ForeignKey(AFPChannels, on_delete = models.CASCADE,verbose_name = 'channel')
+	ref_promos          = models.ForeignKey(AFPPromos, on_delete = models.CASCADE,verbose_name = 'promo')
+	ref_slot            = models.ForeignKey(AFPSlots, on_delete = models.CASCADE,verbose_name = 'slot')
+	afp_eff_rate        = models.CharField(max_length = 200,verbose_name = 'effective Rate')
+	afp_base_rate       = models.IntegerField(verbose_name = 'base Rate')
 
 class AFPDealFinalTotal(models.Model):
 	afp_final_total = models.IntegerField(primary_key = True)
