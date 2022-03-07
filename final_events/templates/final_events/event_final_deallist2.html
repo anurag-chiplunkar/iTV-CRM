@@ -1,0 +1,110 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<head>
+    <style>
+        .container {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-left: 10px;
+            padding-right: 10px;
+            }
+        .responsive-table{
+                li{
+                    border-radius: 3px;
+                    padding: 25px 30px;
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 25px;
+                }
+                .table-header {
+                    background-color: #95A5A6;
+                    font-size: 14px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.03em;
+                }
+                .table-row {
+                    background-color: #ffffff;
+                    box-shadow: 0px 0px 9px 0px rgba(0,0,0,0.1);
+                }
+                .col-1 {
+                    flex-basis: 10%;
+                }
+                .col-2 {
+                    flex-basis: 40%;
+                }
+                .col-3 {
+                    flex-basis: 25%;
+                }
+                .col-4 {
+                    flex-basis: 25%;
+                }
+                @media all and (max-width: 767px) {
+                .table-header {
+                display: none;
+                }
+                
+                li {
+                display: block;
+                }
+                .col {
+                
+                flex-basis: 100%;
+                
+                }
+                .col {
+                display: flex;
+                padding: 10px 0;
+                /* &:before {
+                    color: #6C7A89;
+                    padding-right: 10px;
+                    content: attr(data-label);
+                    flex-basis: 50%;
+                    text-align: right;
+                } */
+                }
+            }
+        }
+    </style>
+</head>
+<div class="container">
+<ul class="responsive-table">
+    <li class="table-header">
+        <div class="col col-1">Deal No</div>
+        <div class="col col-2">Client Name</div>
+        <div class="col col-3">Client Contact</div>
+        <div class="col col-4">Agency Name</div>
+        <div class="col col-5">Agency Contact</div>
+        <div class="col col-6">Category</div>
+        <div class="col col-7">Channel</div>
+        <div class="col col-8">Merit Money</div>
+        <div class="col col-9">FCT Total</div>
+        <div class="col col-10">NFCT Total</div>
+        <div class="col col-11">Grand Total</div>
+    </li>
+    {% for f in qs %}
+    <li class="table-row">
+        <div class="col col-1" data-label="Deal No">{{f.deal_id}}</div>
+        <div class="col col-2" data-label="Client Name">{{f.event_client_name_ref}}</div>
+        <div class="col col-3" data-label="Client Contact">{{f.event_client_contact_ref}}</div>
+        <div class="col col-4" data-label="Agency Name">{{f.event_agency_name_ref}}</div>
+        <div class="col col-5" data-label="Agency Name">{{f.event_agency_contact_ref}}</div>
+        <div class="col col-6" data-label="Agency Name">{{f.category}}</div>
+        <div class="col col-7" data-label="Agency Name">{{f.channel}}</div>
+        <div class="col col-8" data-label="Agency Name">{{f.merit_money}}</div>
+        <div class="col col-9" data-label="Agency Name">{{f.fct_total_amt}}</div>
+        <div class="col col-10" data-label="Agency Name">{{f.nfct_total_amt}}</div>
+        <div class="col col-11" data-label="Agency Name">{{f.grandtotal_amt}}</div>
+        
+    </li>
+    {% endfor %}
+</ul>
+</div>
+
+
+{% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_events:final_event_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+</div>
+{% endblock %}
