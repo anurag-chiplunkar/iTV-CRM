@@ -483,7 +483,7 @@
                         <label>Grand Total</label>
                     </div>
                     <div class="input-group">
-                    <input type = "number" step="0.01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
+                    <input type = "number" step="0.01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control" readonly>
                         
                     </div>
                     <br>
@@ -553,10 +553,10 @@
                     <td>{{evt_form.description}}</td>
                     <td>{{evt_form.channel}}</td>
                     <td><input type="number" step="0.01" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
-                    <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds"></td>
-                    <td><input type="number" step="0.01" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()"></td>
-                    <td><input type="number" step="0.01" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()"></td>
-                    <td><input type="number" step="0.01" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly ></td>
+                    <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds" readonly></td>
+                    <td><input type="number" step="0.01" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()" readonly></td>
+                    <td><input type="number" step="0.01" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()" readonly></td>
+                    <td><input type="number" step="0.01" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly></td>
                 </tr>
             </tbody>
 
@@ -695,7 +695,7 @@
         
         // revenue 1
         function calculate1 (){
-            var box1 = parseFloat(document.getElementById('fct1').value);
+            var box1 = parseInt(document.getElementById('fct1').value);
             
             var box2 = parseFloat(document.getElementById('er1').value);
             
@@ -708,7 +708,7 @@
         
         // revenue 2
         function calculate2 (){
-            var box21 = parseFloat(document.getElementById('fct2').value);
+            var box21 = parseInt(document.getElementById('fct2').value);
             
             var box22 = parseFloat(document.getElementById('er2').value);
             
@@ -721,17 +721,22 @@
         
         // revenue 3
         function calculate3 (){
-            var box31 = parseFloat(document.getElementById('fct3').value);
+            var box31 = parseInt(document.getElementById('fct3').value);
             
             var box32 = parseFloat(document.getElementById('er3').value);
             
             var result2 = document.getElementById('rev3');
             var mul31 = ((box31/10) * box32).toFixed(2);
-            console.log("third result",mul21)
+            console.log("third result",mul31)
             result2.value = mul31;
 
         }
         
+        // // FCT total
+        // function fct_total(){
+           
+        // }
+
         // sum of 3 revenue
         var fct;
         function sum(){
@@ -869,6 +874,22 @@
             var gtotal = (parseFloat(merit) + parseFloat(fct) + parseFloat(nfct)).toFixed(2);
             console.log("-------------Grand Total--------------",gtotal);
             document.getElementById('gtotal').value = gtotal
+
+            var fct1 = document.getElementById('fct1').value
+            var fct2 = document.getElementById('fct2').value
+            var fct3 = document.getElementById('fct3').value
+
+            if ((fct1 != '') && (fct2 != '') && (fct3 == '')){
+            var fcttotal = parseInt(fct1) + parseInt(fct2)
+            document.getElementById('fct_secs').value = fcttotal
+            }
+            else if((fct1 != '') && (fct2 == '') && (fct3 == '')){
+                document.getElementById('fct_secs').value = fct1
+            }
+            else{
+                var fcttotal = parseInt(fct1) + parseInt(fct2) + parseInt(fct3)
+                document.getElementById('fct_secs').value = fcttotal
+            }
         }
         
     </script>
