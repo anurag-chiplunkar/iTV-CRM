@@ -153,19 +153,19 @@ def final_event_deal(request):
                         print("Saved")
                     # nfctdeal_id.deal_id_nfct = evt_form.cleaned_data.get('deal_id')
                     gt_obj = NFCTGrandTotal()
-                    gt_obj.nfct_grandtotal = request.POST.get('nfct_grandtotal')
+                    gt_obj.nfct_grandtotal = float(request.POST.get('nfct_grandtotal'))
                     print('gt_obj.nfct_grandtotal', gt_obj.nfct_grandtotal)
                     gt_obj.dealid_nfct_ref = request.POST.get('deal_id')
                     print('gt_obj.dealid_nfct_ref', gt_obj.dealid_nfct_ref)
                     gt_obj.save()
                     
-                    nfct_total_amt = request.POST.get('nfct_grandtotal')
-                    nfct_total_amt = int(nfct_total_amt)
+                    nfct_total_amt = float(request.POST.get('nfct_grandtotal'))
+                    nfct_total_amt = float(nfct_total_amt)
                     final_obj.nfct_total_amt = nfct_total_amt
                     meritmoney = request.POST.get('merit_money')
-                    final_obj.merit_money = int(meritmoney)
-                    meritmoney = int(meritmoney)
-                    final_obj.fct_total_amt = total_revenue
+                    final_obj.merit_money = float(meritmoney)
+                    meritmoney = float(meritmoney)
+                    final_obj.fct_total_amt = float(total_revenue)
                     print("merit money printed here!!!!!!!!!!",meritmoney)
                     final_obj.grandtotal_amt = meritmoney + int(total_revenue) + nfct_total_amt
                     print("GRAND TOTAL OF ALL----------------------",final_obj.grandtotal_amt)

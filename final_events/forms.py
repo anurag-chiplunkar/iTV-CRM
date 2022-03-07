@@ -87,7 +87,7 @@ class Form_FCT_Deal(forms.ModelForm):
         model = EventFCTModel
         fields = '__all__'
         widgets = {
-		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
+		'total_rev': forms.NumberInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
 		'deal_id_fct': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
 		}
 
