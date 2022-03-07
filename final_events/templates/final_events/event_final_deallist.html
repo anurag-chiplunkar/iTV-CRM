@@ -2,9 +2,11 @@
 
 {% block container %}
 <div class="container-fluid">
-<table class="table">
+<table class="table table-striped">
     <tr>
+        <th>Date & Time</th>
         <th>Deal No</th>
+        <th>RO No</th>
         <th>Client Name</th>
         <th>Client Contact</th>
         <th>Agency Name</th>
@@ -15,10 +17,14 @@
         <th>FCT Total</th>
         <th>NFCT Total</th>
         <th>Grand Total</th>
+        <th>RO Value</th>
+
     </tr>
 {% for f in qs %}
     <tr>
+        <td>{{f.created_at}}</td>
         <td>{{f.deal_id}}</td>
+        <td>{{f.ro_number}}</td>
         <td>{{f.event_client_name_ref}}</td>
         <td>{{f.event_client_contact_ref}}</td>
         <td>{{f.event_agency_name_ref}}</td>
@@ -29,6 +35,8 @@
         <td>{{f.fct_total_amt}}</td>
         <td>{{f.nfct_total_amt}}</td>
         <td>{{f.grandtotal_amt}}</td>
+        <td>{{f.ro_value}}</td>
+
         
     </tr>
 {% endfor %}

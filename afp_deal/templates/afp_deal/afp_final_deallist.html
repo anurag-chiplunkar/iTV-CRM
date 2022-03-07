@@ -1,46 +1,38 @@
 {% extends "base2.html" %}
 
 {% block container %}
-<div style="position: absolute; padding: 20px;">
+<div style="position: absolute; padding: 20px; font-size: medium;">
 <div class="" style="position: relative; float: left;">
-    <table class="table">
+    <table class="table table-striped">
         <tr>
+            <th>Created On</th>
             <th>Deal No</th>
-            <th>Channel</th>
-            <th>Program Name</th>
-            <th>Promo</th>
-            <th>Slot</th>
-            <th>Effective Rate</th>
-            <th>Base Rate</th>
+            <th>RO Number</th>
+            <th>RO Value</th>
+            <th>Client Name</th>
+            <th>Client Contact</th>
+            <th>Agency Name</th>
+            <th>Agency Contact</th>
+            <th>Brand Name</th>
+            <th>Total</th>
         </tr>
     {% for ele in afp_deals %}
         <tr>
-            <td>{{ele.afp_deal_id}}</td>
-            <td>{{ele.ref_channels}}</td>
-            <td>{{ele.ref_program_name}}</td>
-            <td>{{ele.ref_promos}}</td>
-            <td>{{ele.ref_slot}}</td>
-            <td>{{ele.afp_eff_rate}}</td>
-            <td>{{ele.afp_base_rate}}</td>
+            <td>{{ele.afp_deal_created}}</td>
+            <td>{{ele.afpdeal_id}}</td>
+            <td>{{ele.afp_ro_number}}</td>
+            <td>{{ele.afp_ro_value}}</td>
+            <td>{{ele.afp_client_name_ref}}</td>
+            <td>{{ele.afp_client_contact_ref}}</td>
+            <td>{{ele.afp_agency_name_ref}}</td>
+            <td>{{ele.afp_agency_contact_ref}}</td>
+            <td>{{ele.afp_brand_name_ref}}</td>
+            <td>{{ele.afp_total_ref}}</td>
         </tr>
     {% endfor %}
     </table>
 </div>
 
-<div style="position: relative; float: left; left: 100px;">
-    <table class="table">
-        <tr>
-            <th>Deal Id</th>
-            <th>Total Effective Rate</th>
-        </tr>
-    {% for ele1 in afp_totals %}
-        <tr>
-            <td style="text-align: center;">{{ele1.afp_final_deal_id}}</td>
-            <td style="text-align: center;">{{ele1.afp_final_total}}</td>
-        </tr>
-    {% endfor %}
-    </table>
-</div>
 </div>
 {% if user.is_authenticated %}
     <button name="submit" type="submit" class="btn btn-primary" style="position: relative; top: 500px; left: 100px;"><a href="{% url 'afp_deal:afp_final_deallist' %}" style="color: white; text-decoration-line: none;">Back</a></button>

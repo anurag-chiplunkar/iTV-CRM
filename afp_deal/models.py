@@ -46,6 +46,7 @@ class AFPDeal(models.Model):
 	ref_slot            = models.ForeignKey(AFPSlots, on_delete = models.CASCADE,verbose_name = 'slot')
 	afp_eff_rate        = models.CharField(max_length = 200,verbose_name = 'effective Rate')
 	afp_base_rate       = models.IntegerField(verbose_name = 'base Rate')
+	afp_created			= models.DateTimeField(auto_now_add = True)
 
 class AFPDealFinalTotal(models.Model):
 	afp_final_total = models.IntegerField(primary_key = True)
