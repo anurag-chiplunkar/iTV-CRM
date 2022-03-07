@@ -272,7 +272,6 @@
     <div class="col-3 m-5">
         <div class="input-group">
             <input id="calculate_afp_total" class="btn btn-primary" value="Calculate Total" type="button">
-            
             <input type="number" class="form-control class_afp_total" id="afp_deal_final_total" name="afp_deal_total" readonly placeholder="Total">
         </div>
     </div>
@@ -411,11 +410,11 @@ $('#calculate_afp_total').on('click',function(e){
     console.log(total)
     
     var afp_deal_total = 0
-    for(i = 0; i<=parseInt(total_forms); i++){
+    for(i = 0; i<=parseFloat(total_forms); i++){
         console.log('i', i)
         console.log('afp_deal_total', afp_deal_total)
-        $("#afp_deal_final_total").val(parseInt(afp_deal_total)) 
-        afp_deal_total = parseInt(afp_deal_total)+ parseInt($(`#id_form-${i}-afp_eff_rate`).val())
+        $("#afp_deal_final_total").val(parseFloat(afp_deal_total)) 
+        afp_deal_total = parseFloat(afp_deal_total)+ parseFloat($(`#id_form-${i}-afp_eff_rate`).val()*parseFloat($(`#id_form-${i}-ref_promos`).val()))
         console.log('AFP Total after', afp_deal_total)
 
     }

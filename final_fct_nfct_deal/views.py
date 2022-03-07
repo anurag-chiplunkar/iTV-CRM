@@ -103,7 +103,7 @@ def final_deal(request):
                     if total_revenue is None:
                         total_revenue = 0
                     else:
-                        fct_obj.total_rev = int(total_revenue)
+                        fct_obj.total_rev = float(total_revenue)
                     
                     print("total rev here!!!!", fct_obj.total_rev)
 
@@ -129,9 +129,9 @@ def final_deal(request):
                     fct_obj.rev3 = request.POST.get('rev3')
                     total_revenue = form1.cleaned_data.get('total_rev')
                     if total_revenue is None:
-                        total_revenue = 0
+                        total_revenue = 0.0
                     else:
-                        fct_obj.total_rev = int(total_revenue)
+                        fct_obj.total_rev = float(total_revenue)
                     request.session['fcttotal'] = fct_obj.total_rev
                     # grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
@@ -167,13 +167,13 @@ def final_deal(request):
                     print('gt_obj.dealid_nfct_ref', gt_obj.dealid_nfct_ref)
                     gt_obj.save()
                     nfct_total = request.POST.get('nfct_grandtotal')
-                    nfct_total = int(nfct_total)
+                    nfct_total = float(nfct_total)
                     final_obj.nfct_total = nfct_total
                     final_obj.fct_total = total_revenue
                     # fct_total = request.session['fcttotal']
                     print("-----nfct total here -***---", nfct_total,total_revenue)
                     
-                    final_obj.grandtotal = total_revenue + int(nfct_total)
+                    final_obj.grandtotal = float(total_revenue) + float(nfct_total)
                     # final_obj.grandtotal = gtotal
                     print("grandtotal here!!!!!!~~~~~", final_obj.grandtotal)
                     final_obj.save()

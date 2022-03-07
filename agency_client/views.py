@@ -48,6 +48,8 @@ def agency_detail(request):
 									agency_pin = apin,
 									a_id = ag_id)
 				obj1.save()
+
+				# obj1.customernames.add()
 				messages.success(request,"Agency added successfully")
 		
 			except IntegrityError:
@@ -62,71 +64,73 @@ def agency_detail(request):
 def agency_contact(request):
 	form2 = Agency_contacts(request.POST or None)
 	context2 = {"form2":form2}
+	if request.method == 'POST':
 
-	if form2.is_valid():
-			pri_fname 		= form2.cleaned_data.get('pri_firstName')
-			pri_lname 		= form2.cleaned_data.get('pri_lastName')
-			pri_desgn 		= form2.cleaned_data.get('pri_designation')
-			pri_email 		= form2.cleaned_data.get('pri_email')
-			pri_phone 		= form2.cleaned_data.get('pri_phone')
-			pri_landline  	= form2.cleaned_data.get('pri_landline')
-			pri_flatno  	= form2.cleaned_data.get('pri_flatno')
-			pri_street 		= form2.cleaned_data.get('pri_street')
-			pri_landmark 	= form2.cleaned_data.get('pri_landmark')
-			pri_city 		= form2.cleaned_data.get('pri_city')
-			pri_pin 		= form2.cleaned_data.get('pri_pin')
+		if form2.is_valid():
+				pri_fname 		= form2.cleaned_data.get('pri_firstName')
+				pri_lname 		= form2.cleaned_data.get('pri_lastName')
+				pri_desgn 		= form2.cleaned_data.get('pri_designation')
+				pri_email 		= form2.cleaned_data.get('pri_email')
+				pri_phone 		= form2.cleaned_data.get('pri_phone')
+				pri_landline  	= form2.cleaned_data.get('pri_landline')
+				pri_flatno  	= form2.cleaned_data.get('pri_flatno')
+				pri_street 		= form2.cleaned_data.get('pri_street')
+				pri_landmark 	= form2.cleaned_data.get('pri_landmark')
+				pri_city 		= form2.cleaned_data.get('pri_city')
+				pri_pin 		= form2.cleaned_data.get('pri_pin')
 
-			sec_fname 		= form2.cleaned_data.get('sec_firstName')
-			sec_lname 		= form2.cleaned_data.get('sec_lastName')
-			sec_desgn 		= form2.cleaned_data.get('sec_designation')
-			sec_email 		= form2.cleaned_data.get('sec_email')
-			sec_phone 		= form2.cleaned_data.get('sec_phone')
-			sec_landline  	= form2.cleaned_data.get('sec_landline')
-			sec_flatno  	= form2.cleaned_data.get('sec_flatno')
-			sec_street 		= form2.cleaned_data.get('sec_street')
-			sec_landmark 	= form2.cleaned_data.get('sec_landmark')
-			sec_city 		= form2.cleaned_data.get('sec_city')
-			sec_pin 		= form2.cleaned_data.get('sec_pin')
-	
+				sec_fname 		= form2.cleaned_data.get('sec_firstName')
+				sec_lname 		= form2.cleaned_data.get('sec_lastName')
+				sec_desgn 		= form2.cleaned_data.get('sec_designation')
+				sec_email 		= form2.cleaned_data.get('sec_email')
+				sec_phone 		= form2.cleaned_data.get('sec_phone')
+				sec_landline  	= form2.cleaned_data.get('sec_landline')
+				sec_flatno  	= form2.cleaned_data.get('sec_flatno')
+				sec_street 		= form2.cleaned_data.get('sec_street')
+				sec_landmark 	= form2.cleaned_data.get('sec_landmark')
+				sec_city 		= form2.cleaned_data.get('sec_city')
+				sec_pin 		= form2.cleaned_data.get('sec_pin')
+		
 
-			##this will give a dropdown input for the user to select from which agency he/she is.
-			##after the form is submitted the fk anf pk relationship is successfully created
-			agency_details = form2.cleaned_data.get('agency')
-			print(agency_details)
+				##this will give a dropdown input for the user to select from which agency he/she is.
+				##after the form is submitted the fk anf pk relationship is successfully created
+				agency_details = form2.cleaned_data.get('agency')
+				print(agency_details)
 
-			obj2 = AgencyContact(pri_firstName = pri_fname,
-								pri_lastName = pri_lname,
-								pri_designation = pri_desgn,
-								pri_email = pri_email,
-								pri_phone = pri_phone,
-								pri_landline = pri_landline,
-								pri_flatno = pri_flatno,
-								pri_street = pri_street,
-								pri_landmark = pri_landmark,
-								pri_city = pri_city,
-								pri_pin = pri_pin,
+				obj2 = AgencyContact(pri_firstName = pri_fname,
+									pri_lastName = pri_lname,
+									pri_designation = pri_desgn,
+									pri_email = pri_email,
+									pri_phone = pri_phone,
+									pri_landline = pri_landline,
+									pri_flatno = pri_flatno,
+									pri_street = pri_street,
+									pri_landmark = pri_landmark,
+									pri_city = pri_city,
+									pri_pin = pri_pin,
 
-								sec_firstName = sec_fname,
-								sec_lastName = sec_lname,
-								sec_designation = sec_desgn,
-								sec_email = sec_email,
-								sec_phone = sec_phone,
-								sec_landline = sec_landline,
-								sec_flatno = sec_flatno,
-								sec_street = sec_street,
-								sec_landmark = sec_landmark,
-								sec_city = sec_city,
-								sec_pin = sec_pin,
+									sec_firstName = sec_fname,
+									sec_lastName = sec_lname,
+									sec_designation = sec_desgn,
+									sec_email = sec_email,
+									sec_phone = sec_phone,
+									sec_landline = sec_landline,
+									sec_flatno = sec_flatno,
+									sec_street = sec_street,
+									sec_landmark = sec_landmark,
+									sec_city = sec_city,
+									sec_pin = sec_pin,
 
-								agency_details = agency_details
-								)
-			obj2.save()
-			messages.success(request,"Agency Contact successfully added")
+									agency_details = agency_details
+									)
+				obj2.save()
+				messages.success(request,"Agency Contact successfully added")
 
 
 
-	else:
-		print("agency contact form invalid")
+		else:
+			messages.error(request,"Phone Number Already Exists!")
+			print("agency contact form invalid")
 
 	return render(request,'agency_client/agency_contact_form.html',context2)
 
@@ -236,11 +240,11 @@ def ccontact(request):
 			obj3.sec_pincode = form5.cleaned_data.get('sec_pincode')
 
 			obj3.ref_creg_no = form5.cleaned_data.get('ref_creg_no')
-
 			obj3.save()
 			messages.success(request, 'Client Contact succesfully added')
 
 		else:
+			messages.error(request,"Phone Number Already Exists!")
 			print("invalid form5")
 	return render(request, 'agency_client/customer_contact.html', context)
 
