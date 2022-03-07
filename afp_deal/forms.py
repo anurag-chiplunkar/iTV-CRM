@@ -56,15 +56,17 @@ class AFP_Base_Rate_Form(forms.ModelForm):
 		}
 
 class AFP_Deal_Form(forms.ModelForm):
-	ref_program_name = forms.ModelChoiceField(queryset= AFPProgramName.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Program')
+	# ref_program_name = forms.ModelChoiceField(queryset= AFPProgramName.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Program')
 	ref_channels = forms.ModelChoiceField(queryset= AFPChannels.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Channel')
-	ref_promos = forms.ModelChoiceField(queryset= AFPPromos.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Promo')
+	# ref_promos = forms.ModelChoiceField(queryset= AFPPromos.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Promo')
 	ref_slot = forms.ModelChoiceField(queryset= AFPSlots.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Slot')
 	class Meta:
 		model = AFPDeal
 		fields = '__all__'
 		exclude = ('afp_base_rate',)
-		widgets = {'afp_eff_rate' :forms.TextInput(attrs = {'class': 'form-control'})
+		widgets = {'afp_eff_rate' :forms.TextInput(attrs = {'class': 'form-control'}),
+				'ref_program_name' :forms.TextInput(attrs = {'class': 'form-control'}),
+				'ref_promos' :forms.TextInput(attrs = {'class': 'form-control'}),
 		}
 
 AFPDealModelFormset = modelformset_factory(
@@ -78,8 +80,8 @@ AFPDealModelFormset = modelformset_factory(
         #     }
         # ),
 
-		'ref_program_name': forms.Select(attrs={
-            'class': 'class_ref_program_name form-select',
+		'ref_program_name': forms.TextInput(attrs={
+            'class': 'class_ref_program_name form-control',
             'placeholder': 'Program Name'
             }
         ),
@@ -90,8 +92,8 @@ AFPDealModelFormset = modelformset_factory(
             }
         ),
 
-		'ref_promos': forms.Select(attrs={
-            'class': 'class_ref_promos form-select',
+		'ref_promos': forms.TextInput(attrs={
+            'class': 'class_ref_promos form-control',
             'placeholder': 'Promo'
             }
         ),
