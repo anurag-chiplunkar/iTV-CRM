@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 {% load static %}
 
 {% block content %}
@@ -1171,8 +1171,8 @@
         for(i = 0; i<=parseInt(total_forms); i++){
             console.log('i', i)
             console.log('grandtotal', grandtotal)
-            $("#id_nfct_grandtotal").val(parseInt(grandtotal)) 
-            grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-total`).val())
+            $("#id_nfct_grandtotal").val(parseFloat(grandtotal)) 
+            grandtotal = (parseFloat(grandtotal)+ parseFloat($(`#id_form-${i}-total`).val())).toFixed(2)
             console.log('grandtotal after', grandtotal) 
         }
     
