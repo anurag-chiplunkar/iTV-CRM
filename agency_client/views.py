@@ -48,6 +48,8 @@ def agency_detail(request):
 									agency_pin = apin,
 									a_id = ag_id)
 				obj1.save()
+
+				# obj1.customernames.add()
 				messages.success(request,"Agency added successfully")
 		
 			except IntegrityError:

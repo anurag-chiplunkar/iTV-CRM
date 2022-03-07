@@ -415,7 +415,7 @@ $('#calculate_afp_total').on('click',function(e){
         console.log('i', i)
         console.log('afp_deal_total', afp_deal_total)
         $("#afp_deal_final_total").val(parseInt(afp_deal_total)) 
-        afp_deal_total = parseInt(afp_deal_total)+ parseInt($(`#id_form-${i}-afp_eff_rate`).val())
+        afp_deal_total = parseInt(afp_deal_total)+ parseInt($(`#id_form-${i}-afp_eff_rate`).val()*parseInt($(`#id_form-${i}-ref_promos`).val()))
         console.log('AFP Total after', afp_deal_total)
 
     }
