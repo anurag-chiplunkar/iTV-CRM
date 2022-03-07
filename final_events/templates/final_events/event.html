@@ -1099,7 +1099,7 @@
         var erid_function = e.target.id
         // console.log(erid_function, 'Effective rate id')
         
-        var eff_rate = parseInt($(this).val());
+        var eff_rate = parseFloat($(this).val());
         console.log({eff_rate})
     
     
@@ -1110,7 +1110,7 @@
         var total = erid_function.replace('er', 'total')
         console.log({total})
     
-        document.getElementById(total).value = eff_rate * total_sec;
+        document.getElementById(total).value = parseFloat(eff_rate * total_sec).toFixed(2);
     
     
     })
