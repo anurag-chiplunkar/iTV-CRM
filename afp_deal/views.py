@@ -116,7 +116,7 @@ def afp_br(request):
 # 	return render(request, 'afp_deal/afp_deal.html', context)
 
 def AFPDealListView(request):
-	afp_deals 	= AFPDeal.objects.all()
+	afp_deals 	= FinalAFPDeal.objects.all()
 	afp_totals = AFPDealFinalTotal.objects.all()
 	print(afp_totals)
 	mycontext = {'afp_deals': afp_deals, 'afp_totals': afp_totals}

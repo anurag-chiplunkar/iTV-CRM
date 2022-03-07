@@ -102,15 +102,19 @@ DATABASES = {
         'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
         'PORT': '5432',
     }
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.mysql',
-    #     'NAME': 'crm',
-    #     'USER': 'root',
-    #     'PASSWORD': 'root123',
-    #     'HOST': '',
-    #     'PORT': '',
-    # }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'crm1',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '',
+#         'PORT': '',
+#     }
+
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
