@@ -295,14 +295,14 @@
                         <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+                        <input type="number" step=".01" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
                     </div>
                     <div class="col-auto">
                         <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
                         
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+                        <input type="number" step=".01" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
                     </div>
             </div>
             <div class="row g-3 align-items-start" id="row2" style="display: none;">
@@ -319,14 +319,14 @@
                         <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+                        <input type="number" step=".01" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
                     </div>
                     <div class="col-auto">
                         <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
     
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+                        <input type="number" step=".01" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
                     </div>
             </div>
             <div class="row g-3 align-items-start" id="row3" style="display: none;">
@@ -343,13 +343,13 @@
                         <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+                        <input type="number" step=".01" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
                     </div>
                     <div class="col-auto">
                         <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
                     </div>
                     <div class="col-auto">
-                        <input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+                        <input type="number" step=".01" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
                     </div>
             </div>
             <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 360px;" >
@@ -483,7 +483,7 @@
                         <label>Grand Total</label>
                     </div>
                     <div class="input-group">
-                    <input type = "text" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
+                    <input type = "number" step=".01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
                         
                     </div>
                     <br>
@@ -552,11 +552,11 @@
                     </td>
                     <td>{{evt_form.description}}</td>
                     <td>{{evt_form.channel}}</td>
-                    <td><input type="number" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
+                    <td><input type="number" step=".01" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
                     <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds"></td>
-                    <td><input type="number" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()"></td>
-                    <td><input type="number" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()"></td>
-                    <td><input type="number" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly ></td>
+                    <td><input type="number" step=".01" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()"></td>
+                    <td><input type="number" step=".01" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()"></td>
+                    <td><input type="number" step=".01" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly ></td>
                 </tr>
             </tbody>
 
@@ -679,21 +679,21 @@
                 document.getElementById("row2").style.display = "flex";
                 document.getElementById("row3").style.display = "flex";
                 document.getElementById("row4").style.display = "flex";
-                document.getElementById('fct2').value = 0
-                document.getElementById('er2').value = 0
-                document.getElementById('rev2').value = 0
-                document.getElementById('fct3').value = 0
-                document.getElementById('er3').value = 0
-                document.getElementById('rev3').value = 0
+                document.getElementById('fct2').value = 0.0
+                document.getElementById('er2').value = 0.0
+                document.getElementById('rev2').value = 0.0
+                document.getElementById('fct3').value = 0.0
+                document.getElementById('er3').value = 0.0
+                document.getElementById('rev3').value = 0.0
                 
             }
         }
         
         // revenue 1
         function calculate1 (){
-            var box1 = document.getElementById('fct1').value;
+            var box1 = parseFloat(document.getElementById('fct1').value);
             
-            var box2 = document.getElementById('er1').value;
+            var box2 = parseFloat(document.getElementById('er1').value);
             
             var result = document.getElementById('rev1');
             var mul1 = (box1/10) * box2;
@@ -704,9 +704,9 @@
         
         // revenue 2
         function calculate2 (){
-            var box21 = document.getElementById('fct2').value;
+            var box21 = parseFloat(document.getElementById('fct2').value);
             
-            var box22 = document.getElementById('er2').value;
+            var box22 = parseFloat(document.getElementById('er2').value);
             
             var result1 = document.getElementById('rev2');
             var mul21 = (box21/10) * box22;
@@ -717,9 +717,9 @@
         
         // revenue 3
         function calculate3 (){
-            var box31 = document.getElementById('fct3').value;
+            var box31 = parseFloat(document.getElementById('fct3').value);
             
-            var box32 = document.getElementById('er3').value;
+            var box32 = parseFloat(document.getElementById('er3').value);
             
             var result2 = document.getElementById('rev3');
             var mul31 = (box31/10) * box32;
@@ -737,16 +737,16 @@
             
             if ((inp1 != "") && (inp2 != "") && (inp3 == "")){
                 
-                var first_number = parseInt(document.getElementById("rev1").value);
-                var second_number = parseInt(document.getElementById("rev2").value);
+                var first_number = parseFloat(document.getElementById("rev1").value);
+                var second_number = parseFloat(document.getElementById("rev2").value);
                 var result = first_number + second_number ;
                 document.getElementById("id_total_rev").value = result;
             } 
             else if((inp1 != "") && (inp2 != "") && (inp3 != "") ){
                 
-                var first_number = parseInt(document.getElementById("rev1").value);
-                var second_number = parseInt(document.getElementById("rev2").value);
-                var third_number = parseInt(document.getElementById("rev3").value);
+                var first_number = parseFloat(document.getElementById("rev1").value);
+                var second_number = parseFloat(document.getElementById("rev2").value);
+                var third_number = parseFloat(document.getElementById("rev3").value);
                 var result = first_number + second_number + third_number;
                 // result1 = document.getElementById("id_total_rev").value
                 // console.log(result1,"/////////////////////////")
@@ -861,7 +861,7 @@
             var nfct = document.getElementById('id_nfct_grandtotal').value;
             document.getElementById('nfct_amt').value = nfct;
             console.log("******#####****nfct total",nfct);
-            var gtotal = parseInt(merit) + parseInt(fct) + parseInt(nfct);
+            var gtotal = parseFloat(merit) + parseFloat(fct) + parseFloat(nfct);
             console.log("-------------Grand Total--------------",gtotal);
             document.getElementById('gtotal').value = gtotal
         }
@@ -1098,7 +1098,7 @@
         var erid_function = e.target.id
         // console.log(erid_function, 'Effective rate id')
         
-        var eff_rate = parseInt($(this).val());
+        var eff_rate = parseFloat($(this).val());
         console.log({eff_rate})
     
     
@@ -1166,12 +1166,12 @@
         console.log(total_id)
         var total = $(`#${total_id}`).val();
         console.log(total)
-        var grandtotal = 0
+        var grandtotal = 0.0
         for(i = 0; i<=parseInt(total_forms); i++){
             console.log('i', i)
             console.log('grandtotal', grandtotal)
-            $("#id_nfct_grandtotal").val(parseInt(grandtotal)) 
-            grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-total`).val())
+            $("#id_nfct_grandtotal").val(parseFloat(grandtotal)) 
+            grandtotal = parseFloat(grandtotal)+ parseFloat($(`#id_form-${i}-total`).val())
             console.log('grandtotal after', grandtotal) 
         }
     

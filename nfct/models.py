@@ -45,19 +45,19 @@ class Deal_nfct(models.Model):
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
     duration_in = models.IntegerField(null = True, blank = True)
-    er = models.IntegerField(null=True,blank=True)
+    er = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
     freq = models.IntegerField(null=True,blank=True)
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
-    fct_total = models.IntegerField(null=True,blank=True)
-    nfct_total = models.IntegerField(null=True,blank=True)
-    total = models.IntegerField(null=True,blank=True)
+    fct_total = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
+    nfct_total = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
+    total = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
     created_at  = models.DateTimeField(auto_now_add = True)
     
 
 class NFCTGrandTotal(models.Model):
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
-    nfct_grandtotal = models.IntegerField(primary_key=True)
+    nfct_grandtotal = models.DecimalField(primary_key=True, max_digits=12, decimal_places=2)
 
 
 # single NFCT
@@ -74,7 +74,7 @@ class FinalNFCT(models.Model):
     agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
     agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
     brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brandnfct')
-    grandtotal = models.IntegerField(null=True,blank=True)
+    grandtotal = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
 
     def __str__(self):
         return self.deal_id
@@ -88,17 +88,17 @@ class NFCTDeal(models.Model):
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
     duration_in = models.IntegerField(null = True, blank = True)
-    er = models.IntegerField(null=True,blank=True)
+    er = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
     freq = models.IntegerField(null=True,blank=True)
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
-    nfct_total = models.IntegerField(null=True,blank=True)
+    nfct_total = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
     
     
 
 class DealNFCTGrandTotal(models.Model):
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
-    nfct_grand_total = models.IntegerField(primary_key=True)
+    nfct_grand_total = models.DecimalField(primary_key=True, max_digits=12, decimal_places=2)
 
 
 

@@ -12,8 +12,9 @@ from accounts.models import Employees
 # from nfct.forms import *
 from deal_fct_nonfct.models import *
 from deal_fct_nonfct.forms import *
-import random
-import json
+# import random
+# import json
+# import simplejson as json
 from django.core import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -75,6 +76,7 @@ def final_event_deal(request):
             print("save commit false above!!!")
             print(fct_form.is_valid(),"***********fct_form.is_valid()************")
             print(fct_form.cleaned_data,"*****FCT cleaned data-----")
+            print(fct_form.errors, '-------------errors----------------')
             if fct_form.is_valid():
                 print(request.POST, "////////////")
                 if request.POST.get('dis_dd') == '50%-50%':
@@ -152,22 +154,22 @@ def final_event_deal(request):
                         f.save()
                         print("Saved")
                     # nfctdeal_id.deal_id_nfct = evt_form.cleaned_data.get('deal_id')
-                    gt_obj = NFCTGrandTotal()
-                    gt_obj.nfct_grandtotal = request.POST.get('nfct_grandtotal')
+                    gt_obj = EventNFCTGrandTotal()
+                    gt_obj.nfct_grandtotal = float(request.POST.get('nfct_grandtotal'))
                     print('gt_obj.nfct_grandtotal', gt_obj.nfct_grandtotal)
                     gt_obj.dealid_nfct_ref = request.POST.get('deal_id')
                     print('gt_obj.dealid_nfct_ref', gt_obj.dealid_nfct_ref)
                     gt_obj.save()
                     
                     nfct_total_amt = request.POST.get('nfct_grandtotal')
-                    nfct_total_amt = int(nfct_total_amt)
+                    nfct_total_amt = float(nfct_total_amt)
                     final_obj.nfct_total_amt = nfct_total_amt
                     meritmoney = request.POST.get('merit_money')
-                    final_obj.merit_money = int(meritmoney)
-                    meritmoney = int(meritmoney)
+                    final_obj.merit_money = float(meritmoney)
+                    meritmoney = float(meritmoney)
                     final_obj.fct_total_amt = total_revenue
                     print("merit money printed here!!!!!!!!!!",meritmoney)
-                    final_obj.grandtotal_amt = meritmoney + int(total_revenue) + nfct_total_amt
+                    final_obj.grandtotal_amt = meritmoney + float(total_revenue) + nfct_total_amt
                     print("GRAND TOTAL OF ALL----------------------",final_obj.grandtotal_amt)
                     
                     print("formset saved!!!!!!!!!!!!!!!!!!!!")

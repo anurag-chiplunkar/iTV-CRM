@@ -29,77 +29,77 @@ def FCTFinal(request):
     template_name = 'deal_fct_nonfct/fctfinal_deallist.html'
     return render(request, template_name, mycontext)
 
-@login_required(login_url='accounts:emp_login')
-def fct_details(request):
-    form = Form_fct_deal(request.POST or None)
-    fct_obj = Fct_deal()
-    user = request.user
-    ag_det = AgencyDetail.objects.all()
-    cli_name = CustomerName.objects.all()
-    cli_det = CustomerContact.objects.all()
-    agg = AgencyContact.objects.all()
-    qs1 = Employees.objects.filter(emp_email__contains=user)
-    tmpJson = serializers.serialize("json",cli_det)
-    tmpagen = serializers.serialize("json",agg)
+# @login_required(login_url='accounts:emp_login')
+# def fct_details(request):
+#     form = Form_fct_deal(request.POST or None)
+#     fct_obj = Fct_deal()
+#     user = request.user
+#     ag_det = AgencyDetail.objects.all()
+#     cli_name = CustomerName.objects.all()
+#     cli_det = CustomerContact.objects.all()
+#     agg = AgencyContact.objects.all()
+#     qs1 = Employees.objects.filter(emp_email__contains=user)
+#     tmpJson = serializers.serialize("json",cli_det)
+#     tmpagen = serializers.serialize("json",agg)
     
-    context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
-    if request.method == "POST":
-        if request.POST.get('dis_dd') == '50%-50%':
-            if form.is_valid():
-                fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
-                fct_obj.chan = request.POST.get('channel')
-                fct_obj.dis = request.POST.get('dis_dd')
-                fct_obj.band1 = request.POST.get('band1')
-                fct_obj.band2 = request.POST.get('band2')
-                fct_obj.fct1 = request.POST.get('fct1')
-                fct_obj.fct2 = request.POST.get('fct2')
+#     context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
+#     if request.method == "POST":
+#         if request.POST.get('dis_dd') == '50%-50%':
+#             if form.is_valid():
+#                 fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
+#                 fct_obj.chan = request.POST.get('channel')
+#                 fct_obj.dis = request.POST.get('dis_dd')
+#                 fct_obj.band1 = request.POST.get('band1')
+#                 fct_obj.band2 = request.POST.get('band2')
+#                 fct_obj.fct1 = request.POST.get('fct1')
+#                 fct_obj.fct2 = request.POST.get('fct2')
 
-                fct_obj.eff_rate1 = request.POST.get('er1')
-                fct_obj.eff_rate2 = request.POST.get('er2')
+#                 fct_obj.eff_rate1 = request.POST.get('er1')
+#                 fct_obj.eff_rate2 = request.POST.get('er2')
 
-                fct_obj.rev1 = request.POST.get('rev1')
-                fct_obj.rev2 = request.POST.get('rev2')
-                rate1 = request.session['rate']
-                fct_obj.base_rate1 = rate1
-                rate2 = request.session['rate2']
-                fct_obj.base_rate2 = rate2
-                fct_obj.total_rev = form.cleaned_data.get('total_rev')
-                fct_obj.deal_id = form.cleaned_data.get('deal_id')
-                fct_obj.save()
-                messages.success(request, 'Form is saved!')
+#                 fct_obj.rev1 = request.POST.get('rev1')
+#                 fct_obj.rev2 = request.POST.get('rev2')
+#                 rate1 = request.session['rate']
+#                 fct_obj.base_rate1 = rate1
+#                 rate2 = request.session['rate2']
+#                 fct_obj.base_rate2 = rate2
+#                 fct_obj.total_rev = form.cleaned_data.get('total_rev')
+#                 fct_obj.deal_id = form.cleaned_data.get('deal_id')
+#                 fct_obj.save()
+#                 messages.success(request, 'Form is saved!')
 
-        else:
-            fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
-            fct_obj.chan = request.POST.get('channel')
-            fct_obj.dis = request.POST.get('dis_dd')
-            fct_obj.band1 = request.POST.get('band1')
-            fct_obj.band2 = request.POST.get('band2')
-            fct_obj.band3 = request.POST.get('band3')
-            fct_obj.fct1 = request.POST.get('fct1')
-            fct_obj.fct2 = request.POST.get('fct2')
-            fct_obj.fct3 = request.POST.get('fct3')
-            fct_obj.eff_rate1 = request.POST.get('er1')
-            fct_obj.eff_rate2 = request.POST.get('er2')
-            fct_obj.eff_rate3 = request.POST.get('er3')
-            fct_obj.rev1 = form.cleaned_data.get('rev1')
-            fct_obj.rev2 = request.POST.get('rev2')
-            fct_obj.rev3 = request.POST.get('rev3')
-            fct_obj.total_rev = form.cleaned_data.get('total_rev')
-            fct_obj.deal_id = form.cleaned_data.get('deal_id')
-            rate1 = request.session['rate']
-            fct_obj.base_rate1 = rate1
-            rate2 = request.session['rate2']
-            fct_obj.base_rate2 = rate2
-            rate3 = request.session['rate3']
-            fct_obj.base_rate3 = rate3
+#         else:
+#             fct_obj.dealid_fct_ref = request.POST.get('dealid_fct_ref')
+#             fct_obj.chan = request.POST.get('channel')
+#             fct_obj.dis = request.POST.get('dis_dd')
+#             fct_obj.band1 = request.POST.get('band1')
+#             fct_obj.band2 = request.POST.get('band2')
+#             fct_obj.band3 = request.POST.get('band3')
+#             fct_obj.fct1 = request.POST.get('fct1')
+#             fct_obj.fct2 = request.POST.get('fct2')
+#             fct_obj.fct3 = request.POST.get('fct3')
+#             fct_obj.eff_rate1 = request.POST.get('er1')
+#             fct_obj.eff_rate2 = request.POST.get('er2')
+#             fct_obj.eff_rate3 = request.POST.get('er3')
+#             fct_obj.rev1 = form.cleaned_data.get('rev1')
+#             fct_obj.rev2 = request.POST.get('rev2')
+#             fct_obj.rev3 = request.POST.get('rev3')
+#             fct_obj.total_rev = form.cleaned_data.get('total_rev')
+#             fct_obj.deal_id = form.cleaned_data.get('deal_id')
+#             rate1 = request.session['rate']
+#             fct_obj.base_rate1 = rate1
+#             rate2 = request.session['rate2']
+#             fct_obj.base_rate2 = rate2
+#             rate3 = request.session['rate3']
+#             fct_obj.base_rate3 = rate3
 
-            fct_obj.save()
-            messages.success(request, 'Form is saved!')
+#             fct_obj.save()
+#             messages.success(request, 'Form is saved!')
     
-    else:
-        print("outside view")
+#     else:
+#         print("outside view")
 
-    return render(request, 'deal_fct_nonfct/fct.html', context)
+#     return render(request, 'deal_fct_nonfct/fct.html', context)
 
 
 @login_required(login_url='accounts:emp_login')
@@ -428,6 +428,7 @@ def fctdeal(request):
                 
                 print('indise form1')
                 print(request.POST, "////////////")
+                print('FORM CLEANED DATA',form.cleaned_data)
                 if request.POST.get('dis_dd') == '50%-50%':
                     fct_obj.dealid_fct = fct_obj.dealid_fct
                     print('fct_obj.dealid_fct',fct_obj.dealid_fct)
@@ -448,7 +449,7 @@ def fctdeal(request):
                     # rate2 = request.session['rate2']
                     # fct_obj.base_rate2 = rate2
                     total_revenue = form1.cleaned_data.get('total_rev')
-                    fct_obj.total_rev = total_revenue
+                    fct_obj.total_rev = float(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
 
                     fct_obj.save()
@@ -472,7 +473,7 @@ def fctdeal(request):
                     fct_obj.rev2 = request.POST.get('rev2')
                     fct_obj.rev3 = request.POST.get('rev3')
                     total_revenue = form1.cleaned_data.get('total_rev')
-                    fct_obj.total_rev = total_revenue
+                    fct_obj.total_rev = float(total_revenue)
                     request.session['fcttotal'] = fct_obj.total_rev
                     # grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)

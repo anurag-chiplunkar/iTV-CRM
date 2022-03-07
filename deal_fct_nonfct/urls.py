@@ -6,7 +6,7 @@ app_name = 'deal_fct_nonfct'
 
 urlpatterns = [ 
 path('', views.home, name="home"),
-path('fct_details/', views.fct_details, name="fct_details"),
+# path('fct_details/', views.fct_details, name="fct_details"),
 path('br_details/', views.br_details, name="br_details"),
 path('enter_channels/', views.enter_channels, name="enter_channels"),
 path('enter_disper/',views.enter_disper,name="enter_disper"),

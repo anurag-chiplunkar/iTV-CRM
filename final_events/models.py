@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 from agency_client.models import *
-from nfct.models import *
+# from nfct.models import *
 from deal_fct_nonfct.models import *
 
 CATEGORY_CHOICES = (
@@ -44,12 +44,12 @@ class Eventmodel(models.Model):
     category            = models.CharField(max_length = 100, choices=CATEGORY_CHOICES)
     description         = models.CharField(max_length = 255,null=True, blank=True)
     channel             = models.CharField(max_length = 50,null=True,blank=True,choices=CHANNEL_CHOICE)
-    merit_money         = models.IntegerField(null=True,blank=True)
+    merit_money         = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
     fct_seconds         = models.IntegerField(null=True,blank=True)
-    fct_total_amt       = models.IntegerField(null=True,blank=True)
-    nfct_total_amt      = models.IntegerField(null=True,blank=True)
-    grandtotal_amt      = models.IntegerField(null=True,blank=True)
-    ro_value            = models.CharField(max_length = 100, null=True, blank=True)
+    fct_total_amt       = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
+    nfct_total_amt      = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
+    grandtotal_amt      = models.DecimalField(null=True,blank=True, max_digits=12, decimal_places=2)
+    ro_value            = models.DecimalField(max_digits=12, decimal_places=2, null=True, blank=True)
     ro_number           = models.CharField(max_length = 100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -67,13 +67,13 @@ class EventFCTModel(models.Model):
     fct1 = models.IntegerField(blank=True,null=True,default='0')
     fct2 = models.IntegerField(blank=True,null=True,default='0')
     fct3 = models.IntegerField(blank=True,null=True,default='0')
-    eff_rate1 = models.IntegerField(blank=True,null=True)
-    eff_rate2 = models.IntegerField(blank=True,null=True)
-    eff_rate3 = models.IntegerField(blank=True,null=True)
-    rev1 = models.IntegerField(blank=True,null=True)
-    rev2 = models.IntegerField(blank=True,null=True)
-    rev3 = models.IntegerField(blank=True,null=True)
-    total_rev = models.IntegerField(blank=True,null=True)
+    eff_rate1 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    eff_rate2 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    eff_rate3 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    rev1 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    rev2 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    rev3 = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
+    total_rev = models.DecimalField(max_digits=12, decimal_places=2, blank=True,null=True)
     base_rate1 = models.IntegerField(blank=True,null=True,default='0')
     base_rate2 = models.IntegerField(blank=True,null=True,default='0')
     base_rate3 = models.IntegerField(blank=True,null=True,default='0')
@@ -124,12 +124,12 @@ class Event_Deal_Nfct(models.Model):
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     durations = models.CharField(max_length = 6, null = True, blank = True, choices = durations_choices)
     duration_in = models.IntegerField(null = True, blank = True)
-    er = models.IntegerField(null=True,blank=True)
+    er = models.DecimalField(max_digits=12, decimal_places=2, null=True,blank=True)
     freq = models.IntegerField(null=True,blank=True)
     total_seconds = models.IntegerField(null=True,blank=True)
     base_rate = models.IntegerField(null = True, blank = True)
-    total = models.IntegerField(null=True,blank=True)
+    total = models.DecimalField(max_digits=12, decimal_places=2, null=True,blank=True)
 
-class NFCTGrandTotal(models.Model):
+class EventNFCTGrandTotal(models.Model):
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
-    nfct_grandtotal = models.IntegerField(primary_key=True)
+    nfct_grandtotal = models.DecimalField(max_digits=12, decimal_places=2, primary_key=True)

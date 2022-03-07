@@ -44,12 +44,12 @@ class AFPDeal(models.Model):
 	ref_channels        = models.ForeignKey(AFPChannels, on_delete = models.CASCADE,verbose_name = 'channel')
 	ref_promos          = models.ForeignKey(AFPPromos, on_delete = models.CASCADE,verbose_name = 'promo')
 	ref_slot            = models.ForeignKey(AFPSlots, on_delete = models.CASCADE,verbose_name = 'slot')
-	afp_eff_rate        = models.CharField(max_length = 200,verbose_name = 'effective Rate')
+	afp_eff_rate        = models.DecimalField(verbose_name = 'effective Rate', max_digits = 12, decimal_places = 2)
 	afp_base_rate       = models.IntegerField(verbose_name = 'base Rate')
 	afp_created			= models.DateTimeField(auto_now_add = True)
 
 class AFPDealFinalTotal(models.Model):
-	afp_final_total = models.IntegerField(primary_key = True)
+	afp_final_total = models.DecimalField(primary_key = True, max_digits = 12, decimal_places = 2)
 	afp_final_deal_id = models.CharField(max_length = 100,default = 'default')
 
 
@@ -62,7 +62,7 @@ class FinalAFPDeal(models.Model):
 	afp_agency_name_ref     = models.ForeignKey(AgencyDetail,on_delete = models.CASCADE,default = 'default')
 	afp_agency_contact_ref  = models.ForeignKey(AgencyContact,on_delete = models.CASCADE,default = 'default')
 	afp_brand_name_ref      = models.ForeignKey(CustomerName,on_delete = models.CASCADE, default = 'default', related_name = 'brand2')
-	afp_total_ref           = models.IntegerField(null=True,blank=True)
+	afp_total_ref           = models.DecimalField(max_digits = 12, decimal_places = 2, null=True, blank=True)
 	afp_deal_created		= models.DateTimeField(auto_now_add = True)
 	
 	def __str__(self):
