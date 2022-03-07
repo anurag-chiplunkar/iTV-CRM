@@ -49,8 +49,8 @@ class Eventmodel(models.Model):
     fct_total_amt       = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2)
     nfct_total_amt      = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2)
     grandtotal_amt      = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2)
-    ro_value            = models.CharField(max_length = 100, null=True, blank=True)
-    ro_number           = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2)
+    ro_value            = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2)
+    ro_number           = models.CharField(max_length = 100, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
 
