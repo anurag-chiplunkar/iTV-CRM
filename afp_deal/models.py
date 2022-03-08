@@ -40,8 +40,9 @@ class AFPBaseRate(models.Model):
 class AFPDeal(models.Model):
 	"""Registration of AFP Deals"""
 	afp_deal_id         = models.CharField(max_length = 20)
-	# ref_program_name    = models.ForeignKey(AFPProgramName, on_delete = models.CASCADE,verbose_name = 'program Name')
-	ref_program_name	= models.CharField(max_length = 200,verbose_name = 'program Name')
+	ref_program_name    = models.ForeignKey(AFPProgramName, on_delete = models.CASCADE,verbose_name = 'program Name')
+	description 		= models.CharField(max_length=255,null=True,blank=True)
+	# ref_program_name	= models.CharField(max_length = 200,verbose_name = 'program Name')
 	ref_channels        = models.ForeignKey(AFPChannels, on_delete = models.CASCADE,verbose_name = 'channel')
 	# ref_promos          = models.ForeignKey(AFPPromos, on_delete = models.CASCADE,verbose_name = 'promo')
 	ref_promos			= models.CharField(max_length = 200,verbose_name = 'promos')

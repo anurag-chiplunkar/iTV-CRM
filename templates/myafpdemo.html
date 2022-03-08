@@ -219,6 +219,9 @@
             <!-- </div> -->
         </div>
         <div class="col-3">
+                {{form.description | as_crispy_field}}
+        </div>
+        <div class="col-3">
             <!-- <div class="input-group form-select col-auto"> -->
                 {{form.ref_channels | as_crispy_field}}
                 
