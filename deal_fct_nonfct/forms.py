@@ -131,8 +131,9 @@ class FinalFCTForm(forms.ModelForm):
 			print("Client name exists/////")
 			try:
 				agency = self.data.get('client_name_ref')
-				self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(agency_details=agency).order_by('pri_firstName')
+				print('AGENCY', agency)
+				self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
 			except (ValueError, TypeError):
 				pass
 		elif self.instance.pk:
-			self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+			self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')

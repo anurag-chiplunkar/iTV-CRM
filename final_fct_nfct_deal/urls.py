@@ -12,4 +12,6 @@ urlpatterns = [
     path('final_load_br1/', views.final_load_br1, name="final_load_br1"),
     path('final_load_br2/', views.final_load_br2, name="final_load_br2"),
     path('final_deallist/', views.finalDealListView, name='final_deallist'),
+    path('ajax/load_agency_client/',views.load_agency_client, name='load_agency_client'),
+
 ]

@@ -190,8 +190,7 @@ def final_deal(request):
 
 def load_client_contacts(request):
     client_id = request.GET.get('client')
-    client_contacts = CustomerContact.objects.filter(
-        ref_creg_no=client_id).order_by('pri_fname')
+    client_contacts = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
     return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
@@ -202,6 +201,15 @@ def load_agency_contacts(request):
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
     return render(request, 'final_fct_nfct_deal/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+
+def load_agency_client(request):
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'final_fct_nfct_deal/agency_client_dropdown_options.html', {'agency': agency})
+
+
 
 
 def final_load_br(request):

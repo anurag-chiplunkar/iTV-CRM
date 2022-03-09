@@ -56,30 +56,46 @@ class FinalEventsForm(forms.ModelForm):
         'channel'    : forms.Select(choices=CHANNEL_CHOICE,attrs = {'class':'form-select','placeholder': 'Select Channel'}),
         
 		}
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     self.fields['event_client_contact_ref'].queryset = Eventmodel.objects.none()
-    #     self.fields['event_agency_contact_ref'].queryset = Eventmodel.objects.none()
-	# 	# print("self.data",self.data,"------------------")
-    #     if 'event_client_name_ref' in self.data:
-    #         print("client name exists/////")
-    #         try:
-    #             client_id = self.data.get('event_client_name_ref')
-    #             self.fields['event_client_contact_ref'].queryset = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
-    #         except (ValueError, TypeError):
-    #             pass  # invalid input from the client; ignore and fallback to empty City queryset
-    #     elif self.instance.pk:
-    #         self.fields['event_client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['event_client_contact_ref'].queryset = Eventmodel.objects.none()
+        self.fields['event_agency_contact_ref'].queryset = Eventmodel.objects.none()
+        self.fields['event_agency_name_ref'].queryset = Eventmodel.objects.none()
 
-        # if 'event_agency_name_ref' in self.data:
-        #     print("agency name exists/////")
-        #     try:
-        #         client_id = self.data.get('event_agency_name_ref')
-        #         self.fields['event_agency_contact_ref'].queryset = AgencyContact.objects.filter(ref_creg_no=client_id).order_by('pri_firstName')
-        #     except (ValueError, TypeError):
-        #         pass  # invalid input from the client; ignore and fallback to empty City queryset
-        # elif self.instance.pk:
-        #     self.fields['event_client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_firstName')   
+
+		# print("self.data",self.data,"------------------")
+        if 'event_client_name_ref' in self.data:
+            print("client name exists/////")
+            try:
+                client_id = self.data.get('event_client_name_ref')
+                self.fields['event_client_contact_ref'].queryset = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['event_client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
+
+        if 'event_agency_name_ref' in self.data:
+            print("agency name exists/////")
+            try:
+                client_id = self.data.get('event_agency_name_ref')
+                self.fields['event_agency_contact_ref'].queryset = AgencyContact.objects.filter(agency_details=client_id).order_by('pri_firstName')
+            except (ValueError, TypeError):
+                pass  # invalid input from the client; ignore and fallback to empty City queryset
+        elif self.instance.pk:
+            self.fields['event_client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_firstName')   
+
+        if 'event_client_name_ref' in self.data:
+            print("Client name exists/////")
+            try:
+                agency = self.data.get('event_client_name_ref')
+                self.fields['event_agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['event_agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')
+
+
+        
 
 class Form_FCT_Deal(forms.ModelForm):
     

@@ -138,6 +138,14 @@ def load_afp_agency_contacts(request):
     print(agency_contacts)
     return render(request, 'afp_deal/afp_agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
+def load_afp_agency_client(request):
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'afp_deal/afp_agency_client_dropdown_options.html', {'agency': agency})
+
+
 def create_afp_deal(request):
 	##for taking the current logged in user
 	user = request.user

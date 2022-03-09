@@ -146,6 +146,8 @@ class FinalAFPDealDetails(forms.ModelForm):
 			super().__init__(*args, **kwargs)
 			self.fields['afp_client_contact_ref'].queryset = FinalAFPDeal.objects.none()
 			self.fields['afp_agency_contact_ref'].queryset = FinalAFPDeal.objects.none()
+			self.fields['afp_agency_name_ref'].queryset = FinalAFPDeal.objects.none()
+
 			# print("self.data",self.data,"------------------")
 			
 			if 'afp_client_name_ref' in self.data:
@@ -167,3 +169,13 @@ class FinalAFPDealDetails(forms.ModelForm):
 					pass  
 			elif self.instance.pk:
 				self.fields['afp_agency_contact_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+
+			if 'afp_client_name_ref' in self.data:
+				print("Client name exists/////")
+				try:
+					agency = self.data.get('afp_client_name_ref')
+					self.fields['afp_agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+				except (ValueError, TypeError):
+					pass
+			elif self.instance.pk:
+				self.fields['afp_agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')

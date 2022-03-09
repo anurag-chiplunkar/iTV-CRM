@@ -177,6 +177,9 @@ class FinalNFCTForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['client_contact_ref'].queryset = FinalNFCT.objects.none()
         self.fields['agency_contact_ref'].queryset = FinalNFCT.objects.none()
+        self.fields['agency_name_ref'].queryset = FinalNFCT.objects.none()
+
+
         if 'client_name_ref' in self.data:
             print("client name exists/////")
             try:
@@ -196,6 +199,17 @@ class FinalNFCTForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['agency_contact_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+
+        if 'client_name_ref' in self.data:
+            print("Client name exists/////")
+            try:
+                agency = self.data.get('client_name_ref')
+                self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')
+
 
 
 

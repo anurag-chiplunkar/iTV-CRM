@@ -16,7 +16,7 @@
 <div class="container">
     
     <form method="POST" id="dependent_dropdown" url1="{% url 'final_fct_nfct_deal:load_client_contacts' %}" url2="{% url 'final_fct_nfct_deal:load_agency_contacts' %}"
-    url3 = "{% url 'final_fct_nfct_deal:final_load_br' %}" url4 = "{% url 'final_fct_nfct_deal:final_load_br1' %}" url5 = "{% url 'final_fct_nfct_deal:final_load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}">{% csrf_token %}
+    url3 = "{% url 'final_fct_nfct_deal:final_load_br' %}" url4 = "{% url 'final_fct_nfct_deal:final_load_br1' %}" url5 = "{% url 'final_fct_nfct_deal:final_load_br2' %}" url6 = "{% url 'nfct:nfct_load_br' %}" url7 =  "{% url 'final_fct_nfct_deal:load_agency_client' %}">{% csrf_token %}
     <div class="row g-3">
 
        
@@ -850,6 +850,27 @@
         });
 
     });
+
+    // client and agency dependent dropdown
+	$("#id_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url7");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                // console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
   </script>
 
 <!-- nfct deal -->
@@ -1106,46 +1127,8 @@
     document.getElementById("id_deal_id").value = uid;
 </script>
    
-<!-- script for dependent dropdown for client contact---------------------------------------------- -->
 
   <script>
-    $("#id_client_name_ref").change(function () {
-        var url = $("#dependent_dropdown").attr("url1");  // get the url of the 'load_client_contacts' view
-        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
-        console.log("client id:",clientId);
-        console.log("url:",url);
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-            data: {
-            'client': clientId       // add the contact id to the GET parameters
-            },
-            success: function (data) {
-                console.log(data);   // `data` is the return of the `load_client_contacts` view function
-                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
-           
-            }
-        });
-
-    });
-
-    $("#id_agency_name_ref").change(function () {
-        var url = $("#dependent_dropdown").attr("url2");  // get the url of the 'load_client_contacts' view
-        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
-        console.log("agency id:",agencyId);
-        console.log("url:",url);
-        $.ajax({                       // initialize an AJAX request
-            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
-            data: {
-            'agency': agencyId       // add the contact id to the GET parameters
-            },
-            success: function (data) {
-                console.log(data);   // `data` is the return of the `load_client_contacts` view function
-                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
-           
-            }
-        });
-
-    });
 
 
     $('#cal').on('click',function(e){

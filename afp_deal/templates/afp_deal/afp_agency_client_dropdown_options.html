@@ -1,0 +1,4 @@
+<option value="">Select Agency</option>
+{% for a in agency %}
+<option value="{{ a.pk }}">{{ a.agency_name }}</option>
+{% endfor %}

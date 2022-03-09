@@ -5,7 +5,7 @@
 {% endif %}
 <body>
     <h1><u><center>NFCT Deal Details</center></u></h1>
-<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'nfct:load_client_contacts' %}" url2="{% url 'nfct:load_agency_contacts' %}">
+<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'nfct:load_client_contacts' %}" url2="{% url 'nfct:load_agency_contacts' %}" url3 = "{% url 'nfct:load_agency_client' %}">
     {% csrf_token %}
     <!-- deal id -->
     <div class="container-fluid">
@@ -681,6 +681,25 @@ $('#cal').on('click',function(e){
 
     });
 
+// client and agency dependent dropdown
+$("#id_client_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url3");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                // console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
 
 
 </script>

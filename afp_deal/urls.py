@@ -15,4 +15,6 @@ urlpatterns = [
     path('afp_final_deallist/', views.AFPDealListView, name='afp_final_deallist'),
     path('ajax/load_afp_client_contacts/',views.load_afp_client_contacts, name='load_afp_client_contacts'),
     path('ajax/load_afp_agency_contacts/',views.load_afp_agency_contacts, name='load_afp_agency_contacts'),
+    path('ajax/load_afp_agency_client/',views.load_afp_agency_client, name='load_afp_agency_client'),
+
 ]

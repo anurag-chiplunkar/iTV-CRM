@@ -241,6 +241,14 @@ def load_agency_contacts(request):
     return render(request, 'nfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
 
+def load_agency_client(request):
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'nfct/agency_client_dropdown_options.html', {'agency': agency})
+
+
 # from django.shortcuts import render
 
 # # Create your views here.
