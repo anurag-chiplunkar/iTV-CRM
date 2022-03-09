@@ -679,15 +679,18 @@
                 document.getElementById("row2").style.display = "flex";
                 document.getElementById("row3").style.display = "flex";
                 document.getElementById("row4").style.display = "flex";
-                document.getElementById('base1').value = 0
-                document.getElementById('fct2').value = 0
-                document.getElementById('er2').value = 0
-                document.getElementById('base2').value = 0
-                document.getElementById('rev2').value = 0
-                document.getElementById('fct3').value = 0
-                document.getElementById('er3').value = 0
-                document.getElementById('base3').value = 0
-                document.getElementById('rev3').value = 0
+                document.getElementById('base1').value = 0.0
+                document.getElementById('fct1').value = 0.0
+                document.getElementById('er1').value = 0.0
+                document.getElementById('rev1').value = 0.0
+                document.getElementById('fct2').value = 0.0
+                document.getElementById('er2').value = 0.0
+                document.getElementById('base2').value = 0.0
+                document.getElementById('rev2').value = 0.0
+                document.getElementById('fct3').value = 0.0
+                document.getElementById('er3').value = 0.0
+                document.getElementById('base3').value = 0.0
+                document.getElementById('rev3').value = 0.0
                 var Band1 = document.getElementById('band1').value;
                 if (Band1 == "")
                 {
@@ -717,18 +720,39 @@
                 var row1fct1 = document.getElementById('fct1').readOnly = false;
                 var row1er1 = document.getElementById('er1').readOnly = false;
             }
+            else{
+            document.getElementById('fct1').readOnly = true;
+			document.getElementById('er1').readOnly = true;
+            document.getElementById('fct1').value = 0.0
+			document.getElementById('er1').value = 0.0
+            document.getElementById('rev1').value = 0.0
+        }
             var row2band1 = document.getElementById('band2').value;
             if (row2band1 != ""){
                 console.log("inside showrate function2~~~~~");
                 var row1fct1 = document.getElementById('fct2').readOnly = false;
                 var row1er1 = document.getElementById('er2').readOnly = false;
             }
+            else{
+            document.getElementById('fct2').readOnly = true;
+			document.getElementById('er2').readOnly = true;
+            document.getElementById('fct2').value = 0.0
+			document.getElementById('er2').value = 0.0
+            document.getElementById('rev2').value = 0.0
+        }
             var row3band1 = document.getElementById('band3').value;
             if (row3band1 != ""){
                 console.log("inside showrate function3~~~~~");
                 var row1fct1 = document.getElementById('fct3').readOnly = false;
                 var row1er1 = document.getElementById('er3').readOnly = false;
             }
+            else{
+            document.getElementById('fct3').readOnly = true;
+			document.getElementById('er3').readOnly = true;
+            document.getElementById('fct3').value = 0.0
+			document.getElementById('er3').value = 0.0
+            document.getElementById('rev3').value = 0.0
+        }
             
         }
         
