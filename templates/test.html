@@ -330,7 +330,7 @@
             <label>Grand Total</label>
         </div>
         <div class="input-group">
-        <input type = "text" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
+        <input type = "number" step="0.01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
             
         </div>
         <br>
@@ -558,7 +558,7 @@ $('.class_er').on('input',function(e)
     var erid_function = e.target.id
     console.log(erid_function, 'Effective rate id')
     
-    var eff_rate = parseInt($(this).val());
+    var eff_rate = parseFloat($(this).val());
     console.log({eff_rate})
 
 
@@ -631,8 +631,8 @@ $('#cal').on('click',function(e){
     for(i = 0; i<=parseInt(total_forms); i++){
         console.log('i', i)
         console.log('grandtotal', grandtotal)
-        $("#id_nfct_grandtotal").val(parseInt(grandtotal)) 
-        grandtotal = parseInt(grandtotal)+ parseInt($(`#id_form-${i}-nfct_total`).val())
+        $("#id_nfct_grandtotal").val(parseFloat(grandtotal)) 
+        grandtotal = parseFloat(grandtotal)+ parseFloat($(`#id_form-${i}-nfct_total`).val())
         console.log('grandtotal after', grandtotal) 
     }
   

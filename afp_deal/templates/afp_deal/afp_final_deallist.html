@@ -35,7 +35,7 @@
 
 </div>
 {% if user.is_authenticated %}
-    <button name="submit" type="submit" class="btn btn-primary" style="position: relative; top: 500px; left: 100px;"><a href="{% url 'afp_deal:afp_final_deallist' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    <button name="submit" type="submit" class="btn btn-primary" style="position: relative; top: 500px; left: 100px;"><a href="{% url 'afp_deal:create_afp_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
 {% endif %}
 
 {% endblock %}

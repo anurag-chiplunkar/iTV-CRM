@@ -55,21 +55,23 @@ class AFP_Base_Rate_Form(forms.ModelForm):
 		'baserate' : forms.TextInput(attrs = {'class': 'form-control'})
 		}
 
-class AFP_Deal_Form(forms.ModelForm):
-	ref_program_name = forms.ModelChoiceField(queryset= AFPProgramName.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Program')
-	ref_channels = forms.ModelChoiceField(queryset= AFPChannels.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Channel')
-	ref_promos = forms.ModelChoiceField(queryset= AFPPromos.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Promo')
-	ref_slot = forms.ModelChoiceField(queryset= AFPSlots.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Slot')
-	class Meta:
-		model = AFPDeal
-		fields = '__all__'
-		exclude = ('afp_base_rate',)
-		widgets = {'afp_eff_rate' :forms.TextInput(attrs = {'class': 'form-control'})
-		}
+# class AFP_Deal_Form(forms.ModelForm):
+# 	ref_program_name = forms.ModelChoiceField(queryset= AFPProgramName.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Program')
+# 	ref_channels = forms.ModelChoiceField(queryset= AFPChannels.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Channel')
+# 	# ref_promos = forms.ModelChoiceField(queryset= AFPPromos.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Promo')
+# 	ref_slot = forms.ModelChoiceField(queryset= AFPSlots.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Slot')
+# 	class Meta:
+# 		model = AFPDeal
+# 		fields = '__all__'
+# 		exclude = ('afp_base_rate',)
+# 		widgets = {'afp_eff_rate' :forms.TextInput(attrs = {'class': 'form-control'}),
+				
+# 				'ref_promos' :forms.TextInput(attrs = {'class': 'form-control'}),
+# 		}
 
 AFPDealModelFormset = modelformset_factory(
 	AFPDeal,
-	fields = ('ref_program_name','ref_channels','ref_promos','ref_slot','afp_eff_rate','afp_base_rate',),
+	fields = ('ref_program_name','description','ref_channels','ref_promos','ref_slot','afp_eff_rate','afp_base_rate',),
 	extra = 1,
 	widgets = {
 		# 'afp_deal_id': forms.TextInput(attrs={
@@ -84,14 +86,20 @@ AFPDealModelFormset = modelformset_factory(
             }
         ),
 
+		'description': forms.TextInput(attrs={
+            'class': 'class_desc form-control',
+            'placeholder': 'Enter Description'
+            }
+        ),
+
 		'ref_channels': forms.Select(attrs={
             'class': 'class_ref_channels form-select',
             'placeholder': 'Channel'
             }
         ),
 
-		'ref_promos': forms.Select(attrs={
-            'class': 'class_ref_promos form-select',
+		'ref_promos': forms.TextInput(attrs={
+            'class': 'class_ref_promos form-control',
             'placeholder': 'Promo'
             }
         ),
