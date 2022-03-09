@@ -93,28 +93,28 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd85vm1o4t88f8n',
-        'USER': 'jvnyxfvmuzayhj',
-        'PASSWORD': 'cf0e4c6016d3234d59e3b00b122e1f96b51210009c751c5196f446b2b4b0421e',
-        'HOST': 'ec2-44-195-191-252.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'crm',
-#         'USER': 'root',
-#         'PASSWORD': 'root123',
-#         'HOST': '',
-#         'PORT': '',
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'd85vm1o4t88f8n',
+#         'USER': 'jvnyxfvmuzayhj',
+#         'PASSWORD': 'cf0e4c6016d3234d59e3b00b122e1f96b51210009c751c5196f446b2b4b0421e',
+#         'HOST': 'ec2-44-195-191-252.compute-1.amazonaws.com',
+#         'PORT': '5432',
 #     }
-
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'crm_db',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+
+}
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 

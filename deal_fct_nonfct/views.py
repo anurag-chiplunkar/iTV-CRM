@@ -491,16 +491,7 @@ def fctdeal(request):
                     fct_obj.rev3 = request.POST.get('rev3')
                     total_revenue = form1.cleaned_data.get('total_rev')
                     fct_obj.total_rev = float(total_revenue)
-                    request.session['fcttotal'] = fct_obj.total_rev
-                    # grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-                    # rate1 = request.session['rate']
-                    # fct_obj.base_rate1 = rate1
-                    # rate2 = request.session['rate2']
-                    # fct_obj.base_rate2 = rate2
-                    # rate3 = request.session['rate3']
-                    # fct_obj.base_rate3 = rate3
-
                     print("Session values before",request.session.items())
                     rate1 = request.session.get('rate',0)
                     print(rate1,"RATE1 Printed!!!!") 

@@ -279,7 +279,7 @@
 			</div>
 			<div class="row g-3 align-items-start mt-1" id="row1" style="display: none;">
 				<div class="col-auto">
-					<select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+					<select name="band1" onChange = "showrate();" class="form-select channel" id="band1" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -303,7 +303,7 @@
 			</div>
 			<div class="row g-3 align-items-start mt-2" id="row2" style="display: none;">
 				<div class="col-auto">
-					<select name="band2" class="form-select" id="band2" aria-label="Default select example">
+					<select name="band2" onChange = "showrate();" class="form-select" id="band2" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -327,7 +327,7 @@
 			</div>
 			<div class="row g-3 align-items-start mt-2" id="row3" style="display: none;">
 				<div class="col-auto">
-					<select name="band3" class="form-select" id="band3" aria-label="Default select example">
+					<select name="band3" onChange = "showrate();" class="form-select" id="band3" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -417,9 +417,50 @@
 			document.getElementById('fct3').value = 0.0
 			document.getElementById('er3').value = 0.0
 			document.getElementById('rev3').value = 0.0
+			var Band1 = document.getElementById('band1').value;
+			if (Band1 == "")
+			{
+				document.getElementById('fct1').readOnly = true;
+				document.getElementById('er1').readOnly = true;
+			}
+			var Band2 = document.getElementById('band2').value;
+			if (Band2 == "")
+			{
+				document.getElementById('fct2').readOnly = true;
+				document.getElementById('er2').readOnly = true;
+			}
+			var Band3 = document.getElementById('band3').value;
+			if (Band3 == "")
+			{
+				document.getElementById('fct3').readOnly = true;
+				document.getElementById('er3').readOnly = true;
+			}
 			
 		}
 	}
+
+	function showrate(){
+		var row1band1 = document.getElementById('band1').value;
+		if (row1band1 != ""){
+			console.log("inside showrate function1~~~~~");
+			var row1fct1 = document.getElementById('fct1').readOnly = false;
+			var row1er1 = document.getElementById('er1').readOnly = false;
+		}
+		var row2band1 = document.getElementById('band2').value;
+		if (row2band1 != ""){
+			console.log("inside showrate function2~~~~~");
+			var row1fct1 = document.getElementById('fct2').readOnly = false;
+			var row1er1 = document.getElementById('er2').readOnly = false;
+		}
+		var row3band1 = document.getElementById('band3').value;
+		if (row3band1 != ""){
+			console.log("inside showrate function3~~~~~");
+			var row1fct1 = document.getElementById('fct3').readOnly = false;
+			var row1er1 = document.getElementById('er3').readOnly = false;
+		}
+		
+	}
+	
 	function calculate1 (){
     	var box1 = parseFloat(document.getElementById('fct1').value);
     	
