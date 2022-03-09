@@ -14,6 +14,7 @@ def agency_detail(request):
 
 	if request.method == "POST":
 		print(request.POST)
+		print(form1.errors)
 
 		if form1.is_valid():
 			aname 		= form1.cleaned_data.get('agency_name')
@@ -23,6 +24,7 @@ def agency_detail(request):
 			alandmark 	= form1.cleaned_data.get('agency_landmark')
 			acity 		= form1.cleaned_data.get('agency_city')
 			apin 		= form1.cleaned_data.get('agency_pin')
+			ccreg_no 	= form1.cleaned_data.get('ccreg_no')
 			
 			##generating primary key
 			if ' ' in aname:
@@ -46,7 +48,8 @@ def agency_detail(request):
 									agency_landmark = alandmark,
 									agency_city = acity,
 									agency_pin = apin,
-									a_id = ag_id)
+									a_id = ag_id,
+									ccreg_no = ccreg_no)
 				obj1.save()
 
 				# obj1.customernames.add()

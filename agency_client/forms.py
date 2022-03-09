@@ -5,6 +5,8 @@ from . models import CustomerType, CustomerName, CustomerContact
 
 
 class Agency_details(forms.ModelForm):
+	ccreg_no = forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client')
+	
 	class Meta:
 		model = AgencyDetail
 		fields = '__all__'
@@ -18,6 +20,7 @@ class Agency_details(forms.ModelForm):
 		'agency_landmark' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Landmark'}),
 		'agency_city' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter City'}),
 		'agency_pin' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Pincode'}),
+		# 'ccreg_no' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Pincode'}),
 		}
 
 class Agency_contacts(forms.ModelForm):

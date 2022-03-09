@@ -1,4 +1,4 @@
 <option value="">Select Agency</option>
-{% for client in agency %}
-<option value="{{ client.pk }}">{{ client.pri_firstName }}</option>
+{% for a in agency %}
+<option value="{{ a.pk }}">{{ a.agency_name }}</option>
 {% endfor %}

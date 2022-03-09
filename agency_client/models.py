@@ -1,18 +1,6 @@
 from django.db import models
 
-class AgencyDetail(models.Model):
-	a_id 				= models.CharField(max_length = 100,primary_key = True, unique = True,default = 'default')
-	agency_name 		= models.CharField(max_length = 200)
-	agency_officeno		= models.CharField(max_length = 10)
-	agency_street		= models.CharField(max_length = 100)
-	agency_state 		= models.CharField(max_length = 50)
-	agency_landmark		= models.CharField(max_length = 100,null = True, blank = True)
-	agency_city			= models.CharField(max_length = 100)
-	agency_pin			= models.IntegerField()
-	create_at 			= models.DateTimeField(auto_now_add = True)
-	
-	def __str__(self):
-		return self.agency_name + ' -' + self.agency_state
+
 		
 class CustomerType(models.Model):
 	customer_type 	= 	models.CharField(max_length = 30, primary_key = True, unique = True)
@@ -26,7 +14,7 @@ class CustomerName(models.Model):
 	cname = 			models.CharField(max_length = 200)
 	brand_name = 		models.CharField(max_length = 200, blank = True, null = True)
 	ref_customertype =	models.ForeignKey(CustomerType, models.SET_NULL, null=True)
-	# agencies 		= models.ManyToManyField(AgencyDetail)
+	
 	create_at 			= models.DateTimeField(auto_now_add = True)
 
 	def __str__(self):
@@ -65,7 +53,20 @@ class CustomerContact(models.Model):
 		return self.pri_fname + ' ' + self.pri_lname
 
 
-
+class AgencyDetail(models.Model):
+	a_id 				= models.CharField(max_length = 100,primary_key = True, unique = True,default = 'default')
+	agency_name 		= models.CharField(max_length = 200)
+	agency_officeno		= models.CharField(max_length = 10)
+	agency_street		= models.CharField(max_length = 100)
+	agency_state 		= models.CharField(max_length = 50)
+	agency_landmark		= models.CharField(max_length = 100,null = True, blank = True)
+	agency_city			= models.CharField(max_length = 100)
+	agency_pin			= models.IntegerField()
+	ccreg_no 			= models.ForeignKey(CustomerName, on_delete = models.CASCADE, default = 'default')
+	create_at 			= models.DateTimeField(auto_now_add = True)
+	
+	def __str__(self):
+		return self.agency_name + ' -' + self.agency_state
 
 
 class AgencyContact(models.Model):

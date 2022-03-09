@@ -375,12 +375,12 @@ def load_agency_contacts(request):
     print(agency_contacts)
     return render(request, 'deal_fct_nonfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
-# def load_agency_client(request):
-#     cli_id = request.GET.get('client')
-#     agency = AgencyDetail.objects.filter(
-#         client=cli_id).order_by('pri_firstName')
-#     print(agency)
-#     return render(request, 'deal_fct_nonfct/agency_client_dropdown_options.html', {'agency': agency})
+def load_agency_client(request):
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'deal_fct_nonfct/agency_client_dropdown_options.html', {'agency': agency})
 
 
 

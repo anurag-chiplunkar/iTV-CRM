@@ -19,7 +19,7 @@ path('load_br2/',views.load_br2,name="load_br2"),
 
 path('ajax/load_client_contacts/',views.load_client_contacts, name='load_client_contacts'),
 path('ajax/load_agency_contacts/',views.load_agency_contacts, name='load_agency_contacts'),
-# path('ajax/load_agency_client/',views.load_agency_client, name='load_agency_client'),
+path('ajax/load_agency_client/',views.load_agency_client, name='load_agency_client'),
 path('fctdeal/',views.fctdeal,name="fctdeal"),
 path('fctdeallist/',views.FCTFinal,name="fctfinal_deallist"),
 
