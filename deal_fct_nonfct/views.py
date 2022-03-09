@@ -280,6 +280,7 @@ def load_br1(request):
             rate2 = k1.br
             print(rate2)
             request.session['rate2'] = rate2
+            print("rate2 PRINTED~~~",request.session['rate2'])
         r = {'rate2': rate2}
         print("******************", r)
     elif disp1 == "33%-33%-33%":
@@ -304,6 +305,10 @@ def load_br1(request):
             rate2 = k.br
             print(rate2)
             request.session['rate2'] = rate2
+
+    else:
+        request.session['rate2'] = 0
+        print("rate2 PRINTED~~~",request.session['rate2'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
     return HttpResponse(rate2)
 
@@ -357,6 +362,10 @@ def load_br2(request):
             rate3 = k.br
             print(rate3)
             request.session['rate3'] = rate3
+
+    else:
+        request.session['rate3'] = 0
+        print("rate3 PRINTED~~~",request.session['rate3'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
     return HttpResponse(rate3)
 
@@ -452,14 +461,14 @@ def fctdeal(request):
 
                     fct_obj.rev1 = request.POST.get('rev1')
                     fct_obj.rev2 = request.POST.get('rev2')
-                    # rate1 = request.session['rate']
-                    # fct_obj.base_rate1 = rate1
-                    # rate2 = request.session['rate2']
-                    # fct_obj.base_rate2 = rate2
+                    rate1 = request.session['rate']
+                    fct_obj.base_rate1 = rate1
+                    rate2 = request.session['rate2']
+                    fct_obj.base_rate2 = rate2
                     total_revenue = form1.cleaned_data.get('total_rev')
                     fct_obj.total_rev = float(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-
+                    
                     fct_obj.save()
                     print("reached after form-1-1 saved commit false")
                     messages.success(request, 'Form is saved!')
@@ -492,6 +501,19 @@ def fctdeal(request):
                     # rate3 = request.session['rate3']
                     # fct_obj.base_rate3 = rate3
 
+                    print("Session values before",request.session.items())
+                    rate1 = request.session.get('rate',0)
+                    print(rate1,"RATE1 Printed!!!!") 
+                    fct_obj.base_rate1 = rate1
+                    rate2 = request.session.get('rate2',0)
+                    print(rate2,"RATE2 Printed!!!!") 
+                    fct_obj.base_rate2 = rate2
+                    rate3 = request.session.get('rate3',0)
+                    print(type(rate3),"RATE3 Printed!!!!")
+                    fct_obj.base_rate3 = rate3
+                    print("Session values after",request.session.items())
+
+
                     fct_obj.save()
                     print("FORM SAVED")
                     messages.success(request, 'Form is saved!')
@@ -501,6 +523,21 @@ def fctdeal(request):
                 final_obj.save()
                 # form1.save(commit=True)
                 # form.save(commit=True)
+                print("Form is saved and rates are removed from session dictionary~~~Happpy~~~",request.session.items())
+                if request.session.get('rate',None):
+                    del request.session['rate']
+                else:
+                    print("None")
+                if request.session.get('rate2',None):
+                    del request.session['rate2']
+                else:
+                    print("None")
+                if request.session.get('rate3',None):
+                    del request.session['rate3']
+                else:
+                    print("None")
+                print("Form is saved and rates are removed from session dictionary (down)~~~Happpy~~~",request.session.items())
+                   
                 print("reached at the end---------------------")
 
                 return redirect('deal_fct_nonfct:fctfinal_deallist')
