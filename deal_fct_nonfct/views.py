@@ -19,11 +19,19 @@ from django.contrib.auth.models import User
 
 
 def home(request):
+    """Docstring for returning homepage
+    
+    :return: request and template"""
+
     return render(request, 'home.html')
 
 
 
 def FCTFinal(request):
+    """Docstring for listview of Only FCT Common Form
+    
+    :return: request, template and context(qs)"""
+
     qs = FinalFCT.objects.all()
     mycontext = {'qs': qs}
     template_name = 'deal_fct_nonfct/fctfinal_deallist.html'
@@ -104,6 +112,14 @@ def FCTFinal(request):
 
 @login_required(login_url='accounts:emp_login')
 def br_details(request):
+    """Docstring for saving base rates wrt channel, dispersion, bands
+    
+    :form: Base_form
+    
+    :object: Base
+    
+    :return: request, template and context(form)"""
+
     form = Base_form(request.POST or None)
     obj = Base()
     print("---------------------", request.POST, form.is_valid(), form.errors)
@@ -127,20 +143,36 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-	form = Channel_form(request.POST or None)
-	ch_obj = Channel()
-	context = {'form': form,}
-	if request.method == 'POST':
-		if form.is_valid():
-			ch_obj.c_list = form.cleaned_data.get('c_list')
-			ch_obj.save()
-			messages.success(request,'Channel is saved!')
-		else:
-			print("outside view")
-	return render(request,'deal_fct_nonfct/channel.html',context)
+    """Docstring for saving Channels
+    
+    :form: Channel_form
+    
+    :object: Channel
+    
+    :return: request, template and context(form)"""
+    
+    form = Channel_form(request.POST or None)
+    ch_obj = Channel()
+    context = {'form': form,}
+    if request.method == 'POST':
+        if form.is_valid():
+            ch_obj.c_list = form.cleaned_data.get('c_list')
+            ch_obj.save()
+            messages.success(request,'Channel is saved!')
+        else:
+            print("outside view")
+    return render(request,'deal_fct_nonfct/channel.html',context)
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):
+    """Docstring for saving Dispersion
+    
+    :form: Disper_form
+    
+    :object: Disper
+    
+    :return: request, template and context(form)"""
+
     form = Disper_form(request.POST or None)
     dis_obj = Disper()
     context = {'form': form, }
@@ -157,6 +189,13 @@ def enter_disper(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_band(request):
+    """Docstring for saving Band
+    
+    :form: Band_form
+    
+    :object: Band
+    
+    :return: request, template and context(form)"""
     form = Band_form(request.POST or None)
     band_obj = Band()
     context = {'form': form, }
@@ -173,6 +212,13 @@ def enter_band(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_base_rate(request):
+    """Docstring for saving Base Rate
+    
+    :form: Base_rate_table_form
+    
+    :object: Base_rate_table
+    
+    :return: request, template and context(form)"""
     form = Base_rate_table_form(request.POST or None)
     b_obj = Base_rate_table()
     context = {'form': form}
@@ -204,6 +250,12 @@ def enter_base_rate(request):
 
 @login_required(login_url='accounts:emp_login')
 def load_br(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row1
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate"""
+
     chan_id = request.GET.get('channel')
     band1 = request.GET.get('band1')
     disp1 = request.GET.get('dis_dd')
@@ -256,6 +308,12 @@ def load_br(request):
 
 @login_required(login_url='accounts:emp_login')
 def load_br1(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row2
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate2"""
+
     chan_id = request.GET.get('channel')
     band2 = request.GET.get('band2')
     disp1 = request.GET.get('dis_dd')
@@ -315,6 +373,12 @@ def load_br1(request):
 
 @login_required(login_url='accounts:emp_login')
 def load_br2(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row3
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate3"""
+
     chan_id = request.GET.get('channel')
     band3 = request.GET.get('band3')
     disp1 = request.GET.get('dis_dd')
@@ -370,6 +434,7 @@ def load_br2(request):
     return HttpResponse(rate3)
 
 def load_client_contacts(request):
+    """Function to call the client contacts according to the selected client name"""
     client_id = request.GET.get('client')
     client_contacts = CustomerContact.objects.filter(
         ref_creg_no=client_id).order_by('pri_fname')
@@ -378,6 +443,8 @@ def load_client_contacts(request):
 
 
 def load_agency_contacts(request):
+    """Function to call the agency contacts according to the selected agency name"""
+
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
@@ -385,6 +452,7 @@ def load_agency_contacts(request):
     return render(request, 'deal_fct_nonfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
 def load_agency_client(request):
+    """Function to call the client name according to the selected agency name"""
     cli_id = request.GET.get('client')
     print('CLIENT', cli_id)
     agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
@@ -394,6 +462,10 @@ def load_agency_client(request):
 
 
 def fctdeal(request):
+    """Saving only FCT deal and only FCT Common form
+    
+    :redirect: deallist page"""
+
     form = FinalFCTForm(request.POST or None)
     form1 = Form_fctdeal(request.POST or None)
     fct_form = Base_rate_table_form(request.POST or None)

@@ -36,6 +36,8 @@ CHANNEL_CHOICE = (
     ("NE NEWS","NE NEWS")
 )
 class FinalEventsForm(forms.ModelForm):
+    """Modelform for Events Common form"""
+
     event_client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client Name')
     event_client_contact_ref = forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Client Contact')
     event_agency_name_ref = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency Name')
@@ -57,6 +59,11 @@ class FinalEventsForm(forms.ModelForm):
         
 		}
     def __init__(self, *args, **kwargs):
+        """Function for dependent dropdown for event client name, event agency name, event client contact and event agency contact
+		
+		:event_client_name: event_agency_name and event_client_contact changes according to the event_client_name selection
+		:event_agency_name: event_agency_contact changes according to the event_agency_name selection"""
+
         super().__init__(*args, **kwargs)
         self.fields['event_client_contact_ref'].queryset = Eventmodel.objects.none()
         self.fields['event_agency_contact_ref'].queryset = Eventmodel.objects.none()
@@ -98,6 +105,8 @@ class FinalEventsForm(forms.ModelForm):
         
 
 class Form_FCT_Deal(forms.ModelForm):
+    """Modelform of FCT for event deal"""
+
     
     class Meta:
         model = EventFCTModel
@@ -108,6 +117,8 @@ class Form_FCT_Deal(forms.ModelForm):
 		}
 
 class NFCT_Base_Rate_Form(forms.ModelForm):
+
+    """Modelform of NFCT Base Rate"""
     CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
@@ -130,7 +141,7 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
 		'nfct_baserate' : forms.NumberInput(attrs = {'class': 'form-control'})
 		}
 
-
+# Model formset for NFCT multiple forms(Add new form)
 DealModelFormset = modelformset_factory( 
     Event_Deal_Nfct,          
     # 'deal_id' we removed this from fields
