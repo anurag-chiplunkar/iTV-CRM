@@ -9,6 +9,9 @@ from django.forms import (formset_factory, modelformset_factory)
 
 
 class NFCT_Base_Rate_Form(forms.ModelForm):
+    """Docstring for saving NFCT base rates
+    
+    :model: NFCT_Base_Rate"""
     CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
@@ -32,7 +35,7 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
         'channel': forms.Select(attrs={'class':'form-select'}),
         'element' : forms.Select(attrs={'class':'form-select'})
 		}
-
+# Model Formset for saving NFCT multiple forms (Add new form)
 DealModelFormset = modelformset_factory( 
     Deal_nfct,          
     # 'deal_id' we removed this from fields

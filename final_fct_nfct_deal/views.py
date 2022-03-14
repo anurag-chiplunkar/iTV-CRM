@@ -20,6 +20,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='accounts:emp_login')
 def finalDealListView(request):
+    """Docstring for displaying all data
+    
+    :model: FinalFctNfctDeal, Fct_deal, Deal_nfct
+    
+    :return: request, templates and context"""
     qs = FinalFctNfctDeal.objects.all()
     qs1 = Fct_deal.objects.all()
     qs2 = Deal_nfct.objects.all()
@@ -29,6 +34,12 @@ def finalDealListView(request):
 
 @login_required(login_url='accounts:emp_login')
 def final_deal(request):
+    """Docstring for creating Events deal
+    
+    :model: Fct_deal, Deal_nfct, AgencyDetail, CustomerName, CustomerContact, AgencyContact, Employees, DealModelFormset, FinalFctNfctDeal
+    
+    :return: templates, context and request"""
+
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
@@ -206,22 +217,41 @@ def final_deal(request):
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
-
+@login_required(login_url='accounts:emp_login')
 def load_client_contacts(request):
+    """Docstring for displaying client contacts wrt client name
+    
+    :model name: CustomerContact
+    
+    :return: template, request and context"""
+
     client_id = request.GET.get('client')
     client_contacts = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
     return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_agency_contacts(request):
+    """Docstring for displaying agency contacts wrt agency name
+    
+    :model name: AgencyContact
+    
+    :return: request, templates and context"""
+
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
     return render(request, 'final_fct_nfct_deal/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
+@login_required(login_url='accounts:emp_login')
 def load_agency_client(request):
+    """Docstring for displaying agency contacts wrt agency name
+    
+    :model name: AgencyDetail
+    
+    :return: request, templates and context"""
+
     cli_id = request.GET.get('client')
     print('CLIENT', cli_id)
     agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
@@ -230,8 +260,14 @@ def load_agency_client(request):
 
 
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br(request):
+    """Docstring for displaying base rate for first band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band1 = request.GET.get('band1')
     disp1 = request.GET.get('dis_dd')
@@ -281,8 +317,14 @@ def final_load_br(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
     return HttpResponse(rate)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br1(request):
+    """Docstring for displaying base rate for second band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band2 = request.GET.get('band2')
     disp1 = request.GET.get('dis_dd')
@@ -337,8 +379,14 @@ def final_load_br1(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
     return HttpResponse(rate2)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br2(request):
+    """Docstring for displaying base rate for third band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band3 = request.GET.get('band3')
     disp1 = request.GET.get('dis_dd')
