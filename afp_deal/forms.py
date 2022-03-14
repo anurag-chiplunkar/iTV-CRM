@@ -44,6 +44,7 @@ class AFP_Slot(forms.ModelForm):
 		}
 
 class AFP_Base_Rate_Form(forms.ModelForm):
+	"""ModelForm for saving base rates"""
 	ref_program_name = forms.ModelChoiceField(queryset= AFPProgramName.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Program')
 	ref_channels = forms.ModelChoiceField(queryset= AFPChannels.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Channel')
 	class Meta:
@@ -69,6 +70,7 @@ class AFP_Base_Rate_Form(forms.ModelForm):
 # 				'ref_promos' :forms.TextInput(attrs = {'class': 'form-control'}),
 # 		}
 
+# Model Formset for AFP multiple forms (Add new form)
 AFPDealModelFormset = modelformset_factory(
 	AFPDeal,
 	fields = ('ref_program_name','description','ref_channels','ref_promos','ref_slot','afp_eff_rate','afp_base_rate',),
@@ -126,6 +128,7 @@ AFPDealModelFormset = modelformset_factory(
 )
 
 class FinalAFPDealDetails(forms.ModelForm):
+	"""ModelForm for AFP common form"""
 	afp_client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-control'}), empty_label='Select the Client Name')
 	afp_client_contact_ref 	= forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'form-control'}), empty_label='Client Contact')
 	afp_agency_name_ref 	= forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-control'}), empty_label='Select the Agency Name')
@@ -143,6 +146,11 @@ class FinalAFPDealDetails(forms.ModelForm):
 		}
 
 	def __init__(self, *args, **kwargs):
+			"""Function for dependent dropdown for client name, agency name, client contact and agency contact
+			
+			:afp_client_name: afp_agency_name and afp_client_contact changes according to the afp_client_name selection
+			:afp_agency_name: afp_agency_contact changes according to afp_agency_name selection"""
+			
 			super().__init__(*args, **kwargs)
 			self.fields['afp_client_contact_ref'].queryset = FinalAFPDeal.objects.none()
 			self.fields['afp_agency_contact_ref'].queryset = FinalAFPDeal.objects.none()

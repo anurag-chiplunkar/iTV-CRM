@@ -9,6 +9,7 @@ from deal_fct_nonfct.forms import *
 from deal_fct_nonfct.models import *
 
 class FinalFctNfctDealDetails(forms.ModelForm):
+	"""Docstring for saving common form and some of the fct, nfct and grandtotal are saved"""
 	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client Name')
 	client_contact_ref 	= forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Client Contact')
 	agency_name_ref 	= forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency Name')
@@ -32,6 +33,10 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 		}
 
 	def __init__(self, *args, **kwargs):
+		"""Function for dependent dropdown for client name, agency name, client contact and agency contact
+			
+		:afp_client_name: afp_agency_name and afp_client_contact changes according to the afp_client_name selection
+		:afp_agency_name: afp_agency_contact changes according to afp_agency_name selection"""
 		super().__init__(*args, **kwargs)
 		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
 		self.fields['agency_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
@@ -71,7 +76,7 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 
 			
 class form_fct_deal(forms.ModelForm):
-
+	"""Docstring for saving fct form details"""
 	class Meta:
 		model = Fct_deal
 		fields = '__all__'

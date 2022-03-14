@@ -22,7 +22,7 @@ from .models import *
 
 # Create your views here.
 
-
+@login_required(login_url='accounts:emp_login')
 class DealListView(generic.ListView):
 
     model = Deal_nfct
@@ -37,8 +37,13 @@ class DealListView(generic.ListView):
 #     template_name = 'nfctfinal_deallist1.html'
 
 
-
+@login_required(login_url='accounts:emp_login')
 def nfctfinal(request):
+    """Docstring for displaying all NFCT deals
+    
+    :model name: FinalNFCT
+    
+    :return:template, request and context """
     qs = FinalNFCT.objects.all()
     print(qs, '--------------------------')
     mycontext = {'qs': qs}
@@ -84,6 +89,12 @@ def eff_sec(request):
 
 @login_required(login_url='accounts:emp_login')
 def nfct_enter_base_rate(request):
+    """Docstring for saving NFCT base rates
+    
+    :model name: NFCT_Base_Rate
+    
+    :return: template, context and request"""
+
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
     nfct_obj = NFCT_Base_Rate()
     context = {'nfct_form': nfct_form}
@@ -113,6 +124,11 @@ def nfct_enter_base_rate(request):
 
 @login_required(login_url='accounts:emp_login')
 def nfct_load_br(request):
+    """Docstring for displaying base rate for chosen channel and element
+    
+    :model name: NFCT_Base_Rate
+    
+    :return: base rate"""
     chan_id = request.GET.get('channel')
     print(request.GET)
     print(chan_id, 'Chan id')
@@ -157,6 +173,12 @@ def nfct_load_br(request):
 
 
 def nfct_finaldeal(request):
+    """Docstring for saving common form and nfct form
+    
+    :model name: AgencyDetail, CustomerName, CustomerContact, AgencyContact, Employees, FinalNFCT
+    
+    :return: templates, request and context"""
+
     form = FinalNFCTForm(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
     user = request.user
@@ -224,24 +246,39 @@ def nfct_finaldeal(request):
 
     return render(request, "test.html", context)
 
-
+@login_required(login_url='accounts:emp_login')
 def load_client_contacts(request):
+    """Docstring for displaying client contact wrt chosen client name
+    
+    :model name: CustomerContact
+    
+    :return: templates, request and context"""
     client_id = request.GET.get('client')
     client_contacts = CustomerContact.objects.filter(
         ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
     return render(request, 'nfct/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_agency_contacts(request):
+    """Docstring for displaying agency contact wrt chosen agency name
+    
+    :model name: AgencyContact
+    
+    :return: templates, request and context"""
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
     return render(request, 'nfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_agency_client(request):
+    """Docstring for displaying agency name wrt client name
+	
+	:model name: AgencyDetail
+
+	:return: request, template and context"""
     cli_id = request.GET.get('client')
     print('CLIENT', cli_id)
     agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')

@@ -6,9 +6,16 @@ from django.contrib.auth import authenticate,login,logout
 from .forms import *
 from . models import *
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
-
+@login_required(login_url='accounts:emp_login')
 def agency_detail(request):
+	"""Docstring for saving agency details
+
+	:model name: AgencyDetail
+
+	:return: request, template and context"""
+
 	form1 = Agency_details(request.POST or None)
 	context1 = {"form1":form1}
 
@@ -63,8 +70,14 @@ def agency_detail(request):
 	return render(request,'agency_client/agency_detail_form.html',context1) 
 
 
-
+@login_required(login_url='accounts:emp_login')
 def agency_contact(request):
+	"""Docstring for saving agency contact details
+	
+	:model name: AgencyContact
+
+	:return: request, templates and context"""
+
 	form2 = Agency_contacts(request.POST or None)
 	context2 = {"form2":form2}
 	if request.method == 'POST':
@@ -156,8 +169,14 @@ def agency_contact(request):
 
 
 
-
+@login_required(login_url='accounts:emp_login')
 def ctype(request):
+	"""Docstring for saving customer type into database
+	
+	:model name: CustomerType
+
+	:return: request, context and templates"""
+
 	form3 = Cust_type(request.POST or None)
 
 	context = {"form3" : form3}
@@ -178,7 +197,13 @@ def ctype(request):
 
 	return render(request, 'agency_client/customer_type.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def cname(request):
+	"""Docstring for saving customer name, brand name etc. into the database
+	
+	:model name: CustomerName
+	
+	:return: request, templates and context"""
 	form4 = Cust_name(request.POST or None)
 	context = {"form4" : form4}
 	print(form4.is_valid())
@@ -201,6 +226,12 @@ def cname(request):
 	return render(request, 'agency_client/customer_name.html', context)
 
 def ccontact(request):
+	"""Docstring for storing customer contact details
+	
+	:model name: CustomerContact
+	
+	:return: request, template and context"""
+	
 	form5 = Cust_contact(request.POST or None)
 	# print(form3)
 
