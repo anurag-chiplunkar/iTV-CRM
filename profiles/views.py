@@ -3,11 +3,14 @@ from accounts.models import Employees
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,logout
 from django.contrib import messages
+from accounts.views import emp_registration
 
 def profile(request):
-	user = request.user
-	# print(user,"*********")
+	user = request.user.email
+	print(user,"*********")
+
 	qs1 = Employees.objects.filter(emp_email__contains=user)
+
 	print(qs1)
 
 	context = {"qs":qs1}

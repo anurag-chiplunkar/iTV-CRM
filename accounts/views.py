@@ -94,8 +94,9 @@ def emp_registration(request):
 
             obj.save()
 
+            username = emp_email[:emp_email.find('@')]
             # email before the '@' is saved as username in django backend
-            myuser = User.objects.create_user(emp_email[:emp_email.find('@')], emp_email, emp_pass1)
+            myuser = User.objects.create_user(username, emp_email, emp_pass1)
             return redirect('/emp_login')
             messages.success(request,"Account successfully created!")
 

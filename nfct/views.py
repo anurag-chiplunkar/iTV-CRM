@@ -22,7 +22,6 @@ from .models import *
 
 # Create your views here.
 
-@login_required(login_url='accounts:emp_login')
 class DealListView(generic.ListView):
 
     model = Deal_nfct
