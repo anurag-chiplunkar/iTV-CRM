@@ -19,13 +19,22 @@ from django.core import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='accounts:emp_login')
 def finalDealListView(request):
+    """Docstring for listview of Event FCT Common Form
+    
+    :return: request, template and context(qs)"""
+
     qs = Eventmodel.objects.all()
     mycontext = {'qs': qs,}
     template_name = 'final_events/event_final_deallist.html'
     return render(request, template_name, mycontext)
 
+@login_required(login_url='accounts:emp_login')
 def final_event_deal(request):
+    """Saving Event FCT deal, Event NFCT and Event  Common form
+    
+    :redirect: deallist page"""
     evt_form = FinalEventsForm(request.POST or None)
     fct_form = Form_FCT_Deal(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
@@ -197,22 +206,42 @@ def final_event_deal(request):
                     return redirect('/event_final_deallist')
     return render(request,'final_events/event.html',context)
 
+@login_required(login_url='accounts:emp_login')
 def load_client_contacts(request):
+    """Function to call the client contacts according to the selected client name"""
     client_id = request.GET.get('client')
     client_contacts = CustomerContact.objects.filter(
         ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
     return render(request, 'final_events/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_agency_contacts(request):
+    """Function to call the agency contacts according to the selected agency name"""
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
     return render(request, 'final_events/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
+@login_required(login_url='accounts:emp_login')
+def load_agency_client(request):
+    """Function to call the client name according to the selected agency name"""
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'final_events/agency_client_dropdown_options.html', {'agency': agency})
+
+
+@login_required(login_url='accounts:emp_login')
 def final_load_br(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row1
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate"""
+
     chan_id = request.GET.get('channel')
     band1 = request.GET.get('band1')
     disp1 = request.GET.get('dis_dd')
@@ -265,7 +294,14 @@ def final_load_br(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
     return HttpResponse(rate)
 
+@login_required(login_url='accounts:emp_login')
 def final_load_br1(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row2
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate2"""
+
     chan_id = request.GET.get('channel')
     band2 = request.GET.get('band2')
     disp1 = request.GET.get('dis_dd')
@@ -322,8 +358,14 @@ def final_load_br1(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
     return HttpResponse(rate2)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br2(request):
+    """Docstring for retrieving base rate from database wrt channels and bands for row3
+    
+    :object: Channel, Band, Disper and Base_rate_table
+    
+    :return: rate3"""
+
     chan_id = request.GET.get('channel')
     band3 = request.GET.get('band3')
     disp1 = request.GET.get('dis_dd')
@@ -378,8 +420,16 @@ def final_load_br2(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
     return HttpResponse(rate3)
 
-
+@login_required(login_url='accounts:emp_login')
 def nfct_enter_base_rate(request):
+    """Docstring for saving Base Rate
+    
+    :form: NFCT_Base_Rate_Form
+    
+    :object: Event_NFCT_Base_Rate
+    
+    :return: request, template and context(form)"""
+
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
     nfct_obj = Event_NFCT_Base_Rate()
     context = {'nfct_form': nfct_form}
@@ -406,8 +456,14 @@ def nfct_enter_base_rate(request):
 
     return render(request, 'final_events/nfct_base.html', context)
 
-
+@login_required(login_url='accounts:emp_login')
 def nfct_load_br(request):
+    """Docstring for retrieving base rate from database wrt channels and events for nfct
+    
+    :object: Event_NFCT_Base_Rate
+    
+    :return: nfctbaserate"""
+
     chan_id = request.GET.get('channel')
     print(request.GET)
     print(chan_id, 'Chan id')

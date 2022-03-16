@@ -33,6 +33,35 @@ CHANNEL_CHOICE = (
 )
 
 class Eventmodel(models.Model):
+    """Model to create tables of Events Common form
+    
+    :deal_id: Saving Deal id
+	:created_at: Saving date and time
+	:executive: Executive Name from accounts app
+	:reporting_manager: Reporting Manager from accounts app
+	:ro_number: Release Order Number
+	:ro_value: Realease Order Value
+	:event_client_name_ref: Client Name reference from agency_client app
+	:event_client_contact_ref: Client Contact details reference from agency_client app
+	:event_agency_name_ref: Agency Name Reference from agency_client app
+	:event_agency_contact_ref: Agency Contact details reference from agency_client app
+	:event_brand_name_ref: Brand Name reference from agency_client app
+    :category: Category Name
+    :description: Description
+    :channel: Channel
+    :merit_money: Merit Money
+    :fct_seconds: FCT Seconds form FCT model
+    :fct_total_amt: FCT Total Amount form FCT model
+    :nfct_total_amt: NFCt Total from NFCT model
+    :grandtotal_amt: Grand Total of FCT, NFCT and Merit Money
+	
+	:CharField: deal_id, executive, reporting_manager, ro_number, category, description, channel, 
+	:DateTimeField: created_at
+	:ForiegnKey: event_client_name_ref, event_client_contact_ref, event_agency_name_ref, event_agency_contact_ref, event_brand_name_ref
+	:DecimalField: merit_money, fct_total_amt, nfct_total_amt, grandtotal_amt, ro_value
+    :IntegerField: fct_seconds
+    
+    """
     deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
     executive           = models.CharField(max_length = 100, null=True, blank=True)
     reporting_manager   = models.CharField(max_length = 100, null=True, blank=True)
@@ -58,6 +87,23 @@ class Eventmodel(models.Model):
         return self.deal_id
 
 class EventFCTModel(models.Model):
+    """Model for Event FCT
+	
+	:dealid_fct: Deal id of form
+	:chan: Channel
+	:dis: Dispersion
+	:band1, band2, band3: Bands(0600-1200, 1200-1800, 1800-2400)
+	:fct1, fct2, fct3: FCT values
+	:eff_rate1, eff_rate2, eff_rate3: Effective rate values
+	:rev1, rev2, rev3: Revenue values
+	:total_rev: Total Revenue 
+	:base_rate1, base_rate2, base_rate3: Base Rate
+	:prev_yr_fct: Previous Year
+	:curr_fct: Current Year
+	
+	:CharField: dealid_fct, chan, dis, band1, band2, band3
+	:IntegerField: fct1, fct2, fct3, base_rate1, base_rate2, base_rate3, prev_yr_fct, curr_fct
+	:DecimalField: eff_rate1, eff_rate2, eff_rate3, rev1, rev2, rev3, total_rev"""
     deal_id_fct = models.CharField(max_length=255,primary_key=True,default='default')
     chan = models.CharField(max_length=1000,blank=True,null=True)
     dis = models.CharField(max_length=1000,blank=True,null=True)
@@ -118,7 +164,23 @@ class Event_NFCT_Base_Rate(models.Model):
     nfct_baserate = models.IntegerField(null=True,blank=True)
 
 class Event_Deal_Nfct(models.Model):
-    
+    """Model for Event NFCT
+	
+	:deal_id_fct: Deal id of form
+	:channel: Channel Names
+	:element: Element
+	:durations: Duration(Days, Months)
+	:duration_in: Duration in number wrt duration selected (Days or Months)
+	:er: Effective rate values
+	:freq: Frequency values
+	:total_seconds: Total Seconds 
+	:base_rate: Base Rate
+	:total: Total of single form
+
+	:CharField: dealid_fct, channel, element, durations
+	:IntegerField: total_seconds, duration_in, freq, base_rate
+	:DecimalField: er, total"""
+
     deal_id_nfct = models.CharField(max_length=255,null=True,blank=True,default='default')
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
@@ -131,5 +193,12 @@ class Event_Deal_Nfct(models.Model):
     total = models.DecimalField(null=True,blank=True,max_digits=12,decimal_places=2,default='0')
 
 class EventNFCTGrandTotal(models.Model):
+    """Model for saving NFCT Grand total
+    :dealid_nfct_ref: Deal id of form
+    :nfct_grandtotal: NFCt Grand Total
+
+    :CharField: dealid_nfct_ref
+    :DecimalField: nfct_grandtotal"""
+    
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
     nfct_grandtotal = models.DecimalField(primary_key=True,max_digits=12,decimal_places=2,default='0')

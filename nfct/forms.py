@@ -9,6 +9,9 @@ from django.forms import (formset_factory, modelformset_factory)
 
 
 class NFCT_Base_Rate_Form(forms.ModelForm):
+    """Docstring for saving NFCT base rates
+    
+    :model: NFCT_Base_Rate"""
     CHANNEL_CHOICE = [
         ('INN','INN'),
         ('NX','NX'),
@@ -32,7 +35,7 @@ class NFCT_Base_Rate_Form(forms.ModelForm):
         'channel': forms.Select(attrs={'class':'form-select'}),
         'element' : forms.Select(attrs={'class':'form-select'})
 		}
-
+# Model Formset for saving NFCT multiple forms (Add new form)
 DealModelFormset = modelformset_factory( 
     Deal_nfct,          
     # 'deal_id' we removed this from fields
@@ -177,6 +180,9 @@ class FinalNFCTForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['client_contact_ref'].queryset = FinalNFCT.objects.none()
         self.fields['agency_contact_ref'].queryset = FinalNFCT.objects.none()
+        self.fields['agency_name_ref'].queryset = FinalNFCT.objects.none()
+
+
         if 'client_name_ref' in self.data:
             print("client name exists/////")
             try:
@@ -196,6 +202,17 @@ class FinalNFCTForm(forms.ModelForm):
                 pass
         elif self.instance.pk:
             self.fields['agency_contact_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+
+        if 'client_name_ref' in self.data:
+            print("Client name exists/////")
+            try:
+                agency = self.data.get('client_name_ref')
+                self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+            except (ValueError, TypeError):
+                pass
+        elif self.instance.pk:
+            self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')
+
 
 
 

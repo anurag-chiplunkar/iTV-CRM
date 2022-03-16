@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <form method="POST" id="dependent_dropdown" url1="{% url 'final_events:load_client_contacts' %}" url2="{% url 'final_events:load_agency_contacts' %}"
-        url3 = "{% url 'final_events:final_load_br' %}" url4 = "{% url 'final_events:final_load_br1' %}" url5 = "{% url 'final_events:final_load_br2' %}" url6 = "{% url 'final_events:nfct_load_br' %}">
+        url3 = "{% url 'final_events:final_load_br' %}" url4 = "{% url 'final_events:final_load_br1' %}" url5 = "{% url 'final_events:final_load_br2' %}" url6 = "{% url 'final_events:nfct_load_br' %}" url7 = "{% url 'final_events:load_agency_client' %}">
         {% csrf_token %}
             <!-- deal heading -->
             <div class="mt-5">
@@ -283,7 +283,7 @@
 			</div>
             <div class="row g-3 align-items-start" id="row1" style="display: none;">
                 <div class="col-auto">
-                    <select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+                    <select name="band1" onChange = "showrate();" class="form-select channel" id="band1" aria-label="Default select example">
                         <option value="">---------------</option>
                         <option value="0600-1200">0600-1200</option>
                         <option value="1200-1800">1200-1800</option>
@@ -307,7 +307,7 @@
             </div>
             <div class="row g-3 align-items-start" id="row2" style="display: none;">
                 <div class="col-auto">
-                    <select name="band2" class="form-select" id="band2" aria-label="Default select example">
+                    <select name="band2" onChange = "showrate();" class="form-select" id="band2" aria-label="Default select example">
                         <option value="">---------------</option>
                         <option value="0600-1200">0600-1200</option>
                         <option value="1200-1800">1200-1800</option>
@@ -331,7 +331,7 @@
             </div>
             <div class="row g-3 align-items-start" id="row3" style="display: none;">
                 <div class="col-auto">
-                    <select name="band3" class="form-select" id="band3" aria-label="Default select example">
+                    <select name="band3" onChange = "showrate();" class="form-select" id="band3" aria-label="Default select example">
                         <option value="">---------------</option>
                         <option value="0600-1200">0600-1200</option>
                         <option value="1200-1800">1200-1800</option>
@@ -679,18 +679,87 @@
                 document.getElementById("row2").style.display = "flex";
                 document.getElementById("row3").style.display = "flex";
                 document.getElementById("row4").style.display = "flex";
-                document.getElementById('base1').value = 0
-                document.getElementById('fct2').value = 0
-                document.getElementById('er2').value = 0
-                document.getElementById('base2').value = 0
-                document.getElementById('rev2').value = 0
-                document.getElementById('fct3').value = 0
-                document.getElementById('er3').value = 0
-                document.getElementById('base3').value = 0
-                document.getElementById('rev3').value = 0
-
-                
+                document.getElementById('base1').value = 0.0
+                document.getElementById('fct1').value = 0.0
+                document.getElementById('er1').value = 0.0
+                document.getElementById('rev1').value = 0.0
+                document.getElementById('fct2').value = 0.0
+                document.getElementById('er2').value = 0.0
+                document.getElementById('base2').value = 0.0
+                document.getElementById('rev2').value = 0.0
+                document.getElementById('fct3').value = 0.0
+                document.getElementById('er3').value = 0.0
+                document.getElementById('base3').value = 0.0
+                document.getElementById('rev3').value = 0.0
+                var Band1 = document.getElementById('band1').value;
+                if (Band1 == "")
+                {
+                    document.getElementById('fct1').readOnly = true;
+                    document.getElementById('er1').readOnly = true;
+                }
+                var Band2 = document.getElementById('band2').value;
+                if (Band2 == "")
+                {
+                    document.getElementById('fct2').readOnly = true;
+                    document.getElementById('er2').readOnly = true;
+                }
+                var Band3 = document.getElementById('band3').value;
+                if (Band3 == "")
+                {
+                    document.getElementById('fct3').readOnly = true;
+                    document.getElementById('er3').readOnly = true;
+                }
+ 
             }
+        }
+
+        function showrate(){
+            var row1band1 = document.getElementById('band1').value;
+            if (row1band1 != ""){
+                console.log("inside showrate function1~~~~~");
+                var row1fct1 = document.getElementById('fct1').readOnly = false;
+                var row1er1 = document.getElementById('er1').readOnly = false;
+            }
+            else{
+            document.getElementById('fct1').readOnly = true;
+			document.getElementById('er1').readOnly = true;
+            document.getElementById('fct1').value = 0.0
+			document.getElementById('er1').value = 0.0
+            document.getElementById('rev1').value = 0.0
+            document.getElementById('base1').value = 0.0
+
+        }
+            var row2band1 = document.getElementById('band2').value;
+            if (row2band1 != ""){
+                console.log("inside showrate function2~~~~~");
+                var row1fct1 = document.getElementById('fct2').readOnly = false;
+                var row1er1 = document.getElementById('er2').readOnly = false;
+            }
+            else{
+            document.getElementById('fct2').readOnly = true;
+			document.getElementById('er2').readOnly = true;
+            document.getElementById('fct2').value = 0.0
+			document.getElementById('er2').value = 0.0
+            document.getElementById('rev2').value = 0.0
+            document.getElementById('base2').value = 0.0
+
+        }
+            var row3band1 = document.getElementById('band3').value;
+            if (row3band1 != ""){
+                console.log("inside showrate function3~~~~~");
+                var row1fct1 = document.getElementById('fct3').readOnly = false;
+                var row1er1 = document.getElementById('er3').readOnly = false;
+            }
+            else{
+            document.getElementById('fct3').readOnly = true;
+			document.getElementById('er3').readOnly = true;
+            document.getElementById('fct3').value = 0.0
+			document.getElementById('er3').value = 0.0
+            document.getElementById('rev3').value = 0.0
+            document.getElementById('base3').value = 0.0
+
+        }
+            
         }
         
         // revenue 1
@@ -1218,7 +1287,7 @@
     <!-- script for dependent dropdown for client contact---------------------------------------------- -->
 
   <script>
-    $("#id_client_name_ref").change(function () {
+    $("#id_event_client_name_ref").change(function () {
         var url = $("#dependent_dropdown").attr("url1");  // get the url of the 'load_client_contacts' view
         var clientId = $(this).val();  // get the selected client contact ID from the HTML input
         console.log("client id:",clientId);
@@ -1230,14 +1299,14 @@
             },
             success: function (data) {
                 console.log(data);   // `data` is the return of the `load_client_contacts` view function
-                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+                $("#id_event_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
            
             }
         });
 
     });
 
-    $("#id_agency_name_ref").change(function () {
+    $("#id_event_agency_name_ref").change(function () {
         var url = $("#dependent_dropdown").attr("url2");  // get the url of the 'load_client_contacts' view
         var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
         console.log("agency id:",agencyId);
@@ -1249,12 +1318,33 @@
             },
             success: function (data) {
                 console.log(data);   // `data` is the return of the `load_client_contacts` view function
-                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+                $("#id_event_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
            
             }
         });
 
     });
+
+    // client and agency dependent dropdown
+	$("#id_event_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url7");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_event_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
   </script>
 
 </body>

@@ -9,6 +9,7 @@ from deal_fct_nonfct.forms import *
 from deal_fct_nonfct.models import *
 
 class FinalFctNfctDealDetails(forms.ModelForm):
+	"""Docstring for saving common form and some of the fct, nfct and grandtotal are saved"""
 	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client Name')
 	client_contact_ref 	= forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Client Contact')
 	agency_name_ref 	= forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency Name')
@@ -32,8 +33,14 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 		}
 
 	def __init__(self, *args, **kwargs):
+		"""Function for dependent dropdown for client name, agency name, client contact and agency contact
+			
+		:afp_client_name: afp_agency_name and afp_client_contact changes according to the afp_client_name selection
+		:afp_agency_name: afp_agency_contact changes according to afp_agency_name selection"""
 		super().__init__(*args, **kwargs)
 		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
+		self.fields['agency_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
+		self.fields['agency_name_ref'].queryset = FinalFctNfctDeal.objects.none()
 		# print("self.data",self.data,"------------------")
 		
 		if 'client_name_ref' in self.data:
@@ -45,9 +52,31 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 				pass  # invalid input from the client; ignore and fallback to empty City queryset
 		elif self.instance.pk:
 			self.fields['client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
+
+
+		if 'agency_name_ref' in self.data:
+			print("agency name exists/////")
+			try:
+				agency_id = self.data.get('agency_name_ref')
+				self.fields['agency_contact_ref'].queryset = AgencyContact.objects.filter(agency_details=agency_id).order_by('pri_firstName')
+			except (ValueError, TypeError):
+				pass
+		elif self.instance.pk:
+			self.fields['agency_contact_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+
+		if 'client_name_ref' in self.data:
+			print("Client name exists/////")
+			try:
+				agency = self.data.get('client_name_ref')
+				self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+			except (ValueError, TypeError):
+				pass
+		elif self.instance.pk:
+			self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')
+
 			
 class form_fct_deal(forms.ModelForm):
-
+	"""Docstring for saving fct form details"""
 	class Meta:
 		model = Fct_deal
 		fields = '__all__'

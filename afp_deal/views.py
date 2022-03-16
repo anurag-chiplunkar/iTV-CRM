@@ -6,8 +6,16 @@ from accounts.models import *
 import random
 import json
 from django.core import serializers
+from django.contrib.auth.decorators import login_required
 
+@login_required(login_url='accounts:emp_login')
 def afp_program_name(request):
+	"""Docstring for saving AFP programme names in database
+
+	:object: AFPProgramName
+
+	:return: request, context(form) and template"""
+
 	program_name_form = AFP_Program(request.POST or None)
 	context = {"program_name_form" : program_name_form}
 	print(program_name_form.is_valid())
@@ -23,7 +31,14 @@ def afp_program_name(request):
 			print("Invalid program_name_form")
 	return render(request, 'afp_deal/afp_program_names.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def afp_channel_name(request):
+	"""Docstring for saving AFP channel names in database
+	
+	:object: AFPChannels
+
+	:return: request, context(form) and template"""
+
 	channel_name_form = AFP_Channel(request.POST or None)
 	context = {"channel_name_form" : channel_name_form}
 	print(channel_name_form.is_valid())
@@ -39,7 +54,14 @@ def afp_channel_name(request):
 			print("Invalid channel_name_form")
 	return render(request, 'afp_deal/afp_channel_names.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def afp_promo_name(request):
+	"""Docstring for saving AFP promo names in database
+	
+	:object: AFPPromos
+
+	:return: request, context(form) and template"""
+
 	promo_name_form = AFP_Promo(request.POST or None)
 	context = {"promo_name_form" : promo_name_form}
 	print(promo_name_form.is_valid())
@@ -55,7 +77,14 @@ def afp_promo_name(request):
 			print("Invalid promo_name_form")
 	return render(request, 'afp_deal/afp_promo_names.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def afp_slot_name(request):
+	"""Docstring for saving AFP slot names in database
+	
+	:object: AFPSlots
+
+	:return: request, context(form) and template"""
+
 	slot_name_form = AFP_Slot(request.POST or None)
 	context = {"slot_name_form" : slot_name_form}
 	print(slot_name_form.is_valid())
@@ -71,7 +100,14 @@ def afp_slot_name(request):
 			print("Invalid slot_name_form")
 	return render(request, 'afp_deal/afp_slot_names.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def afp_br(request):
+	"""Docstring for saving AFP base rates in database
+	
+	:object: AFPBaseRate
+
+	:return: request, context(form) and template"""
+
 	br_form = AFP_Base_Rate_Form(request.POST or None)
 	context = {"br_form" : br_form}
 	print(br_form.is_valid())
@@ -115,7 +151,15 @@ def afp_br(request):
 # 			print("Invalid br_form")
 # 	return render(request, 'afp_deal/afp_deal.html', context)
 
+@login_required(login_url='accounts:emp_login')
 def AFPDealListView(request):
+	"""Docstring for AFP deals list view
+
+	:model name: FinalAFPDeal, AFPDealFinalTotal
+
+	:return: request, template and context(all deal records of AFP and AFP total)
+	"""
+
 	afp_deals 	= FinalAFPDeal.objects.all()
 	afp_totals = AFPDealFinalTotal.objects.all()
 	print(afp_totals)
@@ -123,22 +167,56 @@ def AFPDealListView(request):
 	template_name = 'afp_deal/afp_final_deallist.html'
 	return render(request, template_name, mycontext)
 
+@login_required(login_url='accounts:emp_login')
 def load_afp_client_contacts(request):
+	"""Docstring for displaying client contact with respect to client name
+	
+	:model name: CustomerContact
+
+	:return: request, template and context"""
+
 	client_id = request.GET.get('client')
 	print(client_id)
 	client_contacts = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
 	print(client_contacts)
 	return render(request, 'afp_deal/afp_client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_afp_agency_contacts(request):
-    agency_id = request.GET.get('agency')
-    agency_contacts = AgencyContact.objects.filter(
-        agency_details=agency_id).order_by('pri_firstName')
-    print(agency_contacts)
-    return render(request, 'afp_deal/afp_agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+	"""Docstring for displaying agency contact with respect to agency name
+	
+	:model: AgencyContact
 
+	:return: request, template and context"""
+
+	agency_id = request.GET.get('agency')
+	agency_contacts = AgencyContact.objects.filter(
+        agency_details=agency_id).order_by('pri_firstName')
+	print(agency_contacts)
+	return render(request, 'afp_deal/afp_agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+
+@login_required(login_url='accounts:emp_login')
+def load_afp_agency_client(request):
+	"""Docstring for displaying agency name wrt client name
+	
+	:model name: AgencyDetail
+
+	:return: request, template and context"""
+
+	cli_id = request.GET.get('client')
+	print('CLIENT', cli_id)
+	agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+	print(agency)
+	return render(request, 'afp_deal/afp_agency_client_dropdown_options.html', {'agency': agency})
+
+@login_required(login_url='accounts:emp_login')
 def create_afp_deal(request):
+	"""Docstring for creating a AFP deal
+	
+	:model name: Employees, AgencyDetail, CustomerName, CustomerContact, AgencyContact, AFPDealFinalTotal, FinalAFPDeal
+
+	:return: request, template and context"""
+
 	##for taking the current logged in user
 	user = request.user
 	emp_qs = Employees.objects.filter(emp_email__contains=user)
@@ -202,7 +280,14 @@ def create_afp_deal(request):
 			return redirect('/afp_final_deallist')
 		return render(request, template_name, {'formset': formset,'common_form':common_form,'emp_qs':emp_qs, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson,'tmpagen': tmpagen})
 
+@login_required(login_url='accounts:emp_login')
 def afp_deal_load_br(request):
+	"""Docstring for displaying AFP base rate based on channel and programme name
+	
+	:model name: AFPChannels, AFPProgramName
+	
+	:return: base rate"""
+	
 	print(request.GET)
 	afp_program_id 	= request.GET.get('program_name')
 	print(afp_program_id)

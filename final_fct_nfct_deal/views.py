@@ -20,6 +20,11 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='accounts:emp_login')
 def finalDealListView(request):
+    """Docstring for displaying all data
+    
+    :model: FinalFctNfctDeal, Fct_deal, Deal_nfct
+    
+    :return: request, templates and context"""
     qs = FinalFctNfctDeal.objects.all()
     qs1 = Fct_deal.objects.all()
     qs2 = Deal_nfct.objects.all()
@@ -29,6 +34,12 @@ def finalDealListView(request):
 
 @login_required(login_url='accounts:emp_login')
 def final_deal(request):
+    """Docstring for creating Events deal
+    
+    :model: Fct_deal, Deal_nfct, AgencyDetail, CustomerName, CustomerContact, AgencyContact, Employees, DealModelFormset, FinalFctNfctDeal
+    
+    :return: templates, context and request"""
+
     form = FinalFctNfctDealDetails(request.POST or None)
     form1 = form_fct_deal(request.POST or None)
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
@@ -95,10 +106,10 @@ def final_deal(request):
 
                     fct_obj.rev1 = request.POST.get('rev1')
                     fct_obj.rev2 = request.POST.get('rev2')
-                    # rate1 = request.session['rate']
-                    # fct_obj.base_rate1 = rate1
-                    # rate2 = request.session['rate2']
-                    # fct_obj.base_rate2 = rate2
+                    rate1 = request.session['rate']
+                    fct_obj.base_rate1 = rate1
+                    rate2 = request.session['rate2']
+                    fct_obj.base_rate2 = rate2
                     total_revenue = form1.cleaned_data.get('total_rev')
                     if total_revenue is None:
                         total_revenue = 0
@@ -133,14 +144,18 @@ def final_deal(request):
                     else:
                         fct_obj.total_rev = float(total_revenue)
                     request.session['fcttotal'] = fct_obj.total_rev
-                    # grandtotal.append(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-                    # rate1 = request.session['rate']
-                    # fct_obj.base_rate1 = rate1
-                    # rate2 = request.session['rate2']
-                    # fct_obj.base_rate2 = rate2
-                    # rate3 = request.session['rate3']
-                    # fct_obj.base_rate3 = rate3
+                    print("Session values before",request.session.items())
+                    rate1 = request.session.get('rate',0)
+                    print(rate1,"RATE1 Printed!!!!") 
+                    fct_obj.base_rate1 = rate1
+                    rate2 = request.session.get('rate2',0)
+                    print(rate2,"RATE2 Printed!!!!") 
+                    fct_obj.base_rate2 = rate2
+                    rate3 = request.session.get('rate3',0)
+                    print(type(rate3),"RATE3 Printed!!!!")
+                    fct_obj.base_rate3 = rate3
+                    print("Session values after",request.session.items())
 
                     fct_obj.save()
                     messages.success(request, 'Form is saved!')
@@ -180,6 +195,21 @@ def final_deal(request):
                     # form1.save(commit=True)
                     # form.save(commit=True)
                     formset.save()
+                    print("Form is saved and rates are removed from session dictionary~~~Happpy~~~",request.session.items())
+                    if request.session.get('rate',None):
+                        del request.session['rate']
+                    else:
+                        print("None")
+                    if request.session.get('rate2',None):
+                        del request.session['rate2']
+                    else:
+                        print("None")
+                    if request.session.get('rate3',None):
+                        del request.session['rate3']
+                    else:
+                        print("None")
+                    print("Form is saved and rates are removed from session dictionary (down)~~~Happpy~~~",request.session.items())
+                   
                     print("reached at the end---------------------")
 
                     return redirect('/final_deallist')
@@ -187,24 +217,57 @@ def final_deal(request):
 
     return render(request, "final_fct_nfct_deal/final_fct_nfct_deal.html", context)
 
-
+@login_required(login_url='accounts:emp_login')
 def load_client_contacts(request):
+    """Docstring for displaying client contacts wrt client name
+    
+    :model name: CustomerContact
+    
+    :return: template, request and context"""
+
     client_id = request.GET.get('client')
-    client_contacts = CustomerContact.objects.filter(
-        ref_creg_no=client_id).order_by('pri_fname')
+    client_contacts = CustomerContact.objects.filter(ref_creg_no=client_id).order_by('pri_fname')
     print(client_contacts)
     return render(request, 'final_fct_nfct_deal/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
 
-
+@login_required(login_url='accounts:emp_login')
 def load_agency_contacts(request):
+    """Docstring for displaying agency contacts wrt agency name
+    
+    :model name: AgencyContact
+    
+    :return: request, templates and context"""
+
     agency_id = request.GET.get('agency')
     agency_contacts = AgencyContact.objects.filter(
         agency_details=agency_id).order_by('pri_firstName')
     print(agency_contacts)
     return render(request, 'final_fct_nfct_deal/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
+@login_required(login_url='accounts:emp_login')
+def load_agency_client(request):
+    """Docstring for displaying agency contacts wrt agency name
+    
+    :model name: AgencyDetail
+    
+    :return: request, templates and context"""
 
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'final_fct_nfct_deal/agency_client_dropdown_options.html', {'agency': agency})
+
+
+
+@login_required(login_url='accounts:emp_login')
 def final_load_br(request):
+    """Docstring for displaying base rate for first band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band1 = request.GET.get('band1')
     disp1 = request.GET.get('dis_dd')
@@ -254,8 +317,14 @@ def final_load_br(request):
     # return render(request,'deal_fct_nonfct/fct.html',{'rate': rate})
     return HttpResponse(rate)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br1(request):
+    """Docstring for displaying base rate for second band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band2 = request.GET.get('band2')
     disp1 = request.GET.get('dis_dd')
@@ -304,11 +373,20 @@ def final_load_br1(request):
             rate2 = k.br
             print(rate2)
             request.session['rate2'] = rate2
+    else:
+        request.session['rate2'] = 0
+        print("rate2 PRINTED~~~",request.session['rate2'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
     return HttpResponse(rate2)
 
-
+@login_required(login_url='accounts:emp_login')
 def final_load_br2(request):
+    """Docstring for displaying base rate for third band
+    
+    :model name: Channel, Band, Disper
+    
+    :return: base rate"""
+
     chan_id = request.GET.get('channel')
     band3 = request.GET.get('band3')
     disp1 = request.GET.get('dis_dd')
@@ -356,5 +434,9 @@ def final_load_br2(request):
             rate3 = k.br
             print(rate3)
             request.session['rate3'] = rate3
+
+    else:
+        request.session['rate3'] = 0
+        print("rate3 PRINTED~~~",request.session['rate3'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
     return HttpResponse(rate3)

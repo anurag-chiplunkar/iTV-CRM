@@ -9,6 +9,19 @@ import re
 
 
 def emp_registration(request):
+    """Function to save employee details in Employee Model
+    
+    :form: Employee_registration
+    
+    :Validation: Form validation
+    :Validation: Password and Confirm Password will be same
+    :Validation: Phone Number Length should be less than or equal to 10
+    :Validation: Password Validation using regx
+    
+    :object: Model: Employee
+    
+    :return: request, template and context(form) """
+
     form = Employee_registration(request.POST or None)
     context = {"form": form}
     print(request.POST)
@@ -81,8 +94,9 @@ def emp_registration(request):
 
             obj.save()
 
+            username = emp_email[:emp_email.find('@')]
             # email before the '@' is saved as username in django backend
-            myuser = User.objects.create_user(emp_email[:emp_email.find('@')], emp_email, emp_pass1)
+            myuser = User.objects.create_user(username, emp_email, emp_pass1)
             return redirect('/emp_login')
             messages.success(request,"Account successfully created!")
 
@@ -93,6 +107,16 @@ def emp_registration(request):
 
 
 def emp_login(request):
+    """Function to validate and login
+
+    :form: Employee_registration
+    
+    :Validation: Form validation
+    
+    :object: Model: Employee
+    
+    :return: request, template and context(form) """
+    
     form = Employee_login(request.POST or None)
     context = {"form": form}
 

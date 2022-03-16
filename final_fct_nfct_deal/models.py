@@ -7,6 +7,28 @@ from deal_fct_nonfct.models import *
 
 
 class FinalFctNfctDeal(models.Model):
+    """Saves common form of FCT and Nfct
+    :deal_id: saves deal id
+    :created_at: saves date and time of deal creation
+    :executive: saves executive's name
+    :reporting_manager: saves reporting manager of current executive
+    :RO_number: saves RO number
+    :RO_value: saves RO value
+    :client_name_ref: saves client name from CustomerName model from agency_client app
+    :client_contact_ref: saves client contact wrt client name from CustomerContact model from agency_client app
+    :agency_name_ref: saves agency name from AgencyDetail model
+	:agency_contact_ref: saves agency contact from AgencyContact model
+	:brand_name_ref: saves brand name from CustomerName model
+	:fct_total: saves FCT total revenue
+    :nfct_total: saves Nfct total revenue
+    :grandtotal: saves grandtotal of FCT and Nfct
+    
+    :CharField: deal_id, executive, reporting_manager, RO_number
+    :DecimalField: RO_value, fct_total, nfct_total, grandtotal
+    :DateTimeField: created_at
+    :ForeignKey: client_name_ref, client_contact_ref, agency_name_ref, agency_contact_ref, brand_name_ref
+    :Primary Key: deal_id
+    :Unique Key: deal_id"""
     deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
     created_at  = models.DateTimeField(auto_now_add = True)
     executive           = models.CharField(max_length= 255)

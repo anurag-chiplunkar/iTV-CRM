@@ -33,13 +33,42 @@ durations_choices = (
 
 class NFCT_Base_Rate(models.Model):
     """docstring for NFCT_Base_Rate
-	Adding of Base Rates"""
+	Adding of Base Rates
+    :nfct_unique_key: saves unique key for each base rate
+    :channel: saves channels
+    :element: saves element
+    :nfct_baserate: saves NFCT base rates
+
+    :CharField: nfct_unique_key, channel, element
+    :IntegerField: nfct_baserate"""
+
     nfct_unique_key = models.CharField(max_length=100,null=True,blank=True)
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
     nfct_baserate = models.IntegerField(null=True,blank=True)
 
 class Deal_nfct(models.Model):
+    """Saves NFCT deal
+    
+    :main_dealid_nfct_ref: saves deal id of NFCT
+    :channel: saves channels
+    :element: saves element
+    :durations: saves durations
+    :duration_in: saves duration_in
+    :er: saves effective rate
+    :freq: saves frequency
+    :total_seconds: saves calculted total seconds
+    :base_rate: saves base rate for chosen channel and element
+    :fct_total: saves FCT total
+    :nfct_total: saves NFCT total
+    :total: saves calculated total of FCT and NFCT
+    :created_at: saves date and time of deal creation
+
+    :CharField: main_dealid_nfct_ref, channel, element, durations
+    :DecimalField: er, fct_total, nfct_total, total
+    :IntegerField: duration_in, freq, base_rate
+    :DateTimeField: created_at
+    """
     main_dealid_nfct_ref = models.CharField(max_length=100, default='default', null=True, blank=True)
     channel = models.CharField(max_length=255,choices=CHANNEL_CHOICE)
     element = models.CharField(max_length=255,choices=ELEMENT_CHOICE)
@@ -56,6 +85,15 @@ class Deal_nfct(models.Model):
     
 
 class NFCTGrandTotal(models.Model):
+    """Saves NFCT grand total
+    
+    :dealid_nfct_ref: saves deal id of NFCT
+    :nfct_grandtotal: saves calculated NFCT grand total
+    
+    :CharField: dealid_nfct_ref
+    :DecimalField: nfct_grandtotal
+    :Primary Key: nfct_grandtotal
+    """
     dealid_nfct_ref = models.CharField(max_length=100, default='default')
     nfct_grandtotal = models.DecimalField(primary_key=True, max_digits=12, decimal_places=2)
 
@@ -63,6 +101,26 @@ class NFCTGrandTotal(models.Model):
 # single NFCT
 
 class FinalNFCT(models.Model):
+    """Saves common form and some other fields
+	:deal_id: saves deal id of fct common form
+	:created_at: saves date and time of FCT form creation
+	:executive: saves executive name
+	:reporting_manager: saves reporting manager of current executive
+	:RO_number: saves RO number
+	:RO_value: saves RO value or RO amount
+	:client_name_ref: saves client name in database from CustomerName model
+	:client_contact_ref: saves client contact from CustomerContact model
+	:agency_name_ref: saves agency name from AgencyDetail model
+	:agency_contact_ref: saves agency contact from AgencyContact model
+	:brand_name_ref: saves brand name from CustomerName model
+	:grandtotal: saves grand total revenue
+
+	:CharField: deal_id, executive, reporting_manager, RO_number
+	:DecimalField: RO_value, grandtotal
+	:DateTimeField: created_at
+	:Primary Key: deal_id
+	:Unique Key: deal_id
+	"""
     deal_id             = models.CharField(max_length = 100, primary_key = True, unique = True)
     created_at          = models.DateTimeField(auto_now_add = True)
     executive           = models.CharField(max_length= 255)
