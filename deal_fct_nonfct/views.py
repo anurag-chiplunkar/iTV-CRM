@@ -20,16 +20,15 @@ from django.contrib.auth.models import User
 
 def home(request):
     """Docstring for returning homepage
-    
+
     :return: request and template"""
 
     return render(request, 'home.html')
 
 
-
 def FCTFinal(request):
     """Docstring for listview of Only FCT Common Form
-    
+
     :return: request, template and context(qs)"""
 
     qs = FinalFCT.objects.all()
@@ -49,7 +48,7 @@ def FCTFinal(request):
 #     qs1 = Employees.objects.filter(emp_email__contains=user)
 #     tmpJson = serializers.serialize("json",cli_det)
 #     tmpagen = serializers.serialize("json",agg)
-    
+
 #     context = {'form': form,'ag_det':ag_det,'cli_name':cli_name,'cli_det':cli_det,'agg':agg,'tmpJson':tmpJson,'qs':qs1,'tmpagen':tmpagen }
 #     if request.method == "POST":
 #         if request.POST.get('dis_dd') == '50%-50%':
@@ -103,7 +102,7 @@ def FCTFinal(request):
 
 #             fct_obj.save()
 #             messages.success(request, 'Form is saved!')
-    
+
 #     else:
 #         print("outside view")
 
@@ -113,11 +112,11 @@ def FCTFinal(request):
 @login_required(login_url='accounts:emp_login')
 def br_details(request):
     """Docstring for saving base rates wrt channel, dispersion, bands
-    
+
     :form: Base_form
-    
+
     :object: Base
-    
+
     :return: request, template and context(form)"""
 
     form = Base_form(request.POST or None)
@@ -143,48 +142,35 @@ def br_details(request):
 
 @login_required(login_url='accounts:emp_login')
 def enter_channels(request):
-<<<<<<< HEAD
-    form = channel_form(request.POST or None)
-    ch_obj = Channel()
-    context = {'form': form, }
-=======
     """Docstring for saving Channels
-    
+
     :form: Channel_form
-    
+
     :object: Channel
-    
+
     :return: request, template and context(form)"""
-    
+
     form = Channel_form(request.POST or None)
     ch_obj = Channel()
-    context = {'form': form,}
->>>>>>> c450210f8bc3ad7d9192e018df3484aa90d47542
+    context = {'form': form, }
     if request.method == 'POST':
         if form.is_valid():
             ch_obj.c_list = form.cleaned_data.get('c_list')
             ch_obj.save()
-<<<<<<< HEAD
             messages.success(request, 'Channel is saved!')
         else:
             print("outside view")
     return render(request, 'deal_fct_nonfct/channel.html', context)
 
-=======
-            messages.success(request,'Channel is saved!')
-        else:
-            print("outside view")
-    return render(request,'deal_fct_nonfct/channel.html',context)
->>>>>>> c450210f8bc3ad7d9192e018df3484aa90d47542
 
 @login_required(login_url='accounts:emp_login')
 def enter_disper(request):
     """Docstring for saving Dispersion
-    
+
     :form: Disper_form
-    
+
     :object: Disper
-    
+
     :return: request, template and context(form)"""
 
     form = Disper_form(request.POST or None)
@@ -204,11 +190,11 @@ def enter_disper(request):
 @login_required(login_url='accounts:emp_login')
 def enter_band(request):
     """Docstring for saving Band
-    
+
     :form: Band_form
-    
+
     :object: Band
-    
+
     :return: request, template and context(form)"""
     form = Band_form(request.POST or None)
     band_obj = Band()
@@ -227,11 +213,11 @@ def enter_band(request):
 @login_required(login_url='accounts:emp_login')
 def enter_base_rate(request):
     """Docstring for saving Base Rate
-    
+
     :form: Base_rate_table_form
-    
+
     :object: Base_rate_table
-    
+
     :return: request, template and context(form)"""
     form = Base_rate_table_form(request.POST or None)
     b_obj = Base_rate_table()
@@ -265,9 +251,9 @@ def enter_base_rate(request):
 @login_required(login_url='accounts:emp_login')
 def load_br(request):
     """Docstring for retrieving base rate from database wrt channels and bands for row1
-    
+
     :object: Channel, Band, Disper and Base_rate_table
-    
+
     :return: rate"""
 
     chan_id = request.GET.get('channel')
@@ -323,9 +309,9 @@ def load_br(request):
 @login_required(login_url='accounts:emp_login')
 def load_br1(request):
     """Docstring for retrieving base rate from database wrt channels and bands for row2
-    
+
     :object: Channel, Band, Disper and Base_rate_table
-    
+
     :return: rate2"""
 
     chan_id = request.GET.get('channel')
@@ -352,7 +338,7 @@ def load_br1(request):
             rate2 = k1.br
             print(rate2)
             request.session['rate2'] = rate2
-            print("rate2 PRINTED~~~",request.session['rate2'])
+            print("rate2 PRINTED~~~", request.session['rate2'])
         r = {'rate2': rate2}
         print("******************", r)
     elif disp1 == "33%-33%-33%":
@@ -380,7 +366,7 @@ def load_br1(request):
 
     else:
         request.session['rate2'] = 0
-        print("rate2 PRINTED~~~",request.session['rate2'])
+        print("rate2 PRINTED~~~", request.session['rate2'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate2': rate2})
     return HttpResponse(rate2)
 
@@ -388,9 +374,9 @@ def load_br1(request):
 @login_required(login_url='accounts:emp_login')
 def load_br2(request):
     """Docstring for retrieving base rate from database wrt channels and bands for row3
-    
+
     :object: Channel, Band, Disper and Base_rate_table
-    
+
     :return: rate3"""
 
     chan_id = request.GET.get('channel')
@@ -443,9 +429,10 @@ def load_br2(request):
 
     else:
         request.session['rate3'] = 0
-        print("rate3 PRINTED~~~",request.session['rate3'])
+        print("rate3 PRINTED~~~", request.session['rate3'])
     # return render(request,'deal_fct_nonfct/fct.html',{'rate3': rate3})
     return HttpResponse(rate3)
+
 
 def load_client_contacts(request):
     """Function to call the client contacts according to the selected client name"""
@@ -465,19 +452,20 @@ def load_agency_contacts(request):
     print(agency_contacts)
     return render(request, 'deal_fct_nonfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
 
+
 def load_agency_client(request):
     """Function to call the client name according to the selected agency name"""
     cli_id = request.GET.get('client')
     print('CLIENT', cli_id)
-    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    agency = AgencyDetail.objects.filter(
+        ccreg_no=cli_id).order_by('agency_name')
     print(agency)
     return render(request, 'deal_fct_nonfct/agency_client_dropdown_options.html', {'agency': agency})
 
 
-
 def fctdeal(request):
     """Saving only FCT deal and only FCT Common form
-    
+
     :redirect: deallist page"""
 
     form = FinalFCTForm(request.POST or None)
@@ -493,9 +481,9 @@ def fctdeal(request):
     tmpJson = serializers.serialize("json", cli_det)
     tmpagen = serializers.serialize("json", agg)
     final_obj = FinalFCT()
-    context = {'form': form, 'form1': form1, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson, 'qs': qs, 'tmpagen': tmpagen, 
-                'fct_form': fct_form}
-    
+    context = {'form': form, 'form1': form1, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg, 'tmpJson': tmpJson, 'qs': qs, 'tmpagen': tmpagen,
+               'fct_form': fct_form}
+
     if request.method == 'POST':
         print('REQUEST POST', request.POST)
         fct_obj.dealid_fct = request.POST.get('deal_id')
@@ -522,19 +510,19 @@ def fctdeal(request):
             final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
             final_obj.fct_total_rev = request.POST.get('total_rev')
             print('FCT TOTAL REVENUE', final_obj.fct_total_rev)
-            
+
             form.save(commit=False)
             print("save commit false!!!")
-            
+
             print(form1.is_valid)
             if form1.is_valid():
-                
+
                 print('indise form1')
                 print(request.POST, "////////////")
-                print('FORM CLEANED DATA',form.cleaned_data)
+                print('FORM CLEANED DATA', form.cleaned_data)
                 if request.POST.get('dis_dd') == '50%-50%':
                     fct_obj.dealid_fct = fct_obj.dealid_fct
-                    print('fct_obj.dealid_fct',fct_obj.dealid_fct)
+                    print('fct_obj.dealid_fct', fct_obj.dealid_fct)
                     fct_obj.chan = request.POST.get('channel')
                     fct_obj.dis = request.POST.get('dis_dd')
                     fct_obj.band1 = request.POST.get('band1')
@@ -554,7 +542,7 @@ def fctdeal(request):
                     total_revenue = form1.cleaned_data.get('total_rev')
                     fct_obj.total_rev = float(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-                    
+
                     fct_obj.save()
                     print("reached after form-1-1 saved commit false")
                     messages.success(request, 'Form is saved!')
@@ -578,46 +566,45 @@ def fctdeal(request):
                     total_revenue = form1.cleaned_data.get('total_rev')
                     fct_obj.total_rev = float(total_revenue)
                     print("total rev here!!!!", fct_obj.total_rev)
-                    print("Session values before",request.session.items())
-                    rate1 = request.session.get('rate',0)
-                    print(rate1,"RATE1 Printed!!!!") 
+                    print("Session values before", request.session.items())
+                    rate1 = request.session.get('rate', 0)
+                    print(rate1, "RATE1 Printed!!!!")
                     fct_obj.base_rate1 = rate1
-                    rate2 = request.session.get('rate2',0)
-                    print(rate2,"RATE2 Printed!!!!") 
+                    rate2 = request.session.get('rate2', 0)
+                    print(rate2, "RATE2 Printed!!!!")
                     fct_obj.base_rate2 = rate2
-                    rate3 = request.session.get('rate3',0)
-                    print(type(rate3),"RATE3 Printed!!!!")
+                    rate3 = request.session.get('rate3', 0)
+                    print(type(rate3), "RATE3 Printed!!!!")
                     fct_obj.base_rate3 = rate3
-                    print("Session values after",request.session.items())
-
+                    print("Session values after", request.session.items())
 
                     fct_obj.save()
                     print("FORM SAVED")
                     messages.success(request, 'Form is saved!')
 
-
                 print("reached after form-1 saved commit false")
                 final_obj.save()
                 # form1.save(commit=True)
                 # form.save(commit=True)
-                print("Form is saved and rates are removed from session dictionary~~~Happpy~~~",request.session.items())
-                if request.session.get('rate',None):
+                print("Form is saved and rates are removed from session dictionary~~~Happpy~~~",
+                      request.session.items())
+                if request.session.get('rate', None):
                     del request.session['rate']
                 else:
                     print("None")
-                if request.session.get('rate2',None):
+                if request.session.get('rate2', None):
                     del request.session['rate2']
                 else:
                     print("None")
-                if request.session.get('rate3',None):
+                if request.session.get('rate3', None):
                     del request.session['rate3']
                 else:
                     print("None")
-                print("Form is saved and rates are removed from session dictionary (down)~~~Happpy~~~",request.session.items())
-                   
+                print("Form is saved and rates are removed from session dictionary (down)~~~Happpy~~~",
+                      request.session.items())
+
                 print("reached at the end---------------------")
 
                 return redirect('deal_fct_nonfct:fctfinal_deallist')
-               
 
     return render(request, "deal_fct_nonfct/fct.html", context)
