@@ -5,15 +5,13 @@
 {% endif %}
 <body>
     <h1><u><center>NFCT Deal Details</center></u></h1>
-<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}">
+<form class="form-horizontal" method="POST" id = "nfct_form" action="" url = "{% url 'nfct:nfct_load_br' %}" url1="{% url 'nfct:load_client_contacts' %}" url2="{% url 'nfct:load_agency_contacts' %}" url3 = "{% url 'nfct:load_agency_client' %}">
     {% csrf_token %}
-    {{ formset.management_form }}
-    {% for form in formset %}
-
-<!-- deal id -->
+    <!-- deal id -->
+    <div class="container-fluid">
 <div class="row form-row spacer">
    
-    <div class="col-4">
+    <div class="col-2">
         <div>
             <label>Deal Id</label>
         </div>
@@ -23,6 +21,195 @@
         </div>
     </div>
 </div>
+    <br>
+    
+    <div class="row mb-3">
+        <!-- salesperson input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="salesperson" class="col-form-label">Executive</label>
+                </div>
+                <div class="col-auto">
+                    {% for j in qs1 %}
+                    
+                        <input type="text" name="executive" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+                    {% endfor %}
+                </div>
+            </div> 
+        </div>
+
+        <!-- Reporting manager input -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="report" class="col-form-label">Reporting Manager</label>
+                </div>
+                <div class="col-auto">
+                    {% for k in qs1 %}
+                    
+                        <input type="text" name="reporting_manager" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+                    {% endfor %}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <!-- RO -->
+    <div class="row mb-3">
+        <!-- RO Number input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Number" class="col-form-label">RO Number</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_number}}
+                </div>
+            </div> 
+        </div>
+
+        <!-- RO Value input -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Value" class="col-form-label">RO Value</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_value}}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <!-- client name dropdown -->
+    <div class="row mb-3">
+        <div class="col-3">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="client_name" class="col-form-label">Client Name</label>
+                </div>
+                <div> 
+                    {{form.client_name_ref}}
+                </div>
+                    
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- agency name dropdown -->
+        <div class="col-3 offset-3">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="agency_name" class="col-form-label">Agency Name</label>
+                </div>
+                <div>
+                    {{form.agency_name_ref}}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- brand name dropdown -->
+    <div class="row mb-3">
+        <div class="col-3">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="brand_name" class="col-form-label">Brand Name</label>
+                </div>
+                <div>
+                    {{form.brand_name_ref}}
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+
+    <div class="row mb-3 mt-5">
+        <!-- client contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Client Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                               
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-auto">
+                            <th scope="row" class="col-3">
+                                {{form.client_contact_ref}}
+                            </th>
+                            <td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+                            <td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+                            <td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- agency contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Agency Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                                <!-- <th scope="col"></th> -->
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr  class="col-auto">
+                            <th scope="row"  class="col-3">
+                                {{form.agency_contact_ref}}
+                             
+                        </th>
+                            <td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+                            <td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+                            <td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    <hr>
+    {{ formset.management_form }}
+    {% for form in formset %}
+
+
 
 <!-- assign all the columns of formset to container -->
 
@@ -120,22 +307,47 @@
                 <label>Total</label>
             </div>
             <div class="input-group class_total">
-                {{form.total}}
+                {{form.nfct_total}}
                 
             </div>
         </div>
+        
+          
+        
     </div>
+
+
+       
+
      
 </div>
 
 <hr>
 {% endfor %}
-
-<!--Buttons -->
-<div class="row spacer">
-    <div class="col-auto input-group-append">
-        <button class="btn btn-primary add-form-row">Add Another Element</button>
+<div class="row form-row spacer">
+    <div class="col-3">
+        <div>
+            <label>Grand Total</label>
+        </div>
+        <div class="input-group">
+        <input type = "number" step="0.01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control">
+            
+        </div>
+        <br>
+       
     </div>
+    </div>
+<!--Buttons -->
+
+<div class="row spacer">
+    <div class="col-auto">
+        <!-- <button class="btn btn-primary" id="cal">Calculate Grand Total</button> -->
+        <input type="button" class="btn btn-primary" id="cal" value="Calculate Grand Total">
+    </div>
+    <div class="col-auto input-group-append">
+        <button class="btn btn-primary add-form-row" id="add_form">Add Another Element</button>
+    </div>
+    
     <div class="col-auto">
         <button type="submit" class="btn btn-block btn-primary">Create</button>
     </div>
@@ -147,6 +359,7 @@
 </div>
 
 </form>
+
 {% endblock %}
 
 
@@ -319,7 +532,9 @@ $('.class_freq').on('input',function(e)
     var tot_sec_id = freqid_function.replace('freq', 'total_seconds')
     var tot_sec = $(`#${tot_sec_id}`).val()
 
-    var total = freqid_function.replace('freq', 'total')
+    console.log('##########################')
+    var total = freqid_function.replace('freq', 'nfct_total')
+    console.log($(`#${total}`).val())
     var element_id = freqid_function.replace('freq', 'element')
     var element = $(`#${element_id}`).val()
 
@@ -329,6 +544,7 @@ $('.class_freq').on('input',function(e)
     if (element === 'Aston' || element === "L Band"){
         document.getElementById(tot_sec_id).value = frequency * 10;
         document.getElementById(total).value = (er * (frequency * 10))/10;
+        // grand_total = document.getElementById(total).value = (er * (frequency * 10))/10;
     }
     else{
         document.getElementById(total).value = base * frequency;
@@ -340,9 +556,9 @@ $('.class_freq').on('input',function(e)
 $('.class_er').on('input',function(e)
 {
     var erid_function = e.target.id
-    // console.log(erid_function, 'Effective rate id')
+    console.log(erid_function, 'Effective rate id')
     
-    var eff_rate = parseInt($(this).val());
+    var eff_rate = parseFloat($(this).val());
     console.log({eff_rate})
 
 
@@ -350,9 +566,7 @@ $('.class_er').on('input',function(e)
     var total_sec = $(`#${tot_sec_id}`).val();
     console.log({total_sec})
 
-    var total = erid_function.replace('er', 'total')
-    console.log({total})
-
+    var total = erid_function.replace('er', 'nfct_total')
     document.getElementById(total).value = eff_rate * total_sec;
 
 
@@ -400,7 +614,161 @@ function attachevent(ele_id){
              
     }
 
+// grandtotal
+$('#cal').on('click',function(e){
+    var gtid = e.target.id
+
+    console.log(gtid, '5555555555555')
+    var total_forms_id = gtid.replace('cal', 'id_form-TOTAL_FORMS')
+    var total_forms = $(`#${total_forms_id}`).val();
+    console.log(total_forms)
+    var total_id = gtid.replace('cal', 'id_form-0-nfct_total')
+    console.log(total_id)
+    var total = $(`#${total_id}`).val();
+    console.log(total)
+    
+    var grandtotal = 0
+    for(i = 0; i<=parseInt(total_forms); i++){
+        console.log('i', i)
+        console.log('grandtotal', grandtotal)
+        $("#id_nfct_grandtotal").val(parseFloat(grandtotal)) 
+        grandtotal = parseFloat(grandtotal)+ parseFloat($(`#id_form-${i}-nfct_total`).val())
+        console.log('grandtotal after', grandtotal) 
+    }
+  
+})
+
+
+    const uid = 'NFCTDeal' + Date.now(); 
+    document.getElementById("id_deal_id").value = uid;
+
+
+    $("#id_client_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url1");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_agency_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url2");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+// client and agency dependent dropdown
+$("#id_client_name_ref").change(function () {
+        var url = $("#nfct_form").attr("url3");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                // console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+
 </script>
+
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
+	$("#id_client_name_ref").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+    // on change auto display
+	$("#id_client_contact_ref").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#id_client_name_ref').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+            for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                    if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                        var des = cli_list[i]['fields']['pri_desg'];
+                        var ema = cli_list[i]['fields']['pri_email'];
+                        var tele = cli_list[i]['pk'];
+                        document.getElementById('clientdesignation').value = des;
+                        document.getElementById('clientemail').value = ema;
+                        document.getElementById('clienttele').value = tele;
+
+		}}}
+	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+    // onchange agency JSON
+	$("#id_agency_name_ref").change(function(){
+		var agency = $(this).val();
+	});
+
+    // on change auto display
+	$("#id_agency_contact_ref").change(function(){
+		var a_con_name = $(this).val();
+		var agency = $('#id_agency_name_ref').val();
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+            for (i=0;i<agn_list.length;i++){
+                var field = agn_list[i]['fields'];
+                    if (a_con_name == agn_list[i]['pk']){
+                        var des = agn_list[i]['fields']['pri_designation']
+                        var ema = agn_list[i]['fields']['pri_email']
+                        var tele = agn_list[i]['pk']
+                        document.getElementById('agencydesignation').value = des
+                        document.getElementById('agencyemail').value = ema
+                        document.getElementById('agencytele').value = tele
+                    }
+                
+            }
+          
+		}
+	});
+</script>
+
+
+
 
 {% endblock %}
 </body>

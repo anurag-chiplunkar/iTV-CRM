@@ -1,4 +1,3 @@
-{% extends "base.html" %}
 {% load static %}
 
 {% block content %}
@@ -15,197 +14,213 @@
 <body>
 
 
-<div class="container">
-	<div class="row row spacer">
-		<div class="col align-self-start"></div>
-		<div class="col align-self-center"><h1><u>FCT Deal Details</u></h1></div>
-		<div class="col align-self-end"></div>
-	</div>
+<!-- <div class="container"> -->
+	<h1><u><center>FCT Deal Details</center></u></h1>
 
 	<form method="POST" id="fct_form" url="{% url 'deal_fct_nonfct:load_br' %}" url2 = "{% url 'deal_fct_nonfct:load_br1' %}"
-	url3 = "{% url 'deal_fct_nonfct:load_br2' %}">{% csrf_token %}
-	<div class="card mb-1">
-		<div class="card-body mb-0">
-			<div class="row mb-3">
-					<div class="col-6">
-						<div class="row">
-							<div class="col-auto">
-								<label for="salesperson" class="col-form-label">Executive</label>
-							</div>
-							<div class="col-auto">
-								{% for j in qs %}
-								
-									<input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
-								{% endfor %}
-							</div>
-						</div>
-						
-					</div>
-					<div class="col-6">
-						<div class="row">
-							<div class="col-auto">
-								<label for="report" class="col-form-label">Reporting Manager</label>
-							</div>
-							<div class="col-auto">
-								{% for k in qs %}
-								
-									<input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
-								{% endfor %}
-							</div>
-						</div>
-					</div> 
+	url3 = "{% url 'deal_fct_nonfct:load_br2' %}" url4="{% url 'deal_fct_nonfct:load_client_contacts' %}" url5="{% url 'deal_fct_nonfct:load_agency_contacts' %}" url6 = "{% url 'deal_fct_nonfct:load_agency_client' %}">{% csrf_token %}
+	<div class="container">
+	<!-- common form -->
+    <div class="row form-row spacer">
+   
+		<div class="col-3">
+			<div>
+				<label>Deal Id</label>
 			</div>
-			<div class="row mb-3">
-				<div class="col-6">
-					<div class="row">
-						<div class="col-auto">
-							<label class="col-form-label">Client Name</label>
-						</div>
-						<div class="col-auto">
-							<select name="c_name" id="c_name" class="form-select">
-								<option value="">-----------------</option>
-								{% for cli in cli_name %}
-									<option value="{{ cli }}">{{ cli }}</option>
-								{% endfor %}
-							</select>
-							
-						</div>
-					</div>
-				</div> 
-				<div class="col-6">
-					<div class="row mb-6">
-						<div class="col-3">
-							<label for="agency_name" class="col-form-label">Agency Name</label>
-						</div>
-						<div class="col-3">
-							<select name="ag_name" id="ag_name" class="form-select">
-								<option value="">-----------------</option>
-								{% for ag in ag_det %}
-									<option value="{{ ag }}">{{ ag }}</option>
-								{% endfor %}
-							</select>
-							
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="row mb-2">
-				<div class="col-6">
-					<div class="row mb-6">
-						<div class="col-auto">
-							<label for="brand_name" class="col-form-label">Brand Name</label>
-						</div>
-						<div class="col-auto">
-							<select name="brand_name" id="brand_name" class="form-select">
-								<option value="">-----------------</option>
-								{% for cli in cli_name %}
-									<option value="{{ cli.brand_name }}">{{ cli.brand_name }}</option>
-								{% endfor %}
-							</select>
-							
-						</div>
-					</div>
-				</div> 
+			<div class="input-group" >
+				{{form.deal_id}}
 				
-			</div>
-		
-			<div class="row">
-				<div class="col-6">
-					<div class="col-auto">
-						<label for="client_contact" class="col-form-label">Contact Details</label>
-					</div>
-					<div class="col-auto">
-						<table class="table table-hover">
-							<thead>
-									<tr>
-									
-										<th scope="col">
-											Name
-										</th>
-										<th scope="col">
-											Designation
-										</th>
-										<th scope="col">
-											Email
-										</th>
-										<th scope="col">
-											Telephone
-										</th>
-									</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row"><select name="client_name" id="client_name" class="form-select">
-										<option value="">----------</option>
-										{% for client in cli_det %}
-											<option value="{{ client.pri_fname }} {{ client.pri_lname }}">{{ client.pri_fname }} {{ client.pri_lname }}</option>
-										{% endfor %}
-									</select></th>
-									<td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
-									<td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
-									<td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				<div class="col-6">
-					<div class="col-auto">
-						<label for="client_contact" class="col-form-label">Contact Details</label>
-					</div>
-					<div class="col-auto">
-						<table class="table table-hover">
-							<thead>
-									<tr>
-										<!-- <th scope="col"></th> -->
-										<th scope="col">
-											Name
-										</th>
-										<th scope="col">
-											Designation
-										</th>
-										<th scope="col">
-											Email
-										</th>
-										<th scope="col">
-											Telephone
-										</th>
-									</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<th scope="row"><select name="agency_name" id="agency_name" class="form-select">
-										
-										<option value="">----------</option>
-										{% for age in agg %}
-											<option value="{{ age.pri_firstName }} {{ age.pri_lastName }}">{{ age.pri_firstName }} {{ age.pri_lastName }}</option>
-										{% endfor %}
-										
-									</select></th>
-									<td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
-									<td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
-									<td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</div>
-				
-
 			</div>
 		</div>
 	</div>
+		<br>
+		
+		<div class="row mb-3">
+			<!-- salesperson input -->
+			<div class="col-6">
+				<div class="row">
+					<div class="col-auto">
+						<label for="salesperson" class="col-form-label">Executive</label>
+					</div>
+					<div class="col-auto">
+						{% for j in qs %}
+						
+							<input type="text" name="executive" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+						{% endfor %}
+					</div>
+				</div> 
+			</div>
+	
+			<!-- Reporting manager input -->
+			 <div class="col-6">
+				<div class="row">
+					<div class="col-auto">
+						<label for="report" class="col-form-label">Reporting Manager</label>
+					</div>
+					<div class="col-auto">
+						{% for k in qs %}
+						
+							<input type="text" name="reporting_manager" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+						{% endfor %}
+					</div>
+				</div>
+			</div> 
+		</div>
+	
+
+    <!-- RO -->
+    <div class="row mb-3">
+        <!-- RO Number input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Number" class="col-form-label">RO Number</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_number}}
+                </div>
+            </div> 
+        </div>
+
+        <!-- RO Value input -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="RO Value" class="col-form-label">RO Value</label>
+                </div>
+                <div class="col-auto">
+                    {{form.RO_value}}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <!-- client name dropdown -->
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="row">
+                <div class="col-auto">
+                    <label for="client_name" class="col-form-label">Client Name</label>
+                </div>
+                <div> 
+                    {{form.client_name_ref}}
+                </div>
+                    
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- agency name dropdown -->
+        <div class="col-2 offset-3">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="agency_name" class="col-form-label">Agency Name</label>
+                </div>
+                <div>
+                    {{form.agency_name_ref}}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- brand name dropdown -->
+    <div class="row mb-3">
+        <div class="col-2">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="brand_name" class="col-form-label">Brand Name</label>
+                </div>
+                <div>
+                    {{form.brand_name_ref}}
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+
+    <div class="row mb-3 mt-5">
+        <!-- client contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Client Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                               
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-auto">
+                            <th scope="row" class="col-4">
+                                {{form.client_contact_ref}}
+                            </th>
+                            <td class="col-auto"><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+                            <td class="col-auto"><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+                            <td class="col-auto"><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- agency contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Agency Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr  class="col-auto">
+                            <th scope="row"  class="col-4">
+                                {{form.agency_contact_ref}}
+                        </th>
+                            <td class="col-auto"><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+                            <td class="col-auto"><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+                            <td class="col-auto"><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr>
+<!-- FCT Deal -->
 	<div class="card mb-1">
 		<div class="card-body">
 			<div class="row mb-2">
-				<div class="row mt-2">
-					<div class="col-1">
-						<label class="form-label">Deal ID</label>
-					</div>
-					<div class="col-2">
-						{{form.deal_id}}
-					</div>
-				</div>
+				
 				<div class="row mt-2">
 						<div class="col-1"> 
 							<label class="form-label">Channels</label>
@@ -243,7 +258,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="card mb-1" style="margin-left: 85px;">
+	<!-- <div class="card mb-1" style="margin-left: 85px;"> -->
 		<div class="card-body">	
 			<div class="row">
 				<div class="col-2">
@@ -255,16 +270,16 @@
 				<div class="col-2">
 					<label class="col-form-label">Effective Rate</label> 
 				</div>
-				<div class="col-3 align-right">
+				<div class="col-2 align-right">
 					<label class="col-form-label">Base Rate</label> 
 				</div>
-				<div class="col-3 justify-content-right">
+				<div class="col-2 justify-content-right">
 					<label class="col-form-label">Revenue</label> 
 				</div>
 			</div>
 			<div class="row g-3 align-items-start mt-1" id="row1" style="display: none;">
 				<div class="col-auto">
-					<select name="band1" onSelect = "showrate()" class="form-select channel" id="band1" aria-label="Default select example">
+					<select name="band1" onChange = "showrate();" class="form-select channel" id="band1" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -276,19 +291,19 @@
 					<input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
 				</div>
 				<div class="col-auto">
-					<input type="number" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+					<input type="number" step="0.01" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
 				</div>
 				<div class="col-auto">
 					<input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
 					
 				</div>
 				<div class="col-auto">
-					<input type="number" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+					<input type="number" step="0.01" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
 				</div>
 			</div>
 			<div class="row g-3 align-items-start mt-2" id="row2" style="display: none;">
 				<div class="col-auto">
-					<select name="band2" class="form-select" id="band2" aria-label="Default select example">
+					<select name="band2" onChange = "showrate();" class="form-select" id="band2" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -300,19 +315,19 @@
 					<input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
 				</div>
 				<div class="col-auto">
-					<input type="number" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+					<input type="number" step="0.01" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
 				</div>
 				<div class="col-auto">
 					<input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
 
 				</div>
 				<div class="col-auto">
-					<input type="number" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+					<input type="number" step="0.01" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
 				</div>
 			</div>
 			<div class="row g-3 align-items-start mt-2" id="row3" style="display: none;">
 				<div class="col-auto">
-					<select name="band3" class="form-select" id="band3" aria-label="Default select example">
+					<select name="band3" onChange = "showrate();" class="form-select" id="band3" aria-label="Default select example">
 					<option value="">---------------</option>
 					<option value="0600-1200">0600-1200</option>
 					<option value="1200-1800">1200-1800</option>
@@ -324,28 +339,28 @@
 					<input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
 				</div>
 				<div class="col-auto">
-					<input type="number" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+					<input type="number" step="0.01" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
 				</div>
 				<div class="col-auto">
 					<input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
 				</div>
 				<div class="col-auto">
-					<input type="number" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+					<input type="number" step="0.01" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
 				</div>
 			</div>
 		
-
+			<br><br>
 			<div class="row" id="row4" style="display:none; margin-left: 600px;" >
 							
 				<div class="col-auto">
 					<input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
 				</div>
 				<div class="col-auto">
-					{{form.total_rev}}
+					{{form1.total_rev}}
 				</div>
 			</div>
 		</div>
-	</div>
+	<!-- </div> -->
 		{% for message in messages %}
 			<div class="container-fluid p-0">
 				<div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
@@ -356,19 +371,23 @@
 				</div>
 			</div>
 		{% endfor %}
-		<div class="row g-3 align-items-start" style="margin-left: 85px;">
+		<div class="row g-3 align-items-start">
 			<div class="col-2">
-				<button type="submit" class="btn btn-primary">Save Deal</button>
+				<button type="submit" class="btn btn-primary offset-6">Save Deal</button>
 			</div>
-			
+			<br>
 			{% if user.is_authenticated %}
 			<div class="col-2">
-    			<button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    			<button name="submit" type="submit" class="btn btn-primary offset-6"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
     		</div>
 			{% endif %}
 		</div>
+
+	</div>
 	</form>
-</div>
+
+
+
 
 
 <script type="text/javascript">
@@ -392,44 +411,119 @@
 			document.getElementById("row2").style.display = "flex";
 			document.getElementById("row3").style.display = "flex";
 			document.getElementById("row4").style.display = "flex";
-			document.getElementById('fct2').value = 0
-			document.getElementById('er2').value = 0
-			document.getElementById('rev2').value = 0
-			document.getElementById('fct3').value = 0
-			document.getElementById('er3').value = 0
-			document.getElementById('rev3').value = 0
+			document.getElementById('fct1').value = 0.0
+			document.getElementById('er1').value = 0.0
+			document.getElementById('rev1').value = 0.0
+			document.getElementById('base1').value = 0.0
+			document.getElementById('fct2').value = 0.0
+			document.getElementById('er2').value = 0.0
+			document.getElementById('rev2').value = 0.0
+			document.getElementById('base2').value = 0.0
+			document.getElementById('fct3').value = 0.0
+			document.getElementById('er3').value = 0.0
+			document.getElementById('rev3').value = 0.0
+			document.getElementById('base3').value = 0.0
+
+			var Band1 = document.getElementById('band1').value;
+			if (Band1 == "")
+			{
+				document.getElementById('fct1').readOnly = true;
+				document.getElementById('er1').readOnly = true;
+			}
+			var Band2 = document.getElementById('band2').value;
+			if (Band2 == "")
+			{
+				document.getElementById('fct2').readOnly = true;
+				document.getElementById('er2').readOnly = true;
+			}
+			var Band3 = document.getElementById('band3').value;
+			if (Band3 == "")
+			{
+				document.getElementById('fct3').readOnly = true;
+				document.getElementById('er3').readOnly = true;
+			}
 			
 		}
 	}
+
+	function showrate(){
+		var row1band1 = document.getElementById('band1').value;
+		if (row1band1 != ""){
+			console.log("inside showrate function1~~~~~");
+			var row1fct1 = document.getElementById('fct1').readOnly = false;
+			var row1er1 = document.getElementById('er1').readOnly = false;
+		}
+		else{
+            document.getElementById('fct1').readOnly = true;
+			document.getElementById('er1').readOnly = true;
+            document.getElementById('fct1').value = 0.0
+			document.getElementById('er1').value = 0.0
+            document.getElementById('rev1').value = 0.0
+			document.getElementById('base1').value = 0.0
+
+        }
+		var row2band1 = document.getElementById('band2').value;
+		if (row2band1 != ""){
+			console.log("inside showrate function2~~~~~");
+			var row1fct1 = document.getElementById('fct2').readOnly = false;
+			var row1er1 = document.getElementById('er2').readOnly = false;
+		}
+		else{
+            document.getElementById('fct2').readOnly = true;
+			document.getElementById('er2').readOnly = true;
+            document.getElementById('fct2').value = 0.0
+			document.getElementById('er2').value = 0.0
+            document.getElementById('rev2').value = 0.0
+			document.getElementById('base2').value = 0.0
+
+        }
+		var row3band1 = document.getElementById('band3').value;
+		if (row3band1 != ""){
+			console.log("inside showrate function3~~~~~");
+			var row1fct1 = document.getElementById('fct3').readOnly = false;
+			var row1er1 = document.getElementById('er3').readOnly = false;
+		}
+		else{
+            document.getElementById('fct3').readOnly = true;
+			document.getElementById('er3').readOnly = true;
+            document.getElementById('fct3').value = 0.0
+			document.getElementById('er3').value = 0.0
+            document.getElementById('rev3').value = 0.0
+			document.getElementById('base3').value = 0.0
+
+        }
+		
+	}
+	
 	function calculate1 (){
-    	var box1 = document.getElementById('fct1').value;
+    	var box1 = parseFloat(document.getElementById('fct1').value);
     	
-    	var box2 = document.getElementById('er1').value;
+    	var box2 = parseFloat(document.getElementById('er1').value);
     	
     	var result = document.getElementById('rev1');
-    	var mul1 = (box1/10) * box2;
+    	var mul1 = ((box1/10) * box2).toFixed(2);
     	
     	result.value = mul1;
 
     }
     function calculate2 (){
-    	var box21 = document.getElementById('fct2').value;
+    	var box21 = parseFloat(document.getElementById('fct2').value);
     	
-    	var box22 = document.getElementById('er2').value;
+    	var box22 = parseFloat(document.getElementById('er2').value);
     	
     	var result1 = document.getElementById('rev2');
-    	var mul21 = (box21/10) * box22;
+    	var mul21 = ((box21/10) * box22).toFixed(2);
     	
     	result1.value = mul21;
 
     }
     function calculate3 (){
-    	var box31 = document.getElementById('fct3').value;
+    	var box31 = parseFloat(document.getElementById('fct3').value);
     	
-    	var box32 = document.getElementById('er3').value;
+    	var box32 = parseFloat(document.getElementById('er3').value);
     	
     	var result2 = document.getElementById('rev3');
-    	var mul31 = (box31/10) * box32;
+    	var mul31 = ((box31/10) * box32).toFixed(2);
     	
     	result2.value = mul31;
 
@@ -441,17 +535,17 @@
     	
     	if ((inp1 != "") && (inp2 != "") && (inp3 == "")){
     		
-    		var first_number = parseInt(document.getElementById("rev1").value);
-	        var second_number = parseInt(document.getElementById("rev2").value);
-	        var result = first_number + second_number ;
+    		var first_number = parseFloat(document.getElementById("rev1").value);
+	        var second_number = parseFloat(document.getElementById("rev2").value);
+	        var result = (first_number + second_number).toFixed(2) ;
         	document.getElementById("id_total_rev").value = result;
     	} 
     	else if((inp1 != "") && (inp2 != "") && (inp3 != "") ){
     		
-    		var first_number = parseInt(document.getElementById("rev1").value);
-	        var second_number = parseInt(document.getElementById("rev2").value);
-	        var third_number = parseInt(document.getElementById("rev3").value);
-	        var result = first_number + second_number + third_number;
+    		var first_number = parseFloat(document.getElementById("rev1").value);
+	        var second_number = parseFloat(document.getElementById("rev2").value);
+	        var third_number = parseFloat(document.getElementById("rev3").value);
+	        var result = (first_number + second_number + third_number).toFixed(2);
 			// result1 = document.getElementById("id_total_rev").value
 			// console.log(result1,"/////////////////////////")
 	        document.getElementById("id_total_rev").value = result;
@@ -553,59 +647,202 @@
 	// 	 var rev1_val = $(this).val();	
 	// 	 console.log(rev1_val,"-------============");
 	// });
-	var cli_contact = '{{ tmpJson | safe }}';
-	$("#c_name").change(function () {
+	
+    $("#id_client_name_ref").change(function () {
+        var url = $("#fct_form").attr("url4");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_agency_name_ref").change(function () {
+        var url = $("#fct_form").attr("url5");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+	// client and agency dependent dropdown
+	$("#id_client_name_ref").change(function () {
+        var url = $("#fct_form").attr("url6");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+	
+
+
+
+
+</script>
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
+	$("#id_client_name_ref").change(function () {
 		
 		var client = $(this).val();			
 	});	
 
-	$("#client_name").change(function(){
+    // on change auto display
+	$("#id_client_contact_ref").change(function(){
 		var c_con_name = $(this).val();	
-		var client = $('#c_name').val();
+		var client = $('#id_client_name_ref').val();
 		console.log("----------",c_con_name,client);
 		if(c_con_name){
 			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
 			cli_list = doc_cli.documentElement.textContent;
 			cli_list = JSON.parse(cli_list)
-			
-			var des = cli_list[0]['fields']['pri_desg']
-			var ema = cli_list[0]['fields']['pri_email']
-			var tele = cli_list[0]['pk']
-			document.getElementById('clientdesignation').value = des
-			document.getElementById('clientemail').value = ema
-			document.getElementById('clienttele').value = tele
-		}
+            for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                    if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                        var des = cli_list[i]['fields']['pri_desg'];
+                        var ema = cli_list[i]['fields']['pri_email'];
+                        var tele = cli_list[i]['pk'];
+                        document.getElementById('clientdesignation').value = des;
+                        document.getElementById('clientemail').value = ema;
+                        document.getElementById('clienttele').value = tele;
+
+		}}}
 	});
 
 	var ag_contact = '{{ tmpagen | safe }}';
 
-	$("#ag_name").change(function(){
+    // onchange agency JSON
+	$("#id_agency_name_ref").change(function(){
 		var agency = $(this).val();
 	});
 
-	$("#agency_name").change(function(){
-		var a_con_name = $(this).val();	
-		var agency = $('#ag_name').val();
-		console.log("----------",a_con_name,agency);
+    // on change auto display
+	$("#id_agency_contact_ref").change(function(){
+		var a_con_name = $(this).val();
+		var agency = $('#id_agency_name_ref').val();
 		if(a_con_name){
 			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
 			agn_list = doc_agn.documentElement.textContent;
 			agn_list = JSON.parse(agn_list)
-			console.log(agn_list,"---------------")
-			console.log(agn_list[0],"-----/////----------")
-			console.log(agn_list[0]['fields'],"-----*****----------")
-			
-			var des = agn_list[0]['fields']['pri_designation']
-			var ema = agn_list[0]['fields']['pri_email']
-			var tele = agn_list[0]['pk']
-			document.getElementById('agencydesignation').value = des
-			document.getElementById('agencyemail').value = ema
-			document.getElementById('agencytele').value = tele
+            for (i=0;i<agn_list.length;i++){
+                var field = agn_list[i]['fields'];
+                    if (a_con_name == agn_list[i]['pk']){
+                        var des = agn_list[i]['fields']['pri_designation']
+                        var ema = agn_list[i]['fields']['pri_email']
+                        var tele = agn_list[i]['pk']
+                        document.getElementById('agencydesignation').value = des
+                        document.getElementById('agencyemail').value = ema
+                        document.getElementById('agencytele').value = tele
+                    }
+                
+            }
+          
 		}
 	});
-
-
 </script>
+
+<script>
+    const uid = 'FCTDeal' + Date.now(); 
+    document.getElementById("id_deal_id").value = uid;
+</script>
+
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
+	$("#id_afp_client_name_ref").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+    // on change auto display
+	$("#id_afp_client_contact_ref").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#id_afp_client_name_ref').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+            for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                    if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                        var des = cli_list[i]['fields']['pri_desg'];
+                        var ema = cli_list[i]['fields']['pri_email'];
+                        var tele = cli_list[i]['pk'];
+                        document.getElementById('clientdesignation').value = des;
+                        document.getElementById('clientemail').value = ema;
+                        document.getElementById('clienttele').value = tele;
+
+		}}}
+	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+    // onchange agency JSON
+	$("#id_afp_agency_name_ref").change(function(){
+		var agency = $(this).val();
+	});
+
+    // on change auto display
+	$("#id_afp_agency_contact_ref").change(function(){
+		var a_con_name = $(this).val();
+		var agency = $('#id_afp_agency_name_ref').val();
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+            for (i=0;i<agn_list.length;i++){
+                var field = agn_list[i]['fields'];
+                    if (a_con_name == agn_list[i]['pk']){
+                        var des = agn_list[i]['fields']['pri_designation']
+                        var ema = agn_list[i]['fields']['pri_email']
+                        var tele = agn_list[i]['pk']
+                        document.getElementById('agencydesignation').value = des
+                        document.getElementById('agencyemail').value = ema
+                        document.getElementById('agencytele').value = tele
+                    }
+                
+            }
+          
+		}
+	});
+</script>
+
 {% endblock %}
 </body>
 </html>

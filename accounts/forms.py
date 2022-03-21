@@ -8,6 +8,19 @@ from . models import Employees
 User = get_user_model()
 
 class Employee_registration(forms.ModelForm):
+	"""Modelform for Employee Registration
+		
+		:model: Employees
+
+		:variable emp_fname: Employee's First Name
+		:variable emp_lname: Employee's Last Name
+		:variable emp_email: Employee's Email id
+		:variable emp_phone: Employee's Phone Number
+		:variable emp_desgn: Employee's Designation
+		:variable emp_reporting_mgr: Employee's Reporting Manager
+		:variable emp_pass1: Employee's Password
+		:variable emp_pass2: Employee's Confirm Password """
+
 	class Meta:
 		model = Employees
 		fields = '__all__'
@@ -30,6 +43,13 @@ class Employee_registration(forms.ModelForm):
 		# }
 
 class Employee_login(forms.ModelForm):
+	"""ModelForm for Employee Login
+	
+	:model: Employees
+	
+	:variable emp_email: To check if the email id exists in db
+	:variable emp_pass1: Password used for login """
+
 	class Meta:
 		model = Employees
 		fields = ['emp_email','emp_pass1']
@@ -42,6 +62,7 @@ class Employee_login(forms.ModelForm):
 
 	##To check if the email already exists
 	def confirm_email(self):
+		"""Function to check if email already exists"""
 		email = self.cleaned_data.get('emp_email')
 		qs = User.objects.filter(emp_email = email)
 		print(qs)
@@ -52,6 +73,7 @@ class Employee_login(forms.ModelForm):
 
 	##To check if the password already exists
 	def confirm_password(self):
+		"""Function to check if the Password already exists"""
 		password = self.cleaned_data.get('emp_pass1')
 		qs = User.objects.filter(emp_pass1 = password)
 		print(qs)

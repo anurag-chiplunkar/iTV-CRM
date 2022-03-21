@@ -18,6 +18,7 @@ import django_heroku
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR, 'BASE_DIR')
 
 
 # Quick-start development settings - unsuitable for production
@@ -43,7 +44,6 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'deal_fct_nonfct',
-    'events_afp',
     'accounts',
     'profiles',
     'customer',
@@ -52,6 +52,8 @@ INSTALLED_APPS = [
     'final_fct_nfct_deal',
     'crispy_forms',
     'agency_client',
+    'afp_deal',
+    'final_events',
 ]
 
 MIDDLEWARE = [
@@ -89,35 +91,30 @@ WSGI_APPLICATION = 'crm_itv.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'dat2akb2j5td56',
-#         'USER': 'gwxuakszdjknyt',
-#         'PASSWORD': '5667e9a34ecb9a866bf3e7ecc6c29ccf2f9beea493bf3d676c5dcb7241f6e9ea',
-#         'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
-#         'PORT': '5432',
-#     }
-# }
+
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'dat2akb2j5td56',
-    #     'USER': 'gwxuakszdjknyt',
-    #     'PASSWORD': '5667e9a34ecb9a866bf3e7ecc6c29ccf2f9beea493bf3d676c5dcb7241f6e9ea',
-    #     'HOST': 'ec2-18-211-63-235.compute-1.amazonaws.com',
-    #     'PORT': '5432',
-    # },
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'crm',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd85vm1o4t88f8n',
+        'USER': 'jvnyxfvmuzayhj',
+        'PASSWORD': 'cf0e4c6016d3234d59e3b00b122e1f96b51210009c751c5196f446b2b4b0421e',
+        'HOST': 'ec2-44-195-191-252.compute-1.amazonaws.com',
+        'PORT': '5432',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'crm_db',
+#         'USER': 'root',
+#         'PASSWORD': '',
+#         'HOST': '',
+#         'PORT': '',
+#     }
+
+# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -141,14 +138,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)

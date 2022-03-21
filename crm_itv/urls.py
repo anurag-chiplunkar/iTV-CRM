@@ -21,14 +21,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('deal_fct_nonfct.urls', namespace = 'deal_fct_nonfct')),
-    path('',include('events_afp.urls', namespace = 'events_afp')),
     path('',include('accounts.urls',namespace='accounts')),
     path('',include('profiles.urls')),
     path('',include('agency.urls',namespace='agency')),
     path('',include('customer.urls',namespace='customer')),
-    path('',include('final_fct_nfct_deal.urls')),
+    path('',include('final_fct_nfct_deal.urls',namespace='final_fct_nfct_deal')),
     path('nfct/',include('nfct.urls',namespace='nfct')),
     path('',include('agency_client.urls', namespace="agency_client")),
+    path('',include('afp_deal.urls', namespace="afp_deal")),
+    path('',include('final_events.urls', namespace='final_events')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

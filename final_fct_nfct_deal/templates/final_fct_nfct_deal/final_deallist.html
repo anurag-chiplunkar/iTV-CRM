@@ -1,33 +1,43 @@
 {% extends "base2.html" %}
 
 {% block container %}
-<table class="table">
+<div class="" style="position: absolute; left: 100px; top: 150px;">
+<table class="table table-striped">
     <tr>
+        <th>Date & Time</th>
         <th>Deal No</th>
+        <th>RO No</th>
         <th>Client Name</th>
         <th>Client Contact</th>
         <th>Agency Name</th>
         <th>Agency Contact</th>
-        <th>Brand Name</th>
         <th>FCT Total</th>
         <th>NFCT Total</th>
         <th>Grand Total</th>
+        <th>RO Value</th>
+
     </tr>
 {% for f in qs %}
     <tr>
+        <td>{{f.created_at}}</td>
         <td>{{f.deal_id}}</td>
+        <td>{{f.RO_number}}</td>
         <td>{{f.client_name_ref}}</td>
+        <td>{{f.client_contact_ref}}</td>
         <td>{{f.agency_name_ref}}</td>
         <td>{{f.agency_contact_ref}}</td>
-        <td>{{f.brand_name_ref}}</td>
         <td>{{f.fct_total}}</td>
         <td>{{f.nfct_total}}</td>
-        <td>{{f.total_seconds}}</td>
         <td>{{f.grandtotal}}</td>
+        <td>{{f.RO_value}}</td>
+
+        
     </tr>
 {% endfor %}
 </table>
+
 {% if user.is_authenticated %}
-    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'nfct:create_deal_model_form' %}" style="color: white; text-decoration-line: none;">Back</a></button>
-    {% endif %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_fct_nfct_deal:final_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+{% endif %}
+
 {% endblock %}

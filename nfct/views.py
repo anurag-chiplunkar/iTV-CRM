@@ -5,37 +5,75 @@ from django.shortcuts import redirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from accounts.models import Employees
+import json
+from django.core import serializers
 
 
 from .forms import (
 
     DealModelFormset,
     NFCT_Base_Rate_Form,
+    NFCTGrandTotal,
+    FinalNFCTForm,
+    NFCTDealModelFormset,
 )
 from .models import *
 
 # Create your views here.
 
-
 class DealListView(generic.ListView):
 
-    model = deal_nfct
+    model = Deal_nfct
     context_object_name = 'nfct'
     template_name = 'list.html'
 
 
+# class NFCTFinal(generic.ListView):
+
+#     model = FinalNFCT
+#     context_object_name = 'nfct'
+#     template_name = 'nfctfinal_deallist1.html'
+
+
 @login_required(login_url='accounts:emp_login')
-def create_deal_model_form(request):
-    template_name = 'test.html'
-    if request.method == 'GET':
-        formset = DealModelFormset(queryset=deal_nfct.objects.none())
-        return render(request, template_name, {'formset': formset})
-    elif request.method == 'POST':
-        formset = DealModelFormset(request.POST or None)
-        if formset.is_valid():
-            formset.save()
-            return redirect('nfct:deallist')
-        return render(request, template_name, {'formset': formset})
+def nfctfinal(request):
+    """Docstring for displaying all NFCT deals
+    
+    :model name: FinalNFCT
+    
+    :return:template, request and context """
+    qs = FinalNFCT.objects.all()
+    print(qs, '--------------------------')
+    mycontext = {'qs': qs}
+    template_name = 'nfct/nfctfinal_deallist.html'
+    return render(request, template_name, mycontext)
+
+
+# @login_required(login_url='accounts:emp_login')
+# def create_deal_model_form(request):
+#     template_name = 'test.html'
+#     if request.method == 'GET':
+#         nfct_form = NFCTGrandTotal(request.POST or None)
+#         formset = DealModelFormset(queryset=Deal_nfct.objects.none())
+#         return render(request, template_name, {'formset': formset, 'nfct_form' : nfct_form})
+#     elif request.method == 'POST':
+#         nfct_form = NFCTGrandTotal(request.POST or None)
+#         formset = DealModelFormset(request.POST or None)
+#         if formset.is_valid():
+#             # gt_obj = NFCTGrandTotal()
+#             # gt_obj.nfct_grandtotal = request.POST.get('nfct_grandtotal')
+#             # gt_obj.dealid_nfct_ref = request.POST.get('deal_id')
+#             # formset.save(commit=False)
+#             if nfct_form.is_valid():
+#                 nfct_gt = Deal_nfct()
+#                 print(request.POST, 'request*****************')
+#                 nfct_gt.nfct_grandtotal = nfct_form.cleaned_data.get('nfct_grandtotal')
+#                 print(nfct_gt.nfct_grandtotal, 'nfct_grandtotal')
+#                 nfct_gt.save()
+#             formset.save()
+#             return redirect('nfct:deallist')
+#         return render(request, template_name, {'formset': formset, 'nfct_form' : nfct_form})
 
 
 @login_required(login_url='accounts:emp_login')
@@ -50,6 +88,12 @@ def eff_sec(request):
 
 @login_required(login_url='accounts:emp_login')
 def nfct_enter_base_rate(request):
+    """Docstring for saving NFCT base rates
+    
+    :model name: NFCT_Base_Rate
+    
+    :return: template, context and request"""
+
     nfct_form = NFCT_Base_Rate_Form(request.POST or None)
     nfct_obj = NFCT_Base_Rate()
     context = {'nfct_form': nfct_form}
@@ -79,6 +123,11 @@ def nfct_enter_base_rate(request):
 
 @login_required(login_url='accounts:emp_login')
 def nfct_load_br(request):
+    """Docstring for displaying base rate for chosen channel and element
+    
+    :model name: NFCT_Base_Rate
+    
+    :return: base rate"""
     chan_id = request.GET.get('channel')
     print(request.GET)
     print(chan_id, 'Chan id')
@@ -120,6 +169,120 @@ def nfct_load_br(request):
     mycontext = {'nfctbaserate': nfctbaserate}
     print(mycontext)
     return HttpResponse(nfctbaserate)
+
+
+def nfct_finaldeal(request):
+    """Docstring for saving common form and nfct form
+    
+    :model name: AgencyDetail, CustomerName, CustomerContact, AgencyContact, Employees, FinalNFCT
+    
+    :return: templates, request and context"""
+
+    form = FinalNFCTForm(request.POST or None)
+    nfct_form = NFCT_Base_Rate_Form(request.POST or None)
+    user = request.user
+    ag_det = AgencyDetail.objects.all()
+    cli_name = CustomerName.objects.all()
+    cli_det = CustomerContact.objects.all()
+    agg = AgencyContact.objects.all()
+    qs1 = Employees.objects.filter(emp_email__contains=user)
+    tmpJson = serializers.serialize("json", cli_det)
+    tmpagen = serializers.serialize("json", agg)
+
+    formset = NFCTDealModelFormset(queryset=NFCTDeal.objects.none())
+    final_obj = FinalNFCT()
+    context = {'form': form, 'ag_det': ag_det, 'cli_name': cli_name, 'cli_det': cli_det, 'agg': agg,'qs1': qs1,'formset': formset, 'nfct_form': nfct_form,'tmpJson': tmpJson,'tmpagen': tmpagen}
+    grandtotal = []
+    if request.method == 'POST':
+        print("form errors--------------------", form.errors)
+        print("formset.errors here~~~~~~~", formset.errors)
+        if form.is_valid():
+            print('inside form')
+            print(form.cleaned_data, "from form-------******------")
+            final_obj.deal_id = request.POST.get('deal_id')
+            final_obj.executive = request.POST.get('executive')
+            final_obj.reporting_manager = request.POST.get('reporting_manager')
+            final_obj.RO_number = form.cleaned_data.get('RO_number')
+            final_obj.RO_value = form.cleaned_data.get('RO_value')
+            final_obj.client_name_ref = form.cleaned_data.get(
+                'client_name_ref')
+            final_obj.client_contact_ref = form.cleaned_data.get(
+                'client_contact_ref')
+            final_obj.agency_name_ref = form.cleaned_data.get(
+                'agency_name_ref')
+            final_obj.agency_contact_ref = form.cleaned_data.get(
+                'agency_contact_ref')
+            final_obj.brand_name_ref = form.cleaned_data.get('brand_name_ref')
+            final_obj.grandtotal = request.POST.get('nfct_grandtotal')
+            print("GRANDTOTAL", final_obj.grandtotal)
+            form.save(commit=False)
+            print("save commit false!!!")
+            formset = NFCTDealModelFormset(request.POST or None)
+            print('if ``````````````````', formset.is_valid())
+            if formset.is_valid():
+                for f in formset.forms:
+                    obj = f.save(commit=False)
+                    obj.dealid_nfct = request.POST.get('deal_id')
+                    obj.save()
+                    print("Saved")
+                gt_obj = DealNFCTGrandTotal()
+                gt_obj.nfct_grand_total = request.POST.get('nfct_grandtotal')
+                print('gt_obj.nfct_grandtotal', float(gt_obj.nfct_grand_total))
+                gt_obj.dealid_nfct_ref = request.POST.get('deal_id')
+                print('gt_obj.dealid_nfct_ref', gt_obj.dealid_nfct_ref)
+                gt_obj.save()
+                nfct_total = request.POST.get('nfct_grandtotal')
+                nfct_total = float(nfct_total)
+                final_obj.nfct_total = nfct_total
+                final_obj.save()
+                # form1.save(commit=True)
+                # form.save(commit=True)
+                formset.save()
+                print("reached at the end---------------------")
+
+                return redirect('/nfct/nfctdeallist')
+            
+
+    return render(request, "test.html", context)
+
+@login_required(login_url='accounts:emp_login')
+def load_client_contacts(request):
+    """Docstring for displaying client contact wrt chosen client name
+    
+    :model name: CustomerContact
+    
+    :return: templates, request and context"""
+    client_id = request.GET.get('client')
+    client_contacts = CustomerContact.objects.filter(
+        ref_creg_no=client_id).order_by('pri_fname')
+    print(client_contacts)
+    return render(request, 'nfct/client_contact_dropdown_options.html', {'client_contacts': client_contacts})
+
+@login_required(login_url='accounts:emp_login')
+def load_agency_contacts(request):
+    """Docstring for displaying agency contact wrt chosen agency name
+    
+    :model name: AgencyContact
+    
+    :return: templates, request and context"""
+    agency_id = request.GET.get('agency')
+    agency_contacts = AgencyContact.objects.filter(
+        agency_details=agency_id).order_by('pri_firstName')
+    print(agency_contacts)
+    return render(request, 'nfct/agency_contact_dropdown_options.html', {'agency_contacts': agency_contacts})
+
+@login_required(login_url='accounts:emp_login')
+def load_agency_client(request):
+    """Docstring for displaying agency name wrt client name
+	
+	:model name: AgencyDetail
+
+	:return: request, template and context"""
+    cli_id = request.GET.get('client')
+    print('CLIENT', cli_id)
+    agency = AgencyDetail.objects.filter(ccreg_no=cli_id).order_by('agency_name')
+    print(agency)
+    return render(request, 'nfct/agency_client_dropdown_options.html', {'agency': agency})
 
 
 # from django.shortcuts import render

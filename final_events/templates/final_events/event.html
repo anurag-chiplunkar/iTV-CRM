@@ -1,0 +1,1352 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Deal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous">	</script>
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <form method="POST" id="dependent_dropdown" url1="{% url 'final_events:load_client_contacts' %}" url2="{% url 'final_events:load_agency_contacts' %}"
+        url3 = "{% url 'final_events:final_load_br' %}" url4 = "{% url 'final_events:final_load_br1' %}" url5 = "{% url 'final_events:final_load_br2' %}" url6 = "{% url 'final_events:nfct_load_br' %}" url7 = "{% url 'final_events:load_agency_client' %}">
+        {% csrf_token %}
+            <!-- deal heading -->
+            <div class="mt-5">
+                <div class="row g-3">
+                    <center><h1>Events Deal Details</h1></center>
+                </div>
+            </div>
+
+            <!-- Deal Id -->
+            <div class="row">
+                <div class="col-1">
+                    <label class="form-label">Deal ID</label>
+                </div>
+                <div class="col-2">
+                    {{evt_form.deal_id}}
+                </div>
+            </div>
+            <br>
+            <div class="row mb-3">
+                <!-- salesperson input -->
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="salesperson" class="col-form-label">Executive</label>
+                        </div>
+                        <div class="col-auto">
+                            {% for j in qs1 %}
+                            
+                                <input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+                            {% endfor %}
+                        </div>
+                    </div> 
+                </div>
+        
+                <!-- Reporting manager input -->
+                 <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="report" class="col-form-label">Reporting Manager</label>
+                        </div>
+                        <div class="col-auto">
+                            {% for k in qs1 %}
+                            
+                                <input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div> 
+            </div>
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label class="col-form-label">RO Number</label>
+                        </div>
+                        <div class="col-auto">
+                                <input type="text"  name="ro_number" id="ro_number" class="form-control">
+                        </div>
+                    </div>
+                </div> 
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label class="col-form-label">RO Value</label>
+                        </div>
+                        <div class="col-auto">
+                                <input type="number" step="0.01" name="ro_value" id="ro_value" class="form-control">
+                        </div>
+                    </div>
+                </div> 
+            </div>
+
+            <!-- client name dropdown -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-auto">
+                            <label for="client_name" class="col-form-label">Client Name</label>
+                        </div>
+                        <div class="col-auto"> 
+                            {{evt_form.event_client_name_ref}}
+                        </div>
+                            
+                    </div>
+                </div>
+                <!-- </div> -->
+
+                <!-- agency name dropdown -->
+                <div class="col-6">
+                    <div class="row mb-6">
+                        <div class="col-auto">
+                            <label for="agency_name" class="col-form-label">Agency Name</label>
+                        </div>
+                        <div class="col-auto">
+                            {{evt_form.event_agency_name_ref}}
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- brand name dropdown -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="row mb-6">
+                        <div class="col-auto">
+                            <label for="brand_name" class="col-form-label">Brand Name</label>
+                        </div>
+                        <div class="col-auto">
+                            {{evt_form.event_brand_name_ref}}
+                        </div>
+                    </div>
+                </div> 
+                
+            </div>
+
+            <div class="row mb-3 mt-3">
+                <!-- client contact details -->
+                <div class="col-6">
+                    <div class="col-auto">
+                        <h5><b><label for="client_contact" class="col-form-label">Client Contact Details</label></b></h5>
+                    </div>
+                    <div class="col-auto">
+                        <table class="table table-hover">
+                            <thead>
+                                    <tr>
+                                       
+                                        <th scope="col">
+                                            Name
+                                        </th>
+                                        <th scope="col">
+                                            Designation
+                                        </th>
+                                        <th scope="col">
+                                            Email
+                                        </th>
+                                        <th scope="col">
+                                            Telephone
+                                        </th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="col-auto">
+                                    <th scope="row" class="col-3">
+                                        {{evt_form.event_client_contact_ref}}
+                                    </th>
+                                    <td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+                                    <td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+                                    <td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
+                <!-- agency contact details -->
+                <div class="col-6">
+                    <div class="col-auto">
+                        <h5><b><label for="client_contact" class="col-form-label">Agency Contact Details</label></b></h5>
+                    </div>
+                    <div class="col-auto">
+                        <table class="table table-hover">
+                            <thead>
+                                    <tr>
+                                        <!-- <th scope="col"></th> -->
+                                        <th scope="col">
+                                            Name
+                                        </th>
+                                        <th scope="col">
+                                            Designation
+                                        </th>
+                                        <th scope="col">
+                                            Email
+                                        </th>
+                                        <th scope="col">
+                                            Telephone
+                                        </th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                <tr  class="col-auto">
+                                    <th scope="row"  class="col-3">
+                                        {{evt_form.event_agency_contact_ref}}
+                                     
+                                </th>
+                                    <td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+                                    <td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+                                    <td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            
+
+            <!-- FCT Details -->
+            <div class="row mt-3 offset-2">
+                <div class="col align-self-start"></div>
+                <div class="col align-self-center mb-5"><h3>FCT Deal</h3></div>
+                <div class="col align-self-end mt-5"></div>
+            </div>
+
+            <div class="row">
+                <div class="col-1">
+                    <label class="form-label">Deal ID</label>
+                </div>
+                <div class="col-2">
+                    {{fct_form.deal_id_fct}}
+                </div>
+                <div class="col-1"> 
+                    <label class="form-label">Channels</label>
+                </div>
+                <div class="col-2">
+                    <select class="form-select channel" name="channel" id="channel">
+                        <option selected>---------------</option>
+                        <option value="INN">INN</option>
+                        <option value="NX">NX</option>
+                        <option value="IN UP">IN UP</option>
+                        <option value="MP">MP</option>
+                        <option value="RAJ">RAJ</option>
+                        <option value="PUN">PUN</option>
+                        <option value="HAR">HAR</option>
+                        <option value="GUJ">GUJ</option>
+                        <option value="NE NEWS">NE NEWS</option>
+                    </select>
+                </div>
+                <div class="col-1">
+                    <label for="dis_dd" name="dispersion" class="form-label">Dispersion</label>
+                </div>
+                <div class="col-2">	
+                    <select class="form-select" id="dis_dd" name="dis_dd" onChange="showdiv(); ">
+                        <option value="">-------------</option>
+                        <option value="25%-25%-50%">25%-25%-50%</option>
+                        <option value="33%-33%-33%">33%-33%-33%</option>
+                        <option value="40%-20%-40%">40%-20%-40%</option>
+                        <option value="50%-50%">50%-50%</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                 
+            </div>
+            <div class="row">
+				<div class="col-2">
+					<label class="col-form-label">Bands</label> 
+				</div>	
+				<div class="col-2">
+					<label class="col-form-label">FCT</label> 
+				</div>
+				<div class="col-2">
+					<label class="col-form-label">Effective Rate</label> 
+				</div>
+				<div class="col-2 align-right">
+					<label class="col-form-label">Base Rate</label> 
+				</div>
+				<div class="col-3">
+					<label class="col-form-label">Revenue</label> 
+				</div>
+			</div>
+            <div class="row g-3 align-items-start" id="row1" style="display: none;">
+                <div class="col-auto">
+                    <select name="band1" onChange = "showrate();" class="form-select channel" id="band1" aria-label="Default select example">
+                        <option value="">---------------</option>
+                        <option value="0600-1200">0600-1200</option>
+                        <option value="1200-1800">1200-1800</option>
+                        <option value="1800-2400">1800-2400</option>
+                    </select>
+                    </div>
+                    
+                    <div class="col-auto">
+                        <input type="number" id="fct1" name="fct1" class="form-control mb-3" oninput="calculate1()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="er1" name="er1" class="form-control mb-3" oninput="calculate1()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" id="base1" name="base1" class="form-control mb-3" readonly>
+                        
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="rev1" name="rev1" class="form-control mb-3" oninput="sum()" readonly>
+                    </div>
+            </div>
+            <div class="row g-3 align-items-start" id="row2" style="display: none;">
+                <div class="col-auto">
+                    <select name="band2" onChange = "showrate();" class="form-select" id="band2" aria-label="Default select example">
+                        <option value="">---------------</option>
+                        <option value="0600-1200">0600-1200</option>
+                        <option value="1200-1800">1200-1800</option>
+                        <option value="1800-2400">1800-2400</option>
+                    </select>
+                    </div>
+                    
+                    <div class="col-auto">
+                        <input type="number" id="fct2" name="fct2" class="form-control mb-3" oninput="calculate2()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="er2" name="er2" class="form-control mb-3" oninput="calculate2()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="base2" name="base2" class="form-control mb-3" readonly>
+    
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="rev2" name="rev2" class="form-control mb-3" oninput="sum()" readonly>
+                    </div>
+            </div>
+            <div class="row g-3 align-items-start" id="row3" style="display: none;">
+                <div class="col-auto">
+                    <select name="band3" onChange = "showrate();" class="form-select" id="band3" aria-label="Default select example">
+                        <option value="">---------------</option>
+                        <option value="0600-1200">0600-1200</option>
+                        <option value="1200-1800">1200-1800</option>
+                        <option value="1800-2400">1800-2400</option>
+                    </select>
+                    </div>
+                    
+                    <div class="col-auto">
+                        <input type="number" id="fct3" name="fct3" class="form-control mb-3" oninput="calculate3()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="er3" name="er3" class="form-control mb-3" oninput="calculate3()">
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" id="base3" name="base3" class="form-control mb-3" readonly >
+                    </div>
+                    <div class="col-auto">
+                        <input type="number" step="0.01" id="rev3" name="rev3" class="form-control mb-3" oninput="sum()" readonly>
+                    </div>
+            </div>
+            <div class="row g-3 justify-content-center" id="row4" style="display:none;margin-left: 360px;" >
+                        
+                <div class="col-auto">
+                    <input type="button" class="btn btn-primary" value="Calculate Total Revenue" onclick="sum()">
+                </div>
+                <div class="col-auto">
+                    {{fct_form.total_rev}}
+                </div>
+            </div>
+            <hr>
+
+            <!-- NFCT Details -->
+        <div class="container">
+            <div class="row mt-5 offset-2">
+                <div class="col align-self-start"></div>
+                <div class="col align-self-center mb-5"><h3>NFCT Deal</h3></div>
+                <div class="col align-self-end"></div>
+            </div>
+            {{ formset.management_form }}
+            {% for form in formset %}
+
+            <!-- assign all the columns of formset to container -->
+            <div class="container1">
+                
+                <!-- first row -->
+                <div class="row form-row spacer">
+                  
+                    <div class="col-3">
+                        <div>
+                            <label>Channel</label>
+                        </div>
+                        <div class="input-group col-auto ">
+                            {{form.channel}}
+                            
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div>
+                            <label>Element</label>
+                        </div>
+                        <div class="input-group col-auto">
+                            {{form.element}}
+                            
+                        </div>
+                    </div>
+                    <div class="col-3" id="div_duration">
+                        <div>
+                            <label>Durations</label>
+                        </div>
+                        <div class="input-group col-auto class_durations">
+                            {{form.durations}}  
+                        </div>
+                    </div>
+                    <div class="col-3" id="div_duration_in">
+                        <div>
+                            <label>Duration In</label>
+                        </div>
+                        <div class="input-group col-auto class_duration_in">
+                            {{form.duration_in}}
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- second row -->
+                <div class="row form-row spacer mt-5">
+                
+                    <div class="col-3" id="div_effective_rate">
+                        <div>
+                            <label>Effective Rate</label>
+                        </div>
+                        <div class="input-group">
+                            {{form.er}}
+                            
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div>
+                            <label>Frequency</label>
+                        </div>
+                        <div class="input-group">
+                            {{form.freq}}
+                            
+                        </div>
+                    </div>
+                    <div class="col-3" id="div_total_seconds">
+                        <div>
+                            <label>Total Seconds</label>
+                        </div>
+            
+                        <div class="input-group">
+                            {{form.total_seconds}}
+                            <!-- <input type="number" id="id_form-0-total_seconds" value='{{obj_nfctmodel.total_seconds}}' name="id_form-0-total_seconds" class="form-control"> -->
+                            
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div>
+                            <label>Base Rate</label>
+                        </div>
+                        <div class="input-group">
+                            {{form.base_rate}}
+                            <!-- <input type="number" id="baserate1" value='{{nfctbaserate}}' name="baserate1" class="form-control class_baserate"> -->
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- total -->
+                <div class="row form-row spacer mt-5">
+                    <div class="col-3">
+                        <div>
+                            <label>Total</label>
+                        </div>
+                        <div class="input-group class_total">
+                            {{form.total}}
+                            
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <hr>
+            {% endfor %}
+            <div class="row form-row spacer">
+                <div class="col-3">
+                    <div>
+                        <label>Grand Total</label>
+                    </div>
+                    <div class="input-group">
+                    <input type = "number" step="0.01" placeholder="Grand Total" id="id_nfct_grandtotal" name="nfct_grandtotal" class="form-control" readonly>
+                        
+                    </div>
+                    <br>
+                   
+                </div>
+            </div>
+            
+            <!--Buttons -->
+            <div class="row spacer mt-3">
+                <div class="col-auto">
+                    <button class="btn btn-primary add-form-row">Add Another Element</button>
+                </div>
+                <div class="col-auto">
+                    <!-- <button class="btn btn-primary" id="cal">Calculate Grand Total</button> -->
+                    <input type="button" class="btn btn-primary" id="cal" value="Calculate Grand Total">
+                </div>
+                <!-- <div class="col-auto">
+                    <button type="submit" class="btn btn-block btn-primary">Create</button>
+                </div> -->
+                
+            </div>
+            
+        </div>
+
+        <!-- Events -->
+        <div class="row mt-3 offset-2">
+            <div class="col align-self-start"></div>
+            <div class="col align-self-center mb-5"><h3>Event Deal</h3></div>
+            <div class="col align-self-end"></div>
+        </div>
+
+        <div class="row mt-3">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">
+                            Category
+                        </th>
+                        <th scope="col">
+                            Description
+                        </th>
+                        <th scope="col">
+                            Channel
+                        </th>
+                        <th scope="col">
+                            Merit Money
+                        </th>
+                        <th scope="col">
+                            FCT(seconds)
+                        </th>
+                        <th scope="col">
+                            FCT Total
+                        </th>
+                        <th scope="col">
+                            NonFCT Total
+                        </th>
+                        <th scope="col">
+                            Events Total
+                        </th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr class="col-auto">
+                    <td scope="row">
+                        {{evt_form.category}}
+                    </td>
+                    <td>{{evt_form.description}}</td>
+                    <td>{{evt_form.channel}}</td>
+                    <td><input type="number" step="0.01" name="merit_money" id="merit_money" class="form-control" placeholder="Enter Merit Money" value="0" oninput="add_number()"></td>
+                    <td><input type="number" name="fct_secs" id="fct_secs" class="form-control" placeholder="Enter FCT seconds" readonly></td>
+                    <td><input type="number" step="0.01" name="fct_amt" id="fct_amt" class="form-control" placeholder="Enter FCT Total" value="0" oninput="add_number()" readonly></td>
+                    <td><input type="number" step="0.01" name="nfct_amt" id="nfct_amt" class="form-control" placeholder="Enter NonFCT Total" value="0" oninput="add_number()" readonly></td>
+                    <td><input type="number" step="0.01" name="gtotal" id="gtotal" class="form-control" placeholder="Grand Total" value="0" readonly></td>
+                </tr>
+            </tbody>
+
+            </table>
+            
+        </div>
+
+        {% for message in messages %}
+                <div class="container-fluid p-0">
+                    <div class="alert {{ message.tags }} alert-dismissible fade show" role="alert" >
+                        <button type="button" class="close" id="msg" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="True">&times;</span>
+                        </button>
+                        {{ message }}
+                    </div>
+                </div>
+        {% endfor %}
+        <div class="container">
+            <div class="row mt-3">
+                <div class="col-auto mb-5 text-right">
+                    <button type="submit" class="btn btn-primary float-left">Save Deal</button>
+                </div>
+                <div class="col-auto">
+                    {% if user.is_authenticated %}
+                    <button name="submit" type="submit" class="btn btn-primary ms-3"><a href="{% url 'profile' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        </form>
+    </div>
+
+
+    <!-- common form -->
+    <script>
+
+        // on change client contact JSON
+        var cli_contact = '{{ tmpJson | safe }}';
+        $("#id_event_client_name_ref").change(function () {
+            
+            var client = $(this).val();			
+        });	
+
+        // on change auto display
+        $("#id_event_client_contact_ref").change(function(){
+            var c_con_name = $(this).val();	
+            var client = $('#id_event_client_name_ref').val();
+            console.log("----------",c_con_name,client);
+            if(c_con_name){
+                doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+                cli_list = doc_cli.documentElement.textContent;
+                cli_list = JSON.parse(cli_list)
+                for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                    var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                        if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                            var des = cli_list[i]['fields']['pri_desg'];
+                            var ema = cli_list[i]['fields']['pri_email'];
+                            var tele = cli_list[i]['pk'];
+                            document.getElementById('clientdesignation').value = des;
+                            document.getElementById('clientemail').value = ema;
+                            document.getElementById('clienttele').value = tele;
+
+            }}}
+        });
+
+        var ag_contact = '{{ tmpagen | safe }}';
+
+        // onchange agency JSON
+        $("#id_event_agency_name_ref").change(function(){
+            var agency = $(this).val();
+        });
+
+        // on change auto display
+        $("#id_event_agency_contact_ref").change(function(){
+            var a_con_name = $(this).val();
+            var agency = $('#id_event_agency_name_ref').val();
+            if(a_con_name){
+                doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+                agn_list = doc_agn.documentElement.textContent;
+                agn_list = JSON.parse(agn_list)
+                for (i=0;i<agn_list.length;i++){
+                    var field = agn_list[i]['fields'];
+                        if (a_con_name == agn_list[i]['pk']){
+                            var des = agn_list[i]['fields']['pri_designation']
+                            var ema = agn_list[i]['fields']['pri_email']
+                            var tele = agn_list[i]['pk']
+                            document.getElementById('agencydesignation').value = des
+                            document.getElementById('agencyemail').value = ema
+                            document.getElementById('agencytele').value = tele
+                        }
+                    
+                }
+            
+            }
+        });
+    </script>
+
+    
+
+    <!-- fct deal -->
+    <script type="text/javascript">
+
+        // onselect dispersion
+        function showdiv(){
+            var val = event.target.options[event.target.selectedIndex].value;
+            if ((val === "25%-25%-50%") || (val === "33%-33%-33%") || (val === "40%-20%-40%")){
+                console.log("yes");
+                document.getElementById("row1").style.display = "flex";
+                document.getElementById("row2").style.display = "flex";
+                document.getElementById("row3").style.display = "flex";
+                document.getElementById("row4").style.display = "flex";
+            }
+            if (val === "50%-50%"){
+                document.getElementById("row1").style.display = "flex";
+                document.getElementById("row2").style.display = "flex";
+                document.getElementById('row3').style.display = "none";
+                document.getElementById("row4").style.display = "flex";
+            }if (val === "other"){
+                document.getElementById("row1").style.display = "flex";
+                document.getElementById("row2").style.display = "flex";
+                document.getElementById("row3").style.display = "flex";
+                document.getElementById("row4").style.display = "flex";
+                document.getElementById('base1').value = 0.0
+                document.getElementById('fct1').value = 0.0
+                document.getElementById('er1').value = 0.0
+                document.getElementById('rev1').value = 0.0
+                document.getElementById('fct2').value = 0.0
+                document.getElementById('er2').value = 0.0
+                document.getElementById('base2').value = 0.0
+                document.getElementById('rev2').value = 0.0
+                document.getElementById('fct3').value = 0.0
+                document.getElementById('er3').value = 0.0
+                document.getElementById('base3').value = 0.0
+                document.getElementById('rev3').value = 0.0
+                var Band1 = document.getElementById('band1').value;
+                if (Band1 == "")
+                {
+                    document.getElementById('fct1').readOnly = true;
+                    document.getElementById('er1').readOnly = true;
+                }
+                var Band2 = document.getElementById('band2').value;
+                if (Band2 == "")
+                {
+                    document.getElementById('fct2').readOnly = true;
+                    document.getElementById('er2').readOnly = true;
+                }
+                var Band3 = document.getElementById('band3').value;
+                if (Band3 == "")
+                {
+                    document.getElementById('fct3').readOnly = true;
+                    document.getElementById('er3').readOnly = true;
+                }
+ 
+            }
+        }
+
+        function showrate(){
+            var row1band1 = document.getElementById('band1').value;
+            if (row1band1 != ""){
+                console.log("inside showrate function1~~~~~");
+                var row1fct1 = document.getElementById('fct1').readOnly = false;
+                var row1er1 = document.getElementById('er1').readOnly = false;
+            }
+            else{
+            document.getElementById('fct1').readOnly = true;
+			document.getElementById('er1').readOnly = true;
+            document.getElementById('fct1').value = 0.0
+			document.getElementById('er1').value = 0.0
+            document.getElementById('rev1').value = 0.0
+            document.getElementById('base1').value = 0.0
+
+        }
+            var row2band1 = document.getElementById('band2').value;
+            if (row2band1 != ""){
+                console.log("inside showrate function2~~~~~");
+                var row1fct1 = document.getElementById('fct2').readOnly = false;
+                var row1er1 = document.getElementById('er2').readOnly = false;
+            }
+            else{
+            document.getElementById('fct2').readOnly = true;
+			document.getElementById('er2').readOnly = true;
+            document.getElementById('fct2').value = 0.0
+			document.getElementById('er2').value = 0.0
+            document.getElementById('rev2').value = 0.0
+            document.getElementById('base2').value = 0.0
+
+        }
+            var row3band1 = document.getElementById('band3').value;
+            if (row3band1 != ""){
+                console.log("inside showrate function3~~~~~");
+                var row1fct1 = document.getElementById('fct3').readOnly = false;
+                var row1er1 = document.getElementById('er3').readOnly = false;
+            }
+            else{
+            document.getElementById('fct3').readOnly = true;
+			document.getElementById('er3').readOnly = true;
+            document.getElementById('fct3').value = 0.0
+			document.getElementById('er3').value = 0.0
+            document.getElementById('rev3').value = 0.0
+            document.getElementById('base3').value = 0.0
+
+        }
+            
+        }
+        
+        // revenue 1
+        function calculate1 (){
+            var box1 = parseInt(document.getElementById('fct1').value);
+            
+            var box2 = parseFloat(document.getElementById('er1').value);
+            
+            var result = document.getElementById('rev1');
+            var mul1 = ((box1/10) * box2).toFixed(2);
+            console.log(mul1,"first result")
+            result.value = mul1;
+
+        }
+        
+        // revenue 2
+        function calculate2 (){
+            var box21 = parseInt(document.getElementById('fct2').value);
+            
+            var box22 = parseFloat(document.getElementById('er2').value);
+            
+            var result1 = document.getElementById('rev2');
+            var mul21 = ((box21/10) * box22).toFixed(2);
+            console.log("second result",mul21)
+            result1.value = mul21;
+
+        }
+        
+        // revenue 3
+        function calculate3 (){
+            var box31 = parseInt(document.getElementById('fct3').value);
+            
+            var box32 = parseFloat(document.getElementById('er3').value);
+            
+            var result2 = document.getElementById('rev3');
+            var mul31 = ((box31/10) * box32).toFixed(2);
+            console.log("third result",mul31)
+            result2.value = mul31;
+
+        }
+        
+        // // FCT total
+        // function fct_total(){
+           
+        // }
+
+        // sum of 3 revenue
+        var fct;
+        function sum(){
+            var inp1 = document.getElementById("rev1").value;
+            var inp2 = document.getElementById("rev2").value;
+            var inp3 = document.getElementById("rev3").value;
+            
+            if ((inp1 != "") && (inp2 != "") && (inp3 == "")){
+                
+                var first_number = parseFloat(document.getElementById("rev1").value);
+                var second_number = parseFloat(document.getElementById("rev2").value);
+                var result = (first_number + second_number).toFixed(2) ;
+                document.getElementById("id_total_rev").value = result;
+                console.log(result,"/////////////////////////")
+            } 
+            else if((inp1 != "") && (inp2 != "") && (inp3 != "") ){
+                
+                var first_number = parseFloat(document.getElementById("rev1").value);
+                var second_number = parseFloat(document.getElementById("rev2").value);
+                var third_number = parseFloat(document.getElementById("rev3").value);
+                var result = (first_number + second_number + third_number).toFixed(2);
+                // result1 = document.getElementById("id_total_rev").value
+                console.log(result,"/////////////////////////")
+                document.getElementById("id_total_rev").value = result;
+                fct = document.getElementById("id_total_rev").value;
+                // console.log(a,"////////***********//////")
+
+            }
+            
+        }
+
+        var trial ;							// global variable for storing channel
+        
+        // storing selected channel in trial variable
+        $("#channel").change(function () {
+            
+            trial = $(this).val();				// storing selected channel in trial variable
+            console.log("channel",trial)
+        });	
+        var disper ;
+
+        // storing selected dispersion in trial_dis variable
+        $("#dis_dd").change(function () {
+            
+            trial_dis = $(this).val();				// storing selected dispersion in trial_dis variable
+            console.log("dispersion",trial_dis)
+        });	
+        
+        // ajax for band 1
+        $("#band1").change(function () {
+            
+            var url1 = $("#dependent_dropdown").attr("url3");  // storing url....telling ajax to follow 													specified url
+            console.log("url1-----------",url1)
+            var band_dd1 = $(this).val();		// storing the band selected from row1
+            console.log("band",band_dd1,)
+            
+            $.ajax({                       // initialize an AJAX request
+            url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/								load-br/)
+            data: {
+            'band1': band_dd1 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
+            },
+
+            success: function (data) {   // `data` is the return of the `load_br` view function
+            
+                console.log(data, "Data &&&&&&&&&&&&&&&&&")
+                document.getElementById('base1').value = data;
+            }
+            
+            });
+        });
+
+        // ajax for band 2
+        $("#band2").change(function () {
+            
+            var url1 = $("#dependent_dropdown").attr("url4");  // storing url....telling ajax to follow 													specified url
+            var band_dd2 = $(this).val();		// storing the band selected from row1
+            console.log(band_dd2);
+            
+            $.ajax({                       // initialize an AJAX request
+            url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+            data: {
+            'band2': band_dd2 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
+            },
+
+            success: function (data) {   // `data` is the return of the `load_br` view function
+                console.log(data, "Data &&&&&&&&&&&&&&&&&")
+                document.getElementById('base2').value = data;
+                // var multiidhtml = $(data);
+                // var multiid = multiidhtml.find('#base2').attr("value"); // prints base rate in input type
+                // console.log(multiid);
+                // $("#base2").val(multiid); 		// replace the contents of the band1 input with the 									data that came from the server
+            }
+            
+            });
+        });
+
+        // ajax for band 3
+        $("#band3").change(function () {
+            
+            var url2 = $("#dependent_dropdown").attr("url5");  // storing url....telling ajax to follow 													specified url
+            var band_dd3 = $(this).val();		// storing the band selected from row1
+            console.log(band_dd3);
+            
+            $.ajax({                       // initialize an AJAX request
+            url: url2,                    // set the url of the request (= localhost:8000/hr/ajax/										load-br/)
+            data: {
+            'band3': band_dd3 , 'channel' :trial , 'dis_dd' : trial_dis     // add the channel and band to the GET 													parameters by default it is GET method
+            },
+
+            success: function (data) {   // `data` is the return of the `load_br` view function
+                console.log(data, "Data &&&&&&&&&&&&&&&&&")
+                document.getElementById('base3').value = data;
+                // var multiidhtml = $(data);
+                // var multiid = multiidhtml.find('#base3').attr("value"); // prints base rate in input type
+                // console.log(multiid);
+                // $("#base3").val(multiid); 		// replace the contents of the band1 input with the data that came from the server
+            }
+            
+            });
+        });
+
+
+    </script>
+
+    <!-- Events Grand Total -->
+    <script>
+        function add_number(){
+            var merit = document.getElementById('merit_money').value;
+            var fct = document.getElementById('id_total_rev').value;
+            document.getElementById('fct_amt').value = fct;
+            console.log("******************fct total",fct);
+            var nfct = document.getElementById('id_nfct_grandtotal').value;
+            document.getElementById('nfct_amt').value = nfct;
+            console.log("******#####****nfct total",nfct);
+            var gtotal = (parseFloat(merit) + parseFloat(fct) + parseFloat(nfct)).toFixed(2);
+            console.log("-------------Grand Total--------------",gtotal);
+            document.getElementById('gtotal').value = gtotal
+
+            var fct1 = document.getElementById('fct1').value
+            var fct2 = document.getElementById('fct2').value
+            var fct3 = document.getElementById('fct3').value
+
+            if ((fct1 != '') && (fct2 != '') && (fct3 == '')){
+            var fcttotal = parseInt(fct1) + parseInt(fct2)
+            document.getElementById('fct_secs').value = fcttotal
+            }
+            else if((fct1 != '') && (fct2 == '') && (fct3 == '')){
+                document.getElementById('fct_secs').value = fct1
+            }
+            else{
+                var fcttotal = parseInt(fct1) + parseInt(fct2) + parseInt(fct3)
+                document.getElementById('fct_secs').value = fcttotal
+            }
+        }
+        
+    </script>
+
+    <!-- script for dependent dropdown for client contact---------------------------------------------- -->
+
+    <script>
+        $("#id_event_client_name_ref").change(function () {
+            var url = $("#dependent_dropdown").attr("url1");  // get the url of the 'load_client_contacts' view
+            var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+            console.log("client id:",clientId);
+            console.log("url:",url);
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                'client': clientId       // add the contact id to the GET parameters
+                },
+                success: function (data) {
+                    console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                    $("#id_event_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+            
+                }
+            });
+
+        });
+
+        $("#id_event_agency_name_ref").change(function () {
+            var url = $("#dependent_dropdown").attr("url2");  // get the url of the 'load_client_contacts' view
+            var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+            console.log("agency id:",agencyId);
+            console.log("url:",url);
+            $.ajax({                       // initialize an AJAX request
+                url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+                data: {
+                'agency': agencyId       // add the contact id to the GET parameters
+                },
+                success: function (data) {
+                    console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                    $("#id_event_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+            
+                }
+            });
+
+        });
+    </script>
+
+    <!-- nfct deal -->
+    <script type="text/javascript">
+        var count = 0;
+    
+    //  update element function
+    function updateElementIndex(el, prefix, ndx) {
+        var id_regex = new RegExp('(' + prefix + '-\\d+)');
+        var replacement = prefix + '-' + ndx;
+        if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+        if (el.id) el.id = el.id.replace(id_regex, replacement);
+    }
+    var list_id = []
+    
+    // clone function
+    function cloneMore(selector, prefix) {
+        
+        var newElement = $(selector).clone(true);
+        console.log(newElement, 'newElement')
+        var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+        // newElement.attr('hidden', false)
+        // newElement.removeClass('container-duplicate')
+        // newElement.attr('class', `container_${count}`)
+        // count++;
+    
+        newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+            var name = $(this).attr('name')
+            
+            if(name) {
+                name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+                var id = 'id_' + name;
+                // console.log(id)
+                list_id.push(id)
+                $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+            }
+        });
+        console.log(list_id)
+    
+        newElement.find('label').each(function() {
+            var forValue = $(this).attr('for');
+            if (forValue) {
+                forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+                $(this).attr({'for': forValue});
+            }
+        });
+    
+        
+        console.log("Hello world!!!!!!!!!!!!!!!!!")          // global variable for storing channel
+        
+        total++;
+        $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+        $(selector).after(newElement);
+        var conditionRow = $('.form-row:not(:last)');
+        conditionRow.find('.btn.add-form-row')
+        .removeClass('btn-success').addClass('btn-danger')
+        .removeClass('add-form-row').addClass('remove-form-row')
+        .html('-');
+    
+        var channel_id = `id_form-${total}-channel` 
+        var element_id = `id_form-${total}-element` 
+        var duration_id = `id_form-${total}-durations` 
+        var duration_in_id = `id_form-${total}-duration_in` 
+        var er_id = `id_form-${total}-er` 
+        var freq_id = `id_form-${total}-freq` 
+        var total_seconds_id = `id_form-${total}-total_seconds` 
+        var base_rate_id = `id_form-${total}-base_rate` 
+        var total_id = `id_form-${total}-total` 
+    
+        document.getElementById(channel_id).style.display = 'block'
+        document.getElementById(element_id).style.display = 'block'
+        document.getElementById(duration_id).style.display = 'block'
+        document.getElementById(duration_in_id).style.display = 'block'
+        document.getElementById(er_id).style.display = 'block'
+        document.getElementById(freq_id).style.display = 'block'
+        document.getElementById(total_seconds_id).style.display = 'block'
+        document.getElementById(base_rate_id).style.display = 'block'
+        document.getElementById(total_id).style.display = 'block'
+        return false;
+    }
+    console.log(list_id, '****************************')
+    // ajax
+    
+    
+    // on change channel
+    $('.class_channel').change(function (e) {
+        var id_function = e.target.id
+    
+        console.log(e.target.id, 'channel id')
+            var channel = $(this).val();  
+            console.log(channel, 'channel value')
+        //   element = $('.class_element').val();
+        var element_id = id_function.replace('channel', 'element');
+        console.log(element_id, 'element id')
+        var element = $(`#${element_id}`).val(); 
+        console.log(element, 'element value') 
+            if (element){
+            var url1 = $("#dependent_dropdown").attr("url6");
+            var data = {
+                'element': element , 'channel' :channel   // add the channel and band to the GET                          parameters by default it is GET method
+                }
+    
+            $.ajax({                       // initialize an AJAX request
+            url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+            data: {
+                'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+            },
+                success: function (data) {   // `data` is the return of the `load_br` view function
+            var base_id = id_function.replace('channel', 'base_rate')
+            console.log("API", data)
+            document.getElementById(base_id).value= data;
+            }
+            });
+        
+            }                 // storing selected channel in trial variable
+        }); 
+        
+    // on change element
+    $('.class_element').change(function (e) {
+        
+        var id_function = e.target.id
+        attachevent(id_function)
+            var element = $(this).val();  
+            console.log(element, 'element value')
+        //   channel = $(`#id_form-${add}-channel`).val();
+        var channel_id = id_function.replace('element', 'channel')
+        console.log(channel_id, 'channel id2')
+        var channel = $(`#${channel_id}`).val();  
+        console.log(channel, 'channel value 2')
+            if (channel){
+            var url1 = $("#dependent_dropdown").attr("url6");
+            console.log(url1, 'url1')
+            var data = {
+                'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+            
+            }
+            
+            $.ajax({                       // initialize an AJAX request
+            url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+            data: {
+                'element': element , 'channel' :channel      // add the channel and band to the GET                          parameters by default it is GET method
+            },
+            success: function (data) {   // `data` is the return of the `load_br` view function
+            
+            var base_id = id_function.replace('element', 'base_rate')
+            console.log("API2", data)
+            document.getElementById(base_id).value= data;
+                
+            }
+        });
+        }
+    });
+    
+    
+    // frequency calculation
+    $('.class_freq').on('input',function(e)
+    {
+        var freqid_function = e.target.id
+        console.log(freqid_function, 'frequency id')
+        
+        var frequency = $(this).val();
+        console.log(frequency, 'freq value')
+        var er_id = freqid_function.replace('freq', 'er')
+        var er = $(`#${er_id}`).val()
+        var tot_sec_id = freqid_function.replace('freq', 'total_seconds')
+        var tot_sec = $(`#${tot_sec_id}`).val()
+    
+        var total = freqid_function.replace('freq', 'total')
+        var element_id = freqid_function.replace('freq', 'element')
+        var element = $(`#${element_id}`).val()
+    
+        var base_id = freqid_function.replace('freq', 'base_rate')
+        var base = $(`#${base_id}`).val()
+    
+        if (element === 'Aston' || element === "L Band"){
+            document.getElementById(tot_sec_id).value = frequency * 10;
+            document.getElementById(total).value = (er * (frequency * 10))/10;
+        }
+        else{
+            document.getElementById(total).value = base * frequency;
+        }
+        
+    })
+    
+    // effective rate calculation
+    $('.class_er').on('input',function(e)
+    {
+        var erid_function = e.target.id
+        // console.log(erid_function, 'Effective rate id')
+        
+        var eff_rate = parseFloat($(this).val());
+        console.log({eff_rate})
+    
+    
+        var tot_sec_id = erid_function.replace('er', 'total_seconds')
+        var total_sec = $(`#${tot_sec_id}`).val();
+        console.log({total_sec})
+    
+        var total = erid_function.replace('er', 'total')
+        console.log({total})
+    
+        document.getElementById(total).value = parseFloat(eff_rate * total_sec).toFixed(2);
+    
+    
+    })
+    
+    // add more
+    $(document).on('click', '.add-form-row', function(e){
+        e.preventDefault();
+        cloneMore('.container1:last', 'form');
+        return false;
+    });
+    
+    // remove more
+    $(document).on('click', '.remove-form-row', function(e){
+        e.preventDefault();
+        deleteForm('form', $(this));
+        return false;
+    });
+    
+        // event listener for onchange to hide or display fields
+    function attachevent(ele_id){
+        console.log(ele_id, 'element id *********')
+        console.log('Attach')    
+        var durations = ele_id.replace('element', 'durations')
+        console.log({durations})
+        
+        var duration_in = ele_id.replace('element','duration_in')
+        console.log({duration_in})
+            var elements = document.getElementById(ele_id).value
+            console.log(elements, 'elements -------')
+            document.getElementById(durations).style.display = 'block'
+            document.getElementById(duration_in).style.display = 'block'
+            document.getElementById(ele_id.replace('element','er')).style.display = 'block'
+            document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'block'
+    
+                if (elements === "Aston" || elements === "L Band"){
+            document.getElementById(durations).style.display = 'none'
+            document.getElementById(duration_in).style.display = 'none'
+                }
+                else{
+                document.getElementById(ele_id.replace('element','er')).style.display = 'none'
+                document.getElementById(ele_id.replace('element','total_seconds')).style.display = 'none'
+                }
+                console.log('inside')
+                    
+        }
+        $('#cal').on('click',function(e){
+        var gtid = e.target.id
+
+        console.log(gtid, '5555555555555')
+        var total_forms_id = gtid.replace('cal', 'id_form-TOTAL_FORMS')
+        var total_forms = $(`#${total_forms_id}`).val();
+        console.log(total_forms)
+        var total_id = gtid.replace('cal', 'id_form-0-total')
+        console.log(total_id)
+        var total = $(`#${total_id}`).val();
+        console.log(total)
+        var grandtotal = 0.0
+        for(i = 0; i<=parseInt(total_forms); i++){
+            console.log('i', i)
+            console.log('grandtotal', grandtotal)
+            $("#id_nfct_grandtotal").val(parseFloat(grandtotal)) 
+            grandtotal = (parseFloat(grandtotal)+ parseFloat($(`#id_form-${i}-total`).val())).toFixed(2)
+            console.log('grandtotal after', grandtotal) 
+        }
+    
+    })
+    </script>
+
+    <!-- Generating Deal Id -->
+    <script>
+        const uid = 'Deal' + Date.now(); 
+        document.getElementById('id_deal_id').value = uid;
+        // document.getElementsByName('deal_id_nfct').value = uid;
+        document.getElementById('id_deal_id_fct').value = uid;
+        
+        console.log("deal id here=====",document.getElementsByName('deal_id_nfct'))
+        //  = uid;
+    </script>
+
+    <!-- script for dependent dropdown for client contact---------------------------------------------- -->
+
+  <script>
+    $("#id_event_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url1");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_event_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_event_agency_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url2");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_event_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    // client and agency dependent dropdown
+	$("#id_event_client_name_ref").change(function () {
+        var url = $("#dependent_dropdown").attr("url7");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_event_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+  </script>
+
+</body>
+</html>
+{% endblock %}

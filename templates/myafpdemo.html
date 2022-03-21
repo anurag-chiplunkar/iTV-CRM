@@ -1,0 +1,564 @@
+{% extends "base2.html" %}
+{% load crispy_forms_tags %}
+{% block container %}
+
+<u><h3 style="text-align: center;">AFP Deal Details</h3></u><br>
+<body>
+<form class="form-horizontal" method="POST" id = "afp_form" action="" url="{% url 'afp_deal:afp_deal_load_br' %}" url1="{% url 'afp_deal:load_afp_client_contacts' %}" url2="{% url 'afp_deal:load_afp_agency_contacts' %}" url3 = "{% url 'afp_deal:load_afp_agency_client' %}">
+    {% csrf_token %}
+<div class="container">
+    <!-- deal heading -->
+    <!-- <div class="mt-5">
+        <div class="row g-3">
+            <center><h1>Deal Details</h1></center>
+        </div>
+    </div> -->
+
+    <!-- Deal Id -->
+    <div class="row">
+        <div class="col-1">
+            <label class="form-label">Deal ID</label>
+        </div>
+        <div class="col-3">
+            {{common_form.afpdeal_id}}
+        </div>
+    </div>
+    <br><hr>
+    <div class="row mb-3">
+        <!-- salesperson input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-3">
+                    <label for="salesperson" class="col-form-label">Executive</label>
+                </div>
+                <div class="col-auto">
+                    {% for j in emp_qs %}
+                    
+                        <input type="text" name="salesperson" id="salesperson" class="form-control" value='{{j.emp_fname}} {{j.emp_lname}}' readonly>
+                    {% endfor %}
+                </div>
+            </div> 
+        </div>
+
+        <!-- Reporting manager input -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-4">
+                    <label for="report" class="col-form-label">Reporting Manager</label>
+                </div>
+                <div class="col-auto">
+                    {% for k in emp_qs %}
+                    
+                        <input type="text" name="reporting" id="reporting" class="form-control" value='{{k.emp_reporting_mgr}}' readonly>
+                    {% endfor %}
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <div class="row mb-3">
+        <!-- salesperson input -->
+        <div class="col-6">
+            <div class="row">
+                <div class="col-3">
+                    <label for="salesperson" class="col-form-label">RO Number</label>
+                </div>
+                <div class="col-auto">
+                    {{common_form.afp_ro_number}}
+                </div>
+            </div> 
+        </div>
+
+        <!-- RO inputs -->
+         <div class="col-6">
+            <div class="row">
+                <div class="col-4">
+                    <label for="report" class="col-form-label">RO Value</label>
+                </div>
+                <div class="col-auto">
+                   {{common_form.afp_ro_value}}
+                </div>
+            </div>
+        </div> 
+    </div>
+    <!-- client name dropdown -->
+    <div class="row mb-3">
+        <div class="col-3">
+            <div class="row mb-3">
+                <div class="col-auto">
+                    <label for="client_name" class="col-form-label">Client Name</label>
+                </div>
+                <div class="col-auto"> 
+                    {{common_form.afp_client_name_ref}}
+                </div>
+                    
+                </div>
+            </div>
+        <!-- </div> -->
+
+        <!-- agency name dropdown -->
+        <div class="col-3 offset-3">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="agency_name" class="col-form-label">Agency Name</label>
+                </div>
+                <div class="col-auto">
+                    {{common_form.afp_agency_name_ref}}
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- brand name dropdown -->
+    <div class="row mb-3">
+        <div class="col-3">
+            <div class="row mb-6">
+                <div class="col-auto">
+                    <label for="brand_name" class="col-form-label">Brand Name</label>
+                </div>
+                <div class="col-auto">
+                    {{common_form.afp_brand_name_ref}}
+                </div>
+            </div>
+        </div> 
+        
+    </div>
+
+    <div class="row mb-3 mt-5">
+        <!-- client contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Client Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                               
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-auto">
+                            <th scope="row" class="col-3">
+                                {{common_form.afp_client_contact_ref}}
+                            </th>
+                            <td><input type="text" name="clientdesignation" id="clientdesignation" class="form-control" readonly></td>
+                            <td><input type="email" name="clientemail" id="clientemail" class="form-control" readonly></td>
+                            <td><input type="tele" name="clienttele" id="clienttele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- agency contact details -->
+        <div class="col-6">
+            <div class="col-auto">
+                <h5><b><label for="client_contact" class="col-form-label">Agency Contact Details</label></b></h5>
+            </div>
+            <div class="col-auto">
+                <table class="table table-hover">
+                    <thead>
+                            <tr>
+                                <th scope="col">
+                                    Name
+                                </th>
+                                <th scope="col">
+                                    Designation
+                                </th>
+                                <th scope="col">
+                                    Email
+                                </th>
+                                <th scope="col">
+                                    Telephone
+                                </th>
+                            </tr>
+                    </thead>
+                    <tbody>
+                        <tr  class="col-auto">
+                            <th scope="row"  class="col-3">
+                                {{common_form.afp_agency_contact_ref}}
+                        </th>
+                            <td><input type="text" name="agencydesignation" id="agencydesignation" class="form-control" readonly></td>
+                            <td><input type="email" name="agencyemail" id="agencyemail" class="form-control" readonly></td>
+                            <td><input type="tele" name="agencytele" id="agencytele" class="form-control" readonly></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{ formset.management_form }}
+{% for form in formset %}
+
+
+<div class="container1 container">
+    <hr>
+
+    <div class="row form-row spacer">
+      
+        <div class="col-3">
+            <!-- <div class="input-group form-select col-auto "> -->
+                {{form.ref_program_name | as_crispy_field}}
+                
+            <!-- </div> -->
+        </div>
+        <div class="col-3">
+                {{form.description | as_crispy_field}}
+        </div>
+        <div class="col-3">
+            <!-- <div class="input-group form-select col-auto"> -->
+                {{form.ref_channels | as_crispy_field}}
+                
+            <!-- </div> -->
+        </div>
+        <div class="col-3" id="div_duration">
+            <!-- <div class="input-group form-select col-auto class_durations"> -->
+                {{form.ref_promos | as_crispy_field}}  
+            <!-- </div> -->
+        </div>
+        <div class="col-3" id="div_duration_in">
+            <!-- <div class="input-group form-select col-auto class_duration_in"> -->
+                {{form.ref_slot | as_crispy_field}}
+                
+            <!-- </div> -->
+        </div>
+        
+    </div>
+
+<div class="row form-row spacer">
+   
+    <div class="col-3" id="div_effective_rate">
+        <!-- <div class="input-group"> -->
+            {{form.afp_eff_rate | as_crispy_field}}
+            
+        <!-- </div> -->
+    </div>
+    <div class="col-3">
+        <!-- <div class="input-group"> -->
+            {{form.afp_base_rate | as_crispy_field}}
+            
+        <!-- </div> -->
+    </div>
+
+    
+</div> 
+</div>
+<hr>
+
+{% endfor %}
+
+
+<!-- Adding buttons -->
+<div class="row spacer container m-5">
+    <div class="input-group-append m-5">
+        <button class="btn btn-primary add-form-row">Add Another Element</button>
+    </div>
+    <div class="col-2 mt-5">
+        <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+    <div class="col-3 m-5">
+        <div class="input-group">
+            <input id="calculate_afp_total" class="btn btn-primary" value="Calculate Total" type="button">
+            <input type="number" class="form-control class_afp_total" id="afp_deal_final_total" name="afp_deal_total" readonly placeholder="Total">
+        </div>
+    </div>
+</div>
+
+</form>
+
+{% endblock %}
+
+
+<!-- Handles new form instance -->
+{% block custom_js %}
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script type="text/javascript">
+
+function updateElementIndex(el, prefix, ndx) {
+    var id_regex = new RegExp('(' + prefix + '-\\d+)');
+    var replacement = prefix + '-' + ndx;
+    if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
+    if (el.id) el.id = el.id.replace(id_regex, replacement);
+}
+function cloneMore(selector, prefix) {
+    
+    var newElement = $(selector).clone(true);
+    console.log(newElement, 'newElement')
+    var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+
+    newElement.find(':input:not([type=button]):not([type=submit]):not([type=reset])').each(function() {
+        var name = $(this).attr('name')
+        
+        if(name) {
+            name = name.replace('-' + (total-1) + '-', '-' + total + '-');
+            var id = 'id_' + name;
+            $(this).attr({'name': name, 'id': id}).val('').removeAttr('checked');
+        }
+    });
+
+    newElement.find('label').each(function() {
+        var forValue = $(this).attr('for');
+        if (forValue) {
+          forValue = forValue.replace('-' + (total-1) + '-', '-' + total + '-');
+          $(this).attr({'for': forValue});
+        }
+    });
+  
+    total++;
+    $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+    $(selector).after(newElement);
+    var conditionRow = $('.form-row:not(:last)');
+    conditionRow.find('.btn.add-form-row')
+    .removeClass('btn-success').addClass('btn-danger')
+    .removeClass('add-form-row').addClass('remove-form-row')
+    .html('-');
+
+    return false;
+}
+// ajax
+
+$('.class_ref_program_name').change(function (e) {
+    var id1 = e.target.id
+    console.log(id1);
+    var afp_program_name = $(this).val();
+    console.log("AFP Program Name:",afp_program_name);
+    var channel = id1.replace('ref_program_name','ref_channels')
+    console.log("Channel:",channel);
+    var channel_value = $(`#${channel}`).val();
+    console.log('Channel value:',channel_value)
+
+    if (channel_value){
+        var url = $("#afp_form").attr("url");
+        var data = {
+            'program_name': afp_program_name , 'channel' :channel_value   // add the channel and band to the GET                          parameters by default it is GET method
+          }
+        $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+            'program_name': afp_program_name , 'channel' :channel_value      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+         success: function (data) {   // `data` is the return of the `load_br` view function
+            var afp_base_id = id1.replace('ref_program_name', 'afp_base_rate')
+            console.log("API:", data)
+            document.getElementById(afp_base_id).value= data;
+      }
+     });
+    };
+});
+
+$('.class_ref_channels').change(function (e) {
+    var id1 = e.target.id
+    console.log(id1);
+    var afp_channel_name = $(this).val();
+    console.log("AFP Channel Name:",afp_channel_name);
+    var program = id1.replace('ref_channels','ref_program_name')
+    console.log("program:",program);
+    var program_value = $(`#${program}`).val();
+    console.log('program_value:',program_value)
+
+    if (program_value){
+        var url = $("#afp_form").attr("url");
+        var data = {
+            'program_name': program_value , 'channel' :afp_channel_name   // add the channel and band to the GET                          parameters by default it is GET method
+          }
+        $.ajax({                       // initialize an AJAX request
+        url: url,                    // set the url of the request (= localhost:8000/hr/ajax/                    load-br/)
+        data: {
+            'program_name': program_value , 'channel' :afp_channel_name      // add the channel and band to the GET                          parameters by default it is GET method
+        },
+         success: function (data) {   // `data` is the return of the `load_br` view function
+            var afp_base_id = id1.replace('ref_channels', 'afp_base_rate')
+            console.log("API:", data)
+            document.getElementById(afp_base_id).value= data;
+      }
+});
+};
+});
+
+$(document).on('click', '.add-form-row', function(e){
+    e.preventDefault();
+    cloneMore('.container1:last', 'form');
+    return false;
+});
+
+
+$('#calculate_afp_total').on('click',function(e){
+    var afp_total_id = e.target.id
+
+    console.log("OUR AFP TOTAL:",afp_total_id)
+    var total_forms_id = afp_total_id.replace('calculate_afp_total', 'id_form-TOTAL_FORMS')
+    var total_forms = $(`#${total_forms_id}`).val();
+    console.log(total_forms)
+    var total_id = afp_total_id.replace('calculate_afp_total', 'id_form-0-afp_eff_rate')
+    console.log(total_id)
+    var total = $(`#${total_id}`).val();
+    console.log(total)
+    
+    var afp_deal_total = 0
+    for(i = 0; i<=parseFloat(total_forms); i++){
+        console.log('i', i)
+        console.log('afp_deal_total', afp_deal_total)
+        $("#afp_deal_final_total").val(parseFloat(afp_deal_total)) 
+        afp_deal_total = parseFloat(afp_deal_total)+ parseFloat($(`#id_form-${i}-afp_eff_rate`).val()*parseFloat($(`#id_form-${i}-ref_promos`).val()))
+        console.log('AFP Total after', afp_deal_total)
+
+    }
+    console.log('grandtotal loop', afp_deal_total, typeof(afp_deal_total))
+    document.getElementsByClassName('class_afp_total').value = afp_deal_total
+ 
+  
+})
+</script>
+
+<!-- script for dependent dropdown for client contact---------------------------------------------- -->
+
+<script>
+    $("#id_afp_client_name_ref").change(function () {
+        var url1 = $("#afp_form").attr("url1");  // get the url of the 'load_client_contacts' view
+        var clientId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",clientId);
+        console.log("url1:",url1);
+        $.ajax({                       // initialize an AJAX request
+            url: url1,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': clientId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_afp_client_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    $("#id_afp_agency_name_ref").change(function () {
+        var url2 = $("#afp_form").attr("url2");  // get the url of the 'load_client_contacts' view
+        var agencyId = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("agency id:",agencyId);
+        console.log("url2:",url2);
+        $.ajax({                       // initialize an AJAX request
+            url: url2,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'agency': agencyId       // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data);   // `data` is the return of the `load_client_contacts` view function
+                $("#id_afp_agency_contact_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+
+    // client and agency dependent dropdown
+	$("#id_afp_client_name_ref").change(function () {
+        var url = $("#afp_form").attr("url3");  // get the url of the 'load_client_contacts' view
+        var client = $(this).val();  // get the selected client contact ID from the HTML input
+        console.log("client id:",client);
+        console.log("url:",url);
+        $.ajax({                       // initialize an AJAX request
+            url: url,                    // set the url of the request (= localhost:8000/hr/ajax/load-cities/)
+            data: {
+            'client': client      // add the contact id to the GET parameters
+            },
+            success: function (data) {
+                console.log(data, '0000');   // `data` is the return of the `load_client_contacts` view function
+                $("#id_afp_agency_name_ref").html(data);  // replace the contents of the client contact input with the data that came from the server
+           
+            }
+        });
+
+    });
+  </script>
+
+<!-- common form -->
+<script>
+
+    // on change client contact JSON
+    var cli_contact = '{{ tmpJson | safe }}';
+	$("#id_afp_client_name_ref").change(function () {
+		
+		var client = $(this).val();			
+	});	
+
+    // on change auto display
+	$("#id_afp_client_contact_ref").change(function(){
+		var c_con_name = $(this).val();	
+		var client = $('#id_afp_client_name_ref').val();
+		console.log("----------",c_con_name,client);
+		if(c_con_name){
+			doc_cli = new DOMParser().parseFromString(cli_contact, "text/html")
+			cli_list = doc_cli.documentElement.textContent;
+			cli_list = JSON.parse(cli_list)
+            for (i=0;i<cli_list.length;i++){      //iterating in the list of dictionary
+                var field = cli_list[i]['fields'];    //storing the fields key of the ith element
+                    if (c_con_name == cli_list[i]['pk']){    //if the selected contact name is equal to the pk of the ith ele
+                        var des = cli_list[i]['fields']['pri_desg'];
+                        var ema = cli_list[i]['fields']['pri_email'];
+                        var tele = cli_list[i]['pk'];
+                        document.getElementById('clientdesignation').value = des;
+                        document.getElementById('clientemail').value = ema;
+                        document.getElementById('clienttele').value = tele;
+
+		}}}
+	});
+
+	var ag_contact = '{{ tmpagen | safe }}';
+
+    // onchange agency JSON
+	$("#id_afp_agency_name_ref").change(function(){
+		var agency = $(this).val();
+	});
+
+    // on change auto display
+	$("#id_afp_agency_contact_ref").change(function(){
+		var a_con_name = $(this).val();
+		var agency = $('#id_afp_agency_name_ref').val();
+		if(a_con_name){
+			doc_agn = new DOMParser().parseFromString(ag_contact, "text/html")
+			agn_list = doc_agn.documentElement.textContent;
+			agn_list = JSON.parse(agn_list)
+            for (i=0;i<agn_list.length;i++){
+                var field = agn_list[i]['fields'];
+                    if (a_con_name == agn_list[i]['pk']){
+                        var des = agn_list[i]['fields']['pri_designation']
+                        var ema = agn_list[i]['fields']['pri_email']
+                        var tele = agn_list[i]['pk']
+                        document.getElementById('agencydesignation').value = des
+                        document.getElementById('agencyemail').value = ema
+                        document.getElementById('agencytele').value = tele
+                    }
+                
+            }
+          
+		}
+	});
+</script>
+
+<!-- deal id -->
+<script>
+    const uid = 'Deal' + Date.now(); 
+    document.getElementById("id_afpdeal_id").value = uid;
+</script>
+
+{% endblock %}
+</body>

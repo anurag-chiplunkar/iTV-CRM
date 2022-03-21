@@ -5,6 +5,9 @@ from . models import CustomerType, CustomerName, CustomerContact
 
 
 class Agency_details(forms.ModelForm):
+	"""Docstring for storing agency details"""
+	ccreg_no = forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client')
+	
 	class Meta:
 		model = AgencyDetail
 		fields = '__all__'
@@ -18,9 +21,11 @@ class Agency_details(forms.ModelForm):
 		'agency_landmark' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Landmark'}),
 		'agency_city' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter City'}),
 		'agency_pin' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Pincode'}),
+		# 'ccreg_no' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter Pincode'}),
 		}
 
 class Agency_contacts(forms.ModelForm):
+	"""Docstring for storing agency contacts"""
 	##empty_label is for giving a placeholder to the dropdown
 	agency = forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency')
 	class Meta:
@@ -60,11 +65,13 @@ class Agency_contacts(forms.ModelForm):
 
 
 class Cust_type(forms.ModelForm):
+	"""Docstring for storing Customer Type(govt, retail, corporate and barter)"""
 	class Meta:
 		model = CustomerType
 		fields = '__all__'
 
 class Cust_name(forms.ModelForm):
+	"""Docstring for storing customer details"""
 	ref_customertype = forms.ModelChoiceField(queryset= CustomerType.objects.all(),widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Client Type')
 
 	class Meta:
@@ -83,6 +90,7 @@ class Cust_name(forms.ModelForm):
 
 
 class Cust_contact(forms.ModelForm):
+	"""Docstring for storing customer contact details"""
 	ref_creg_no = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Registration Number')
 	# ref_cname = forms.ModelChoiceField(queryset= CustomerName.objects.all(), widget=forms.Select(attrs={'class':'form-select'}), empty_label = 'Select Registration Number')
 

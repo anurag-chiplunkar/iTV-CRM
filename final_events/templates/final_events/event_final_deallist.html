@@ -1,0 +1,49 @@
+{% extends "base2.html" %}
+
+{% block container %}
+<div class="container-fluid">
+<table class="table table-striped">
+    <tr>
+        <th>Date & Time</th>
+        <th>Deal No</th>
+        <th>RO No</th>
+        <th>Client Name</th>
+        <th>Client Contact</th>
+        <th>Agency Name</th>
+        <th>Agency Contact</th>
+        <th>Category</th>
+        <th>Channel</th>
+        <th>Merit Money</th>
+        <th>FCT Total</th>
+        <th>NFCT Total</th>
+        <th>Grand Total</th>
+        <th>RO Value</th>
+
+    </tr>
+{% for f in qs %}
+    <tr>
+        <td>{{f.created_at}}</td>
+        <td>{{f.deal_id}}</td>
+        <td>{{f.ro_number}}</td>
+        <td>{{f.event_client_name_ref}}</td>
+        <td>{{f.event_client_contact_ref}}</td>
+        <td>{{f.event_agency_name_ref}}</td>
+        <td>{{f.event_agency_contact_ref}}</td>
+        <td>{{f.category}}</td>
+        <td>{{f.channel}}</td>
+        <td>{{f.merit_money}}</td>
+        <td>{{f.fct_total_amt}}</td>
+        <td>{{f.nfct_total_amt}}</td>
+        <td>{{f.grandtotal_amt}}</td>
+        <td>{{f.ro_value}}</td>
+
+        
+    </tr>
+{% endfor %}
+</table>
+
+{% if user.is_authenticated %}
+    <button name="submit" type="submit" class="btn btn-primary"><a href="{% url 'final_events:final_event_deal' %}" style="color: white; text-decoration-line: none;">Back</a></button>
+    {% endif %}
+</div>
+{% endblock %}

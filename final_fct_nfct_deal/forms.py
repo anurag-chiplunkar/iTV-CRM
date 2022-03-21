@@ -5,30 +5,42 @@ from django.forms import (formset_factory, modelformset_factory)
 from . models import *
 from nfct.forms import *
 from nfct.models import *
-
+from deal_fct_nonfct.forms import *
+from deal_fct_nonfct.models import *
 
 class FinalFctNfctDealDetails(forms.ModelForm):
-	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Client Name')
-	client_contact_ref 	= forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Client Contact')
-	agency_name_ref 	= forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Agency Name')
-	agency_contact_ref 	= forms.ModelChoiceField(queryset = AgencyContact.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Agency Contact')
-	brand_name_ref		= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'custom-select'}), empty_label='Select the Brand')
+	"""Docstring for saving common form and some of the fct, nfct and grandtotal are saved"""
+	client_name_ref 	= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Client Name')
+	client_contact_ref 	= forms.ModelChoiceField(queryset = CustomerContact.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Client Contact')
+	agency_name_ref 	= forms.ModelChoiceField(queryset = AgencyDetail.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Agency Name')
+	agency_contact_ref 	= forms.ModelChoiceField(queryset = AgencyContact.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Agency Contact')
+	brand_name_ref		= forms.ModelChoiceField(queryset = CustomerName.objects.all(),widget = forms.Select(attrs = {'class':'form-select'}), empty_label='Select the Brand')
 	
 	class Meta:
 		model = FinalFctNfctDeal
 		fields = '__all__'
-		# exclude = ('deal_id',)			
+		# exclude = ('fct_total','nfct_total','grandtotal')			
 
 		widgets = {
-		'deal_id'	 : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter deal id'}),
+		'deal_id'	 : forms.TextInput(attrs={'class':'form-control','readonly':'readonly','placeholder': 'Enter deal id'}),
+		'executive'  : forms.TextInput(attrs={'class':'form-control'}),
+		'reporting_manager' : forms.TextInput(attrs={'class':'form-control'}),
+		'RO_number' : 	forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter RO Number'}),
+		'RO_value'  :	forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter RO Value'}),
 		'fct_total'  : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter fct total'}),
 		'nfct_total' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter nfct total'}),
 		'grandtotal' : forms.TextInput(attrs={'class':'form-control','placeholder': 'Enter grand total'}),
 		}
 
 	def __init__(self, *args, **kwargs):
+		"""Function for dependent dropdown for client name, agency name, client contact and agency contact
+			
+		:afp_client_name: afp_agency_name and afp_client_contact changes according to the afp_client_name selection
+		:afp_agency_name: afp_agency_contact changes according to afp_agency_name selection"""
 		super().__init__(*args, **kwargs)
 		self.fields['client_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
+		self.fields['agency_contact_ref'].queryset = FinalFctNfctDeal.objects.none()
+		self.fields['agency_name_ref'].queryset = FinalFctNfctDeal.objects.none()
 		# print("self.data",self.data,"------------------")
 		
 		if 'client_name_ref' in self.data:
@@ -40,15 +52,39 @@ class FinalFctNfctDealDetails(forms.ModelForm):
 				pass  # invalid input from the client; ignore and fallback to empty City queryset
 		elif self.instance.pk:
 			self.fields['client_contact_ref'].queryset = self.instance.client.client_set.order_by('pri_fname')
-class form_fct_deal(forms.ModelForm):
 
+
+		if 'agency_name_ref' in self.data:
+			print("agency name exists/////")
+			try:
+				agency_id = self.data.get('agency_name_ref')
+				self.fields['agency_contact_ref'].queryset = AgencyContact.objects.filter(agency_details=agency_id).order_by('pri_firstName')
+			except (ValueError, TypeError):
+				pass
+		elif self.instance.pk:
+			self.fields['agency_contact_ref'].queryset = self.instance.agency.agency_set.order_by('pri_firstName')
+
+		if 'client_name_ref' in self.data:
+			print("Client name exists/////")
+			try:
+				agency = self.data.get('client_name_ref')
+				self.fields['agency_name_ref'].queryset = AgencyDetail.objects.filter(ccreg_no=agency).order_by('agency_name')
+			except (ValueError, TypeError):
+				pass
+		elif self.instance.pk:
+			self.fields['agency_name_ref'].queryset = self.instance.agency.agency_set.order_by('agency_name')
+
+			
+class form_fct_deal(forms.ModelForm):
+	"""Docstring for saving fct form details"""
 	class Meta:
-		model = fct_deal
+		model = Fct_deal
 		fields = '__all__'
+		exclude = ('dealid_fct_ref',)
 
 		widgets = {
 		'total_rev': forms.TextInput(attrs = {'class': 'form-control','readonly': 'readonly'}),
-		'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
+		# 'deal_id': forms.TextInput(attrs = {'class': 'form-control','placeholder':'Enter Deal ID here'}),
 		}
 
-	
+
